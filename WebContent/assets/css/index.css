@@ -1,0 +1,62 @@
+/*modify by 廖崇欽*/
+/* 購物車的標籤 */
+a#myShoppingCart {
+    position: relative;
+}
+
+span#cart-total {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+/* 首頁的設定 */
+.SupportCatItem {
+			float: left;
+			width: calc(100%/ 3);
+			height: 100%;
+			position: relative;
+		}
+		
+		.SupportCatItem>a {
+			position: absolute;
+			display: block;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+			background-image: linear-gradient(-180deg, rgba(0, 0, 0, 0.00) 50%,
+				rgba(0, 0, 0, 0.85) 100%);
+			padding: 0 40px 10px;
+		}
+		
+		.SupportCatItem .info {
+			position: absolute;
+			bottom: 0;
+			padding: 10px 30px;
+			color: rgba(250, 250, 250, 0.8);
+			width: 100%;
+		}
+		
+		.SupportCatItem .name {
+			color: #fff;
+			font-weight: bold;
+			font-size: 26px;
+		}
+		
+		.SupportCatItem .description {
+			width: 70%;
+		}
+		
+		.SupportCatItem .link {
+			position: absolute;
+			bottom: 20px;
+			right: 20px;
+			float: right;
+		}
+		
+		.SupportCatItem img {
+			width: 100%;
+			height: 100%;
+			max-height:350px;
+			min-height:350px;
+		}
