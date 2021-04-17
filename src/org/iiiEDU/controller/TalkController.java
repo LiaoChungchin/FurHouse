@@ -66,7 +66,7 @@ public class TalkController {
  
 		webSocketMap.put(sendUser, this);
 		
-		if(webSocketMap.get(0) != null) {
+		if(webSocketMap.get(0) != this) {
 			webSocketMap.get(0).sendMessage("broadcastOpen", this.sendUser.toString());
 		}
 		
@@ -89,7 +89,7 @@ public class TalkController {
 		
 		subtracOnlineCount();
 		
-		if(webSocketMap.get(0) != null) {
+		if(webSocketMap.get(0) != this) {
 			webSocketMap.get(0).sendMessage("broadcastClose", this.sendUser.toString());
 		}
 		
