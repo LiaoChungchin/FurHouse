@@ -149,6 +149,9 @@
 		.px-4 {
 			padding-left : 0rem !important;
 		}
+		.broadcast {
+			font-size : 12px;
+		}
 	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -190,9 +193,17 @@
 		        if (event.data.indexOf("count") > -1) {
 		            var data = msg.split(" : ");
 		            document.getElementById("count").innerHTML = data[1] - 1; // 只顯示會員進線人數，不包含管理員本身
+		        } else if(event.data.indexOf("broadcast!offlineUser : ") > -1) {
+		        	var offlineUserId = msg.split(" : ");
+// 		        	console.log("接收後台getBasicRemote().sendText(message) : offlineUserId = " + offlineUserId[1]);
+		        	broadcastLeave(offlineUserId[1]);
+		        } else if(event.data.indexOf("broadcast!inlineUser : ") > -1) {
+		        	var inlineUserId = msg.split(" : ");
+// 		        	console.log("接收後台getBasicRemote().sendText(message) : offlineUserId = " + inlineUserId[1]);
+		        	broadcastEnter(inlineUserId[1]);
 		        } else {
 		        	msg = JSON.parse(msg);
-		        	console.log("接收後台getBasicRemote().sendText(message) : " + JSON.stringify(msg));
+// 		        	console.log("接收後台getBasicRemote().sendText(message) : " + JSON.stringify(msg));
 		        	
 			        if(!memberInLists(msg)){
 			        	// 判斷是新增成員進入對話列表
@@ -201,9 +212,9 @@
 			        	if(msg.isRead == "unread") {
 				        	member.unreadMsgCount = 1;
 			        	}
-			        	console.log("當前新增信息的包裝成員 : " + JSON.stringify(member));
+// 			        	console.log("當前新增信息的包裝成員 : " + JSON.stringify(member));
 			        	msgLists.push(member);
-			        	console.log("msgLists現在總成員 : " + msgLists);
+// 			        	console.log("msgLists現在總成員 : " + msgLists);
 			        	// 創建一個對話列表的標籤，但是不創建用戶 ID:0 的標籤
 			        	if(msg.sendUser != 0){
 				        	setInboxChatMember(member);
@@ -365,6 +376,24 @@
 									+ "</div></div></div>";
 				$("div.inbox_chat").prepend(newChatMember);
 			}
+		}
+		
+		function broadcastLeave(id) {
+			let chooseElement = "div#showMsg" + id;
+			let fillingMsg = "<div class='broadcast my-lg-1 bg-dark text-white text-center font-weight-lighter'>"
+							+ new Date() 
+							+" 離線客服 " 
+							+ "</div>";
+			$(chooseElement).append(fillingMsg);
+		}
+		
+		function broadcastEnter(id) {
+			let chooseElement = "div#showMsg" + id;
+			let fillingMsg = "<div class='broadcast my-lg-1 bg-light text-dark text-center font-weight-lighter'>" 
+							+ new Date() 
+							+" 連線客服 " 
+							+ "</div>";
+			$(chooseElement).append(fillingMsg);
 		}
 		
 		function setMessageDiv(type, msg) {
