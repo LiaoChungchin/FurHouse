@@ -285,7 +285,7 @@
 // 		    		console.log(msgLists[i].nowTime);
 		    		if(msgLists[i].user == userId) {
 		    			msgLists[i].unreadMsgCount = 0;
-						console.log("成功重置userID[" + userId + "]的未讀信息數量");
+// 						console.log("成功重置userID[" + userId + "]的未讀信息數量");
 					}
 		    	}
 		    });
@@ -294,7 +294,7 @@
 		function memberInLists(msg) {
 			// "msg" needs to be an object
 			if(msgLists.length == 0) {
-				console.log("msgLists is empty.");
+// 				console.log("msgLists is empty.");
 				return false;
 			}
 			for(let i = 0; i < msgLists.length; i++){
@@ -302,11 +302,11 @@
 // 					console.log(msgLists[i].user);
 // 		    		console.log(msgLists[i].unreadMsgCount);
 // 		    		console.log(msgLists[i].nowTime);
-					console.log(".inbox_chat has ths member msg.")
+// 					console.log(".inbox_chat has ths member msg.")
 					return true;
 				}
 			}
-			console.log(".inbox_chat dose not have this new member yet.");
+// 			console.log(".inbox_chat dose not have this new member yet.");
 			return false;
 		}
 		
@@ -463,7 +463,7 @@
 		    var jsonMsg = {"sendUser": sendUser, "toUser": toUser, "message": message}
 		    websocket.send(JSON.stringify(jsonMsg));
 		    
-		    console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
+// 		    console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
 		
 		    setMessageDiv("client", [message, toUser]);
 		    document.getElementById("write_msg").value = "";

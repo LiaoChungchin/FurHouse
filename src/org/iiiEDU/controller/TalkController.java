@@ -62,7 +62,7 @@ public class TalkController {
 		this.session = session;
 		
 		addOnlineCount();
-		System.out.println("有新連線加入！目前在線人數為 : " + getOnlineCount() + " ，當前session為 : " + session.hashCode());
+//		System.out.println("有新連線加入！目前在線人數為 : " + getOnlineCount() + " ，當前session為 : " + session.hashCode());
  
 		webSocketMap.put(sendUser, this);
 		
@@ -100,13 +100,13 @@ public class TalkController {
 		}
 		
 		webSocketMap.remove(sendUser);
-		System.out.println("有一連線離開！目前在線人數為 :" + getOnlineCount());
+//		System.out.println("有一連線離開！目前在線人數為 :" + getOnlineCount());
 	}
  
 	@OnMessage
 	public void onMessage(String jsonMsg, Session session) throws IOException {
 		
-		System.out.println("收到前台JSON字串 : " + jsonMsg);
+//		System.out.println("收到前台JSON字串 : " + jsonMsg);
 		
 		Gson gson = new Gson();
 		Talk jsonObject = gson.fromJson(jsonMsg, Talk.class);
@@ -127,8 +127,8 @@ public class TalkController {
 		// if server if offline, need save msg to database
 		TalkController user = webSocketMap.get(toUser);
 		if (user == null) {
-			System.out.println("管理員未上線，信息需要存入資料庫中，信息如下。");
-			System.out.println("信息 : " + jsonObject);
+//			System.out.println("管理員未上線，信息需要存入資料庫中，信息如下。");
+//			System.out.println("信息 : " + jsonObject);
 			return;
 		}
 		user.sendMessage("send", gson.toJson(jsonObject));
@@ -136,13 +136,13 @@ public class TalkController {
 	
 	@OnError
 	public void onError(Session session, Throwable error) {
-		System.out.println("something wrong...");
+//		System.out.println("something wrong...");
 		error.printStackTrace();
 	}
  
 	public void sendMessage(String type,String message) throws IOException {
 		if(type.equals("count")){
-			System.out.println("update online uers, count : " + message);
+//			System.out.println("update online uers, count : " + message);
 			this.session.getBasicRemote().sendText("update online uers, count : " + message);
 		} else if(type.equals("send")) {
 //			System.out.println("sendMessage() function = " + type + " => " +message);
