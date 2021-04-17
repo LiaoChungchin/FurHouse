@@ -66,24 +66,32 @@ public class TalkController {
  
 		webSocketMap.put(sendUser, this);
 		
+		if(webSocketMap.get(0) != null) {
+			webSocketMap.get(0).sendMessage("broadcastOpen", this.sendUser.toString());
+		}
+		
 		// Refresh online user count
 		for (TalkController chat : webSocketMap.values()) {
 			chat.sendMessage("count", getOnlineCount() + "");
 		}
 		
-//		//資料庫取出會話紀錄
-//		List<Talk> resultLists = talkService.getByUserID(sendUser);
-//		//將資訊回傳給該登錄者
-//		Gson gson = new Gson();
-//		for(Talk oneResult : resultLists) {
-//			this.sendMessage("send", gson.toJson(oneResult));
-//		}
+		//資料庫取出會話紀錄
+		List<Talk> resultLists = talkService.getByUserID(sendUser);
+		//將資訊回傳給該登錄者
+		Gson gson = new Gson();
+		for(Talk oneResult : resultLists) {
+			this.sendMessage("send", gson.toJson(oneResult));
+		}
 	}
 
 	@OnClose
 	public void onClose() throws IOException {
 		
 		subtracOnlineCount();
+		
+		if(webSocketMap.get(0) != null) {
+			webSocketMap.get(0).sendMessage("broadcastClose", this.sendUser.toString());
+		}
 		
 		for (TalkController chat : webSocketMap.values()) {
 			if(chat.session != this.session){
@@ -111,8 +119,8 @@ public class TalkController {
 			jsonObject.setIsRead("unread");
 		}
 		
-//		// 存入資料庫
-//		talkService.insertTalk(jsonObject);
+		// 存入資料庫
+		talkService.insertTalk(jsonObject);
 		
 		toUser = jsonObject.getToUser();
 		
@@ -136,8 +144,16 @@ public class TalkController {
 		if(type.equals("count")){
 			System.out.println("update online uers, count : " + message);
 			this.session.getBasicRemote().sendText("update online uers, count : " + message);
-		}else{
-			System.out.println("sendMessage() function = " + type + " => " +message);
+		} else if(type.equals("send")) {
+//			System.out.println("sendMessage() function = " + type + " => " +message);
+			this.session.getBasicRemote().sendText(message);
+//			this.session.getAsyncRemote().sendText(message);
+		} else if(type.equals("broadcastOpen")) {
+			message = "broadcast!inlineUser : "+ message;
+			this.session.getBasicRemote().sendText(message);
+//			this.session.getAsyncRemote().sendText(message);
+		} else if(type.equals("broadcastClose")) {
+			message = "broadcast!offlineUser : "+ message;
 			this.session.getBasicRemote().sendText(message);
 //			this.session.getAsyncRemote().sendText(message);
 		}
