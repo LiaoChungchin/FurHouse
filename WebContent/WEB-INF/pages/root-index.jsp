@@ -17,9 +17,16 @@
 	
 	<style>
 		.card-img-left{
-			width:50%;
+			width: 150px;
+			height: 150px;
 			border-top-left-radius: calc(0.25rem - 1px);
     		border-bottom-left-radius: calc(0.25rem - 1px);
+		}
+		.card:hover{
+			box-shadow:inset -3px -3px 3px rgba(20%,20%,40%,0.5) !important;
+		}
+		.card:active{
+			box-shadow:inset -3px 3px 3px rgba(20%,20%,40%,0.5) !important;
 		}
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -65,11 +72,12 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<img src="assets/img/card-order.jpg" class="card-img-left"
-								alt="...">
+							<span class="card-img-left" style="background-color: #FF5151;">
+								<i class="bi bi-card-list" style="padding-left:25px; font-size: 100px;"></i>
+							</span>
 							<div class="card-body">
 								<h5 class="card-title">Orders</h5>
-								<p class="card-text">訂單管理系統，目前版本可處理...</p>
+								<p class="card-text">訂單管理系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">
@@ -83,11 +91,12 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<img src="assets/img/card-product.jpg" class="card-img-left"
-								alt="...">
+							<span class="card-img-left" style="background-color: #FFA042;">
+								<i class="bi bi-bag-fill" style="padding-left:25px; font-size: 100px;"></i>
+							</span>
 							<div class="card-body">
 								<h5 class="card-title">Products</h5>
-								<p class="card-text">商品上下架系統，目前版本可處理...</p>
+								<p class="card-text">商品管理系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">
@@ -101,11 +110,12 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<img src="assets/img/card-member.jpg" class="card-img-left"
-								alt="...">
+							<span class="card-img-left" style="background-color: #00EC00;">
+								<i class="bi bi-person-lines-fill" style="padding-left:25px; font-size: 100px;"></i>
+							</span>
 							<div class="card-body">
 								<h5 class="card-title">Members</h5>
-								<p class="card-text">會員管理系統，目前版本可處理...</p>
+								<p class="card-text">會員管理系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">
@@ -119,10 +129,12 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<img src="assets/img/card-cat.jpg" class="card-img-left" alt="...">
+							<span class="card-img-left" style="background-color: #4A4AFF;">
+								<i class="bi bi-shop-window" style="padding-left:25px; font-size: 100px;"></i>
+							</span>
 							<div class="card-body">
 								<h5 class="card-title">Cats</h5>
-								<p class="card-text">浪貓照顧系統，目前版本可處理...</p>
+								<p class="card-text">浪貓照顧系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">
@@ -136,10 +148,12 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<img src="assets/img/card-reservations.jpg" class="card-img-left" alt="...">
+							<span class="card-img-left" style="background-color: #B766AD;">
+								<i class="bi bi-file-ruled" style="padding-left:25px; font-size: 100px;"></i>
+							</span>
 							<div class="card-body">
 								<h5 class="card-title">Reservations</h5>
-								<p class="card-text">寵物預約系統，目前版本可處理...</p>
+								<p class="card-text">寵物預約系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">
@@ -153,11 +167,12 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<img src="assets/img/card-chat.png" class="card-img-left"
-								alt="...">
+							<span class="card-img-left" style="background-color: #E0E0E0;">
+								<i class="bi bi-chat-dots" style="padding-left:25px; font-size: 100px;"></i>
+							</span>
 							<div class="card-body">
-								<h5 class="card-title">Reports</h5>
-								<p class="card-text">客服系統，目前版本可處理...</p>
+								<h5 class="card-title">Chats</h5>
+								<p class="card-text">線上客服系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">
@@ -190,6 +205,7 @@
 			window.location.href="selectAllCat.controller";
 			break;
 		case 4:
+			window.location.href="allAdoptList";
 			break;
 		case 5:
 			break;
