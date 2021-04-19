@@ -6,15 +6,24 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.iiiEDU.model.Member;
 import org.iiiEDU.model.MemberDAOService;
+import org.iiiEDU.utils.PathHandler;
 import org.iiiEDU.utils.PathStringHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +36,9 @@ public class MemberController {
 	@Autowired
 	@Qualifier("memberDAOService")
 	private MemberDAOService service;
+	
+	@Autowired
+	private ServletContext ctx;
 
 	@RequestMapping(path = "/member.mainPage", method = RequestMethod.GET)
 	public String mamberMainPage(Model model) {
@@ -155,5 +167,39 @@ public class MemberController {
 	@GetMapping("/member.myPage")
 	public String directToRootIndex() {
 		return "page-member-home.jsp";
+	}
+	
+	@GetMapping("member.getPhoto/{no}")
+	public ResponseEntity<byte[]> getMemberPhoto(@PathVariable("no") Integer no){
+		
+		ResponseEntity<byte[]> entity = null;
+		byte[] photoByteArray = null;
+		String filename = null;
+		
+		if(no != 0) {
+			Member member = service.getMemberById(no);
+			filename = member.getPhotoPath();
+			photoByteArray = PathHandler.getPhotoBiteArray(filename);
+		} else {
+			filename = "/members/m-0.jpg";
+			photoByteArray = PathHandler.getPhotoBiteArray(filename);
+		}
+		
+		if(photoByteArray != null) {
+			
+			String mimeType = ctx.getMimeType(filename);
+			MediaType mediaType = MediaType.valueOf(mimeType);
+			
+			System.out.println(mediaType);
+			
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(mediaType);
+			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+			entity = new ResponseEntity<byte[]>(photoByteArray, headers, HttpStatus.OK);
+			
+			return entity;
+		}
+		
+		return entity;
 	}
 }

@@ -28,16 +28,23 @@ $(document).ready(function () {
     // 隱藏次分類
     $("div#v-pills-tab>a[class='nav-link offset-2']").hide();
     $("div#v-pills-tab>div.dropdown-divider").hide();
+    
     // 定位MenuList選到哪個分類就會顯示該分類的次分類，cp01只是個checkpoint01
     // 還需要判斷當下是否重複點擊同一分類
     let nowAt = "", beforeAt = "";
     $("div#v-pills-tab>a[class*='cp01']").click(function () {
-        nowAt = this.getAttribute("id");
-        if (nowAt != beforeAt) {
-            $(this).parent().children().not("[class*='cp01']").slideUp();
-            $(this).nextUntil("a[class*='cp01']").slideToggle();
-        }
-        beforeAt = nowAt;
+        nowAt = this.getAttribute("id");   
+        if($(this).nextUntil("a[class*='cp01']").filter(".active").length == 0){
+        	if (nowAt != beforeAt) {
+	        	// 滑出/入顯示動畫
+	            $(this).parent().children().not("[class*='cp01']").slideUp();
+	            $(this).nextUntil("a[class*='cp01']").slideToggle();
+	            // 當前目標反藍底
+			    $("div#menu-detail>div>a[class~='active']").removeClass("active");
+			    $(this).addClass("active");
+	        }
+	        beforeAt = nowAt;
+        }     
     });
     // 觸發會員登入Modal的視窗
     $("a#anchor-login-modal").click(function () {
