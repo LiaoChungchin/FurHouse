@@ -72,14 +72,14 @@
 									<td>${requestScope.Members[0].createDate}</td>
 									<c:if test="${requestScope.Members[0].photo == null}">
 										<td><a href="#"
-											onclick="window.open('/assets/img/members/m-0.jpg', 'photo', config='height=200,width=200,toolbar=no,scrollbars=no,location=no,menubar=no,status=no,screenX=1220,screenY=190');">photo</a>
+											onclick="window.open('<c:url value='member.getPhoto/0' />', 'photo', config='height=200,width=200,toolbar=no,scrollbars=no,location=no,menubar=no,status=no,screenX=1220,screenY=190');">photo</a>
 											<a class="btn btn-sm btn-primary bi bi-brush" href="#"
 											role="button" data-toggle="modal"
 											data-target="#PhotoModal${requestScope.Members[0].memberId}"></a></td>
 									</c:if>
 									<c:if test="${requestScope.Members[0].photo != null}">
 										<td><a href="#"
-											onclick="window.open('${requestScope.Members[0].photoPath}', 'photo', config='height=200,width=200,toolbar=no,scrollbars=no,location=no,menubar=no,status=no,screenX=1220,screenY=190');">photo</a>
+											onclick="window.open('<c:url value='member.getPhoto/${requestScope.Members[0].memberId}' />', 'photo', config='height=200,width=200,toolbar=no,scrollbars=no,location=no,menubar=no,status=no,screenX=1220,screenY=190');">photo</a>
 											<a class="btn btn-sm btn-primary bi bi-brush" href="#"
 											role="button" data-toggle="modal"
 											data-target="#PhotoModal${requestScope.Members[0].memberId}"></a></td>
@@ -112,14 +112,14 @@
 										<td>${member.createDate}</td>
 										<c:if test="${member.photo == null}">
 											<td><a href="#"
-												onclick="window.open('/assets/img/members/m-0.jpg', 'photo', config='height=200,width=200,toolbar=no,scrollbars=no,location=no,menubar=no,status=no,screenX=1220,screenY=190');">photo</a>
+												onclick="window.open('<c:url value='member.getPhoto/0' />', 'photo', config='height=200,width=200,toolbar=no,scrollbars=no,location=no,menubar=no,status=no,screenX=1220,screenY=190');">photo</a>
 												<a class="btn btn-sm btn-primary bi bi-brush" href="#"
 												role="button" data-toggle="modal"
 												data-target="#PhotoModal${member.memberId}"></a></td>
 										</c:if>
 										<c:if test="${member.photo != null}">
 											<td><a href="#"
-												onclick="window.open('${member.photoPath}', 'photo', config='height=200,width=200,toolbar=no,scrollbars=no,location=no,menubar=no,status=no,screenX=1220,screenY=190');">photo</a>
+												onclick="window.open('<c:url value='member.getPhoto/${member.memberId}' />', 'photo', config='height=200,width=200,toolbar=no,scrollbars=no,location=no,menubar=no,status=no,screenX=1220,screenY=190');">photo</a>
 												<a class="btn btn-sm btn-primary bi bi-brush" href="#"
 												role="button" data-toggle="modal"
 												data-target="#PhotoModal${member.memberId}"></a></td>
