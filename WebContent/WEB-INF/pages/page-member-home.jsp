@@ -152,6 +152,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group row">
+					
 							<label for="confirmAdoptListId" class="col-sm-3 col-form-label">編號</label>
 							<div class="col-sm-9">
 								<input type="text" readonly class="form-control-plaintext" id="confirmAdoptListId">
@@ -256,7 +257,8 @@
 						+ '		<td>'+ adoptList.adoptListStatus.description +'</td>'
 						+ '		<td><button type="button" class="btn btn-secondary updateAdoptListBtn" data-toggle="modal" data-target="#updateAdoptListModalCenter">取消</button>';
 						if(adoptList.adoptListStatus.id == 2){
-							tempstr	+= '	<button type="button" class="btn btn-success confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>';
+							tempstr	+= '<button type="button" class="btn btn-success confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>'
+									+'  <img src="<c:url value="/assets/img/loading.gif" />" width="30px" id="loadingGIF" style="display:none">';
 						}else{
 							tempstr	+= '	<button type="button" style="visibility: hidden;" class="btn btn-success">確認領養</button>';
 						}					
@@ -366,8 +368,14 @@
 		$.ajax({
 			type : "GET", //指定http參數傳輸格式為POST
 			url : "sendEmail/${sessionScope.login_user.name}/${sessionScope.login_user.email}", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+			beforeSend : function(xhr){
+				$('#loadingGIF').attr("style"," ");
+				$('.confirmAdoptListBtn').attr("style","display:none");
+			},
 			success : function(response) {
-				console.log(response);
+				$('#loadingGIF').attr("style","display:none");
+				$('.confirmAdoptListBtn').attr("style","");
+				createtoast(response);
 			},
 			//Ajax失敗後要執行的function，此例為印出錯誤訊息
 			error : function(xhr, ajaxOptions, thrownError) {
