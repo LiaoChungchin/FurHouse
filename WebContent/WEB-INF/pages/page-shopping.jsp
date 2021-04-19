@@ -36,11 +36,24 @@
 		});
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > 300) {
-				$('#BackTop').fadeIn(222);
+				$('#BackTop').fadeIn(200);
 			} else {
-				$('#BackTop').stop().fadeOut(222);
+				$('#BackTop').stop().fadeOut(200);
 			}
 		}).scroll();
+		
+		$("div#menu-detail").show();
+		$("div#menu-detail>div>a[class~='active']").removeClass("active");
+		$("div#menu-detail>div>a>small:contains('所有商品')").parent().addClass("active");
+		// 分隔線要顯示
+		$("div#menu-detail>div>a:contains('購物商城')").next().show();
+		// 所有子項目要顯示
+		$("div#menu-detail>div>a>small:contains('所有商品')").parent().show();
+		$("div#menu-detail>div>a>small:contains('飼糧')").parent().show();
+		$("div#menu-detail>div>a>small:contains('罐頭餐')").parent().show();
+		$("div#menu-detail>div>a>small:contains('清潔用品')").parent().show();
+		$("div#menu-detail>div>a>small:contains('遊樂玩具')").parent().show();
+		$("div#menu-detail>div>a>small:contains('生活用品')").parent().show();
 	});
 </script>
 

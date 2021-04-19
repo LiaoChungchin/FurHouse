@@ -25,6 +25,18 @@
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
+	<script>
+		$(function() {
+			$("div#menu-detail").show();
+			$("div#menu-detail>div>a[class~='active']").removeClass("active");
+			$("div#menu-detail>div>a>small:contains('領養浪貓')").parent().addClass("active");
+			// 分隔線要顯示
+			$("div#menu-detail>div>a:contains('認識浪貓')").next().show();
+			// 所有子項目要顯示
+			$("div#menu-detail>div>a>small:contains('領養浪貓')").parent().show();
+			$("div#menu-detail>div>a>small:contains('助養浪貓')").parent().show();
+		});
+	</script>
 	
 	<title>FurHouse</title>
 	
