@@ -187,10 +187,13 @@
 	$('.col-md-4').on("click",function(){
 		switch($(this).index()){
 		case 0:
+			window.location.href="order.mainPage";
 			break;
 		case 1:
+			window.location.href="javascript:;";
 			break;
 		case 2:
+			window.location.href="member.mainPage";
 			break;
 		case 3:
 			window.location.href="selectAllCat.controller";
