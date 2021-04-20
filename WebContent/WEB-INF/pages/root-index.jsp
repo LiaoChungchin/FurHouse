@@ -199,6 +199,7 @@
 			window.location.href="allAdoptList";
 			break;
 		case 5:
+			window.location.href="contact.mainPage";
 			break;
 		default:
 			alert("404");
