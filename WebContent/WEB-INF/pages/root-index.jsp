@@ -42,6 +42,9 @@
 		$(document).ready(function() {
 			// 匯入include所有語句
 			w3.includeHTML();
+			
+			$('.nav-item').children().attr("class","nav-link");
+			$('.nav-item').eq(1).children().attr("class","nav-link active");
 		});
 	</script>
 	
@@ -72,9 +75,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<span class="card-img-left" style="background-color: #FF5151;">
-								<i class="bi bi-card-list" style="padding-left:25px; font-size: 100px;"></i>
-							</span>
+							<img alt="Orders" src="<c:url value='assets/img/card-order.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Orders</h5>
 								<p class="card-text">訂單管理系統</p>
@@ -91,9 +92,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<span class="card-img-left" style="background-color: #FFA042;">
-								<i class="bi bi-bag-fill" style="padding-left:25px; font-size: 100px;"></i>
-							</span>
+							<img alt="Products" src="<c:url value='assets/img/card-product.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Products</h5>
 								<p class="card-text">商品管理系統</p>
@@ -110,9 +109,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<span class="card-img-left" style="background-color: #00EC00;">
-								<i class="bi bi-person-lines-fill" style="padding-left:25px; font-size: 100px;"></i>
-							</span>
+							<img alt="Members" src="<c:url value='assets/img/card-member.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Members</h5>
 								<p class="card-text">會員管理系統</p>
@@ -129,9 +126,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<span class="card-img-left" style="background-color: #4A4AFF;">
-								<i class="bi bi-shop-window" style="padding-left:25px; font-size: 100px;"></i>
-							</span>
+							<img alt="Cats" src="<c:url value='assets/img/card-cat.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Cats</h5>
 								<p class="card-text">浪貓照顧系統</p>
@@ -148,9 +143,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<span class="card-img-left" style="background-color: #B766AD;">
-								<i class="bi bi-file-ruled" style="padding-left:25px; font-size: 100px;"></i>
-							</span>
+							<img alt="Reservations" src="<c:url value='assets/img/card-reservation.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Reservations</h5>
 								<p class="card-text">寵物預約系統</p>
@@ -167,9 +160,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="card mb-4 shadow-sm flex-row">
-							<span class="card-img-left" style="background-color: #E0E0E0;">
-								<i class="bi bi-chat-dots" style="padding-left:25px; font-size: 100px;"></i>
-							</span>
+							<img alt="Chats" src="<c:url value='assets/img/card-chat.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Chats</h5>
 								<p class="card-text">線上客服系統</p>

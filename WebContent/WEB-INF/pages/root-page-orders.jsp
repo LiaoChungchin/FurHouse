@@ -35,6 +35,9 @@
 			// 匯入include所有語句
 			w3.includeHTML();
 			
+			$('.nav-item').children().attr("class","nav-link");
+			$('.nav-item').eq(1).children().attr("class","nav-link active");
+			
 			$("body").on("click", "a:contains('more')", function () {
 				
 				var currentOrderId = parseInt($(this).parent().parent().find("th").eq(0).text());
