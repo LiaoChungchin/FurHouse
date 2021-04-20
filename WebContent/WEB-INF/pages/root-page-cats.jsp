@@ -56,6 +56,10 @@
 	    $(document).ready(function () {
 	        // 匯入include所有語句
 	        w3.includeHTML();
+	        
+			$('.nav-item').children().attr("class","nav-link");
+	        $('.nav-item').eq(5).children().attr("class","nav-link active");
+	        
 	        $('#allCattb').removeAttr('width').DataTable({
 	        	"ordering": false,
 	        	"columnDefs": [

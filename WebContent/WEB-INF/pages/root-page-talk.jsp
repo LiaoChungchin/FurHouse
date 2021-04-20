@@ -168,6 +168,9 @@
 			// 匯入include所有語句
 			w3.includeHTML();
 			
+			$('.nav-item').children().attr("class","nav-link");
+			$('.nav-item').eq(7).children().attr("class","nav-link active");
+			
 			if ("WebSocket" in window) {
 				// var sendUser = document.getElementById("sendUser").value;
 				// document.getElementById("sendUser").disabled = true;
