@@ -11,7 +11,6 @@ import javax.servlet.ServletContext;
 import org.iiiEDU.model.Member;
 import org.iiiEDU.model.MemberDAOService;
 import org.iiiEDU.utils.PathHandler;
-import org.iiiEDU.utils.PathStringHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.CacheControl;
@@ -48,7 +47,8 @@ public class MemberController {
 		// Download all member's photo
 		for (Member mem : lists) {
 			byte[] binaryData = mem.getPhoto();
-			String photoPath = mem.getPhotoPath();
+			String photoPath = PathHandler.globalProjectImgPath + mem.getPhotoPath();
+			
 			FileOutputStream fos = null;
 			if (binaryData != null && binaryData.length != 0) {
 				try {
@@ -68,7 +68,7 @@ public class MemberController {
 			}
 		}
 				
-		PathStringHandler.photoPathParse("members", lists);		
+//		PathStringHandler.photoPathParse("members", lists);		
 		model.addAttribute("Members", lists);
 
 		return "root-page-members.jsp";
@@ -109,10 +109,11 @@ public class MemberController {
 			
 			byte[] BinaryPhoto = multipartFile.getBytes();
 			
-			String photoPathNew = PathStringHandler.queryPathStr("m", multipartFile);
-			String photoPathOrigin = service.getMemberById(memberId).getPhotoPath();
+			String photoPathNew = PathHandler.producePhotoPathStr("m", multipartFile);
+			String photoPathNewShort = PathHandler.produceShortPhotoPathStr("members", multipartFile);
+			String photoPathOrigin = PathHandler.getFullPathName(service.getMemberById(memberId).getPhotoPath());
 
-			boolean isUpdate = service.updatePhoto(memberId, BinaryPhoto, photoPathNew);
+			boolean isUpdate = service.updatePhoto(memberId, BinaryPhoto, photoPathNewShort);
 
 			if(isUpdate) {
 				if(photoPathOrigin != null) {
@@ -138,6 +139,7 @@ public class MemberController {
 			@RequestParam("accountphoto") MultipartFile photoPart, Model model) {
 
 		String photoPath = null;
+		String photoPathShort = null;
 		Timestamp currentDateTime = new Timestamp(System.currentTimeMillis());
 		boolean initialBlock = false;
 		byte[] photoArray = null;
@@ -145,10 +147,11 @@ public class MemberController {
 		try {
 			if (!photoPart.isEmpty()) {
 				photoArray = photoPart.getBytes();
-				photoPath = PathStringHandler.queryPathStr("m", photoPart);			
+				photoPath = PathHandler.producePhotoPathStr("m", photoPart);
+				photoPathShort = PathHandler.produceShortPhotoPathStr("members", photoPart);
 			}
 
-			Member bean = new Member(account, password, name, phone, email, gender, null, photoArray, photoPath,
+			Member bean = new Member(account, password, name, phone, email, gender, null, photoArray, photoPathShort,
 					initialBlock, currentDateTime);
 			Member insertResult = service.insert(bean);
 
@@ -189,8 +192,6 @@ public class MemberController {
 			
 			String mimeType = ctx.getMimeType(filename);
 			MediaType mediaType = MediaType.valueOf(mimeType);
-			
-			System.out.println(mediaType);
 			
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(mediaType);
