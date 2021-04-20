@@ -14,6 +14,21 @@
 	<link href="assets/css/bootstrap-icons.css" rel="stylesheet">
 	<!-- User Define CSS -->
 	<link href="assets/css/index-root.css" rel="stylesheet">
+	
+	<style>
+		.card-img-left{
+			width: 150px;
+			height: 150px;
+			border-top-left-radius: calc(0.25rem - 1px);
+    		border-bottom-left-radius: calc(0.25rem - 1px);
+		}
+		.card:hover{
+			box-shadow:inset -3px -3px 3px rgba(20%,20%,40%,0.5) !important;
+		}
+		.card:active{
+			box-shadow:inset -3px 3px 3px rgba(20%,20%,40%,0.5) !important;
+		}
+	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
@@ -27,6 +42,9 @@
 		$(document).ready(function() {
 			// 匯入include所有語句
 			w3.includeHTML();
+			
+			$('.nav-item').children().attr("class","nav-link");
+			$('.nav-item').eq(1).children().attr("class","nav-link active");
 		});
 	</script>
 	
@@ -55,19 +73,14 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-3">
-						<div class="card mb-4 shadow-sm">
-							<img src="assets/img/card-order.jpg" class="card-img-top"
-								alt="...">
+					<div class="col-md-4">
+						<div class="card mb-4 shadow-sm flex-row">
+							<img alt="Orders" src="<c:url value='assets/img/card-order.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Orders</h5>
-								<p class="card-text">訂單管理系統，目前版本可處理...</p>
+								<p class="card-text">訂單管理系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<form method="get" action="order.mainPage">
-											<button type="submit"
-												class="btn btn-sm btn-outline-secondary">Enter</button>
-										</form>
 										<button type="button" class="btn btn-sm btn-outline-secondary">
 											<i class="bi bi-person-check"></i>
 										</button>
@@ -77,16 +90,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="card mb-4 shadow-sm">
-							<img src="assets/img/card-product.jpg" class="card-img-top"
-								alt="...">
+					<div class="col-md-4">
+						<div class="card mb-4 shadow-sm flex-row">
+							<img alt="Products" src="<c:url value='assets/img/card-product.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Products</h5>
-								<p class="card-text">商品上下架系統，目前版本可處理...</p>
+								<p class="card-text">商品管理系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary">Enter</button>
 										<button type="button" class="btn btn-sm btn-outline-secondary">
 											<i class="bi bi-person-check"></i>
 										</button>
@@ -96,19 +107,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="card mb-4 shadow-sm">
-							<img src="assets/img/card-member.jpg" class="card-img-top"
-								alt="...">
+					<div class="col-md-4">
+						<div class="card mb-4 shadow-sm flex-row">
+							<img alt="Members" src="<c:url value='assets/img/card-member.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Members</h5>
-								<p class="card-text">會員管理系統，目前版本可處理...</p>
+								<p class="card-text">會員管理系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<form method="get" action="member.mainPage">
-											<button type="submit"
-												class="btn btn-sm btn-outline-secondary">Enter</button>
-										</form>
 										<button type="button" class="btn btn-sm btn-outline-secondary">
 											<i class="bi bi-person-check"></i>
 										</button>
@@ -118,18 +124,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="card mb-4 shadow-sm">
-							<img src="assets/img/card-cat.jpg" class="card-img-top" alt="...">
+					<div class="col-md-4">
+						<div class="card mb-4 shadow-sm flex-row">
+							<img alt="Cats" src="<c:url value='assets/img/card-cat.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Cats</h5>
-								<p class="card-text">浪貓照顧系統，目前版本可處理...</p>
+								<p class="card-text">浪貓照顧系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<form method="get" action="selectAllCat.controller">
-											<button type="submit"
-												class="btn btn-sm btn-outline-secondary">Enter</button>
-										</form>
 										<button type="button" class="btn btn-sm btn-outline-secondary">
 											<i class="bi bi-person-check"></i>
 										</button>
@@ -139,37 +141,31 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="card mb-4 shadow-sm">
-							<img src="assets/img/card-report.jpg" class="card-img-top"
-								alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Reports</h5>
-								<p class="card-text">報表顯示系統，目前版本可處理...</p>
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary">Enter</button>
-										<button type="button" class="btn btn-sm btn-outline-secondary">
-											<i class="bi bi-person-check"></i>
-										</button>
-									</div>
-									<small class="text-muted">Version Update : 2021/03/08</small>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card mb-4 shadow-sm">
-							<img src="assets/img/card-map.jpg" class="card-img-top" alt="...">
+					<div class="col-md-4">
+						<div class="card mb-4 shadow-sm flex-row">
+							<img alt="Reservations" src="<c:url value='assets/img/card-reservation.png' />" class="card-img-left">
 							<div class="card-body">
 								<h5 class="card-title">Reservations</h5>
-								<p class="card-text">寵物預約系統，目前版本可處理...</p>
+								<p class="card-text">寵物預約系統</p>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<form method="get" action="allAdoptList">
-											<button type="submit"
-												class="btn btn-sm btn-outline-secondary">Enter</button>
-										</form>
+										<button type="button" class="btn btn-sm btn-outline-secondary">
+											<i class="bi bi-person-check"></i>
+										</button>
+									</div>
+									<small class="text-muted">Version Update : 2021/03/08</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card mb-4 shadow-sm flex-row">
+							<img alt="Chats" src="<c:url value='assets/img/card-chat.png' />" class="card-img-left">
+							<div class="card-body">
+								<h5 class="card-title">Chats</h5>
+								<p class="card-text">線上客服系統</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
 										<button type="button" class="btn btn-sm btn-outline-secondary">
 											<i class="bi bi-person-check"></i>
 										</button>
@@ -187,4 +183,31 @@
 		w3-include-html="<c:url value='/addFrame.controller/rootfooter' />"></footer>
 		
 </body>
+<script>
+	$('.col-md-4').on("click",function(){
+		switch($(this).index()){
+		case 0:
+			window.location.href="order.mainPage";
+			break;
+		case 1:
+			window.location.href="javascript:;";
+			break;
+		case 2:
+			window.location.href="member.mainPage";
+			break;
+		case 3:
+			window.location.href="selectAllCat.controller";
+			break;
+		case 4:
+			window.location.href="allAdoptList";
+			break;
+		case 5:
+			window.location.href="contact.mainPage";
+			break;
+		default:
+			alert("404");
+		}
+	})
+
+</script>
 </html>

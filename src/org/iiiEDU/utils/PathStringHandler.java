@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class PathStringHandler {
 
-	private static final String fixedPath = "D:\\iiiEDUproject\\Workspace\\FurHouse\\WebContent\\assets\\img\\members\\";
+	private static final String fixedPath = "C:\\iiiEDUproject\\Workspace\\FurHouse\\WebContent\\assets\\img\\members\\";
 	
 	public static String queryPathStr(String capital, MultipartFile multipartFile) {
 

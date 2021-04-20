@@ -31,7 +31,7 @@ public class CatController {
 	@Qualifier("catServiceimpl")
 	private CatService catServiceimpl;
 	
-	private String originImagePath = "D:\\iiiEDUproject\\Workspace\\FurHouse\\WebContent";
+	private String originImagePath = "C:\\iiiEDUproject\\Workspace\\FurHouse\\WebContent";
 	
 	//首頁
 	@RequestMapping(path = "/root",method = {RequestMethod.GET,RequestMethod.POST})

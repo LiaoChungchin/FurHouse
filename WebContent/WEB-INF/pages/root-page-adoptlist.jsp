@@ -40,6 +40,9 @@
 		$(document).ready(function() {
 			// 匯入include所有語句
 			w3.includeHTML();
+			
+			$('.nav-item').children().attr("class","nav-link");
+			$('.nav-item').eq(6).children().attr("class","nav-link active");
 		});
 	</script>
 	

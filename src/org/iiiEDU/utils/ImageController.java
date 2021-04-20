@@ -23,7 +23,7 @@ public class ImageController {
 		if(path.length()!=0) {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_JPEG);
-			File file = new File("D:/iiiEDUproject/Workspace/FurHouse/WebContent"+path);
+			File file = new File("C:/iiiEDUproject/Workspace/FurHouse/WebContent"+path);
 				
 			try {
 				return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
