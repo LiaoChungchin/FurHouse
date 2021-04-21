@@ -3,14 +3,21 @@ package org.iiiEDU.controller;
 import org.iiiEDU.model.Cat;
 import org.iiiEDU.model.CatService;
 import org.iiiEDU.utils.Base64Utils;
+import org.iiiEDU.utils.PathHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -30,9 +37,7 @@ public class CatController {
 	@Autowired
 	@Qualifier("catServiceimpl")
 	private CatService catServiceimpl;
-	
-	private String originImagePath = "C:\\iiiEDUproject\\Workspace\\FurHouse\\WebContent";
-	
+		
 	//首頁
 	@RequestMapping(path = "/root",method = {RequestMethod.GET,RequestMethod.POST})
 	public String indexPage() {		
@@ -71,10 +76,10 @@ public class CatController {
 		String tempstr = null;
 		if(file1.getSize()!=0) {
 			UUID uniquestr = UUID.randomUUID();
-			tempstr = "/assets/img/Cats/cat"+uniquestr+".jpg";
+			tempstr = "/Cats/cat"+uniquestr+".jpg";
 			filepath.add(tempstr);
 			
-			File savefile = new File(originImagePath+tempstr);
+			File savefile = new File(PathHandler.globalProjectImgPath+tempstr);
 			
 			if(base64photo1.length()!=0) {
 				MultipartFile multipartFile1 = Base64Utils.base64ToMultiPartFile(base64photo1);
@@ -100,10 +105,10 @@ public class CatController {
 		
 		if(file2.getSize()!=0) {
 			UUID uniquestr = UUID.randomUUID();
-			tempstr = "/assets/img/Cats/cat"+uniquestr+".jpg";
+			tempstr = "/Cats/cat"+uniquestr+".jpg";
 			filepath.add(tempstr);
 			
-			File savefile = new File(originImagePath+tempstr);
+			File savefile = new File(PathHandler.globalProjectImgPath+tempstr);
 			
 			if(base64photo2.length()!=0) {
 				MultipartFile multipartFile2 = Base64Utils.base64ToMultiPartFile(base64photo2);
@@ -189,12 +194,12 @@ public class CatController {
 			File savefile = null;
 			if(photo1.length()==0) {
 				UUID uniquestr = UUID.randomUUID();
-				tempstr = "/assets/img/Cats/cat"+uniquestr+".jpg";
+				tempstr = "/Cats/cat"+uniquestr+".jpg";
 				filepath.add(tempstr);
-				savefile = new File(originImagePath+tempstr);
+				savefile = new File(PathHandler.globalProjectImgPath+tempstr);
 			}else {
 				filepath.add(photo1);
-				savefile = new File(originImagePath+photo1);
+				savefile = new File(PathHandler.globalProjectImgPath+photo1);
 			}
 			
 			if(base64photo3.length()!=0) {
@@ -223,12 +228,12 @@ public class CatController {
 			File savefile = null;
 			if(photo2.length()==0) {
 				UUID uniquestr = UUID.randomUUID();
-				tempstr = "/assets/img/Cats/cat"+uniquestr+".jpg";
+				tempstr = "/Cats/cat"+uniquestr+".jpg";
 				filepath.add(tempstr);
-				savefile = new File(originImagePath+tempstr);
+				savefile = new File(PathHandler.globalProjectImgPath+tempstr);
 			}else {
 				filepath.add(photo2);
-				savefile = new File(originImagePath+photo2);
+				savefile = new File(PathHandler.globalProjectImgPath+photo2);
 			}
 			
 			
@@ -299,6 +304,26 @@ public class CatController {
 		}
 		
 		return "redirect:/selectAllCat.controller";
+	}
+	
+	@GetMapping("/catImageToByte")
+	@ResponseBody
+	public ResponseEntity<byte[]> catImageToByte(@RequestParam("path") String path) {
+		
+		if(path.length()!=0) {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+				
+			try {
+				return new ResponseEntity<byte[]>(PathHandler.getPhotoBiteArray(path),headers, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}	
+		}else {
+			return null;
+		}
+	
 	}
 
 }
