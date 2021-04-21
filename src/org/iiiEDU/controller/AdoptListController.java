@@ -161,6 +161,15 @@ public class AdoptListController {
 		
 		return adoptListsResource;
 	}
+	/*根據memberId搜尋全部 反向顯示*/
+	@GetMapping(path = "/searchAllAdoptListMemberId/{id}")
+	@ResponseBody
+	public List<AdoptList> searchAllAdoptListMemberIdDesc(@PathVariable("id") Integer id) {
+
+		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListMemberId(id);
+			
+		return adoptLists;
+	}
 	
 	@GetMapping(path = "/searchAllAdoptListMemberName/{memberName}/{pageLimit}/{currentPage}")
 	@ResponseBody

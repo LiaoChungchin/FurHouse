@@ -218,14 +218,13 @@
 	function selectAllAdoptListMemberId() {
 		$.ajax({
 			type : "GET",
-			url : "searchAllAdoptListMemberId/${sessionScope.login_user.memberId}"+"/"+pageLimit+"/"+currentPage,
+			url : "searchAllAdoptListMemberId/${sessionScope.login_user.memberId}",
 			dataType : "json",
 			beforeSend:function(XMLHttpRequest){
 	            console.log("gif"); 
 	        },
-			success : function(adoptListsResource) {
-				writeHtml(adoptListsResource.adoptLists);
-				createPageBtn(adoptListsResource.adoptListTotal);
+			success : function(adoptLists) {
+				writeHtml(adoptLists);
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert(xhr.status + "\n" + thrownError);
@@ -267,58 +266,6 @@
 		}
 		tempstr += '</tbody></div>';
 		$('.wrapper').html(tempstr);
-	}
-	
-	/*搜尋全部表單內容(製作分頁按鈕)*/
-	function createPageBtn(adoptListTotal){
-		let primaryBtn = '<button type="button" class="btn btn-primary" onclick="chooseBtnVal(this)">';
-		let secondaryBtn = '<button type="button" class="btn btn-secondary" onclick="chooseBtnVal(this)">';
-		
-		let pagestr = "";
-		if(adoptListTotal/pageLimit > 10){
-			if(currentPage>6 && currentPage <= (adoptListTotal/pageLimit)-4){
-				for(let i = currentPage-6 ; i < currentPage+4 ; i++){
-					if(i == currentPage-1){
-						pagestr+=primaryBtn+(i+1)+'</button>';		
-					}else{
-						pagestr+=secondaryBtn+(i+1)+'</button>';
-					}
-				}
-			}else if(currentPage > (adoptListTotal/pageLimit)-4){
-				for(let i = ((adoptListTotal/pageLimit)-10) ; i < (adoptListTotal/pageLimit) ; i++){
-					if(i == currentPage-1){
-						pagestr+=primaryBtn+(i+1)+'</button>';		
-					}else{
-						pagestr+=secondaryBtn+(i+1)+'</button>';
-					}
-				}
-			}else{
-				for(let i = 0 ; i < 10 ; i++){
-					if(i == currentPage-1){
-						pagestr+=primaryBtn+(i+1)+'</button>';		
-					}else{
-						pagestr+=secondaryBtn+(i+1)+'</button>';
-					}
-				}
-			}
-		}else{
-			for(let i = 0 ; i < adoptListTotal/pageLimit ; i++){
-				if(i == currentPage-1){
-					pagestr+=primaryBtn+(i+1)+'</button>';		
-				}else{
-					pagestr+=secondaryBtn+(i+1)+'</button>';
-				}
-			}
-		}
-		
-		$('.pageGroup').html(pagestr);
-			
-	}
-	
-	/*取得按鈕標籤內的值，並顯示當前頁數的內容*/
-	function chooseBtnVal(e){	
-		currentPage =  parseInt(e.innerText, 10);/*innerText 為 字串 須轉型成數字型態*/
-		selectAllAdoptListMemberId();
 	}
 	
 	/*取得表格內容*/
