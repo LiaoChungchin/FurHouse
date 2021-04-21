@@ -727,7 +727,7 @@
 	        $("#SetCatphoto1").html(tempstr[10]);
 	        $("#SetCatphoto1src").val($("#SetCatphoto1").children().attr("src").substr($("#SetCatphoto1").children().attr("src").indexOf("=")+1)); 
 	        $("#SetCatphoto2").html(tempstr[11]);
-	        if($("#SetCatphoto2").children().attr("src")=="/assets/img/testlogo.jpg"){
+	        if($("#SetCatphoto2").children().attr("src").substr($("#SetCatphoto2").children().attr("src").indexOf("testlogo"),12)=="testlogo.jpg"){
 	        	$("#SetCatphoto2src").val("");
 	        }else{
 	        	$("#SetCatphoto2src").val($("#SetCatphoto2").children().attr("src").substr($("#SetCatphoto2").children().attr("src").indexOf("=")+1));
@@ -770,7 +770,7 @@
 				if($("#SetCatphoto2src").val()!=""){
 					$("#SetCatphoto1").children().attr("src",$("#SetCatphoto2").children().attr("src"));
 					$("#SetCatphoto1src").val($("#SetCatphoto2").children().attr("src").substr($("#SetCatphoto2").children().attr("src").indexOf("=")+1));
-					$("#SetCatphoto2").children().attr("src","/assets/img/testlogo.jpg");
+					$("#SetCatphoto2").children().attr("src","assets/img/testlogo.jpg");
 					$("#SetCatphoto2src").val("");
 				}
 				resetflag1=false;
@@ -786,7 +786,7 @@
 				$("#img4").attr('src',"");
 				$("#size4").text("");
 				
-				$("#SetCatphoto2").children().attr("src","/assets/img/testlogo.jpg");
+				$("#SetCatphoto2").children().attr("src","assets/img/testlogo.jpg");
 				$("#SetCatphoto2src").val("");
 				resetflag2=false;
 			}
@@ -814,10 +814,10 @@
 	       	if(flag1&&flag2&&flag3&&flag4){
 	        	$("#InsertCatForm").submit();
 	        }else if(!flag4){
-	     		document.getElementById("submitHelp").innerHTML=`<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">需上傳一張圖片</em>`;
+	     		document.getElementById("submitHelp").innerHTML=`<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">需上傳一張圖片</em>`;
 	
 	        }else{
-	        	document.getElementById("submitHelp").innerHTML=`<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">資料有誤</em>`;
+	        	document.getElementById("submitHelp").innerHTML=`<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">資料有誤</em>`;
 	        }
 	    })
 	    $("#InsertCatReset").on("click",function(){
@@ -843,13 +843,13 @@
 	        let namech = /^[\u4E00-\u9FFFa-zA-Z\d]+$/;
 	        let namesp = document.getElementById("nameHelp")
 	        if(nameval==""){					
-	     	   namesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">名字不可空白</em>`;
+	     	   namesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">名字不可空白</em>`;
 	        }else{
 	        	if(namech.test(nameval)){
-	                namesp.innerHTML = `<img src="/assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	                namesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
 	                flag1=true;
 	            }else{
-	            	namesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含特殊字元</em>`;
+	            	namesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含特殊字元</em>`;
 	            }
 	        } 
 		}
@@ -859,13 +859,13 @@
 	        let typech = /^[\u4E00-\u9FFFa-zA-Z]+$/;
 	        let typesp = document.getElementById("typeHelp") 
 	        if(typeval==""){
-	            typesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">樣式不可空白</em>`;
+	            typesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">樣式不可空白</em>`;
 	        }else{
 	            if(typech.test(typeval)){
-	                typesp.innerHTML = `<img src="/assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	                typesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
 	                flag2=true;
 	            }else{
-	                typesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含數字、特殊字元</em>`;
+	                typesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含數字、特殊字元</em>`;
 	            }
 	        } 
 	    }
@@ -877,20 +877,20 @@
 	        let dateHms = datearr[1].split(":");
 	        if(dateval!=""){
 		        if(dateval.length!=19 || datearr.length!=2){
-	    	        datesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期格式不正確喔</em>`;
+	    	        datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期格式不正確喔</em>`;
 	            } else {
 	        	    let d = new Date(dateymd[0],dateymd[1]-1,dateymd[2]);         
 	                if(dateymd[0]!=d.getFullYear() || dateymd[1]-1!=d.getMonth() || dateymd[2]!=d.getDate()){
-	                    datesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期不正確</em>`;
+	                    datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期不正確</em>`;
 	                }else if(dateHms[0]>=0 && dateHms[0]<24 && dateHms[1]>=0 && dateHms[1]<60 && dateHms[2]>=0 && dateHms[2]<60){
-	                    datesp.innerHTML = `<img src="/assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	                    datesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
 	                    flag3=true;
 	                }else{
-	                    datesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">時間不正確</em>`;
+	                    datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">時間不正確</em>`;
 	                }
 	            }
 	        }else{
-	            datesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">接養日期不可空白</em>`;
+	            datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">接養日期不可空白</em>`;
 	        }
 	    }
 	    
@@ -917,7 +917,7 @@
 			if(Setflag1&&Setflag2&&Setflag3){
 	            $("#SetCatForm").submit();
 	        }else{
-	            document.getElementById("SetCatsubmitHelp").innerHTML=`<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">資料有誤</em>`;
+	            document.getElementById("SetCatsubmitHelp").innerHTML=`<img src="FurHouse/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">資料有誤</em>`;
 	        }
 	    })
 	
@@ -927,13 +927,13 @@
 	        let namech = /^[\u4E00-\u9FFFa-zA-Z\d]+$/;
 	        let namesp = document.getElementById("SetnameHelp")
 	        if(nameval==""){
-	            namesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">名字不可空白</em>`;
+	            namesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">名字不可空白</em>`;
 	        }else{
 	            if(namech.test(nameval)){
-	                namesp.innerHTML = `<img src="/assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	                namesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
 	                Setflag1=true;
 	            } else {
-	                namesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含特殊字元</em>`;
+	                namesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含特殊字元</em>`;
 	            }
 	        } 
 		}
@@ -944,13 +944,13 @@
 	        let typech = /^[\u4E00-\u9FFFa-zA-Z]+$/;
 	        let typesp = document.getElementById("SettypeHelp")
 	        if(typeval==""){
-	            typesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">樣式不可空白</em>`;
+	            typesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">樣式不可空白</em>`;
 	        }else{
 	            if(typech.test(typeval)){
-	                typesp.innerHTML = `<img src="/assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	                typesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
 	                Setflag2=true;
 	            } else {
-	                typesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含數字、特殊字元</em>`;
+	                typesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含數字、特殊字元</em>`;
 	            }
 	        } 
 	    }
@@ -965,20 +965,20 @@
 	
 	        if(dateval!=""){
 	            if(dateval.length!=19 || datearr.length!=2){
-	                datesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期格式不正確喔</em>`;
+	                datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期格式不正確喔</em>`;
 	            }else{
 		            let d = new Date(dateymd[0],dateymd[1]-1,dateymd[2]);          
 	                if(dateymd[0]!=d.getFullYear() || dateymd[1]-1!=d.getMonth() || dateymd[2]!=d.getDate()){
-	                    datesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期不正確</em>`;
+	                    datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期不正確</em>`;
 	                }else if(dateHms[0]>=0 && dateHms[0]<24 && dateHms[1]>=0 && dateHms[1]<60 && dateHms[2]>=0 && dateHms[2]<60){
-	                    datesp.innerHTML = `<img src="/assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	                    datesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
 	                    Setflag3=true;
 	                }else{
-	                    datesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">時間不正確</em>`;
+	                    datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">時間不正確</em>`;
 	                }
 	            }
 	        } else {
-	            datesp.innerHTML = `<img src="/assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">接養日期不可空白</em>`;
+	            datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">接養日期不可空白</em>`;
 	    	}
 		}
 	    

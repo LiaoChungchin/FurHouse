@@ -36,7 +36,7 @@
 			w3.includeHTML();
 			
 			$('.nav-item').children().attr("class","nav-link");
-			$('.nav-item').eq(1).children().attr("class","nav-link active");
+			$('.nav-item').eq(2).children().attr("class","nav-link active");
 			
 			$("body").on("click", "a:contains('more')", function () {
 				
