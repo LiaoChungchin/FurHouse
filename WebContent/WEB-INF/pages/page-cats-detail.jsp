@@ -151,10 +151,7 @@
 										<article class="supportCatDetail">
 											<!-- 小視窗提示 -->
 											<!-- Flexbox container for aligning the toasts -->
-											<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center littleWindow" style="min-height: 200px;" >
-											
-											    <!-- Then put toasts within -->
-			
+											<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center littleWindow" style="min-height: 200px;" >			
 											</div>
 											
 											<!-- 領養Dialog -->
@@ -190,7 +187,7 @@
 																<!-- 隱藏欄位 -->
 																<input type="hidden" id="dateresult" name="visitTime">
 																<input type="hidden" name="catId" value="${cat.id}">
-																<input type="hidden" name="memberId" value="${sessionScope.login_user.memberId}">
+																<input type="hidden" name="memberId" id="memberId" value="${sessionScope.login_user.memberId}">
 			 										      	</div>
 													      	<div class="modal-footer">
 														        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
@@ -203,7 +200,7 @@
 											<!-- 領養Dialog End-->
 										
 											<div class="pcpLeading"
-												style="background-image: url('${cat.photo1}')"
+												style="background-image: url('catImageToByte?path=${cat.photo1}')"
 												id="supportCatDetailShow"></div>
 			
 											<div class="supportCatDatailTitle">
@@ -211,7 +208,7 @@
 											</div>
 											<div class="supportCatDatailInfo">
 												<div class="supportCatDatailInfo-img">
-													<img src="${cat.photo1}" alt="${cat.nickname}"
+													<img src="catImageToByte?path=${cat.photo1}" alt="${cat.nickname}"
 														width="300px" height="auto">
 												</div>
 												<div class="supportCatDetailInfoCatData">
@@ -225,9 +222,9 @@
 														<div class="supportCatDetailInfoRight">
 															<div>結紮：<c:choose><c:when test="${cat.ligation == true}">是</c:when><c:otherwise>否</c:otherwise></c:choose></div>
 															<div>接種：<c:choose><c:when test="${cat.vaccination == true}">是</c:when><c:otherwise>否</c:otherwise></c:choose></div>
-															<div>報到時間：<span id="onlyDate">${cat.createDate}</span></div>
+															<div>報到時間：<span class="onlyDate">${cat.createDate}</span></div>
 															<div>
-																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adoptListDialog">我要認養</button>
+																<button type="button" class="btn btn-primary IWantIt" data-toggle="modal" data-target="#adoptListDialog">我要認養</button>
 																<a class="btn btn-primary" href="supportCat">回上一頁</a>
 															</div>
 														</div>
@@ -282,7 +279,14 @@
 <script>
 	$('#adoptListCatName').text($('.supportCatDetailName').text());
 	$(".onlyDate").text($(".onlyDate").text().substr(0,10));
+	if(${cat.adoptStatus.id}==3 || ${cat.adoptStatus.id}==4){
+		$('.IWantIt').attr("disabled",true);
+	}
 	
+	$('.IWantIt').on("click",function(){
+		$("#adoptListSelectDate").val("");
+		$("#adoptListSelectTime").val("");
+	});
 	
 	$(".datepicker").datepicker({
 		format : "yyyy-mm-dd", //設定格式為2019-04-01
@@ -292,98 +296,111 @@
 		language : 'zh-TW'//中文化
 	});
 	
+	$("#adoptListSelectDate").on("change",function(){
+		let searchDate = $("#adoptListSelectDate").val();
+		$.ajax({	 
+            type:"GET",
+			url: "searchAllAdoptListVisitTime/" + searchDate,
+			dataType: "json",
+ 			success : function(response){
+				removedatearr.length = 0;
+				for(let i = 0 ; i < response.length ; i++){
+					removedatearr.push(response[i].visitTime);
+				}
+				
+				if(removedatearr.length==13){
+					$("#adoptListSelectTime").html("<option selected='selected'>預約額滿</option>");
+				}
+ 			},
+ 				//Ajax失敗後要執行的function，此例為印出錯誤訊息
+ 			error:function(xhr, ajaxOptions, thrownError){
+ 					alert(xhr.status+"\n"+thrownError);
+			}
+		});
+	})
+	
+	var removedatearr = new Array();
+
+	
 	$("#adoptListSelectTime").on("focus",function(){
 		
-	//		let removedatearr = document.getElementById("removeresult").children;
-	//		let removedates = new Array(); 
-	//		for(let i = 0 ; i < removedatearr.length ; i++){
-	//			removedates.push(removedatearr[i].value.substr(11,5));
-	//		}
-	//		console.log(removedates);
-			
-		let datearr = ["9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00"]
+		let removedates = new Array(); 
+		for(let i = 0 ; i < removedatearr.length ; i++){
+			removedates.push(removedatearr[i].substr(11,5));
+		}
+		
+		let datearr = ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00"]
 		let dateflag = false;
 		let tempstr = "";
 		for(let i = 0 ; i < datearr.length ; i++){
-	//			for(let j = 0 ; j < removedates.length;j++){
-	//				if(removedates[j]==datearr[i]){
-	//					dateflag = true;
-	//				}
-	//			}
-	//			if(dateflag){
-	//				dateflag = false;
-	//				continue;
-	//			}
+			for(let j = 0 ; j < removedates.length;j++){
+				if(removedates[j]==datearr[i]){
+					dateflag = true;
+				}
+			}
+			if(dateflag){
+				dateflag = false;
+				continue;
+			}
 			tempstr += "<option>"+datearr[i]+"</option>";
 		}
 		$("#adoptListSelectTime").html(tempstr);
 		
-		})
+		if(tempstr == ""){
+			$("#adoptListSelectTime").html("<option>預約額滿</option>>");
+		}
+		
+		
+		$("#dateresult").val($("#adoptListSelectDate").val()+" "+$("#adoptListSelectTime").val()+":00");
+	})
+
 	
 	
 	$("#adoptListSelectTime").on("change",function(){
-		$("#dateresult").val($("#adoptListSelectDate").val()+" "+$("#adoptListSelectTime").val()+":00");
+			$("#dateresult").val($("#adoptListSelectDate").val()+" "+$("#adoptListSelectTime").val()+":00");
 	})
 	
 	
 	/*--------------------------------------------------------------------------------------------------------------------------*/
-	$("#adoptListSelectDate").on("change",function(){
-	//		$.ajax({	 
-	//            	type:"POST",                    //指定http參數傳輸格式為POST
-	//			url: "SelectAllAdoptList",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
-	// 				data: $("#AdoptListSelectDate").serialize(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
-	//			dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
-	//			//Ajax成功後執行的function，response為回傳的值
-	//			//此範列回傳的JSON Object的內容格式如右所示: {userName:XXX,uswerInterest:[y1,y2,y3,...]}
-	// 				success : function(response){
-	//			//在id=ajaxResponse的fieldset中顯示Ajax的回傳值
-	// 					console.log(response);
-	// 				},
-	// 				//Ajax失敗後要執行的function，此例為印出錯誤訊息
-	// 				error:function(xhr, ajaxOptions, thrownError){
-	// 					alert(xhr.status+"\n"+thrownError);
-	//			}
-	//		});
-		
-	//		window.location.href="SelectAllAdoptList?date="+$("#AdoptListSelectDate").val();
-		
-	})
-	
 	$("#adoptListSubmit").on("click",function(){
-		$.ajax({	 
-	            	type:"POST",                    //指定http參數傳輸格式為POST
-			url: "insertAdoptList",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
-	 				data: $("#adoptListForm").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
-			//Ajax成功後執行的function，response為回傳的值
-			//此範列回傳的JSON Object的內容格式如右所示: {userName:XXX,uswerInterest:[y1,y2,y3,...]}
-	 				success : function(response){
-				
-				let str = "";
-				str+='<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">'+
-				     '	<div class="toast-header">'+
-					 '		<strong class="mr-auto">小提示</strong>'+
-					 '			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'+
-					 '			<span aria-hidden="true">&times;</span>'+
-					 '		</button>'+
-				     '	</div>'+
-					 '	<div class="toast-body">'+
-					 '		新增成功'+
-					 '	</div>'+
-				     '</div>';
-				$('.littleWindow').html(str);
-	 					$('.toast').toast('show');
-				$('#adoptListDialog').modal('hide');
-	 				},
-	 				//Ajax失敗後要執行的function，此例為印出錯誤訊息
-	 				error:function(xhr, ajaxOptions, thrownError){
-				$('.toast').toast('hide');
-				$('.toast-body').html("新增失敗");
-				$('.toast-body').html(xhr.status+"\n"+thrownError);
-	 					$('.toast').toast('show');
-				$('#adoptListDialog').modal('hide');
-			}
-		});
-	})        
+		if($("#memberId").val().length == 0){
+			createtoast("尚未登入");
+		}else{
+			$.ajax({	 
+            	type:"POST",                    //指定http參數傳輸格式為POST
+				url: "insertAdoptList",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+ 				data: $("#adoptListForm").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
+				//Ajax成功後執行的function，response為回傳的值
+				//此範列回傳的JSON Object的內容格式如右所示: {userName:XXX,uswerInterest:[y1,y2,y3,...]}
+ 				success : function(response){
+					createtoast(response);
+ 				},
+ 				//Ajax失敗後要執行的function，此例為印出錯誤訊息
+ 				error:function(xhr, ajaxOptions, thrownError){	
+					createtoast("新增失敗!!!");
+				}
+			});
+		}
+	})
+		
+		
+	function createtoast(toaststr){
+		let str = "";
+		str+='<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">'+
+		     '	<div class="toast-header">'+
+			 '		<strong class="mr-auto">小提示</strong>'+
+			 '			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'+
+			 '			<span aria-hidden="true">&times;</span>'+
+			 '		</button>'+
+		     '	</div>'+
+			 '	<div class="toast-body">'+
+			 		toaststr+
+			 '	</div>'+
+			 '</div>';
+		$('.littleWindow').html(str);
+ 		$('.toast').toast('show');
+		$('#adoptListDialog').modal('hide');
+	}
 </script>
 
 </body>

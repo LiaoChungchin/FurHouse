@@ -3,7 +3,6 @@ package org.iiiEDU.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -30,8 +30,9 @@ public class AdoptListStatus {
 	@Column(name="description")
 	private String description;
 	
-	@OneToMany(cascade = CascadeType.ALL , mappedBy = "adoptListStatus" , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "adoptListStatus" , fetch = FetchType.LAZY)
 	@JsonIgnore
+	@Transient
 	private Set<AdoptList> adoptList = new LinkedHashSet<>();
 	
 	public AdoptListStatus() {

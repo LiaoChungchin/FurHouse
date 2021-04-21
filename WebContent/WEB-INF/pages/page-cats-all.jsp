@@ -69,7 +69,7 @@
 										<a href="supportOneCat?supportCatId=${cat.id}"></a>
 										<div class="SupportCat photo">
 											<a href="supportOneCat?supportCatId=${cat.id}"><img
-												src="${cat.photo1}" alt="" /></a>
+												src="catImageToByte?path=${cat.photo1}" alt="" /></a>
 										</div>
 										<div class="SupportCat info">
 											<h2 class="SupportCat name">${cat.nickname}</h2>

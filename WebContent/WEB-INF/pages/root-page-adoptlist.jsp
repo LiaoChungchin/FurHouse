@@ -16,12 +16,13 @@
 	<link href="assets/css/index-root.css" rel="stylesheet">
 	<style>
 		.supportCatDetail{
-			width:90%;
+			width:100%;
 			margin:5px auto;
 		}
-		.supportCatDetailHeader{
-			margin-right:0px;
-		}	
+		.pageGroup button{
+			width: 45px;
+			margin: 0px 2px;
+		}
 		.adoptListDelete{
 			width:200px;
 		}
@@ -60,32 +61,103 @@
 			
 				<!-- 領養單資訊表格 -->
 				<div class="supportCatDetail">
-					<div class="form-group row float-right supportCatDetailHeader">
-						<select class="form-control col-sm-6" id="selectSearchType">
-							<option value="0">會員名字</option>
-							<option value="1">貓編號</option>
-							<option value="2">貓名</option>
-							<option value="3">會員編號</option>
-						</select>
-						<input type="text" class="form-control col-sm-6 rootSearch" id="rootSearch">
-					</div>
-					<article class="supportCatDetailContent"></article>	
-				</div>
 				
+					<div class="d-flex mb-3">
+						<div class="mr-auto p-2">
+							<div class="form-inline">
+						  		<label for="selectSearchMaxResult">顯示</label> 
+						  		<select class="custom-select" id="selectSearchMaxResult" >
+									<option value="10">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="1">1</option>
+								</select>
+								<label for="selectSearchMaxResult">筆</label>
+							</div>
+						</div>
+						<div class="p-2">
+							<select class="form-control" id="selectSearchType" >
+								<option value="0">會員名字</option>
+								<option value="1">貓編號</option>
+								<option value="2">貓名</option>
+								<option value="3">會員編號</option>
+							</select>
+						</div>
+						<div class="p-2">
+							<input type="text" class="form-control" id="rootSearch"  onkeyup="value=value.replace(/^[.!@#$%^&*]+$/,'') " >
+						</div>
+					</div>
+					
+					<article class="supportCatDetailContent"></article>
+					<div class="pageGroup d-flex justify-content-center"></div>	
+				</div>
 			</main>
+			
+			<!-- 領養單更新modal -->
+			<div class="modal fade" id="setAdoptListStatusModalCenter" tabindex="-1" role="dialog" aria-labelledby="setAdoptListStatusModalCenter" aria-hidden="true">
+				<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="setAdoptListStatusModalCenterTitle">更新狀態</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form action="/updateAdoptList" enctype="multipart/form-data" id="setAdoptListStatusForm">
+								<input type="hidden" id="adoptListId" name="adoptListId">
+								<input type="hidden" id="adoptListVisitTime" name="visitTime">
+								<input type="hidden" id="adoptListCatId" name="catId">
+								<input type="hidden" id="adoptListMemberId" name="memberId">
+								
+								<div class="form-check">
+								    <input class="form-check-input" type="radio" name="adoptListStatusId" id="adoptListStatusId1" value="0">
+								    <label class="form-check-label" for="adoptListStatusId1">
+								    	取消
+								    </label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="adoptListStatusId" id="adoptListStatusId2" value="1">
+									<label class="form-check-label" for="adoptListStatusId2">
+									   	進行中
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="adoptListStatusId" id="adoptListStatusId3" value="2">
+									<label class="form-check-label" for="adoptListStatusId3">
+									   	完成
+									</label>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" id="updateAdoptListSubmit">確認</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<footer class="pt-4 my-md-5 pt-md-5 ml-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/rootfooter' />"></footer>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			selectAllAdoptList();
+			selectAllAdoptListPage();
 		});
-		
+		var pageLimit = 10;
+		var currentPage = 1; 
 		var searchTypeUrl = "searchAllAdoptListMemberName/";
 		
+		/*設定顯示筆數*/
+		$('#selectSearchMaxResult').on("change",function(){
+			pageLimit = $("#selectSearchMaxResult").val();
+			currentPage = 1; 
+			selectAllAdoptListPage();
+		});
+		
+		/*選擇查詢方式*/
 		$("#selectSearchType").on("change",function(){
-			console.log($("#selectSearchType").val())
 			switch($("#selectSearchType").val()){
 				case "0": 
 					searchTypeUrl = "searchAllAdoptListMemberName/";
@@ -100,46 +172,62 @@
 					searchTypeUrl = "searchAllAdoptListMemberId/";
 					break;
 				default:
-					selectAllAdoptList();
+					selectAllAdoptListPage();
 					break;
 			}
-			console.log(searchTypeUrl);
 		})
 		
+		/*模糊查詢*/
 		$("#rootSearch").on("keyup",function(){
-			console.log(searchTypeUrl);
 			let val = $("#rootSearch").val();
 			if(val.length!=0){
-				$.ajax({
-					type:"GET",
-					url: searchTypeUrl + val,
-					dataType: "json",
-					success: function(adoptLists){
-						if(adoptLists.length!=0){
-							writeHtml(adoptLists);
-						}else{
-							selectAllAdoptList();
-						}
-					},
-					error:function(xhr, ajaxOptions, thrownError){
-						console.log(xhr.status+"\n"+thrownError);
-					}	
-				});	
+				currentPage=1;
+				actionchangsearch(val);
 			}else{
-				selectAllAdoptList();
+				currentPage=1;
+				selectAllAdoptListPage();
 			}
-			
-			
 		})
 		
-
-		function selectAllAdoptList(){
+		/*模糊查詢function*/
+		function actionchangsearch(val){
 			$.ajax({
 				type:"GET",
-				url: "selectAllAdoptList",
+				url: searchTypeUrl+"/"+val+"/"+pageLimit+"/"+currentPage ,
 				dataType: "json",
-				success: function(adoptLists){
-					writeHtml(adoptLists);
+				success: function(adoptListsResource){
+					if(adoptListsResource.adoptLists.length!=0){
+						writeHtml(adoptListsResource.adoptLists);
+						createPageBtn(adoptListsResource.adoptListTotal);
+					}else{
+						selectAllAdoptListPage();
+					}
+				},
+				error:function(xhr, ajaxOptions, thrownError){
+					console.log(xhr.status+"\n"+thrownError);
+				}	
+			});	
+		}
+		
+		/*取得按鈕標籤內的值，並顯示當前頁數的內容*/
+		function chooseBtnVal(e){	
+			currentPage =  parseInt(e.innerText, 10);/*innerText 為 字串 須轉型成數字型態*/
+			if($("#rootSearch").val().length != 0){
+				actionchangsearch($("#rootSearch").val());
+			}else{
+				selectAllAdoptListPage();
+			}
+		}
+		
+		/*顯示分頁*/
+		function selectAllAdoptListPage(){
+			$.ajax({
+				type:"GET",
+				url: "selectAllAdoptListPage/"+pageLimit+"/"+currentPage,
+				dataType: "json",
+				success: function(adoptListsResource){
+					writeHtml(adoptListsResource.adoptLists);
+					createPageBtn(adoptListsResource.adoptListTotal);
 				},
 				error:function(xhr, ajaxOptions, thrownError){
 					alert(xhr.status+"\n"+thrownError);
@@ -147,23 +235,76 @@
 			});	
 		}
 		
-		function deleteAdoptList(myObj){			
-			let deleteid = myObj.parentNode.parentNode.childNodes[1].innerText;
-			$.ajax({	 
-            	type:"GET",                    //指定http參數傳輸格式為POST
-				url: "deleteAdoptList/"+deleteid,        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
-				//Ajax成功後執行的function，response為回傳的值
- 				success : function(response){
-					console.log(response);
-					selectAllAdoptList();
- 				},
- 				//Ajax失敗後要執行的function，此例為印出錯誤訊息
- 				error:function(xhr, ajaxOptions, thrownError){
-					alert(xhr.status+"\n"+thrownError);
+		/*搜尋全部表單內容(製作分頁按鈕)*/
+		function createPageBtn(adoptListTotal){
+			let primaryBtn = '<button type="button" class="btn btn-primary" onclick="chooseBtnVal(this)">';
+			let secondaryBtn = '<button type="button" class="btn btn-secondary" onclick="chooseBtnVal(this)">';
+			
+			console.log(currentPage);
+			let pagestr = "";
+			if(adoptListTotal/pageLimit > 10){
+				if(currentPage>6 && currentPage <= (adoptListTotal/pageLimit)-4){
+					for(let i = currentPage-6 ; i < currentPage+4 ; i++){
+						if(i == currentPage-1){
+							pagestr+=primaryBtn+(i+1)+'</button>';		
+						}else{
+							pagestr+=secondaryBtn+(i+1)+'</button>';
+						}
+					}
+				}else if(currentPage > (adoptListTotal/pageLimit)-4){
+					for(let i = ((adoptListTotal/pageLimit)-10) ; i < (adoptListTotal/pageLimit) ; i++){
+						if(i == currentPage-1){
+							pagestr+=primaryBtn+(i+1)+'</button>';		
+						}else{
+							pagestr+=secondaryBtn+(i+1)+'</button>';
+						}
+					}
+				}else{
+					for(let i = 0 ; i < 10 ; i++){
+						if(i == currentPage-1){
+							pagestr+=primaryBtn+(i+1)+'</button>';		
+						}else{
+							pagestr+=secondaryBtn+(i+1)+'</button>';
+						}
+					}
 				}
-			});
+			}else{
+				for(let i = 0 ; i < adoptListTotal/pageLimit ; i++){
+					if(i == currentPage-1){
+						pagestr+=primaryBtn+(i+1)+'</button>';		
+					}else{
+						pagestr+=secondaryBtn+(i+1)+'</button>';
+					}
+				}
+			}
+			
+			$('.pageGroup').html(pagestr);
+				
 		}
 		
+		/*狀態更新*/
+		
+		
+		
+		/*刪除表單內容*/
+// 		function deleteAdoptList(myObj){			
+// 			let deleteid = myObj.parentNode.parentNode.childNodes[1].innerText;
+// 			$.ajax({	 
+//             	type:"GET",                    //指定http參數傳輸格式為POST
+// 				url: "deleteAdoptList/"+deleteid,        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+// 				//Ajax成功後執行的function，response為回傳的值
+//  				success : function(response){
+// 					console.log(response);
+// 					selectAllAdoptListPage();
+//  				},
+//  				//Ajax失敗後要執行的function，此例為印出錯誤訊息
+//  				error:function(xhr, ajaxOptions, thrownError){
+// 					alert(xhr.status+"\n"+thrownError);
+// 				}
+// 			});
+// 		}
+		
+		/*寫入表單內容*/
 		function writeHtml(adoptLists){
 			let tempstr='<table class="table table-hover table-striped">'+
 						'	<thead class="thead-light">'+
@@ -189,13 +330,114 @@
 						 '		<td>'+adoptList.member.memberId+'</td>'+
 						 '		<td>'+adoptList.member.name+'</td>'+
 						 '		<td>'+adoptList.adoptListStatus.description+'</td>'+
-						 '		<td><button type="button" class="btn btn-primary" onclick="deleteAdoptList(this)">刪除</button></td>'+
+						 '		<td><button type="button" class="btn btn-primary updateAdoptListBtn" data-toggle="modal" data-target="#setAdoptListStatusModalCenter">更新狀態</button></td>'+
 						 '	</tr>';						 
 			}
 			tempstr+='</tbody></table>';
 			$('.supportCatDetailContent').html(tempstr);
 		}
 		
+		
+		/*取得表格內容*/
+		$('body').on("click",".updateAdoptListBtn",function(){
+			
+			let tempstr = new Array();
+		    for (let i = 0; i < $(this).parent().parent().children().length; i++) {
+		        tempstr.push($(this).parent().parent().children()[i].innerText)        
+		    }
+		    $('#adoptListId').val(tempstr[0]);
+		    $('#adoptListVisitTime').val(tempstr[1]);
+		    $('#adoptListCatId').val(tempstr[2]);
+		    $('#adoptListMemberId').val(tempstr[4]);
+		    if(tempstr[6] == "取消"){
+		    	$('#adoptListStatusId1').prop("checked",true);
+		    }else if(tempstr[6] == "進行中"){
+		    	$('#adoptListStatusId2').prop("checked",true);
+		    }else{
+		    	$('#adoptListStatusId3').prop("checked",true);
+		    }
+		    
+		})
+		
+		/*更新貓狀態*/
+		$('#updateAdoptListSubmit').on("click",function(){
+			$.ajax({
+				type : "POST", //指定http參數傳輸格式為POST
+				url : "updateAdoptList", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+				data : $("#setAdoptListStatusForm").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
+				success : function(response) {
+					console.log(response);
+					selectAllAdoptListPage();
+				},
+				//Ajax失敗後要執行的function，此例為印出錯誤訊息
+				error : function(xhr, ajaxOptions, thrownError) {
+					console.log("更新狀態失敗!!!");
+				}
+			});
+			$('#setAdoptListStatusModalCenter').modal("hide");	
+		})
+		
+		
+		/*暫時存放區*/
+		/*搜尋全部表單內容(製作分頁按鈕)*/
+// 		function createPageBtn(){
+// 			let primaryBtn = '<button type="button" class="btn btn-primary" onclick="chooseBtnVal(this)">';
+// 			let secondaryBtn = '<button type="button" class="btn btn-secondary" onclick="chooseBtnVal(this)">';
+			
+// 			$.ajax({
+// 				type:"GET",
+// 				url: "selectAllAdoptList",
+// 				dataType: "json",
+// 				success: function(adoptLists){
+// 					console.log(currentPage);
+// 					let pagestr = "";
+// 					if(adoptLists.length/pageLimit > 10){
+// 						if(currentPage>6 && currentPage <= (adoptLists.length/pageLimit)-4){
+// 							console.log("btn2");
+// 							for(let i = currentPage-6 ; i < currentPage+4 ; i++){
+// 								if(i == currentPage-1){
+// 									pagestr+=primaryBtn+(i+1)+'</button>';		
+// 								}else{
+// 									pagestr+=secondaryBtn+(i+1)+'</button>';
+// 								}
+// 							}
+// 						}else if(currentPage > (adoptLists.length/pageLimit)-4){
+// 							console.log("btn3");
+// 							for(let i = ((adoptLists.length/pageLimit)-10) ; i < (adoptLists.length/pageLimit) ; i++){
+// 								if(i == currentPage-1){
+// 									pagestr+=primaryBtn+(i+1)+'</button>';		
+// 								}else{
+// 									pagestr+=secondaryBtn+(i+1)+'</button>';
+// 								}
+// 							}
+// 						}else{
+// 							console.log("btn1");
+// 							for(let i = 0 ; i < 10 ; i++){
+// 								if(i == currentPage-1){
+// 									pagestr+=primaryBtn+(i+1)+'</button>';		
+// 								}else{
+// 									pagestr+=secondaryBtn+(i+1)+'</button>';
+// 								}
+// 							}
+// 						}
+// 					}else{
+// 						console.log("btn0");
+// 						for(let i = 0 ; i < adoptLists.length/pageLimit ; i++){
+// 							if(i == currentPage-1){
+// 								pagestr+=primaryBtn+(i+1)+'</button>';		
+// 							}else{
+// 								pagestr+=secondaryBtn+(i+1)+'</button>';
+// 							}
+// 						}
+// 					}
+					
+// 					$('.pageGroup').html(pagestr);
+// 				},
+// 				error:function(xhr, ajaxOptions, thrownError){
+// 					alert(xhr.status+"\n"+thrownError);
+// 				}	
+// 			});	
+// 		}
 	</script>
 </body>
 </html>

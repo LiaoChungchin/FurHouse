@@ -1,5 +1,6 @@
 package org.iiiEDU.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -16,6 +17,13 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 	@Qualifier("sessionFactory")
 	SessionFactory sessionFactory;
 
+	private Integer adoptListTotal;
+	
+	@Override
+	public Integer getAdoptListTotal() {
+		return adoptListTotal;
+	}
+	
 	@Override
 	public Integer insertAdoptList(AdoptList adoptList) {
 
@@ -80,6 +88,24 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 
 		return adoptLists;
 	}
+	
+	@Override
+	public List<AdoptList> selectAllAdoptListPage(Integer pageLimit,Integer currentPage){
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "from AdoptList";
+
+		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
+
+		adoptListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
+		
+		List<AdoptList> adoptLists = query.list();
+
+		return adoptLists;
+	}
+
 
 	@Override
 	public AdoptList selectOneAdoptList(Integer id) {
@@ -92,6 +118,39 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public AdoptList selectOneAdoptList(Timestamp visitTime) {
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "from AdoptList where visitTime = :visitTime";
+
+		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
+		query.setParameter("visitTime", visitTime);
+		
+		List<AdoptList> adoptLists = query.getResultList();
+		
+		if(adoptLists.isEmpty()) {
+			return null;
+		}else {
+			AdoptList adoptList = adoptLists.get(0);
+			return adoptList;
+		}	
+	}
+	
+	@Override
+	public List<AdoptList> searchAllAdoptListVisitTime(String visitTime){
+		Session session = sessionFactory.getCurrentSession();
+
+		String sql = "select * from AdoptList where convert(nvarchar,visitTime,120) like :visitTime and fk_adoptListStatusId = 1" ;
+		
+		Query<AdoptList> query = session.createNativeQuery(sql, AdoptList.class);
+		query.setParameter("visitTime", "%"+visitTime+"%");
+		
+		List<AdoptList> adoptLists = query.getResultList();
+		
+		return adoptLists;
+	}
 
 	@Override
 	public List<AdoptList> searchAllAdoptListStatus(String adoptListStatus) {
@@ -99,7 +158,7 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 	}
 
 	@Override
-	public List<AdoptList> searchAllAdoptListCatId(Integer catId) {
+	public List<AdoptList> searchAllAdoptListCatId(Integer catId,Integer pageLimit,Integer currentPage) {
 		Session session = sessionFactory.getCurrentSession();
 
 		String hql = "from AdoptList as a where a.cat.id = :catId";
@@ -107,13 +166,17 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
 		query.setParameter("catId", catId);
 		
+		adoptListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
+		
 		List<AdoptList> adoptLists = query.getResultList();
 		
 		return adoptLists;
 	}
 	
 	@Override
-	public List<AdoptList> searchAllAdoptListCatNickname(String catNickname) {
+	public List<AdoptList> searchAllAdoptListCatNickname(String catNickname,Integer pageLimit,Integer currentPage) {
 		Session session = sessionFactory.getCurrentSession();
 
 		String hql = "from AdoptList as a where a.cat.nickname like :catNickname";
@@ -121,13 +184,17 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
 		query.setParameter("catNickname", "%"+catNickname+"%");
 		
+		adoptListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
+		
 		List<AdoptList> adoptLists = query.getResultList();
 		
 		return adoptLists;
 	}
 
 	@Override
-	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId) {
+	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId,Integer pageLimit,Integer currentPage) {
 		Session session = sessionFactory.getCurrentSession();
 
 		String hql = "from AdoptList where fk_memberId = :memberId";
@@ -135,13 +202,17 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
 		query.setParameter("memberId", memberId);
 		
+		adoptListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
+		
 		List<AdoptList> adoptLists = query.getResultList();
 		
 		return adoptLists;
 	}
 
 	@Override
-	public List<AdoptList> searchAllAdoptListMemberName(String memberName) {
+	public List<AdoptList> searchAllAdoptListMemberName(String memberName,Integer pageLimit,Integer currentPage) {
 		
 		Session session = sessionFactory.getCurrentSession();
 
@@ -150,9 +221,15 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
 		query.setParameter("memberName", "%"+memberName+"%");
 		
-		List<AdoptList> adoptLists = query.getResultList();
+		adoptListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
+		
+		List<AdoptList> adoptLists = query.list();
 		
 		return adoptLists;
 	}
+
+	
 	
 }
