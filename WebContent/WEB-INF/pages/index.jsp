@@ -115,7 +115,7 @@
 						<h1 class="ml9">
 						  <span class="text-wrapper">
 						    <span class="letters">盼天下無浪貓，浪貓有家圖溫飽：貓飽
-						    					      離不開的寶貝，你我是牠眼中的：貓寶</span>
+						    					      離不開的寶貝，你我是牠眼中寶：貓寶</span>
 						  </span>
 						</h1>
 					</div>
@@ -128,7 +128,7 @@
 							<div class="row">		
 								<div class="text-center col-lg-3 offset-lg-2">
 									<img class="rounded rounded-circle mb-1"
-										src="assets/img/image140x140.jpg">
+										src="assets/img/team/IMG_0919.jpeg" width="160" height="160">
 									<h2 class="text-center">
 										<span class="badge badge-pill badge-secondary">組長</span>
 										廖崇欽
@@ -138,7 +138,7 @@
 								</div>
 								<div class="text-center col-lg-3 offset-lg-2">
 									<img class="rounded rounded-circle mb-1"
-										src="assets/img/image140x140.jpg">
+										src="assets/img/team/IMG_0797.jpeg" width="160" height="160">
 									<h2 class="text-center">
 										<span class="badge badge-pill badge-secondary">副組長</span>
 										鄭弘翔
@@ -150,21 +150,21 @@
 							<div class="row">		
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
-										src="assets/img/image140x140.jpg">
+										src="assets/img/team/IMG_0918.jpeg" width="160" height="160">
 									<h2 class="text-center">林純歆</h2>
 									<p class="text-justify text-center">學歷：<br>中國文化大學 機械工程學系 學士</p>
 									<p class="text-justify text-center">項目：<br>前端網頁建構，商品訂單系統的開發與維護</p>
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
-										src="assets/img/image140x140.jpg">
+										src="assets/img/team/IMG_0799.jpeg" width="160" height="160">
 									<h2 class="text-center">羅振旂</h2>
 									<p class="text-justify text-center">學歷：<br>真理大學 法律系 學士</p><br>
 									<p class="text-justify text-center">項目：<br>後台框架設置，流浪貓名冊管理系統的開發與維護</p>
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
-										src="assets/img/image140x140.jpg">
+										src="assets/img/team/IMG_0800.jpeg" width="160" height="160">
 									<h2 class="text-center">陳皓</h2>
 									<p class="text-justify text-center">學歷：<br>真理大學 法律系 學士</p><br>
 									<p class="text-justify text-center">項目：<br>後台框架設置，會員管理系統的開發與維護</p>
