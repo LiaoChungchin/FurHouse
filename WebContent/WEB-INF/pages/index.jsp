@@ -170,7 +170,7 @@
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
-										src="assets/img/image140x140.jpg">
+										src="assets/img/team/IMG_0920.jpeg" width="160" height="160">
 									<h2 class="text-center">李政瑩</h2>
 									<p class="text-justify text-center">學歷：<br>淡江大學 化學系 學士</p><br>
 									<p class="text-justify text-center">項目：<br>前端網頁建構，商品管理系統的開發與維護</p>
