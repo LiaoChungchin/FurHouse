@@ -25,7 +25,7 @@
  		  font-size: 1.25rem;
  		  display: flex;
  		  justify-content: center;
- 		  align-items: center;
+  		  align-items: center;
 		}
 		.bg1 {
 			background: url("assets/img/background/bg5.jpg") no-repeat;
@@ -79,7 +79,6 @@
 		  display: inline-block;
 		  line-height: 1em;
 		}
-		
 	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -179,7 +178,16 @@
 							</div>
 						</div>
 				</div>
-				<div class="parallax bg3">學習藍圖</div>
+				<div class="parallax bg3">
+					<div class="container marketing">
+						<div class="text-center">
+							<p>學習藍圖</p>
+						</div>
+						<div class="text-center">
+							<img alt="" src="assets/img/eeit-092101.png" height="640px">
+						</div>
+					</div>
+				</div>
 				<div class="parallax bg4">使用技術</div>
 			</div>
 		</div>
