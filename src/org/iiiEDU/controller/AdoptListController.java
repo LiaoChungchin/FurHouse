@@ -220,7 +220,7 @@ public class AdoptListController {
 	@ResponseBody
 	public String sendEmail(@PathVariable("memberName") String memberName,@PathVariable("memberMail") String memberMail){
 		
-		String subject = "建立內含附件、圖文並茂的郵件!";
+		String subject = "CatBow給您的領養相關資料";
 		
 		String htmlcontent = "<h3>" + memberName + " 會員你好</h3></br>" +
 				"<div>&emsp;&emsp;謝謝你領養這古錐的小貓咪，領養流程如下:<br>" +
@@ -230,7 +230,7 @@ public class AdoptListController {
 				"<br>" +
 				"</div>最後，此文件附上領養動物的申請書</div>"; 
 
-		String imagePath = "/assets/img/Catbow.png";
+		String imagePath = "/Catbow.png";
 		
 		boolean b = mailUtils.sendMail(memberMail,subject,htmlcontent,imagePath);
 		

@@ -257,7 +257,7 @@
 						+ '		<td><button type="button" class="btn btn-secondary updateAdoptListBtn" data-toggle="modal" data-target="#updateAdoptListModalCenter">取消</button>';
 						if(adoptList.adoptListStatus.id == 2){
 							tempstr	+= '<button type="button" class="btn btn-success confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>'
-									+'  <img src="<c:url value="/assets/img/loading.gif" />" width="30px" id="loadingGIF" style="display:none">';
+									+'  <img src="<c:url value="/assets/img/AdoptListLoading.gif" />" width="30px" id="loadingGIF" style="display:none">';
 						}else{
 							tempstr	+= '	<button type="button" style="visibility: hidden;" class="btn btn-success">確認領養</button>';
 						}					
