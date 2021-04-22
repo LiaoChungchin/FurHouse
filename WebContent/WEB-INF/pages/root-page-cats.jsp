@@ -116,7 +116,7 @@
 											role="document">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title" id="InsertCatModalCenterTitle">新增資料</h5>
+													<h5 class="modal-title" id="InsertCatModalCenterTitle" onclick="Newdata()">新增資料</h5>
 													<button type="button" class="close" data-dismiss="modal"
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
@@ -234,8 +234,8 @@
 															<label for="InsertCatcreateDate"
 																class="col-sm-2 col-form-label">接養日期</label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control"
-																	id="InsertCatcreateDate"
+																<input type="text" class="form-control "
+																	id="InsertCatcreateDate" maxlength="19"
 																	placeholder="yyyy-mm-dd HH:mm:ss" name="createDate">
 																<small id="createDateHelp" class="form-text text-muted"></small>
 															</div>
@@ -306,12 +306,12 @@
 														</div>
 													
 														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary"
-																data-dismiss="modal">取消</button>
-															<button type="button" class="btn btn-primary"
-																id="InsertCatReset">重置</button>
-															<button type="button" class="btn btn-primary"
-																id="InsertCatSubmit">新增</button>
+															<button type="button" class="btn btn-secondary   "
+																data-dismiss="modal">取消</button>&nbsp;
+															<button type="button" class="btn btn-primary  "
+																id="InsertCatReset">重置</button>&nbsp;																
+															<button type="button" class="btn btn-primary   "
+																id="InsertCatSubmit" disabled>新增</button>&nbsp;
 														</div>
 														<small id="submitHelp" class="form-text text-muted"></small>
 													</form>
@@ -805,6 +805,9 @@
 			$(".InsertCatfilepreview1").removeAttr("style");
 			$(".InsertCatfile1After").removeAttr("style");
 	        flag4=true;
+	        if(flag1&&flag2&&flag3&&flag4==true){
+	        	$("#InsertCatSubmit").attr("disabled",false);      	
+	        }
 	  	})
 	   	$("#InsCatfile2").on("change", function() {
 	   		$(".InsertCatfilepreview2").removeAttr("style");
@@ -834,7 +837,8 @@
 		   	$("#spantext2").text("");
 			$("#img2").attr('src',"");
 			$("#size2").text("");
-	       	
+			$("#InsertCatSubmit").attr("disabled",true);
+			
 	       	document.getElementById("InsertCatForm").reset();
 		})
 	
@@ -842,14 +846,20 @@
 	    	let nameval = namein.value;
 	        let namech = /^[\u4E00-\u9FFFa-zA-Z\d]+$/;
 	        let namesp = document.getElementById("nameHelp")
-	        if(nameval==""){					
-	     	   namesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">名字不可空白</em>`;
+	        if(nameval==""){	
+	        	$("#InsertCatInputName").removeClass("is-valid");
+	        	$("#InsertCatInputName").addClass("is-invalid");
+	     	   namesp.innerHTML = `<em style="color:red">名字不可空白</em>`;
 	        }else{
 	        	if(namech.test(nameval)){
-	                namesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	        		$("#InsertCatInputName").removeClass("is-invalid");
+		        	$("#InsertCatInputName").addClass("is-valid");
+	                namesp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;
 	                flag1=true;
 	            }else{
-	            	namesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含特殊字元</em>`;
+	            	$("#InsertCatInputName").removeClass("is-valid");
+	            	$("#InsertCatInputName").addClass("is-invalid");
+	            	namesp.innerHTML = `<em style="color:red">不能包含特殊字元</em>`;
 	            }
 	        } 
 		}
@@ -859,13 +869,19 @@
 	        let typech = /^[\u4E00-\u9FFFa-zA-Z]+$/;
 	        let typesp = document.getElementById("typeHelp") 
 	        if(typeval==""){
-	            typesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">樣式不可空白</em>`;
+	        	$("#InsertCatInputType").removeClass("is-valid");
+	        	$("#InsertCatInputType").addClass("is-invalid");
+	            typesp.innerHTML = `<em style="color:red">樣式不可空白</em>`;
 	        }else{
 	            if(typech.test(typeval)){
-	                typesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	            	$("#InsertCatInputType").removeClass("is-invalid");
+		        	$("#InsertCatInputType").addClass("is-valid");
+	                typesp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;
 	                flag2=true;
 	            }else{
-	                typesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含數字、特殊字元</em>`;
+	            	$("#InsertCatInputType").removeClass("is-valid");
+	            	$("#InsertCatInputType").addClass("is-invalid");
+	                typesp.innerHTML = `<em style="color:red">不能包含數字、特殊字元</em>`;
 	            }
 	        } 
 	    }
@@ -876,21 +892,31 @@
 	        let dateymd = datearr[0].split("-");
 	        let dateHms = datearr[1].split(":");
 	        if(dateval!=""){
-		        if(dateval.length!=19 || datearr.length!=2){
-	    	        datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期格式不正確喔</em>`;
+		        if(dateval.length!=19 || datearr.length!=2 || dateval.length==0 ){
+		        	$("#InsertCatcreateDate").removeClass("is-valid");
+		        	$("#InsertCatcreateDate").addClass("is-invalid");
+	    	        datesp.innerHTML = `<em style="color:red">日期格式不正確喔</em>`;
 	            } else {
 	        	    let d = new Date(dateymd[0],dateymd[1]-1,dateymd[2]);         
-	                if(dateymd[0]!=d.getFullYear() || dateymd[1]-1!=d.getMonth() || dateymd[2]!=d.getDate()){
-	                    datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期不正確</em>`;
+	                if(dateymd[0]!=d.getFullYear() || dateymd[1]-1!=d.getMonth() || dateymd[2]!=d.getDate()){	                	
+	                	$("#InsertCatcreateDate").removeClass("is-valid");
+	                	$("#InsertCatcreateDate").addClass("is-invalid");
+	                    datesp.innerHTML = `<em style="color:red">日期不正確</em>`;
 	                }else if(dateHms[0]>=0 && dateHms[0]<24 && dateHms[1]>=0 && dateHms[1]<60 && dateHms[2]>=0 && dateHms[2]<60){
-	                    datesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	                	$("#InsertCatcreateDate").removeClass("is-invalid");
+			        	$("#InsertCatcreateDate").addClass("is-valid");
+	                    datesp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;
 	                    flag3=true;
 	                }else{
-	                    datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">時間不正確</em>`;
+	                	$("#InsertCatcreateDate").removeClass("is-valid");
+	                	$("#InsertCatcreateDate").addClass("is-invalid");
+	                    datesp.innerHTML = `<em style="color:red">時間不正確</em>`;
 	                }
 	            }
 	        }else{
-	            datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">接養日期不可空白</em>`;
+	        	$("#InsertCatcreateDate").removeClass("is-valid");
+	        	$("#InsertCatcreateDate").addClass("is-invalid");
+	            datesp.innerHTML = `<em style="color:red">接養日期不可空白</em>`;
 	        }
 	    }
 	    
@@ -927,13 +953,17 @@
 	        let namech = /^[\u4E00-\u9FFFa-zA-Z\d]+$/;
 	        let namesp = document.getElementById("SetnameHelp")
 	        if(nameval==""){
-	            namesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">名字不可空白</em>`;
+	        	$("#SetCatInputName").addClass("is-invalid");
+	            namesp.innerHTML = `<em style="color:red">名字不可空白</em>`;
 	        }else{
 	            if(namech.test(nameval)){
-	                namesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	            	$("#SetCatInputName").removeClass("is-invalid");
+		        	$("#SetCatInputName").addClass("is-valid");
+	                namesp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;
 	                Setflag1=true;
 	            } else {
-	                namesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含特殊字元</em>`;
+		        	$("#SetCatInputName").addClass("is-invalid");
+	                namesp.innerHTML = `<em style="color:red">不能包含特殊字元</em>`;
 	            }
 	        } 
 		}
@@ -944,13 +974,19 @@
 	        let typech = /^[\u4E00-\u9FFFa-zA-Z]+$/;
 	        let typesp = document.getElementById("SettypeHelp")
 	        if(typeval==""){
-	            typesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">樣式不可空白</em>`;
+            	$("#SetCatInputType").removeClass("is-valid");
+	        	 $("#SetCatInputType").addClass("is-invalid");
+	            typesp.innerHTML = `<em style="color:red">樣式不可空白</em>`;
 	        }else{
 	            if(typech.test(typeval)){
-	                typesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	            	$("#SetCatInputType").removeClass("is-invalid");
+		        	$("#SetCatInputType").addClass("is-valid");
+	                typesp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;
 	                Setflag2=true;
 	            } else {
-	                typesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">不能包含數字、特殊字元</em>`;
+	            	$("#SetCatInputType").removeClass("is-valid");
+	            	$("#SetCatInputType").addClass("is-invalid");
+	                typesp.innerHTML = `<em style="color:red">不能包含數字、特殊字元</em>`;
 	            }
 	        } 
 	    }
@@ -965,20 +1001,30 @@
 	
 	        if(dateval!=""){
 	            if(dateval.length!=19 || datearr.length!=2){
-	                datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期格式不正確喔</em>`;
+	            	$("#SetCatcreateDate").removeClass("is-valid");
+		        	$("#SetCatcreateDate").addClass("is-invalid");
+	                datesp.innerHTML = `<em style="color:red">日期格式不正確喔</em>`;
 	            }else{
 		            let d = new Date(dateymd[0],dateymd[1]-1,dateymd[2]);          
 	                if(dateymd[0]!=d.getFullYear() || dateymd[1]-1!=d.getMonth() || dateymd[2]!=d.getDate()){
-	                    datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">日期不正確</em>`;
+	                	$("#SetCatcreateDate").removeClass("is-valid");
+	                	$("#SetCatcreateDate").addClass("is-invalid");
+	                    datesp.innerHTML = `<em style="color:red">日期不正確</em>`;
 	                }else if(dateHms[0]>=0 && dateHms[0]<24 && dateHms[1]>=0 && dateHms[1]<60 && dateHms[2]>=0 && dateHms[2]<60){
-	                    datesp.innerHTML = `<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`;
+	                	$("#SetCatcreateDate").removeClass("is-invalid");
+			        	$("#SetCatcreateDate").addClass("is-valid");
+	                    datesp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;
 	                    Setflag3=true;
 	                }else{
-	                    datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">時間不正確</em>`;
+	                	$("#SetCatcreateDate").removeClass("is-valid");
+	                	$("#SetCatcreateDate").addClass("is-invalid");
+	                    datesp.innerHTML = `<em style="color:red">時間不正確</em>`;
 	                }
 	            }
 	        } else {
-	            datesp.innerHTML = `<img src="assets/img/prompt/NO.png" style="width:12px; padding-bottom:3px;"><em style="color:red">接養日期不可空白</em>`;
+	        	$("#SetCatcreateDate").removeClass("is-valid");
+	        	$("#SetCatcreateDate").addClass("is-invalid");
+	            datesp.innerHTML = `<em style="color:red">接養日期不可空白</em>`;
 	    	}
 		}
 	    
@@ -1092,6 +1138,29 @@
 		    }
 		    return size;
 		}
+		
+		 /*-------------------------一鍵新增input------------------------------*/ 
+	    function Newdata(){
+	    	console.log("123");	    	
+	        $("#InsertCatInputName").val("灰咪");
+// 	        -----------------------驗證----------------------------
+           $("#nameHelp").html(`<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`);
+	        
+	        $("#InsertCatInputType").val("花貓");
+	        $("#InsertCatgender2").prop("checked",true);
+	        $("#InsertCatisLigation2").prop("checked",true);
+	        $("#InsertCatisVaccination1").prop("checked",true);
+	        $("#InsertCatadoptStatus1").prop("checked",true);
+	        $("#InsertCatcreateDate").val("2021-05-14 10:10:00");
+	        $("#InsertCatcomment1").val("贊助灰咪");
+	        $("#InsertCatcomment2").val("常常端著高冷表情的灰咪，其實才六個月大有著淡淡的灰色毛髮加上臉蛋清秀是個非常漂亮的小美女");
+	        
+	       
+	        
+	 
+		
+	    }
+		
     </script>
 		
 </body>

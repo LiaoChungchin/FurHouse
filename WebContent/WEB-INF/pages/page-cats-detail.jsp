@@ -21,15 +21,15 @@
 	
 	<style>
 		.supportCatDetail {
-			height: 768px;
+			height: 868px;
 			width: 100%;
 		}
 		
 		.pcpLeading {
-			min-height: 300px;
+			min-height: 400px;
 			overflow: hidden;
 			background-repeat: no-repeat;
-			background-position: 50% 50%;
+			background-position: 50% 23%;
 			background-size: cover;
 		}
 		
@@ -56,11 +56,14 @@
 			border-radius: 30%;
 			overflow: hidden;
 			float: left;
+		
 		}
 		
 		.supportCatDatailInfo-img img{
-			width: 300px;
-			height: auto;
+			width: 280px;
+			height: 200px;
+			margin-left: -40px;
+	        margin-top: 0px;
 		}
 		
 		
@@ -200,7 +203,7 @@
 											<!-- 領養Dialog End-->
 										
 											<div class="pcpLeading"
-												style="background-image: url('catImageToByte?path=${cat.photo1}')"
+												style="background-image: url('catImageToByte?path=${cat.photo2}')"
 												id="supportCatDetailShow"></div>
 			
 											<div class="supportCatDatailTitle">

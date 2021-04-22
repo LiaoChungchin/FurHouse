@@ -25,6 +25,90 @@
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
+	
+	<style>
+body {
+	padding: 0px;
+}
+
+.SupportCatItem {
+	float: left;
+	width: calc(95%/ 3);
+ 	height: 100%; 
+	position: relative;
+	margin: 5px 5px;
+}
+
+.SupportCatItem>a {
+	position: absolute;
+	display: block;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	background-image: linear-gradient(-180deg, rgba(0, 0, 0, 0.00) 50%,
+		rgba(0, 0, 0, 0.85) 100%);
+	border-radius: 10PX;
+}
+
+.SupportCatItem .info {
+	position: absolute;
+	bottom: 0;
+	padding: 10px 5px;
+	color: rgba(250, 250, 250, 0.8);
+	width: 100%;
+}
+
+.SupportCatItem .name {
+	color: #fff;
+	font-weight: bold;
+	font-size: 26px;
+}
+
+.SupportCatItem .description {
+	width: 70%;
+}
+
+.SupportCatItem .link {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	float: right;
+}
+
+.SupportCatItem img {
+	width: 100%;
+	height: 100%;
+	max-height: 350px;
+	min-height: 350px;
+	border-radius: 10PX;
+}
+
+.receive {
+	position: absolute;
+	/*  		width:calc(100%- 30px);  */
+	top: 0px;
+	left: 0px;
+	width: 350px;
+	height: 350px;
+}
+
+.SupportCatItem:hover {
+	border-radius: 10PX;
+/*  	border: 3px solid rgba(108, 137, 175, 100);  */
+	box-shadow: 5px 5px rgba(52, 105, 157, 1);
+}
+
+/*	.SupportCatItem:active { 
+ 		 	border: 2px solid red; 
+ 		border-radius: 5PX; 
+  		border: 3px solid rgba(255, 170, 127,100);  
+ 		box-shadow: 0 10px 0px 0 rgba(255, 170, 127, 0.2), 0 10px 0px 0  
+  			rgba(255, 255, 127, 0.2);  
+  		
+ 	} */
+</style>
+	
+	
 	<script>
 		$(function() {
 			$("div#menu-detail").show();
@@ -69,7 +153,14 @@
 										<a href="supportOneCat?supportCatId=${cat.id}"></a>
 										<div class="SupportCat photo">
 											<a href="supportOneCat?supportCatId=${cat.id}"><img
-												src="catImageToByte?path=${cat.photo1}" alt="" /></a>
+												src="catImageToByte?path=${cat.photo1}" alt="" /></a> <a
+												href="supportOneCat?supportCatId=${cat.id}"> <c:if
+													test="${cat.adoptStatus.id==3}">
+													<img src="assets/img/receive.png" class="receive" alt="...">
+												</c:if> <c:if test="${cat.adoptStatus.id==4}">
+													<img src="assets/img/dead.png" class="receive" alt="...">
+												</c:if>
+											</a>
 										</div>
 										<div class="SupportCat info">
 											<h2 class="SupportCat name">${cat.nickname}</h2>
