@@ -17,12 +17,76 @@
 	<!-- User Define CSS -->
 	<link href="assets/css/index.css" rel="stylesheet">
 	<link href="assets/css/component-shopping.css" rel="stylesheet">
+	<style>
+		.parallax {
+/*  		  width: 100vw; */
+ 		  height: 100vh;
+ 		  font-weight: bold;
+ 		  font-size: 1.25rem;
+ 		  display: flex;
+ 		  justify-content: center;
+  		  align-items: center;
+		}
+		.bg1 {
+			background: url("assets/img/background/bg5.jpg") no-repeat;
+			background-size: cover;
+			background-attachment: fixed;
+			text-shadow: white 0.1em 0.1em 0.2em;
+		}
+		.bg2 {
+			background: url("assets/img/background/bg1.jpg") no-repeat;
+			background-size: cover;
+			background-attachment: fixed;
+			text-shadow: white 0.1em 0.1em 0.2em;
+		}
+		.bg3 {
+			background: url("assets/img/background/bg3.jpg") no-repeat;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.bg4 {
+			background: url("assets/img/background/bg4.jpg") no-repeat;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+		.parallax .container {
+			padding-left: 0%;
+			padding-right: 0%;
+			margin-left: 0%;
+			margin-right: 0%;
+		}
+		.parallax .badge {
+			font-size: 1.25rem;
+			text-shadow: white 0em 0em 0em;
+		}
+		.ml9 {
+		  position: relative;
+		  font-weight: 700;
+		  font-size: 2em;
+		  width: 700px;
+		  margin-left: 40%;
+		}
+		.ml9 .text-wrapper {
+		  position: relative;
+		  display: inline-block;
+		  padding-top: 0.2em;
+		  padding-right: 0.05em;
+		  padding-bottom: 0.1em;
+		  overflow: hidden;
+		}
+		.ml9 .letter {
+		  transform-origin: 50% 100%;
+		  display: inline-block;
+		  line-height: 1em;
+		}
+	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/anime.min.js"></script>
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
 	
@@ -44,169 +108,87 @@
 			<div class="col-lg-2" id="menu-detail"
 				w3-include-html="<c:url value='/addFrame.controller/aside'/>"></div>
 			<div class="col-lg-10" id="div-v-pills">
-				<div id="index-home-Carousel" class="carousel slide mb-lg-5"
-					data-ride="carousel">
-					<ol class="carousel-indicators">
-						<li data-target="#index-home-Carousel" data-slide-to="0"
-							class="active"></li>
-						<li data-target="#index-home-Carousel" data-slide-to="1"></li>
-						<li data-target="#index-home-Carousel" data-slide-to="2"></li>
-					</ol>
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img class="d-block w-100" src="assets/img/image1300x300.jpg">
-							<div class="container">
-								<div class="carousel-caption text-left">
-									<h1>Example headline.</h1>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-										Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-										id nibh ultricies vehicula ut id elit.</p>
-									<p>
-										<a class="btn btn-lg btn-primary" href="#" role="button">Sign
-											up today</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="assets/img/image1300x300.jpg">
-							<div class="container">
-								<div class="carousel-caption">
-									<h1>Another example headline.</h1>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-										Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-										id nibh ultricies vehicula ut id elit.</p>
-									<p>
-										<a class="btn btn-lg btn-primary" href="#" role="button">Learn
-											more</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="assets/img/image1300x300.jpg">
-							<div class="container">
-								<div class="carousel-caption text-right">
-									<h1>One more for good measure.</h1>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-										Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-										id nibh ultricies vehicula ut id elit.</p>
-									<p>
-										<a class="btn btn-lg btn-primary" href="#" role="button">Browse
-											gallery</a>
-									</p>
-								</div>
-							</div>
-						</div>
+			
+				<div class="parallax bg1">
+					<div class="container">
+						<h1 class="ml9">
+						  <span class="text-wrapper">
+						    <span class="letters">盼天下無浪貓，浪貓有家圖溫飽：貓飽
+						    					      離不開的寶貝，你我是牠眼中寶：貓寶</span>
+						  </span>
+						</h1>
 					</div>
-					<a class="carousel-control-prev" href="#index-home-Carousel"
-						role="button" data-slide="prev"> <span
-						class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-						class="sr-only">Previous</span>
-					</a> <a class="carousel-control-next" href="#index-home-Carousel"
-						role="button" data-slide="next"> <span
-						class="carousel-control-next-icon" aria-hidden="true"></span> <span
-						class="sr-only">Next</span>
-					</a>
 				</div>
-				<div class="container marketing">
-					<!-- Three columns of text below the carousel -->
-					<div class="row">
-						<div class="text-center col-lg-4">
-							<img class="rounded rounded-circle mb-1"
-								src="assets/img/image140x140.jpg">
-							<h2 class="text-center">Heading</h2>
-							<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis
-								euismod. Nullam id dolor id nibh ultricies vehicula ut id elit.
-								Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-								Praesent commodo cursus magna.</p>
-							<p>
-								<a class="btn btn-secondary" href="#" role="button">View details
-									&raquo;</a>
-							</p>
+				<div class="parallax bg2">
+						<div class="container marketing">
+							<div class="text-center my-lg-3">
+								<h1>我們團隊</h1>
+							</div>
+							<div class="row">		
+								<div class="text-center col-lg-3 offset-lg-2">
+									<img class="rounded rounded-circle mb-1"
+										src="assets/img/team/IMG_0919.jpeg" width="160" height="160">
+									<h2 class="text-center">
+										<span class="badge badge-pill badge-secondary">組長</span>
+										廖崇欽
+									</h2>
+									<p class="text-justify text-center">學歷：<br>成功大學 機械工程學系 碩士</p><br>
+									<p class="text-justify text-center">項目：<br>整合專案與專案版本控制，客服系統開發與維護</p>
+								</div>
+								<div class="text-center col-lg-3 offset-lg-2">
+									<img class="rounded rounded-circle mb-1"
+										src="assets/img/team/IMG_0797.jpeg" width="160" height="160">
+									<h2 class="text-center">
+										<span class="badge badge-pill badge-secondary">副組長</span>
+										鄭弘翔
+									</h2>
+									<p class="text-justify text-center">學歷：<br>南臺科技大學 多媒體與電腦娛樂科學系 學士</p>
+									<p class="text-justify text-center">項目：<br>資料庫系統建置，流浪貓預約看貓系統的開發與維護</p>
+								</div>
+							</div>
+							<div class="row">		
+								<div class="text-center col-lg-3">
+									<img class="rounded rounded-circle mb-1"
+										src="assets/img/team/IMG_0918.jpeg" width="160" height="160">
+									<h2 class="text-center">林純歆</h2>
+									<p class="text-justify text-center">學歷：<br>中國文化大學 機械工程學系 學士</p>
+									<p class="text-justify text-center">項目：<br>前端網頁建構，商品訂單系統的開發與維護</p>
+								</div>
+								<div class="text-center col-lg-3">
+									<img class="rounded rounded-circle mb-1"
+										src="assets/img/team/IMG_0799.jpeg" width="160" height="160">
+									<h2 class="text-center">羅振旂</h2>
+									<p class="text-justify text-center">學歷：<br>真理大學 法律系 學士</p><br>
+									<p class="text-justify text-center">項目：<br>後台框架設置，流浪貓名冊管理系統的開發與維護</p>
+								</div>
+								<div class="text-center col-lg-3">
+									<img class="rounded rounded-circle mb-1"
+										src="assets/img/team/IMG_0800.jpeg" width="160" height="160">
+									<h2 class="text-center">陳皓</h2>
+									<p class="text-justify text-center">學歷：<br>真理大學 法律系 學士</p><br>
+									<p class="text-justify text-center">項目：<br>後台框架設置，會員管理系統的開發與維護</p>
+								</div>
+								<div class="text-center col-lg-3">
+									<img class="rounded rounded-circle mb-1"
+										src="assets/img/team/IMG_0920.jpeg" width="160" height="160">
+									<h2 class="text-center">李政瑩</h2>
+									<p class="text-justify text-center">學歷：<br>淡江大學 化學系 學士</p><br>
+									<p class="text-justify text-center">項目：<br>前端網頁建構，商品管理系統的開發與維護</p>
+								</div>
+							</div>
 						</div>
-						<!-- /.col-lg-4 -->
-						<div class="text-center col-lg-4">
-							<img class="rounded rounded-circle mb-1"
-								src="assets/img/image140x140.jpg">
-							<h2>Heading</h2>
-							<p>Duis mollis, est non commodo luctus, nisi erat porttitor
-								ligula, eget lacinia odio sem nec elit. Cras mattis consectetur
-								purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo,
-								tortor mauris condimentum nibh.</p>
-							<p>
-								<a class="btn btn-secondary" href="#" role="button">View details
-									&raquo;</a>
-							</p>
-						</div>
-						<!-- /.col-lg-4 -->
-						<div class="text-center col-lg-4">
-							<img class="rounded rounded-circle mb-1"
-								src="assets/img/image140x140.jpg">
-							<h2>Heading</h2>
-							<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-								egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-								Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-								nibh, ut fermentum massa justo sit amet risus.</p>
-							<p>
-								<a class="btn btn-secondary" href="#" role="button">View details
-									&raquo;</a>
-							</p>
-						</div>
-						<!-- /.col-lg-4 -->
-					</div>
-					<!-- /.row -->
-					<!-- START THE FEATURETTES -->
-					<hr class="">
-					<div class="row">
-						<div class="col-md-7">
-							<h2 class="">
-								First featurette heading. <span class="text-muted">It’ll blow
-									your mind.</span>
-							</h2>
-							<p class="lead">Donec ullamcorper nulla non metus auctor
-								fringilla. Vestibulum id ligula porta felis euismod semper. Praesent
-								commodo cursus magna, vel scelerisque nisl consectetur. Fusce
-								dapibus, tellus ac cursus commodo.</p>
-						</div>
-						<div class="col-md-5">
-							<img class="img-thumbnail" src="assets/img/image500x500.jpg">
-						</div>
-					</div>
-					<hr class="">
-					<div class="row">
-						<div class="col-md-7 order-md-2">
-							<h2 class="">
-								Oh yeah, it’s that good. <span class="text-muted">See for
-									yourself.</span>
-							</h2>
-							<p class="lead">Donec ullamcorper nulla non metus auctor
-								fringilla. Vestibulum id ligula porta felis euismod semper. Praesent
-								commodo cursus magna, vel scelerisque nisl consectetur. Fusce
-								dapibus, tellus ac cursus commodo.</p>
-						</div>
-						<div class="col-md-5 order-md-1">
-							<img class="img-thumbnail" src="assets/img/image500x500.jpg">
-						</div>
-					</div>
-					<hr class="">
-					<div class="row">
-						<div class="col-md-7">
-							<h2 class="">
-								And lastly, this one. <span class="text-muted">Checkmate.</span>
-							</h2>
-							<p class="lead">Donec ullamcorper nulla non metus auctor
-								fringilla. Vestibulum id ligula porta felis euismod semper. Praesent
-								commodo cursus magna, vel scelerisque nisl consectetur. Fusce
-								dapibus, tellus ac cursus commodo.</p>
-						</div>
-						<div class="col-md-5">
-							<img class="img-thumbnail" src="assets/img/image500x500.jpg">
-						</div>
-					</div>
-					<hr class="">
-					<!-- /END THE FEATURETTES -->
 				</div>
+				<div class="parallax bg3">
+					<div class="container marketing">
+						<div class="text-center">
+							<p>學習藍圖</p>
+						</div>
+						<div class="text-center">
+							<img alt="" src="assets/img/eeit-092101.png" height="640px">
+						</div>
+					</div>
+				</div>
+				<div class="parallax bg4">使用技術</div>
 			</div>
 		</div>
 	</div>
@@ -247,6 +229,36 @@
 			});
 		</script>
 	</c:if>
+	
+	<script>
+	// Wrap every letter in a span
+		var textWrapper = document.querySelector('.ml9 .letters');
+		textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+	
+// 		anime.timeline({loop: true})
+// 		  .add({
+// 		    targets: '.ml9 .letter',
+// 		    scale: [0, 1],
+// 		    duration: 1500,
+// 		    elasticity: 600,
+// 		    delay: (el, i) => 45 * (i+1)
+// 		  }).add({
+// 		    targets: '.ml9',
+// 		    opacity: 0,
+// 		    duration: 1000,
+// 		    easing: "easeOutExpo",
+// 		    delay: 1000
+// 		  });
+		
+		anime.timeline({loop: false})
+		  .add({
+		    targets: '.ml9 .letter',
+		    scale: [0, 1],
+		    duration: 1500,
+		    elasticity: 600,
+		    delay: (el, i) => 100 * (i+1)
+		  });
+	</script>
 	
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>
