@@ -48,7 +48,7 @@ public class OrdersController {
 	@Autowired
 	@Qualifier("memberDAOService")
 	private MemberDAOService memberDAOService;
-
+	
 	@GetMapping("/order.mainPage")
 	public String orderMainPage(Model model) {
 
@@ -58,6 +58,7 @@ public class OrdersController {
 
 		return "root-page-orders.jsp";
 	}
+	
 
 	@GetMapping(value = "/order.selectById/{id}", produces = { "application/json; charset=UTF-8" })
 	public @ResponseBody OrderList selectById(@PathVariable(required = true) Integer id) {
@@ -98,13 +99,14 @@ public class OrdersController {
 	public String orderInsert(
 			Model model,
 			@ModelAttribute("formOrderlist") OrderList orderList,
-			@RequestParam(name = "firstName", defaultValue = "null") String firstName,
-			@RequestParam(name = "lastName", defaultValue = "null") String lastName,
+			@RequestParam(name = "userName", defaultValue = "null") String userName,
 			@RequestParam(name = "email", defaultValue = "null") String email,
-			@RequestParam(name = "address2", defaultValue = "null") String address2,
-			@RequestParam(name = "state", defaultValue = "null") String state,
-			@RequestParam(name = "zip", defaultValue = "0") Integer zip,
+			@RequestParam(name = "county", defaultValue = "") String county,
+			@RequestParam(name = "district", defaultValue = "") String district,
+			@RequestParam(name = "zipcode", defaultValue = "") Integer zipcode,
+			@RequestParam(name = "comment",defaultValue = "null") String comment,
 			@RequestParam(name = "paymentMethod", defaultValue = "null") String paymentMethod,
+			@RequestParam(name = "ShippingType", defaultValue = "null") String ShippingType,
 			@RequestParam(name = "productsJson", defaultValue = "null") String productsJson) {
 		Member member = (Member)model.getAttribute("login_user");
 		if(member != null) {			
@@ -153,11 +155,18 @@ public class OrdersController {
 			orderList.setTotalPrice(totalPrice - 60); // discount included...
 			orderList.setPaymentType(paymentMethod);
 			orderList.setOrderStatus(orderStatusService.getStatusByCondition(0));
+//			orderList.setShippingType(ShippingType);
 			orderList.setShippingType("7-ELEVEN"); // shippingTypq now is fixed...
-			orderList.setContact(firstName + lastName);
-			orderList.setAddress(orderList.getAddress() + state + address2);
-			orderList.setComment("目前表單無備註資訊");
+			orderList.setContact(userName);
+			/*if(county==null&&district==null&&zipcode==null) {
+				orderList.setAddress(orderList.getAddress());
+			}else {
+				orderList.setAddress(county + district + zipcode + orderList.getAddress());
+			};*/
+			orderList.setAddress(county + district + zipcode + orderList.getAddress());
+			orderList.setComment(comment);
 		}
+		
 		if(orderListService.insertOne(orderList)) {
 			
 			return "page-payment-stage3.html";

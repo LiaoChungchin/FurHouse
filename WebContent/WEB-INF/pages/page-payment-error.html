@@ -14,6 +14,18 @@
         .container {
             max-width: 960px;
         }
+        
+        .success{
+			margin: 35px;
+			color: #000000;
+			font-size:28px;
+			font-weight:500;
+		}	
+		
+		#successImg{
+			margin-top: 10px;
+			border-radius:30%;
+		}
     </style>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="assets/js/w3.js"></script>
@@ -33,7 +45,10 @@
             <i class="bi bi-arrow-right-circle text-danger"></i>
             <span class="text-danger">訂購失敗</span>
         </h3>
-        <hr class="py-5"/>
+        <hr class="py-2"/>
+		<img id="successImg" src="assets/img/order-fail.jpg">
+        <div class="success">訂購失敗! 請重新購買，謝謝您!</div>
+		<hr>
         <a class="btn btn-secondary btn-lg" href="index" role="button">返回瀏覽首頁</a>
     </div>
     <footer class="pt-5 text-muted text-center text-small">

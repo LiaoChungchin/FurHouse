@@ -14,6 +14,18 @@
         .container {
             max-width: 960px;
         }
+        
+        .success{
+			margin: 35px;
+			color: #000000;
+			font-size:28px;
+			font-weight:500;
+		}	
+		
+		#successImg{
+			margin-top: 10px;
+			border-radius:30%;
+		}
     </style>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="assets/js/w3.js"></script>
@@ -27,13 +39,16 @@
 <body class="bg-light">
 <div class="container">
     <div class="py-5 text-center">
-        <h3><span>確認購買商品與運送</span>
+        <h3><span>確認購買清單</span>
             <i class="bi bi-arrow-right-circle"></i>
             <span>確認付款方式與地址</span>
             <i class="bi bi-arrow-right-circle text-success"></i>
             <span class="text-success">完成訂購</span>
         </h3>
-        <hr class="py-5"/>
+        <hr class="py-2"/>
+		<img id="successImg" src="assets/img/order/order-success.jpg">
+        <div class="success">訂單已成立! 感謝您的購買!</div>
+		<hr>
         <a class="btn btn-primary btn-lg" href="index" role="button">返回瀏覽首頁</a>
         <a class="btn btn-primary btn-lg" href="javascript:;" role="button">前往會員專區</a>
     </div>
