@@ -37,7 +37,7 @@ public class CatController {
 	@Autowired
 	@Qualifier("catServiceimpl")
 	private CatService catServiceimpl;
-		
+	
 	//首頁
 	@RequestMapping(path = "/root",method = {RequestMethod.GET,RequestMethod.POST})
 	public String indexPage() {		

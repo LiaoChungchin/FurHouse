@@ -2,8 +2,6 @@ package org.iiiEDU.model;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository("catimplDAO")
-@Transactional
 public class CatDAOimpl implements CatDAO {
 	@Autowired @Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;

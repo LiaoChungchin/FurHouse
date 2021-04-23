@@ -44,7 +44,7 @@ public class AdoptList implements Serializable{
 	 * 相當於表中的visitTime欄位
 	 */
 	@Column(name = "visitTime")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Taipei")
 	private Timestamp visitTime;
 	/**
 	 * 相當於表中的fk_catId欄位
