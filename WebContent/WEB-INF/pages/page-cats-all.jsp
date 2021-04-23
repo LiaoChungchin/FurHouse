@@ -98,6 +98,11 @@ body {
 	box-shadow: 5px 5px rgba(52, 105, 157, 1);
 }
 
+.dead{
+/* filter:sepia(1); */
+ filter:grayscale(1); 
+}
+
 /*	.SupportCatItem:active { 
  		 	border: 2px solid red; 
  		border-radius: 5PX; 
@@ -152,15 +157,34 @@ body {
 									<div class="SupportCatItem background">
 										<a href="supportOneCat?supportCatId=${cat.id}"></a>
 										<div class="SupportCat photo">
-											<a href="supportOneCat?supportCatId=${cat.id}"><img
-												src="catImageToByte?path=${cat.photo1}" alt="" /></a> <a
-												href="supportOneCat?supportCatId=${cat.id}"> <c:if
-													test="${cat.adoptStatus.id==3}">
-													<img src="assets/img/receive.png" class="receive" alt="...">
-												</c:if> <c:if test="${cat.adoptStatus.id==4}">
-													<img src="assets/img/dead.png" class="receive" alt="...">
-												</c:if>
-											</a>
+										<c:choose>
+										<c:when test="${cat.adoptStatus.id<3}">
+										<a href="supportOneCat?supportCatId=${cat.id}"><img
+												src="catImageToByte?path=${cat.photo1}" alt="" /></a> 
+										</c:when>
+										
+										<c:when test="${cat.adoptStatus.id==3}">
+										<a href="supportOneCat?supportCatId=${cat.id}"><img
+												src="catImageToByte?path=${cat.photo1}" alt="" /></a> 
+										<a href="supportOneCat?supportCatId=${cat.id}"><img 
+										src="assets/img/receive.png" class="receive" alt="..."></a>
+										</c:when>
+										<c:when test="${cat.adoptStatus.id==4}">
+										<a href="supportOneCat?supportCatId=${cat.id}"><img
+												src="catImageToByte?path=${cat.photo1}" alt="" class="dead" /></a>
+												<a href="supportOneCat?supportCatId=${cat.id}"><img 
+												src="assets/img/ribbon.png" class="receive" alt="..."></a>
+										</c:when>
+									
+										</c:choose>
+											
+<%-- 												<a href="supportOneCat?supportCatId=${cat.id}"> <c:if --%>
+<%-- 													test="${cat.adoptStatus.id==3}"> --%>
+<!-- 													<img src="assets/img/receive.png" class="receive" alt="..."> -->
+<%-- 												</c:if> <c:if test="${cat.adoptStatus.id==4}"> --%>
+<!-- 													<img src="assets/img/dead.png" class="receive" alt="..."> -->
+<%-- 												</c:if> --%>
+<!-- 											</a> -->
 										</div>
 										<div class="SupportCat info">
 											<h2 class="SupportCat name">${cat.nickname}</h2>

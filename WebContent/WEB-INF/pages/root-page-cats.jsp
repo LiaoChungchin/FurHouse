@@ -265,7 +265,7 @@
 																class="col-sm-2 col-form-label">照片1</label>
 															<div class="col-sm-4">
 																<label class="btn btn-primary">
-																	<input type="file" class="form-control-file uploadImage"
+																	<input type="file" accept="image/*" class="form-control-file uploadImage"
 																		id="InsCatfile1" name="file1" style="display:none;"></input>
 																	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳													
 																</label>
@@ -276,7 +276,7 @@
 																	class="col-sm-2 col-form-label InsertCatfile1After" style="display: none;">照片2</label>
 															<div class="col-sm-4">																
 																<label class="btn btn-primary InsertCatfile1After" style="display: none;">
-																	<input type="file" class="form-control-file uploadImage"
+																	<input type="file" accept="image/*" class="form-control-file uploadImage"
 																		id="InsCatfile2" name="file2" style="display:none;"></input>
 																	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳													
 																</label>
@@ -458,7 +458,7 @@
 								                            <label for="SetCatfile3" class="col-sm-2 col-form-label">圖片1</label>
 								                            <div class="col-sm-3">
 								                            	<label class="btn btn-primary">
-									                                <input type="file" class="form-control-file uploadImage"
+									                                <input type="file" accept="image/*" class="form-control-file uploadImage"
 									                                    id="SetCatfile3" name="file1" style="display:none;">
 									                           		<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
 									                            </label>
@@ -472,7 +472,7 @@
 								                            <label for="SetCatfile4" class="col-sm-2 col-form-label">圖片2</label>
 								                            <div class="col-sm-3">
 								                           		<label class="btn btn-primary">
-									                                <input type="file" class="form-control-file uploadImage"
+									                                <input type="file" accept="image/*" class="form-control-file uploadImage"
 									                                    id="SetCatfile4" name="file2" style="display:none;">
 									                                <i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
 								                                </label>							                               
@@ -808,6 +808,7 @@
 	        if(flag1&&flag2&&flag3&&flag4==true){
 	        	$("#InsertCatSubmit").attr("disabled",false);      	
 	        }
+	        console.log("1"+flag1+"2"+flag2+"3"+flag3+"4"+flag4);
 	  	})
 	   	$("#InsCatfile2").on("change", function() {
 	   		$(".InsertCatfilepreview2").removeAttr("style");
@@ -838,6 +839,15 @@
 			$("#img2").attr('src',"");
 			$("#size2").text("");
 			$("#InsertCatSubmit").attr("disabled",true);
+			$("#InsertCatInputName").removeClass("is-valid");
+			$("#InsertCatInputName").removeClass("is-invalid");
+		        nameHelp.innerHTML = `<span style="color:rgb(0, 170, 0)"><span>`;	 
+		    $("#InsertCatInputType").removeClass("is-invalid");
+		    $("#InsertCatInputType").removeClass("is-valid");
+		        typeHelp.innerHTML = `<span style="color:rgb(0, 170, 0)"><span>`;
+		        $("#InsertCatcreateDate").removeClass("is-invalid");
+		        $("#InsertCatcreateDate").removeClass("is-valid");
+		        createDateHelp.innerHTML = `<span style="color:rgb(0, 170, 0)"><span>`;
 			
 	       	document.getElementById("InsertCatForm").reset();
 		})
@@ -1143,19 +1153,24 @@
 	    function Newdata(){
 	    	console.log("123");	    	
 	        $("#InsertCatInputName").val("灰咪");
-// 	        -----------------------驗證----------------------------
-           $("#nameHelp").html(`<img src="assets/img/prompt/YES.png" style="width:12px; padding-bottom:3px;"><span style="color:rgb(0, 170, 0)">正確<span>`);
-	        
+	        $("#InsertCatInputName").addClass("is-valid");
+	        nameHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
 	        $("#InsertCatInputType").val("花貓");
+	        $("#InsertCatInputType").addClass("is-valid");
+            typeHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
 	        $("#InsertCatgender2").prop("checked",true);
 	        $("#InsertCatisLigation2").prop("checked",true);
 	        $("#InsertCatisVaccination1").prop("checked",true);
 	        $("#InsertCatadoptStatus1").prop("checked",true);
 	        $("#InsertCatcreateDate").val("2021-05-14 10:10:00");
+	        $("#InsertCatcreateDate").addClass("is-valid");
+	        createDateHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
 	        $("#InsertCatcomment1").val("贊助灰咪");
 	        $("#InsertCatcomment2").val("常常端著高冷表情的灰咪，其實才六個月大有著淡淡的灰色毛髮加上臉蛋清秀是個非常漂亮的小美女");
 	        
-	       
+	       flag1=true;
+	       flag2=true;
+	       flag3=true;
 	        
 	 
 		
