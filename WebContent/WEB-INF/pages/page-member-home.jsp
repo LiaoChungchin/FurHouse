@@ -89,6 +89,61 @@
 		<h2 class="mt-1 text-center text-muted font-weight-bolder">I'm Here...</h2>
 	</div>
 	
+		<!-- 會員資料 -->
+	<div class="form-group col-md-6 memberprofile" style="display: none;">
+		<h3>編輯會員資料</h3>
+		<div>
+			<form method="post" id="profileupdateform" enctype="multipart/form-data">
+				<input type="hidden" id="updateNo" name="updateNo" value="${login_user.memberId}";> 
+					<label for="updateName">姓名</label>
+				<div>
+					<input type="text" class="form-control" id="updateName"
+						name="updateName" value="${login_user.name}";>
+				</div>
+
+				<div>
+					<label for="updatePwd">會員密碼</label>
+					<div>
+						<input type="text" class="form-control"
+							<%-- 						id="update${member.memberId}Pwd" name="updatePwd" --%>
+						value="${login_user.password}"
+							disabled="disabled"> <a
+							href="<c:url value='/member.resetpwd'/>">設定新的密碼</a>
+					</div>
+				</div>
+				<div>
+					<label for="updateMail">電子信箱</label>
+					<div>
+						<input type="text" class="form-control"
+							id="updateMail" name="updateMail"
+							value="${login_user.email}">
+					</div>
+				</div>
+				<div>
+					<label for="updatePhone">手機號碼</label>
+					<div>
+						<input type="text" class="form-control"
+							id="updatePhone" name="updatePhone"
+							value="${login_user.phone}">
+					</div>
+				</div>
+				<div>
+					<label for="updateAddress">地址</label>
+					<div>
+						<input type="text" class="form-control"
+							id="updateAddress" name="updateAddress"
+							value="${login_user.address}">
+					</div>
+				</div>
+				<div>
+					<div>
+						<button type="button" class="btn btn-primary" id="sucess">儲存</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
 	<!-- 小視窗提示 -->
 	<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center littleWindow" style="min-height: 200px;" >
 	</div>
@@ -190,7 +245,9 @@
 		console.log($(this).index());
 		switch ($(this).index()) {
 		case 0:
-
+			$(".memberprofile").attr("style"," ");
+			$('.text-content').html('');
+			memberprofile();
 			break;
 		case 1:
 
@@ -208,6 +265,50 @@
 			alert("無法辨識");
 		}
 
+	})
+	
+	/*--------------------------------------profile--------------------------------------------------*/
+	function memberprofile(){
+		$.ajax({
+			type : "GET", //指定http參數傳輸格式為POST
+			url : "member.profile/${login_user.memberId}", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+			success : function(member) {
+				$('#updateName').val(member.name);
+				$('#updateMail').val(member.email);
+				$('#updatePhone').val(member.phone);
+				$('#updateAddress').val(member.address);
+				
+			},
+			
+			//Ajax失敗後要執行的function，此例為印出錯誤訊息
+			error : function(xhr, ajaxOptions, thrownError) {
+			}
+		})
+	};
+
+
+
+	 
+	 	//ajax for 修改後顯示
+	 $('#sucess').on("click",function(){
+		 console.log($("#profileupdateform").serializeArray());
+		$.ajax({
+			type : "POST", //指定http參數傳輸格式為POST
+			url : "member.profile.update", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+			data : $("#profileupdateform").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
+			success : function(memeber) {
+				 console.log(memeber);
+// 				$('#updateName').val(member.name);
+// 				$('#updateMail').val(member.email);
+// 				$('#updatePhone').val(member.phone);
+// 				$('#updateAddress').val(member.address);
+				alert("修改成功");
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert(ajaxOptions+" "+thrownError);
+			}
+			
+		});
 	})
 	
 	/*-------------------領養單-----------------------------------------------------------------*/

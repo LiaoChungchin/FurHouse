@@ -35,9 +35,9 @@ public class MemberDAOService {
 		return memberDAO.deleteById(memberId);
 	}
 	
-	public Member updateById(Integer memberId, String password, String name, String phone, String email) {
+	public Member updateById(Integer memberId, String password, String name, String phone, String email,String address) {
 		
-		return memberDAO.updateById(memberId, password, name, phone, email);
+		return memberDAO.updateById(memberId, password, name, phone, email, address);
 	}
 	
 	public boolean updatePhoto(Integer memberId, byte[] photo, String photoPath) {
@@ -48,5 +48,10 @@ public class MemberDAOService {
 	public Member insert(Member member) {
 		
 		return memberDAO.insert(member);
+	}
+	public Member updateById1(Integer memberId, String name, String phone, String email,
+			String address) {
+
+		return memberDAO.updateById1(memberId, name, phone, email, address);
 	}
 }

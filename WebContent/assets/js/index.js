@@ -62,7 +62,7 @@ $(document).ready(function () {
         w3.includeHTML();
         $("div#component-login").modal("hide");
     });
-    // 簡易註冊驗證效果
+ // 簡易註冊驗證效果
     // for 帳戶名稱
     $("body").on("blur", "form>div>div>input#accountid", function () {
         let reg = /^[0-9a-zA-Z]{4,}$/;
@@ -82,8 +82,8 @@ $(document).ready(function () {
     });
     // for 帳戶密碼
     $("body").on("blur", "form>div>div>input#accountpwd", function () {
-        let reg = /^[0-9a-zA-Z]{4,}$/;
-        if (/^[0-9a-zA-Z]{4,}$/.test($(this).val())) {
+        let reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/;
+        if (/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/.test($(this).val())) {
             $(this).removeClass("is-invalid");
             $(this).addClass("is-valid");
             $(this).next().removeClass("invalid-feedback");
@@ -97,6 +97,79 @@ $(document).ready(function () {
             $(this).next().html("密碼格式不符");
         }
     });
+    
+    //for 電子信箱
+    
+    $("body").on("blur", "form>div>input#accountmail", function () {
+        let reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($(this).val())) {
+            $(this).removeClass("is-invalid");
+            $(this).addClass("is-valid");
+            $(this).next().removeClass("invalid-feedback");
+            $(this).next().addClass("valid-feedback");
+            $(this).next().html("E-mail格式正確");
+        } else {
+            $(this).removeClass("is-valid");
+            $(this).addClass("is-invalid");
+            $(this).next().removeClass("valid-feedback");
+            $(this).next().addClass("invalid-feedback");
+            $(this).next().html("E-mail格式不符");
+        }
+    });
+    
+    
+     /*-------------------------一鍵新增input------------------------------*/ 
+	     $("body").on("click", "#inputdemo", function () {
+	    		    	
+	        $("#accountid").val("haofun");
+	        /*-------------------------帳號驗證------------------------------*/
+			            $("#accountid").addClass("is-valid");
+			            $("#accountid").next().addClass("valid-feedback");
+			            $("#accountid").next().html("帳號格式正確");
+		    /*---------------------------------------------------------------*/
+		    
+		        	
+	        $("#accountpwd").val("iiiEDU@05");
+	        /*-------------------------密碼驗證------------------------------*/
+			            $("#accountpwd").addClass("is-valid");
+			            $("#accountpwd").next().addClass("valid-feedback");
+			            $("#accountpwd").next().html("密碼格式正確");
+	        /*---------------------------------------------------------------*/
+	        
+	        
+	        $("#accountmail").val("hao84625@gmail.com");
+	        /*-------------------------E-mail驗證------------------------------*/
+			            $("#accountmail").addClass("is-valid");
+			            $("#accountmail").next().addClass("valid-feedback");
+			            $("#accountmail").next().html("Email格式正確");
+	        /*---------------------------------------------------------------*/
+	        $("#accountname").val("陳皓");
+	        $("#accountphone").val("0920350693");
+	        $("#radio1").prop("checked",true);
+	        $("#accountaddr").val("淡水區淡海路231巷20號");
+	        $("#agreecheck").prop("checked");
+	        });
+	        
+	        
+	  $("body").on("click", "#removeattr", function () {
+	  		$("#accountid").removeClass("is-invalid");
+	  		$("#accountid").next().removeClass("invalid-feedback");
+	  		$("#accountid").next().html("");
+	  		$("#accountid").removeClass("is-valid");
+            $("#accountid").next().removeClass("valid-feedback");
+       /*---------------------------------------------------------------*/
+            $("#accountpwd").removeClass("is-invalid");
+	  		$("#accountpwd").next().removeClass("invalid-feedback");
+	  		$("#accountpwd").next().html("");
+	  		$("#accountpwd").removeClass("is-valid");
+            $("#accountpwd").next().removeClass("valid-feedback");
+       /*---------------------------------------------------------------*/      
+            $("#accountmail").removeClass("is-invalid");
+	  		$("#accountmail").next().removeClass("invalid-feedback");
+	  		$("#accountmail").next().html("");
+	  		$("#accountmail").removeClass("is-valid");
+            $("#accountmail").next().removeClass("valid-feedback");
+	  });
 
     // 購物籃啟動
     $("body").on("mouseover", "button#button-basket", function () {

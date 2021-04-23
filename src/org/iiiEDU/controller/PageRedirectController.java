@@ -85,6 +85,11 @@ public class PageRedirectController {
 		return "root-page-talk.jsp";
 	}
 	
+	@GetMapping("/member.resetpwd")
+	public String profile(){
+		return "page-member-home-profilepwd.jsp";
+	}
+	
 	// 測試用
 	@GetMapping("/chat04test.controller")
 	public String mytest04(){

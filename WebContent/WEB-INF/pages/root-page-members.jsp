@@ -59,6 +59,7 @@
 									<th scope="col">姓名</th>
 									<th scope="col">手機號碼</th>
 									<th scope="col">電子信箱</th>
+									<th scope="col">地址</th>
 									<th scope="col">會員創建日期</th>
 									<th scope="col">會員圖片</th>
 									<th scope="col"></th>
@@ -72,6 +73,7 @@
 									<td>${requestScope.Members[0].name}</td>
 									<td>${requestScope.Members[0].phone}</td>
 									<td>${requestScope.Members[0].email}</td>
+									<td>${requestScope.Members[0].address}</td>
 									<td>${requestScope.Members[0].createDate}</td>
 									<c:if test="${requestScope.Members[0].photo == null}">
 										<td><a href="#"
@@ -112,6 +114,7 @@
 										<td>${member.name}</td>
 										<td>${member.phone}</td>
 										<td>${member.email}</td>
+										<td>${member.address}</td>
 										<td>${member.createDate}</td>
 										<c:if test="${member.photo == null}">
 											<td><a href="#"
@@ -220,6 +223,14 @@
 															</div>
 														</div>
 														<div class="form-group row">
+															<label for="updateMail" class="col-sm-3 col-form-label">地址</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control"
+																	id="update${member.memberId}Address" name="updateAddress"
+																	value="${member.address}">
+															</div>
+														</div>
+														<div class="form-group row">
 															<div class="col-sm-10">
 																<input type="hidden" name="updateNo"
 																	value="${member.memberId}">
@@ -316,6 +327,14 @@
 												<input type="text" class="form-control"
 													id="update${requestScope.Members[0].memberId}Mail"
 													name="updateMail" value="${requestScope.Members[0].email}">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="updateMail" class="col-sm-3 col-form-label">地址</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control"
+													id="update${requestScope.Members[0].memberId}Address"
+													name="updateAddress" value="${requestScope.Members[0].address}">
 											</div>
 										</div>
 										<div class="form-group row">
