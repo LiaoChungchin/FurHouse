@@ -78,7 +78,7 @@ public class MailUtils {
 			
 			//內嵌圖片
 	        MimeBodyPart image = new MimeBodyPart();
-	        FileDataSource fds = new FileDataSource("D:\\iiiEDUproject\\Workspace\\FurHouse\\WebContent"+imagePath);
+	        FileDataSource fds = new FileDataSource(PathHandler.globalProjectImgPath+imagePath);
 	        image.setDataHandler(new DataHandler(fds));
 	        image.setDisposition(MimeBodyPart.INLINE);
 	        image.setFileName(fds.getName());
@@ -88,7 +88,7 @@ public class MailUtils {
 			
 			// 附件檔案
 	        MimeBodyPart filepart = new MimeBodyPart();
-	        filepart.attachFile("D:\\iiiEDUproject\\Workspace\\FurHouse\\WebContent\\assets\\AnimalAdoption.docx");
+	        filepart.attachFile(PathHandler.globalProjectImgPath+"/AnimalAdoption.docx");
 	        filepart.setFileName(MimeUtility.encodeText("動物認養申請書.docx", "UTF-8", "B"));
 	        multipart.addBodyPart(filepart);
 	        

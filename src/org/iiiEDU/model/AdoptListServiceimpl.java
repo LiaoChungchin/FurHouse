@@ -80,6 +80,11 @@ public class AdoptListServiceimpl implements AdoptListService {
 	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId,Integer pageLimit,Integer currentPage) {
 		return adoptListDAO.searchAllAdoptListMemberId(memberId,pageLimit,currentPage);
 	}
+	
+	@Override
+	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId){
+		return adoptListDAO.searchAllAdoptListMemberId(memberId);
+	}
 
 	@Override
 	public List<AdoptList> searchAllAdoptListMemberName(String memberName,Integer pageLimit,Integer currentPage) {

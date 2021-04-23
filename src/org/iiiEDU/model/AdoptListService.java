@@ -17,5 +17,6 @@ public interface AdoptListService {
 	List<AdoptList> searchAllAdoptListCatId(Integer catId,Integer pageLimit,Integer currentPage);
 	List<AdoptList> searchAllAdoptListCatNickname(String catNickname,Integer pageLimit,Integer currentPage);
 	List<AdoptList> searchAllAdoptListMemberId(Integer memberId,Integer pageLimit,Integer currentPage);
+	List<AdoptList> searchAllAdoptListMemberId(Integer memberId);
 	List<AdoptList> searchAllAdoptListMemberName(String memberName,Integer pageLimit,Integer currentPage);
 }
