@@ -201,11 +201,18 @@
 											  	</div>
 											</div>
 											<!-- 領養Dialog End-->
-										
+										      <c:choose>
+										      <c:when test="${cat.photo2!=null}">
 											<div class="pcpLeading"
 												style="background-image: url('catImageToByte?path=${cat.photo2}')"
 												id="supportCatDetailShow"></div>
-			
+												</c:when>
+												<c:when test="${cat.photo2==null}">
+												<div class="pcpLeading"
+												style="background-image: url('catImageToByte?path=${cat.photo1}')"
+												id="supportCatDetailShow"></div>
+												</c:when>
+		                                   	 </c:choose>
 											<div class="supportCatDatailTitle">
 												<h2>貓貓資訊</h2>
 											</div>
