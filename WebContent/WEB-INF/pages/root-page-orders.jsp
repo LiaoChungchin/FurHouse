@@ -30,7 +30,18 @@ form#orderListForm {
 /* 	表單標題樣式*/
 .form-title {
 	/* 	margin: 5px 20px 5px 12px; */
-	padding: 14px;
+	padding: 12px;
+	font-size: 20px;
+	color: #FFFFA1;
+	font-weight: bold;
+	border-radius: 3px;
+	background-color: #6A00B8;
+}
+
+.statustitle{
+/* 	margin: 5px 20px 5px 12px; */
+	margin: 10px 10px;
+	padding: 14px;  
 	font-size: 20px;
 	color: #FFFFA1;
 	font-weight: bold;
@@ -74,6 +85,11 @@ hr{
 	font-size: 0.75em white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.table thead{
+	background-color: rgba(0, 0, 143, 0.8);
+	color:#FAFAFA !important;
 }
 
 /* 	更改Bootstrap 懸停顏色 */
@@ -127,14 +143,22 @@ hr{
 							xhr.onreadystatechange = function() {
 								if (xhr.readyState == 4) {
 									if (xhr.status == 200) {
-										var orderList = JSON.parse(xhr.responseText);
-// 										let myGender = if(orderList.member.gender===male){}
-											
+										var orderList = JSON.parse(xhr.responseText);	
 // 										console.log(xhr.responseText);
 										$("input#memberNameV1").val(orderList.member.name);
+ 										//性別英轉中
+										let tempGender = orderList.member.gender;
+										if(tempGender === "male"){
+											orderList.member.gender='男';
+										}else if(tempGender === "female"){
+											orderList.member.gender='女';
+										}else{
+											orderList.member.gender='未公開';
+										}
 										$("input#genderV1").val(orderList.member.gender);
 										$("input#phoneV1").val(orderList.member.phone);
 										$("input#emailV1").val(orderList.member.email);
+										
 									}
 								$("#memberDetails").modal("show");
 								}
@@ -232,61 +256,62 @@ hr{
 							if (xhr3.readyState == 4){
 								if (xhr3.status == 200){
  								var orderList = JSON.parse(xhr3.responseText);
-									//console.log(xhr3.responseText);
+									console.log(xhr3.responseText);
 									
 									if (orderList.product1) {
 										$("hr#amountV1").css("display","block");
-										$("div#MyProductV21").css("display","block");
-										$("input#productIdV21").val(orderList.product1.id);
-										$("input#productNameV21").val(orderList.product1.productName);
-										$("input#productCountV21").val(orderList.productQua01);
-										$("input#productPriceV21").val(orderList.product1.price);
+										$("div#amountProduct1").css("display","block");
+										$("input#amountProductId1").val(orderList.product1.id);
+										$("input#amountProductName1").val(orderList.product1.productName);
+										$("input#amountProductCount1").val(orderList.productQua01);
+										$("input#amountProductPrice1").val(orderList.product1.price);
 									} else {
 										$("hr#amountV1").hide();
-										$("div#MyProductV21").hide();
+										$("div#amountProduct1").hide();
 									}
-									if (orderList.product22) {
+									if (orderList.product2) {
 										$("hr#amountV2").css("display","block");
-										$("div#MyProductV22").css("display","block");
-										$("input#productIdV22").val(orderList.product2.id);
-										$("input#productNameV22").val(orderList.product2.productName);
-										$("input#productCountV22").val(orderList.productQua02);
-										$("input#productPriceV22").val(orderList.product2.price);
+										$("div#amountProduct2").css("display","block");
+										$("input#amountProductId2").val(orderList.product2.id);
+										$("input#amountProductName2").val(orderList.product2.productName);
+										$("input#amountProductCount2").val(orderList.productQua02);
+										$("input#amountProductPrice2").val(orderList.product2.price);
 									} else {
 										$("hr#amountV2").hide();
-										$("div#MyProductV22").hide();
+										$("div#amountProduct2").hide();
 									}
 									if (orderList.product3) {
 										$("hr#amountV3").css("display","block");
-										$("div#MyProductV23").css("display","block");
-										$("input#productIdV23").val(orderList.product3.id);
-										$("input#productNameV23").val(orderList.product3.productName);
-										$("input#productCountV23").val(orderList.productQua03);
-										$("input#productPriceV23").val(orderList.product3.price);
+										$("div#amountProduct3").css("display","block");
+										$("input#amountProductId3").val(orderList.product3.id);
+										$("input#amountProductName3").val(orderList.product3.productName);
+										$("input#amountProductCount3").val(orderList.productQua03);
+										$("input#amountProductPrice3").val(orderList.product3.price);
 									} else {
 										$("hr#amountV3").hide();
-										$("div#MyProductV23").hide();
+										$("div#amountProduct3").hide();
 									}
 									if (orderList.product4) {
 										$("hr#amountV4").css("display","block");
-										$("div#MyProductV24").css("display","block");
-										$("input#productIdV24").val(orderList.product4.id);
-										$("input#productNameV24").val(orderList.product4.productName);
-										$("input#productCountV24").val(orderList.productQua04);
-										$("input#productPriceV24").val(orderList.product4.price);
+										$("div#amountProduct4").css("display","block");
+										$("input#amountProductId4").val(orderList.product4.id);
+										$("input#amountProductName4").val(orderList.product4.productName);
+										$("input#amountProductCount4").val(orderList.productQua04);
+										$("input#amountProductPrice4").val(orderList.product4.price);
 									} else {
-										$("div#MyProductV24").hide();
+										$("hr#amountV4").hide();
+										$("div#amountProduct4").hide();
 									}		
 									if (orderList.product5) {
 										$("hr#amountV5").css("display","block");
-										$("div#MyProductV25").css("display","block");
-										$("input#productIdV25").val(orderList.product5.id);
-										$("input#productNameV25").val(orderList.product5.productName);
-										$("input#productCountV25").val(orderList.productQua05);
-										$("input#productPriceV25").val(orderList.product5.price);
+										$("div#amountProduct5").css("display","block");
+										$("input#amountProductId5").val(orderList.product5.id);
+										$("input#amountProductName5").val(orderList.product5.productName);
+										$("input#amountProductCount5").val(orderList.productQua05);
+										$("input#amountProductPrice5").val(orderList.product5.price);
 									} else {
 										$("hr#amountV5").hide();
-										$("div#MyProductV25").hide();
+										$("div#amountProduct5").hide();
 									}
 										
 									$("input#productDiscount").val("60");
@@ -419,8 +444,8 @@ hr{
 					<h2>Order Manager</h2>
 					<small>update : 2021/4/10</small>
 				</div>
-				<table class="table table-hover table-striped" id="allOrdertb">
-					<thead>
+				<table class="table table-hover table-striped " id="allOrdertb">
+					<thead class="indigo white-text">
 						<tr>
 							<th scope="col">訂單編號</th>
 							<th scope="col">訂單時間</th>
@@ -613,12 +638,13 @@ hr{
 		<div class="modal-dialog modal-mg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3 class="modal-title" id="statusRadio">訂單狀態更新</h3>
+<!-- 					<h3 class="modal-title" id="statusRadio">訂單狀態更新</h3> -->
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				<div class="statustitle">訂單狀態更新</div>
 				<div class="modal-body" id="modalConditionContent"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary">確認</button>
@@ -658,8 +684,6 @@ hr{
 										id="genderV1" value="...">
 								</div>
 							</div>
-							
-							
 							<div class="form-group row">
 								<label for="phoneV1" class="col-sm-3 col-form-label">手機號碼</label>
 								<div class="col-sm-5">
@@ -704,28 +728,28 @@ hr{
 						<fieldset>
 							<legend class="form-title">金額詳細資訊</legend>
 							<c:forEach var="i" begin="1" end="5">
-							<div id="MyProductV2<c:out value="${i}"/>">
+							<div id="amountProduct<c:out value="${i}"/>">
 							<div class="form-group row">
-								<label for="productIdV2<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品編號</label>
+								<label for="amountProductId<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品編號</label>
 								<div class="col-sm-4">
-									<input type="text" readonly class="form-control-plaintext" id="productIdV2<c:out value="${i}"/>" value="...">
+									<input type="text" readonly class="form-control-plaintext" id="amountProductId<c:out value="${i}"/>" value="...">
 								</div>
-								<label for="productPriceV2<c:out value="${i}"/>" class="col-sm-2 col-form-label">單價&nbsp;&nbsp;(TWD)</label>
+								<label for="amountProductPrice<c:out value="${i}"/>" class="col-sm-2 col-form-label">單價&nbsp;&nbsp;(TWD)</label>
  								<div class="col-sm-4">
  									<input type="text" readonly class="form-control-plaintext"
-										id="productPriceV2<c:out value="${i}"/>" value="...">
+										id="amountProductPrice<c:out value="${i}"/>" value="...">
  								</div>
 							</div>
 							 <div class="form-group row">
-  								<label for="productNameV2<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品名稱</label>
+  								<label for="amountProductName<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品名稱</label>
  								<div class="col-sm-10">
  									<input type="text" readonly class="form-control-plaintext" 
-  										id="productNameV2<c:out value="${i}"/>" value="...">
+  										id="amountProductName<c:out value="${i}"/>" value="...">
  								</div>
-  								<label for="productCountV2<c:out value="${i}"/>" class="col-sm-2 col-form-label">數量</label>
+  								<label for="amountProductCount<c:out value="${i}"/>" class="col-sm-2 col-form-label">數量</label>
  								<div class="col-sm-4">
  									<input type="text" readonly class="form-control-plaintext"
-  										id="productCountV2<c:out value="${i}"/>" value="...">
+  										id="amountProductCount<c:out value="${i}"/>" value="...">
  								</div>
 
  							</div>
