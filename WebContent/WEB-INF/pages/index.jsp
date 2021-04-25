@@ -114,7 +114,7 @@
  		}
  		.devide {
 /*  			display:inline-block; */
-/*  			transform-origin: 0% 50%; */
+  			transform-origin: 0% 50%;
  		}
  		.devide .lineUp{
  			height:2px;
@@ -200,7 +200,7 @@
 						</div>
 						<div class="myCatbow">
 							<div class="logoFrame">
-<!-- 								<img class="myLogo" src="assets\img\Catbow-nobg.png" alt="" height="160px"> -->
+								<img class="myLogo" src="assets\img\Catbow-nobg.png" alt="" height="160px">
 							</div>
 						</div>
 					</div>
@@ -399,8 +399,8 @@
 			  easing:"linear"
 		  },"-=450").add({
 				targets:".line-drawing",
-				translateX:477,
-				translateY:-208,
+				translateX:315,
+				translateY:-85,
 				duration:100,
 				easing:"linear"
 		  }).add({
@@ -413,31 +413,34 @@
 // 				fill:['rgba(63, 191, 63, 0)', 'rgba(63, 191, 63, 1)']
 // 				fill:['rgba(0, 123, 255, 0)', 'rgba(0, 123, 255, 1)']
 				fill:['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']
-		  }).add({
+		  })
+		  .add({
 // 				targets:[".devide .lineUp", ".devide .lineDown", ".myCatbow", ".myCatbow img"],
-				targets:[".devide .lineUp", ".devide .lineDown"],
+// 				targets:[".devide .lineUp", ".devide .lineDown"],
+				targets:".devide",
 			  	translateX:function(el, i, l) {
-					if(i == 0) return 170;
-					if(i == 1) return -47;
-					if(i == 2) return -225;
+					if(i == 0) return 315;
+					if(i == 1) return 315;
+// 					if(i == 2) return -225;
 					return 0;
 				},
 				translateY:function(el, i, l) {
-					if(i == 0) return -249;
-					if(i == 1) return -247;
-					if(i == 2) return -249;
-					if(i == 3) return 160;
+					if(i == 0) return -154;
+					if(i == 1) return -154;
+// 					if(i == 2) return -249;
+// 					if(i == 3) return 160;
 					return 0;
 				},
 				duration:100,
 				easing:"linear"
-		  }).add({
-				targets:".devide",
+		  })
+		  .add({
+// 				targets:".devide",
+				targets:[".devide .lineUp", ".devide .lineDown"],
 				scaleX:[0, 1],
 				duration:1000,
 				easing:"linear"
 		  })
-		  
 // 		  .add({
 // 				targets:"div.container",
 // 				opacity:0,
