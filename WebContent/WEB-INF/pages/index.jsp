@@ -72,6 +72,7 @@
 			font-weight:700;
 			font-size:2em;
 			margin-left:20%;
+			display:inline-block;
 		}
 		.ml9 .text-wrapper {
 			position:relative;
@@ -80,6 +81,7 @@
 			padding-top:1.2em;
 			padding-bottom:1.1em;
 			overflow:hidden;
+			display:inline-block;
 		}
  		.ml9 .letter {
 			transform-origin:50% 100%;
@@ -123,6 +125,9 @@
  			height:2px;
  			width:210px;
  			background-color:black;
+ 		}
+ 		span .letters{
+ 			display:inline-block;
  		}
 	</style>
 	
