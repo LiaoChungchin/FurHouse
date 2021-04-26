@@ -48,5 +48,15 @@ public class MapDAO {
 		return maps;
 	}
 	
-	
+	public List<Map> selectSomeMapBystoreName(String storeName){
+		Session session = sessionFactory.getCurrentSession();
+		
+		String hql = "from Map where storeName like :myStoreName";
+		
+		Query<Map> query = session.createQuery(hql, Map.class).setParameter("myStoreName", "%"+storeName+"%");
+		
+		List<Map> maps = query.getResultList();
+		
+		return maps;
+	}
 }

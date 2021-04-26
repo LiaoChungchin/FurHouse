@@ -40,4 +40,31 @@ public class MapController {
 		
 		return map;
 	}
+	
+	@GetMapping("/selectSomeMapByRegion/{myRegion}")
+	@ResponseBody
+	public List<Map> selectSomeMapByRegion(@PathVariable("myRegion") String region){
+		
+		List<Map> maps = mapService.selectSomeMapByRegion(region);
+		
+		if(maps.isEmpty()) {
+			return null;
+		}
+		
+		return maps; 
+	}
+	
+	@GetMapping("/selectSomeMapBystoreName/{myStoreName}")
+	@ResponseBody
+	public List<Map> selectSomeMapBystoreName(@PathVariable("myStoreName") String storeName){
+		
+		List<Map> maps = mapService.selectSomeMapBystoreName(storeName);
+		
+		if(maps.isEmpty()) {
+			return null;
+		}
+		
+		return maps; 
+	}
+	
 }

@@ -27,4 +27,8 @@ public class MapService {
 	public List<Map> selectSomeMapByRegion(String region){
 		return mapDAO.selectSomeMapByRegion(region);
 	}
+	
+	public List<Map> selectSomeMapBystoreName(String storeName){
+		return mapDAO.selectSomeMapBystoreName(storeName);
+	}
 }

@@ -31,13 +31,20 @@
             float: right;
         }
         
-        .table{
-        	height: 77vh;
-        	overflow-y:scroll;
+        .storeNameTable::-webkit-scrollbar { 
+       		width: 0 !important; 
+        }
+        
+        
+        .storeNameTable{
+        	width: 100%;
+        	height: 75vh;
+        	overflow-x: hidden;
+        	overflow-y: scroll;
         }
         
         .toolong{
-		    width: 120px;
+        	width: 250px;
 			white-space: nowrap;
 		    overflow: hidden;
 		    text-overflow: ellipsis;
@@ -86,15 +93,16 @@
 				<div id="map"></div>
 
 				<div class="d-flex justify-content-around rightside row">
-					<input type="text" class="form-control col-md-5" style="margin-bottom: 15px;">
-					<select class="form-control col-md-5">
+					<input type="text" class="form-control col-md-5" style="margin-bottom: 15px;" id="storeNameSearch">
+					<select class="form-control col-md-5" id="selectRegion">
+						<option value="all">全臺灣</option>
 						<option value="台北市">台北市</option>
 						<option value="台中市">台中市</option>
 						<option value="台南市">台南市</option>
 						<option value="高雄市">高雄市</option>
 						<option value="台東市">台東市</option>
 					</select>
-					<div class="table"></div>
+					<div class="storeNameTable"></div>
 				</div>
 			</div>
 		</div>
@@ -132,12 +140,62 @@
         	createData();
         })
 
-        /*-------------------------滑鼠移入顯示全文-----------------------------*/
-		$(".toolong").on("mouseenter", function() {
-			console.log(this);
-	  	      if (!this.title) this.title = $(this).text();
-	  	      
-	 	});
+        $('#selectRegion').on('change',function(){
+        	let myRegion = this.value;
+        	console.log(myRegion);
+        	$.ajax({
+				type:"GET",
+				url: "selectSomeMapByRegion/"+myRegion ,
+				dataType: "json",
+				beforeSend:function(XMLHttpRequest){
+		            console.log("gif"); 
+		        },
+				success: function(maps){
+					if(myRegion!="all"){
+						writetable(maps);
+					}else{
+						createData();			
+					}
+				},
+				error:function(xhr, ajaxOptions, thrownError){
+					createData();			
+					console.log(xhr.status+"\n"+thrownError);
+				}	
+			});	
+        })
+        
+        /*模糊查詢*/
+		$("#storeNameSearch").on("keyup",function(){
+			let myStoreName = $("#storeNameSearch").val();
+			if(myStoreName.length!=0){
+				$.ajax({
+					type:"GET",
+					url: "selectSomeMapBystoreName/"+myStoreName ,
+					dataType: "json",
+					beforeSend:function(XMLHttpRequest){
+			            console.log("gif"); 
+			        },
+					success: function(maps){
+						if(maps!=null){
+							writetable(maps);
+						}else{
+							createData();			
+						}
+					},
+					error:function(xhr, ajaxOptions, thrownError){
+						createData();			
+						console.log(xhr.status+"\n"+thrownError);
+					}	
+				});	
+			}else{
+				createData();
+			}
+		})
+		
+		
+        
+        
+        /*-------------------------地圖-----------------------------*/
         
         var alldata;
         /*取得後臺資料*/
@@ -150,9 +208,10 @@
     	            console.log("gif"); 
     	        },
     			success : function(response) {
+    				if(alldata==null){
+        				createMarker(response);
+    				};
     				alldata = response;
-    				console.log(alldata);
-    				createMarker(response);
     				writetable(response);
     			},
     			error : function(xhr, ajaxOptions, thrownError) {
@@ -164,7 +223,7 @@
         
         /*設定map與Layer*/
         var map;
-        map = L.map('map').setView([23.597088003857067, 120.83413767268159], 8);
+        map = L.map('map').setView([23.797088003857067, 120.83413767268159], 7);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '<a href="https://www.openstreetmap.org/">OSM</a>',
@@ -204,7 +263,7 @@
                                         sticky: true,
                                         permanent: false, 
                                         opacity: 1.0
-                                        }).openTooltip().on('click',test));
+                                        }).openTooltip().on('click',changecolor));
             }
             // 最後把集合體加到map上
             map.addLayer(markers);
@@ -213,14 +272,14 @@
         
         
         /*點擊變色*/
-        function test(layer){
+        function changecolor(layer){
             $("img.leaflet-marker-icon").attr("src","assets/css/images/marker-icon-2x-green.png");
             this._icon.src = "assets/css/images/marker-icon-2x.png";            
         }
 
         /*表格事件*/
         const popup = L.popup();
-        $('.table').on("click", ".chooselocal", function () {
+        $('.storeNameTable').on("click", ".chooselocal", function () {
             let cid = this.id; 
             let data;
             
@@ -235,7 +294,7 @@
             let lng = data.lng;
             
             popup.setLatLng([lat+0.00018, lng])
-                .setContent( "<p><b style='font-size: medium;'>"+data.storeName+"</b><p>地址: "+data.address+"<p>電話: "+data.phone
+                .setContent( "<p class='toolong'><b style='font-size: medium;'>"+data.storeName+"</b><p>地址: "+data.address+"<p>電話: "+data.phone
                 +"<p><img src='assets/img" + data.mapImage + "' width='180px' height='120px'>")
                 .openOn(map);
             
@@ -244,14 +303,14 @@
         });
         /*表格內容*/
         function writetable(data) {
-            let tempstr = "<table class='table-bordered table-hover'>";
+            let tempstr = "<table class='table table-bordered table-hover'>";
             tempstr += "<thead class='thead-light'><tr><th>店家名稱</th></tr></thead>";
             for (let i = 0; i < data.length; i++) {
                 tempstr += "<tr class='chooselocal' id='"+data[i].id+"'><td>" + data[i].storeName + "</td></tr>";
             }
             tempstr += "</table>";
 
-            $('.table').html(tempstr);
+            $('.storeNameTable').html(tempstr);
         }
 
 
