@@ -48,7 +48,7 @@
 			background-size:cover;
 			background-attachment:fixed;
 		}
-		.parallax .container {
+		.parallax .container-anime {
 			padding-left:0%;
 			padding-right:0%;
 			margin-left:0%;
@@ -56,6 +56,12 @@
 			padding-top:15%;
 			width:900px;
 			height:600px;
+		}
+		.parallax .container {
+			padding-left:0%;
+			padding-right:0%;
+			margin-left:0%;
+			margin-right:0%;
 		}
 		.parallax .badge {
 			font-size:1.25rem;
@@ -89,44 +95,34 @@
 			transform: scale(0);
 			display:inline-block;
 			line-height:1em;
-/* 			color:#3FBF3F; */
-/* 			color:#007bff; */
 			color:#000000;
  		}
  		.line-drawing {
-/*  			display: inline-block; */
 			line-height:1em;
  		}
  		.line-drawing .lines path{
  			transform:scale(0.7);
  		}
- 		.myCatbow {
-/*  			display:inline-block; */
- 		}
  		.myCatbow .logoFrame{
  			height:160px;
  			width:160px;
- 			background-color:gray;
    			overflow:hidden;
  		}
  		.myCatbow .logoFrame img{
-/*    			transform:translateY(160px); */
+ 			transform:translateY(160px);
  		}
  		.devide {
-/*  			display:inline-block; */
-  			transform-origin: 0% 50%;
+  			transform-origin:0% 50%;
  		}
  		.devide .lineUp{
  			height:2px;
  			width:210px;
  			background-color:black;
-/*  			display:inline-block; */
  		}
  		.devide .lineDown{
  			height:2px;
  			width:210px;
  			background-color:black;
-/*  			display:inline-block; */
  		}
 	</style>
 	
@@ -159,7 +155,7 @@
 			<div class="col-lg-10" id="div-v-pills">
 			
 				<div class="parallax bg1">
-					<div class="container">
+					<div class="container-anime">
 						<h1 class="ml9">
 						  <span class="text-wrapper">
 						    <span class="letters">盼天下無浪貓，浪貓有家圖溫飽</span>
@@ -335,16 +331,16 @@
 				duration:1500,
 				elasticity:600,
 				delay:(el, i) => 100 * (i+1)
-		  }).add({
+			}).add({
 				targets:".ml9 .keyLetter",
-// 				color:"rgba(0, 123, 255, 1)",
 				color:"rgba(0, 0, 0, 1)",
-				duration:1000
-		  }).add({
+				duration:3000
+			}).add({
 				targets:".ml9>span>span>span[class='letter']",
 				opacity:0,
-				duration:1000
-		  }).add({
+				duration:3000,
+				easing:"easeOutQuint"
+			}).add({
 				targets:".ml9>span>span>span[class*='keyLetter']",
 				translateX:function(el, i, l){
 					if(i == 1) return -280;
@@ -353,7 +349,7 @@
 				},
 				duration:400,
 				easing: "linear"
-		  },"-=800").add({
+			},"-=800").add({
 				targets:".ml9>span>span>span[class*='keyLetter']",
 				translateY:function(el, i, l){
 					if(i == 0) return -20;
@@ -361,9 +357,9 @@
 					if(i == 2) return 20;
 					if(i == 3) return 20;
 					return 0;
-			  },
-			  duration:1000
-		  }).add({
+				},
+				duration:1000
+			}).add({
 				targets:".ml9 .cross",
 				translateX:-330,
 				translateY:20,
@@ -374,81 +370,118 @@
 				    duration:200,
 				    delay:400,
 				},
-		  },"-=1500").add({
-			  targets:".ml9 .cross",
-			  rotate:45,
-			  duration:450,
-			  easing:"linear"
-		  }).add({
-			  targets:".ml9>span>span>span[class*='keyLetter']",
-			  translateX: function(el, i, l){
+			}, "-=1500").add({
+				targets:".ml9 .cross",
+				rotate:45,
+				duration:450,
+				easing:"linear"
+		  	}).add({
+				targets:".ml9>span>span>span[class*='keyLetter']",
+				translateX: function(el, i, l){
 					if(i == 0) return   -60;
 					if(i == 1) return  -340;
 					if(i == 2) return    60;
 					if(i == 3) return  -220;
 					return 0;				  
-			  },
-			  translateY: function(el, i, l){
+			},
+				translateY: function(el, i, l){
 					if(i == 0) return  20;
 					if(i == 1) return  20;
 					if(i == 2) return -29;
 					if(i == 3) return -29;
 					return 0;				  
-			  },
-			  duration:450,
-			  easing:"linear"
-		  },"-=450").add({
+				},
+				duration:450,
+				easing:"linear"
+			}, "-=450").add({
 				targets:".line-drawing",
 				translateX:315,
 				translateY:-85,
 				duration:100,
 				easing:"linear"
-		  }).add({
-			  targets:".line-drawing .lines path",
+			}).add({
+				targets:".line-drawing .lines path",
 				strokeDashoffset:[anime.setDashoffset, 0],
 				easing:"easeInOutSine",
 				duration:3000,
 				direction:"linear",
 				delay:function(el, i) { return i * 250 },
-// 				fill:['rgba(63, 191, 63, 0)', 'rgba(63, 191, 63, 1)']
-// 				fill:['rgba(0, 123, 255, 0)', 'rgba(0, 123, 255, 1)']
 				fill:['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']
-		  })
-		  .add({
-// 				targets:[".devide .lineUp", ".devide .lineDown", ".myCatbow", ".myCatbow img"],
-// 				targets:[".devide .lineUp", ".devide .lineDown"],
+			}).add({
 				targets:".devide",
 			  	translateX:function(el, i, l) {
 					if(i == 0) return 315;
 					if(i == 1) return 315;
-// 					if(i == 2) return -225;
 					return 0;
 				},
 				translateY:function(el, i, l) {
 					if(i == 0) return -154;
 					if(i == 1) return -154;
-// 					if(i == 2) return -249;
-// 					if(i == 3) return 160;
 					return 0;
 				},
 				duration:100,
 				easing:"linear"
-		  })
-		  .add({
-// 				targets:".devide",
+			}).add({
 				targets:[".devide .lineUp", ".devide .lineDown"],
 				scaleX:[0, 1],
 				duration:1000,
 				easing:"linear"
-		  })
-// 		  .add({
-// 				targets:"div.container",
-// 				opacity:0,
-// 				duration:3000,
-// 				easing:"easeOutExpo",
-// 				delay:5000
-// 		  })
-		  ;
+			}).add({
+				targets:".myCatbow",
+				translateX:350,
+		  		translateY:-316,
+		  		duration:1000,
+		  		endDelay: 2000,
+			  	easing:"linear"
+			}, "-=1000").add({
+			  	targets:".myLogo",
+			  	translateY:[160, 100],
+			  	duration:2000,
+			  	easing:"linear"
+			}).add({
+			  	targets:".ml9",
+			  	translateY:[0, -60],
+			  	duration:2000,
+			  	easing:"linear"
+			}, "-=2000").add({
+			  	targets:".devide",
+			  	translateY:function(el, i){
+			  		if(i == 0) return [-154, -214];
+			  	},
+			  	duration:2000,
+			  	easing:"linear"
+			}, "-=2000").add({
+				targets:".myLogo",
+				translateY:[100, 5],
+				duration:500,
+				delay:1000,
+				easing:"easeOutElastic"
+			}).add({
+				targets:".ml9",
+				translateY:[-60, -170],
+				duration:500,
+				easing:"easeOutExpo"
+			}, "-=500").add({
+				targets:".devide",
+				translateY:function(el, i){
+		  			if(i == 0) return [-214, -324];
+		  		},
+				duration:500,
+				easing:"easeOutExpo"
+			}, "-=500").add({
+				targets:".ml9",
+				translateY:[-170, -155],
+				duration:500,
+				easing:"easeOutElastic",
+				delay:500,
+			}).add({
+				targets:".devide",
+				translateY:function(el, i){
+		  			if(i == 0) return [-324, -309];
+		  		},
+				duration:500,
+				easing:"easeOutElastic"
+			}, "-=500");
 		
 	</script>
 	
