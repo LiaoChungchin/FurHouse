@@ -142,26 +142,26 @@
 
         $('#selectRegion').on('change',function(){
         	let myRegion = this.value;
-        	console.log(myRegion);
-        	$.ajax({
-				type:"GET",
-				url: "selectSomeMapByRegion/"+myRegion ,
-				dataType: "json",
-				beforeSend:function(XMLHttpRequest){
-		            console.log("gif"); 
-		        },
-				success: function(maps){
-					if(myRegion!="all"){
-						writetable(maps);
-					}else{
-						createData();			
-					}
-				},
-				error:function(xhr, ajaxOptions, thrownError){
-					createData();			
-					console.log(xhr.status+"\n"+thrownError);
-				}	
-			});	
+        	if(myRegion!="all"){
+        		$.ajax({
+    				type:"GET",
+    				url: "selectSomeMapByRegion/"+myRegion ,
+    				dataType: "json",
+    				beforeSend:function(XMLHttpRequest){
+    		            console.log("gif"); 
+    		        },
+    				success: function(maps){
+    					writetable(maps);
+    				},
+    				error:function(xhr, ajaxOptions, thrownError){
+    					let nodata = [{storeName:'查無資料'}]
+    					writetable(nodata);					
+    					console.log(xhr.status+"\n"+thrownError);
+    				}	
+    			});				
+        	}else{
+				createData();			
+			}
         })
         
         /*模糊查詢*/
@@ -183,7 +183,8 @@
 						}
 					},
 					error:function(xhr, ajaxOptions, thrownError){
-						createData();			
+						let nodata = [{storeName:'查無資料'}]
+						writetable(nodata);			
 						console.log(xhr.status+"\n"+thrownError);
 					}	
 				});	
