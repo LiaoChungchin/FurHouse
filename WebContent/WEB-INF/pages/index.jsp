@@ -324,7 +324,7 @@
 		$(".ml9 .letter:eq(27)").addClass("keyLetter");
 		$(".ml9 .letters").eq(0).append("<span class='cross'>+</span>");
 		
-		anime.timeline({loop: false})
+		anime.timeline({loop: true})
 			.add({
 				targets:".ml9 .letter",
 				scale:[0, 1],
@@ -481,8 +481,13 @@
 		  		},
 				duration:500,
 				easing:"easeOutElastic"
-			}, "-=500");
-		
+			}, "-=500").add({
+				targets:".container-anime",
+				opacity:0,
+				duration:3000,
+				delay:1000,
+				easing:"easeOutQuint",
+			});
 	</script>
 	
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
