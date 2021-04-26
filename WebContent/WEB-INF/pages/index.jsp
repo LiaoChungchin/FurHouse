@@ -82,6 +82,7 @@
 			padding-bottom:1.1em;
 			overflow:hidden;
 			display:inline-block;
+			margin-bottom:6px;
 		}
  		.ml9 .letter {
 			transform-origin:50% 100%;
@@ -478,7 +479,7 @@
 				translateY:[-170, -155],
 				duration:500,
 				easing:"easeOutElastic",
-				delay:500,
+				delay:200,
 			}).add({
 				targets:".devide",
 				translateY:function(el, i){
@@ -489,7 +490,7 @@
 			}, "-=500").add({
 				targets:".container-anime",
 				opacity:0,
-				duration:3000,
+				duration:5000,
 				delay:1000,
 				easing:"easeOutQuint",
 			});
