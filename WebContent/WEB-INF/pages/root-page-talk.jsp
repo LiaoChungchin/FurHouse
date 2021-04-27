@@ -149,6 +149,9 @@
 		.px-4 {
 			padding-left : 0rem !important;
 		}
+		.broadcast {
+			font-size : 12px;
+		}
 	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -193,9 +196,17 @@
 		        if (event.data.indexOf("count") > -1) {
 		            var data = msg.split(" : ");
 		            document.getElementById("count").innerHTML = data[1] - 1; // 只顯示會員進線人數，不包含管理員本身
+		        } else if(event.data.indexOf("broadcast!offlineUser : ") > -1) {
+		        	var offlineUserId = msg.split(" : ");
+// 		        	console.log("接收後台getBasicRemote().sendText(message) : offlineUserId = " + offlineUserId[1]);
+		        	broadcastLeave(offlineUserId[1]);
+		        } else if(event.data.indexOf("broadcast!inlineUser : ") > -1) {
+		        	var inlineUserId = msg.split(" : ");
+// 		        	console.log("接收後台getBasicRemote().sendText(message) : offlineUserId = " + inlineUserId[1]);
+		        	broadcastEnter(inlineUserId[1]);
 		        } else {
 		        	msg = JSON.parse(msg);
-		        	console.log("接收後台getBasicRemote().sendText(message) : " + JSON.stringify(msg));
+// 		        	console.log("接收後台getBasicRemote().sendText(message) : " + JSON.stringify(msg));
 		        	
 			        if(!memberInLists(msg)){
 			        	// 判斷是新增成員進入對話列表
@@ -204,9 +215,9 @@
 			        	if(msg.isRead == "unread") {
 				        	member.unreadMsgCount = 1;
 			        	}
-			        	console.log("當前新增信息的包裝成員 : " + JSON.stringify(member));
+// 			        	console.log("當前新增信息的包裝成員 : " + JSON.stringify(member));
 			        	msgLists.push(member);
-			        	console.log("msgLists現在總成員 : " + msgLists);
+// 			        	console.log("msgLists現在總成員 : " + msgLists);
 			        	// 創建一個對話列表的標籤，但是不創建用戶 ID:0 的標籤
 			        	if(msg.sendUser != 0){
 				        	setInboxChatMember(member);
@@ -277,7 +288,7 @@
 // 		    		console.log(msgLists[i].nowTime);
 		    		if(msgLists[i].user == userId) {
 		    			msgLists[i].unreadMsgCount = 0;
-						console.log("成功重置userID[" + userId + "]的未讀信息數量");
+// 						console.log("成功重置userID[" + userId + "]的未讀信息數量");
 					}
 		    	}
 		    });
@@ -286,7 +297,7 @@
 		function memberInLists(msg) {
 			// "msg" needs to be an object
 			if(msgLists.length == 0) {
-				console.log("msgLists is empty.");
+// 				console.log("msgLists is empty.");
 				return false;
 			}
 			for(let i = 0; i < msgLists.length; i++){
@@ -294,11 +305,11 @@
 // 					console.log(msgLists[i].user);
 // 		    		console.log(msgLists[i].unreadMsgCount);
 // 		    		console.log(msgLists[i].nowTime);
-					console.log(".inbox_chat has ths member msg.")
+// 					console.log(".inbox_chat has ths member msg.")
 					return true;
 				}
 			}
-			console.log(".inbox_chat dose not have this new member yet.");
+// 			console.log(".inbox_chat dose not have this new member yet.");
 			return false;
 		}
 		
@@ -370,6 +381,24 @@
 			}
 		}
 		
+		function broadcastLeave(id) {
+			let chooseElement = "div#showMsg" + id;
+			let fillingMsg = "<div class='broadcast my-lg-1 bg-dark text-white text-center font-weight-lighter'>"
+							+ new Date() 
+							+" 離線客服 " 
+							+ "</div>";
+			$(chooseElement).append(fillingMsg);
+		}
+		
+		function broadcastEnter(id) {
+			let chooseElement = "div#showMsg" + id;
+			let fillingMsg = "<div class='broadcast my-lg-1 bg-light text-dark text-center font-weight-lighter'>" 
+							+ new Date() 
+							+" 連線客服 " 
+							+ "</div>";
+			$(chooseElement).append(fillingMsg);
+		}
+		
 		function setMessageDiv(type, msg) {
 		    if(type === "client"){
 		    	// clinet 的 msg 給的是數組 [message, toUser]
@@ -437,7 +466,7 @@
 		    var jsonMsg = {"sendUser": sendUser, "toUser": toUser, "message": message}
 		    websocket.send(JSON.stringify(jsonMsg));
 		    
-		    console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
+// 		    console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
 		
 		    setMessageDiv("client", [message, toUser]);
 		    document.getElementById("write_msg").value = "";

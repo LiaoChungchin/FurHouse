@@ -187,7 +187,7 @@
 		            
 		        } else {
 		        	msg = JSON.parse(msg);
-		        	console.log("接收後台getBasicRemote().sendText(message) : " + JSON.stringify(msg));
+// 		        	console.log("接收後台getBasicRemote().sendText(message) : " + JSON.stringify(msg));
 					// setMessageInnerHTML(event.data);
 					if(msg.sendUser == sendUser){
 						setMessageDiv("client", msg);
@@ -273,7 +273,7 @@
 		    var jsonMsg = {"sendUser": sendUser, "toUser": toUser, "message": message}
 		    websocket.send(JSON.stringify(jsonMsg));
 		    
-		    console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
+// 		    console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
 			
 			setMessageDiv("client", message);
 		    document.getElementById("write_msg").value = "";
