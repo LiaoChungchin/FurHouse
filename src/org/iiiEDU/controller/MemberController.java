@@ -211,11 +211,11 @@ public class MemberController {
 	@RequestMapping(path = "/member.profile.update", method = RequestMethod.POST)
 	@ResponseBody
 	public Member memberUpdate1(@RequestParam("updateNo") Integer memberId, @RequestParam("updateName") String name,
-			 @RequestParam("updatePwd") String password,
+//			 @RequestParam("updatePwd") String password,
 			@RequestParam("updatePhone") String phone, @RequestParam("updateMail") String email,
 			@RequestParam("updateAddress") String address) {
 
-		Member member = service.updateById1(memberId, name, password, phone, email, address);
+		Member member = service.updateById1(memberId, name,  phone, email, address);
 
 		return member;
 	}

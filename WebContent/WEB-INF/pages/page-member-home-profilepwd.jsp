@@ -7,10 +7,8 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="shortcut icon" href="assets/img/favicon.ico"
-	type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
 
 <!-- Bootstrap CSS -->
 <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -43,6 +41,7 @@ h1 {
 		$("h1").append(nickName);
 	})
 </script>
+<script src="assets/js/index.js"></script>
 <title>FurHouse</title>
 
 </head>
@@ -76,21 +75,23 @@ h1 {
 				<input type="hidden" id="updateNo" name="updateNo" value="${login_user.memberId}";>
 					<br> 
 					   <div>
-						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}(原始密碼)" disabled="disabled">
+						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}" disabled="disabled">
 					    </div>
 					    <br>
 					  <div>
 						<input type="text" class="form-control" id="updatePwd" name="updatePwd"
-						 placeholder="新密碼">
+						 placeholder="新密碼"><div class=""></div>
 				      </div>
 				     <br>
+				     
 					  <div>
 						<input type="text" class="form-control" id="updatePwdCheck" name="updatePwdCheck"
 						 placeholder="確認新密碼">
 					  </div>
 				 <br>
 				 <div>
-						<button type="button" class="btn btn-primary" id="sucess1">儲存</button>
+						<button type="button" class="btn btn-primary" id="sucess1">儲存</button >
+						
 				 </div>
 			</form>
 		</div>
@@ -133,12 +134,33 @@ $(function(){
 // 				$('#updatePhone').val(member.phone);
 // 				$('#updateAddress').val(member.address);
 				alert("修改成功");
+				
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert(ajaxOptions+" "+thrownError);
 			}
 			
 		});
+		
+		
+// 		// for 密碼update
+// 	    $("body").on("blur", "#updatePwd", function () {
+// 	        let reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/;
+// 	        if (/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/.test($(this).val())) {
+// 	            $(this).removeClass("is-invalid");
+// 	            $(this).addClass("is-valid");
+// 	            $(this).next().removeClass("invalid-feedback");
+// 	            $(this).next().addClass("valid-feedback");
+// 	            $(this).next().html("密碼格式正確");
+// 	        } else {
+// 	            $(this).removeClass("is-valid");
+// 	            $(this).addClass("is-invalid");
+// 	            $(this).next().removeClass("valid-feedback");
+// 	            $(this).next().addClass("invalid-feedback");
+// 	            $(this).next().html("密碼格式不符");
+// 	        }
+// 	    });
+		
 	})
 </script>
 </html>

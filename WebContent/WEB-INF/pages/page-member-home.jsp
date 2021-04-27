@@ -100,14 +100,15 @@
 					<input type="text" class="form-control" id="updateName"
 						name="updateName" value="${login_user.name}";>
 				</div>
-
+					<br>
 				<div>
-					<label for="updatePwd" >會員密碼</label>
+<!-- 					<label for="updatePwd" >會員密碼</label> -->
 					<div>
-						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}" disabled="disabled">
+<%-- 						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}" disabled="disabled"> --%>
 						 <a href="<c:url value='/member.resetpwd'/>">設定新的密碼</a>
 					</div>
 				</div>
+					<br>
 				<div>
 					<label for="updateMail">電子信箱</label>
 					<div>
@@ -116,6 +117,7 @@
 							value="${login_user.email}">
 					</div>
 				</div>
+					<br>
 				<div>
 					<label for="updatePhone">手機號碼</label>
 					<div>
@@ -124,6 +126,7 @@
 							value="${login_user.phone}">
 					</div>
 				</div>
+					<br>
 				<div>
 					<label for="updateAddress">地址</label>
 					<div>
