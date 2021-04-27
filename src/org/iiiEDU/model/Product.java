@@ -1,5 +1,6 @@
 package org.iiiEDU.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 獲得Product表中所有的資訊
  * 
@@ -17,10 +20,12 @@ import javax.persistence.Table;
  * @最後修改時間:2021-03-21
  */
 
+@Component("product")
 @Entity
-@Table(name="Product")
-public class Product {
-
+@Table(name="product")
+public class Product implements Serializable{
+	
+	private static final long serialVersionUID = 127486782574836748L;
 	/**
 	 * 所有欄位名稱與於資料表中的欄位名稱一致
 	 */
@@ -79,11 +84,10 @@ public class Product {
 		super();
 	}
 	
-	public Product(Integer id, String type, String subType, String brandName, String productName, Integer price, Integer quantity, Integer stock,
+	public Product(String type, String subType, String brandName, String productName, Integer price, Integer quantity, Integer stock,
 			String place, String comment1, String comment2, String photo1, String photo2, String photo3,
 			Timestamp updateDate,Integer shelf) {
 		super();
-		this.id = id;
 		this.type = type;
 		this.subType = subType;
 		this.brandName = brandName;

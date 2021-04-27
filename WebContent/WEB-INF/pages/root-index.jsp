@@ -190,7 +190,7 @@
 			window.location.href="order.mainPage";
 			break;
 		case 1:
-			window.location.href="javascript:;";
+			window.location.href="SelectAllProduct_Root";
 			break;
 		case 2:
 			window.location.href="member.mainPage";

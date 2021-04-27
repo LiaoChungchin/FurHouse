@@ -28,6 +28,10 @@
 <script src="assets/js/index.js"></script>
 
 <script>
+	$(document).ready(function () {
+    	// 匯入include所有語句
+   	 w3.includeHTML();
+	});
 	$(function() {
 		$('#BackTop').click(function() {
 			$('html,body').animate({
@@ -42,6 +46,7 @@
 			}
 		}).scroll();
 		
+
 		$("div#menu-detail").show();
 		$("div#menu-detail>div>a[class~='active']").removeClass("active");
 		$("div#menu-detail>div>a>small:contains('所有商品')").parent().addClass("active");
@@ -178,7 +183,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="assets/img/Products/product${product.id}_1.jpg"
+											<img src="${product.photo1}"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -204,10 +209,10 @@
 							<c:set var="flag" value="false" />
 							<c:choose>
 								<c:when test="${product.type =='罐頭餐'}">
-									<!-- 調整卡片分佈 -->
+							<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="assets/img/Products/product${product.id}_1.jpg"
+											<img src="${product.photo1}"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -236,7 +241,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="assets/img/Products/product${product.id}_1.jpg"
+											<img src="${product.photo1}"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -265,7 +270,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="assets/img/Products/product${product.id}_1.jpg"
+											<img src="${product.photo1}"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -294,7 +299,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="assets/img/Products/product${product.id}_1.jpg"
+											<img src="${product.photo1}"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -352,11 +357,8 @@
 		<script>
 			$(document).ready(function () {
 				$("a#anchor-login-modal").text("登出");
-				let memberBadge = `&nbsp;&nbsp;<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
+				let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
 				$("a#anchor-login-modal").before(memberBadge);
-				$("a#myShoppingCart").attr("class","btn btn-outline-primary");
-				$("a#myShoppingCart").attr("href","paymentS1");
-				$("a#myShoppingCart>span").attr("class","badge btn-danger");
 			});
 		</script>
 	</c:if>
@@ -369,6 +371,7 @@
 			});
 		</script>
 	</c:if>
+	
 	
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>

@@ -13,7 +13,7 @@ import org.iiiEDU.model.OrderListDAOService;
 import org.iiiEDU.model.OrderStatus;
 import org.iiiEDU.model.OrderStatusDAOService;
 import org.iiiEDU.model.Product;
-import org.iiiEDU.model.ProductImplDAO;
+import org.iiiEDU.model.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -48,6 +48,9 @@ public class OrdersController {
 	@Autowired
 	@Qualifier("memberDAOService")
 	private MemberDAOService memberDAOService;
+	
+	@Autowired
+	private ProductService productService;
 
 	@GetMapping("/order.mainPage")
 	public String orderMainPage(Model model) {
@@ -123,8 +126,10 @@ public class OrdersController {
 				Integer howMuch = Integer.parseInt(tempList.get(i).getPrice());
 				totalPrice += howMany * howMuch;
 				// 放置相對應的table欄位
-				ProductImplDAO productImplDAO = new ProductImplDAO();
-				Product product = productImplDAO.SelectOneProduct(Integer.parseInt(tempList.get(i).getId())).get(0);
+//				ProductImplDAO productImplDAO = new ProductImplDAO();
+//				Product product = productImplDAO.SelectOneProduct(Integer.parseInt(tempList.get(i).getId())).get(0);
+				Product product = productService.selectOneProduct(Integer.parseInt(tempList.get(i).getId()));
+				
 				switch(i) {
 				case 0 :
 					orderList.setProduct1(product);
