@@ -211,10 +211,11 @@ public class MemberController {
 	@RequestMapping(path = "/member.profile.update", method = RequestMethod.POST)
 	@ResponseBody
 	public Member memberUpdate1(@RequestParam("updateNo") Integer memberId, @RequestParam("updateName") String name,
+			 @RequestParam("updatePwd") String password,
 			@RequestParam("updatePhone") String phone, @RequestParam("updateMail") String email,
 			@RequestParam("updateAddress") String address) {
 
-		Member member = service.updateById1(memberId, name, phone, email, address);
+		Member member = service.updateById1(memberId, name, password, phone, email, address);
 
 		return member;
 	}
@@ -223,6 +224,16 @@ public class MemberController {
 	@ResponseBody
 	public Member getprofile(@PathVariable("memberId") Integer memberId) {
 		Member member = service.getMemberById(memberId);
+		return member;
+	}
+	
+	@RequestMapping(path = "/member.password.update", method = RequestMethod.POST)
+	@ResponseBody
+	public Member memberUpdate2(@RequestParam("updateNo") Integer memberId,
+			 @RequestParam("updatePwd") String password) {
+
+		Member member = service.updateById2(memberId, password);
+
 		return member;
 	}
 

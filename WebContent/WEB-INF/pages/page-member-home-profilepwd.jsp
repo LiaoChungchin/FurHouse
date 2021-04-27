@@ -72,19 +72,25 @@ h1 {
 
 	<div class="form-group col-md-6">
 		<div>
-			<form method="post" id="profileupdateform" enctype="multipart/form-data">
-				<input type="hidden" id="updateNo" name="updateNo" value="${login_user.memberId}";> 
-				   <div>
-					  <label for="updatePwd">會員密碼</label>
+			<form method="post" id="profileupdateform1" enctype="multipart/form-data">
+				<input type="hidden" id="updateNo" name="updateNo" value="${login_user.memberId}";>
+					<br> 
+					   <div>
+						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}(原始密碼)" disabled="disabled">
+					    </div>
+					    <br>
 					  <div>
-						<input type="text" class="form-control"
-						value="${login_user.password}"
-							disabled="disabled"> <a
-							href="<c:url value='/member.myPage'/>">設定新的密碼</a>
+						<input type="text" class="form-control" id="updatePwd" name="updatePwd"
+						 placeholder="新密碼">
+				      </div>
+				     <br>
+					  <div>
+						<input type="text" class="form-control" id="updatePwdCheck" name="updatePwdCheck"
+						 placeholder="確認新密碼">
 					  </div>
-				 </div>
+				 <br>
 				 <div>
-						<button type="button" class="btn btn-primary" id="sucess">儲存</button>
+						<button type="button" class="btn btn-primary" id="sucess1">儲存</button>
 				 </div>
 			</form>
 		</div>
@@ -102,11 +108,7 @@ $(function(){
 		type : "GET", //指定http參數傳輸格式為POST
 		url : "member.profile/${login_user.memberId}", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 		success : function(member) {
-			$('#updateName').val(member.name);
-			$('#updateMail').val(member.email);
-			$('#updatePhone').val(member.phone);
-			$('#updateAddress').val(member.address);
-			
+			$('#updatePwd').val(member.password);	
 		},
 		
 		//Ajax失敗後要執行的function，此例為印出錯誤訊息
@@ -118,12 +120,12 @@ $(function(){
 
 	 
 	 	//ajax for 修改後顯示
-	 $('#sucess').on("click",function(){
-		 console.log($("#profileupdateform").serializeArray());
+	 $('#sucess1').on("click",function(){
+		 console.log($("#profileupdateform1").serializeArray());
 		$.ajax({
 			type : "POST", //指定http參數傳輸格式為POST
-			url : "member.profile.update", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
-			data : $("#profileupdateform").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
+			url : "member.password.update", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+			data : $("#profileupdateform1").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
 			success : function(memeber) {
 				 console.log(memeber);
 // 				$('#updateName').val(member.name);

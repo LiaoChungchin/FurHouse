@@ -92,15 +92,26 @@ public class MemberDAO {
 		return null;
 	}
 
-	public Member updateById1(Integer memberId, String name, String phone, String email, String address) {
+	public Member updateById1(Integer memberId, String name, String password, String phone, String email, String address) {
 
 		Session session = sf.getCurrentSession();
 		Member member = session.get(Member.class, memberId);
 		if (member != null) {
 			member.setName(name);
+			member.setPassword(password);
 			member.setPhone(phone);
 			member.setEmail(email);
 			member.setAddress(address);
+		}
+		return member;
+	}
+	
+	public Member updateById2(Integer memberId, String password) {
+
+		Session session = sf.getCurrentSession();
+		Member member = session.get(Member.class, memberId);
+		if (member != null) {
+			member.setPassword(password);
 		}
 		return member;
 	}

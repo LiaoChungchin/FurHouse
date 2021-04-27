@@ -102,13 +102,10 @@
 				</div>
 
 				<div>
-					<label for="updatePwd">會員密碼</label>
+					<label for="updatePwd" >會員密碼</label>
 					<div>
-						<input type="text" class="form-control"
-							<%-- 						id="update${member.memberId}Pwd" name="updatePwd" --%>
-						value="${login_user.password}"
-							disabled="disabled"> <a
-							href="<c:url value='/member.resetpwd'/>">設定新的密碼</a>
+						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}" disabled="disabled">
+						 <a href="<c:url value='/member.resetpwd'/>">設定新的密碼</a>
 					</div>
 				</div>
 				<div>
@@ -136,6 +133,7 @@
 					</div>
 				</div>
 				<div>
+				<br>
 					<div>
 						<button type="button" class="btn btn-primary" id="sucess">儲存</button>
 					</div>
@@ -274,6 +272,7 @@
 			url : "member.profile/${login_user.memberId}", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 			success : function(member) {
 				$('#updateName').val(member.name);
+				$('#updatePwd').val(member.password);
 				$('#updateMail').val(member.email);
 				$('#updatePhone').val(member.phone);
 				$('#updateAddress').val(member.address);

@@ -49,9 +49,13 @@ public class MemberDAOService {
 		
 		return memberDAO.insert(member);
 	}
-	public Member updateById1(Integer memberId, String name, String phone, String email,
+	public Member updateById1(Integer memberId, String name,String password, String phone, String email,
 			String address) {
 
-		return memberDAO.updateById1(memberId, name, phone, email, address);
+		return memberDAO.updateById1(memberId, name, password, phone, email, address);
+	}
+	public Member updateById2(Integer memberId,String password) {
+
+		return memberDAO.updateById2(memberId, password);
 	}
 }
