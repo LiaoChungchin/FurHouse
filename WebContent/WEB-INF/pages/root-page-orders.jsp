@@ -34,7 +34,7 @@ form#orderListForm {
 	font-size: 20px;
 	color: #FFFFA1;
 	font-weight: bold;
-	border-radius: 3px;
+	border-radius: 5px;
 	background-color: #6A00B8;
 }
 
@@ -56,9 +56,18 @@ form#orderListForm {
 /* 	表單欄位樣式 */
 .col-form-label {
 	margin-top: 10px;
-	font-size: 14px;
+	font-size: 16px;
 	color: #000000;
-	background-color: #DEDEDE;
+/* 	background-color: #DEDEDE; */
+	text-align: center;
+	line-height: 30px;
+}
+
+.orderType{
+	margin-top: 10px;
+	font-size: 16px;
+	color: #000000;
+	background-color:rgba(92,102,204,0.13);
 	text-align: center;
 	line-height: 30px;
 	border-radius: 5px;
@@ -66,7 +75,13 @@ form#orderListForm {
 
 /* 	表單分隔線樣式 */
 hr{
-	border: 2px solid #F5E8FF;
+/* 	border: 2px solid #F5E8FF; */
+		width: 80%;
+		margin: 20px auto;
+		border: 0;
+ 		height: 1px; 
+		background: #c938ff;
+ 		background-image: linear-gradient(to right, #ccc, #c938ff, #ccc);
 }
 
 
@@ -195,6 +210,7 @@ hr{
 											$("input#productName1").val(orderList.product1.productName);
 											$("input#productPrice1").val(orderList.product1.price);
 											$("input#productQuota1").val(orderList.productQua01);
+											$("#img1").attr("src","orderImageToByte?path="+orderList.product1.photo1);
 										} else {
 											$("div#MyProduct1").css("display","none");
 										}
@@ -205,6 +221,7 @@ hr{
 											$("input#productName2").val(orderList.product2.productName);
 											$("input#productPrice2").val(orderList.product2.price);
 											$("input#productQuota2").val(orderList.productQua02);
+											$("#img2").attr("src","orderImageToByte?path="+orderList.product2.photo1);
 										} else {
 											$("div#MyProduct2").css("display","none");
 										}
@@ -215,6 +232,7 @@ hr{
 											$("input#productName3").val(orderList.product3.productName);
 											$("input#productPrice3").val(orderList.product3.price);
 											$("input#productQuota3").val(orderList.productQua03);
+											$("#img3").attr("src","orderImageToByte?path="+orderList.product3.photo1);
 										} else {
 											$("div#MyProduct3").css("display","none");
 										}
@@ -225,6 +243,7 @@ hr{
 											$("input#productName4").val(orderList.product4.productName);
 											$("input#productPrice4").val(orderList.product4.price);
 											$("input#productQuota4").val(orderList.productQua04);
+											$("#img4").attr("src","orderImageToByte?path="+orderList.product4.photo1);
 										} else {
 											$("div#MyProduct4").css("display","none");
 										}
@@ -235,6 +254,7 @@ hr{
 											$("input#productName5").val(orderList.product5.productName);
 											$("input#productPrice5").val(orderList.product5.price);
 											$("input#productQuota5").val(orderList.productQua05);
+											$("#img5").attr("src","orderImageToByte?path="+orderList.product5.photo1);
 										} else {
 											$("div#MyProduct5").css("display","none");
 										}
@@ -261,6 +281,7 @@ hr{
 									if (orderList.product1) {
 										$("hr#amountV1").css("display","block");
 										$("div#amountProduct1").css("display","block");
+										$("#amountImg1").attr("src","orderImageToByte?path="+orderList.product1.photo1);
 										$("input#amountProductId1").val(orderList.product1.id);
 										$("input#amountProductName1").val(orderList.product1.productName);
 										$("input#amountProductCount1").val(orderList.productQua01);
@@ -272,6 +293,7 @@ hr{
 									if (orderList.product2) {
 										$("hr#amountV2").css("display","block");
 										$("div#amountProduct2").css("display","block");
+										$("#amountImg2").attr("src","orderImageToByte?path="+orderList.product2.photo1);
 										$("input#amountProductId2").val(orderList.product2.id);
 										$("input#amountProductName2").val(orderList.product2.productName);
 										$("input#amountProductCount2").val(orderList.productQua02);
@@ -283,6 +305,7 @@ hr{
 									if (orderList.product3) {
 										$("hr#amountV3").css("display","block");
 										$("div#amountProduct3").css("display","block");
+										$("#amountImg3").attr("src","orderImageToByte?path="+orderList.product3.photo1);
 										$("input#amountProductId3").val(orderList.product3.id);
 										$("input#amountProductName3").val(orderList.product3.productName);
 										$("input#amountProductCount3").val(orderList.productQua03);
@@ -294,6 +317,7 @@ hr{
 									if (orderList.product4) {
 										$("hr#amountV4").css("display","block");
 										$("div#amountProduct4").css("display","block");
+										$("#amountImg4").attr("src","orderImageToByte?path="+orderList.product4.photo1);
 										$("input#amountProductId4").val(orderList.product4.id);
 										$("input#amountProductName4").val(orderList.product4.productName);
 										$("input#amountProductCount4").val(orderList.productQua04);
@@ -305,6 +329,7 @@ hr{
 									if (orderList.product5) {
 										$("hr#amountV5").css("display","block");
 										$("div#amountProduct5").css("display","block");
+										$("#amountImg5").attr("src","orderImageToByte?path="+orderList.product5.photo1);
 										$("input#amountProductId5").val(orderList.product5.id);
 										$("input#amountProductName5").val(orderList.product5.productName);
 										$("input#amountProductCount5").val(orderList.productQua05);
@@ -442,7 +467,7 @@ hr{
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
 					<h2>Order Manager</h2>
-					<small>update : 2021/4/10</small>
+					<small>update : 2021/4/27</small>
 				</div>
 				<table class="table table-hover table-striped " id="allOrdertb">
 					<thead class="indigo white-text">
@@ -494,7 +519,7 @@ hr{
 	<div class="modal fade" id="orderListDetails" tabindex="-1"
 		role="dialog" aria-labelledby="orderListDetailsLabel"
 		aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 <!-- 					<h3 class="modal-title" id="orderListDetailsLabel">&nbsp;&nbsp;訂單詳細資訊</h3> -->
@@ -510,27 +535,27 @@ hr{
 						<fieldset>
 							<legend class="form-title">訂單資訊</legend>
 							<div class="form-group row">
-								<label for="orderId" class="col-sm-2 col-form-label">訂單編號</label>
+								<label for="orderId" class="col-sm-2 col-form-label orderType">訂單編號</label>
 								<div class="col-sm-4">
 									<input type="text" readonly class="form-control-plaintext"
 										id="orderId" value="...">
 								</div>
-								<label for="orderStatus" class="col-sm-2 col-form-label">訂單狀態</label>
+								<label for="orderStatus" class="col-sm-2 col-form-label orderType">訂單狀態</label>
 								<div class="col-sm-4">
 									<input type="text" readonly class="form-control-plaintext"
 										id="orderStatus" value="...">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="createDate" class="col-sm-2 col-form-label">購買日期</label>
-								<div class="col-sm-10">
+								<label for="createDate" class="col-sm-2 col-form-label orderType">購買日期</label>
+								<div class="col-sm-4">
 									<input type="text" readonly class="form-control-plaintext"
 										id="createDate" value="...">
 								</div>
-							</div>
-							<div class="form-group row">
-								<label for="memberName" class="col-sm-2 col-form-label">購買人</label>
-								<div class="col-sm-10">
+<!-- 							</div> -->
+<!-- 							<div class="form-group row"> -->
+								<label for="memberName" class="col-sm-2 col-form-label orderType">購買人</label>
+								<div class="col-sm-4">
 									<input type="text" readonly class="form-control-plaintext"
 										id="memberName" value="...">
 								</div>
@@ -540,19 +565,19 @@ hr{
 						<fieldset>
 							<legend class="form-title">運送資訊</legend>
 							<div class="form-group row">
-								<label for="contact" class="col-sm-2 col-form-label">收件人</label>
+								<label for="contact" class="col-sm-2 col-form-label orderType">收件人</label>
 								<div class="col-sm-10">
 									<input type="text" readonly class="form-control-plaintext"
 										id="contact" value="...">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="paymentType" class="col-sm-2 col-form-label">付款方式</label>
+								<label for="paymentType" class="col-sm-2 col-form-label orderType">付款方式</label>
 								<div class="col-sm-4">
 									<input type="text" readonly class="form-control-plaintext"
 										id="paymentType" value="...">
 								</div>
-								<label for="shippingType" class="col-sm-2 col-form-label">運送單位</label>
+								<label for="shippingType" class="col-sm-2 col-form-label orderType">運送單位</label>
 								<div class="col-sm-4">
 									<input type="text" readonly class="form-control-plaintext"
 										id="shippingType" value="...">
@@ -560,26 +585,26 @@ hr{
 							</div>
 
 							<div class="form-group row">
-								<label for="phone1" class="col-sm-2 col-form-label">連絡電話</label>
+								<label for="phone1" class="col-sm-2 col-form-label orderType">連絡電話</label>
 								<div class="col-sm-4">
 									<input type="text" readonly class="form-control-plaintext"
 										id="phone1" value="...">
 								</div>
-								<label for="phone2" class="col-sm-2 col-form-label">備用電話</label>
+								<label for="phone2" class="col-sm-2 col-form-label orderType">備用電話</label>
 								<div class="col-sm-4">
 									<input type="text" readonly class="form-control-plaintext"
 										id="phone2" value="...">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="address" class="col-sm-2 col-form-label">連絡地址</label>
+								<label for="address" class="col-sm-2 col-form-label orderType">連絡地址</label>
 								<div class="col-sm-10">
 									<input type="text" readonly class="form-control-plaintext"
 										id="address" value="...">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="comment" class="col-sm-12 col-form-label">訂單備註</label>
+								<label for="comment" class="col-sm-12 col-form-label orderType">訂單備註</label>
 								<textarea class="form-control-plaintext" id="comment" rows="3"></textarea>
 							</div>
 						</fieldset>
@@ -589,33 +614,35 @@ hr{
 							<c:forEach var="i" begin="1" end="5">
 							<div id="MyProduct<c:out value="${i}"/>">
 								<div class="form-group row">
-									<label for="productId<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品編號</label>
-									<div class="col-sm-10">
-										<input type="text" readonly class="form-control-plaintext"
-											id="productId<c:out value="${i}"/>" value="...">
+									<div class="col-sm-3">
+										<img class="img-fluid" id="img<c:out value="${i}"/>">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="productName<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品名稱</label>
+									<label for="productId<c:out value="${i}"/>" class="col-sm-2 col-form-label orderType">商品編號</label>
+									<div class="col-sm-4">
+										<input type="text" readonly class="form-control-plaintext"
+											id="productId<c:out value="${i}"/>" value="...">
+									</div>
+									<label for="productQuota<c:out value="${i}"/>" class="col-sm-2 col-form-label orderType">商品數量</label>
+		                            <div class="col-sm-4">
+		                                <input type="text" readonly class="form-control-plaintext" id="productQuota<c:out value="${i}"/>"
+		                                       value="...">
+		                            </div>
+								</div>
+								<div class="form-group row">
+									<label for="productName<c:out value="${i}"/>" class="col-sm-2 col-form-label orderType">商品名稱</label>
 									<div class="col-sm-10">
 										<input type="text" readonly class="form-control-plaintext"
 											id="productName<c:out value="${i}"/>" value="...">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="productPrice<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品金額<br>(TWD)
-									</label>
+									<label for="productPrice<c:out value="${i}"/>" class="col-sm-3 col-form-label orderType">商品金額(TWD)</label>
 									<div class="col-sm-4">
 										<input type="text" readonly class="form-control-plaintext"
 											id="productPrice<c:out value="${i}"/>" value="...">
 									</div>
-								</div>
-								<div class="form-group row">
-		                            <label for="productQuota<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品數量</label>
-		                            <div class="col-sm-4">
-		                                <input type="text" readonly class="form-control-plaintext" id="productQuota<c:out value="${i}"/>"
-		                                       value="...">
-		                            </div>
 								</div>
 								<hr>
 							</div>
@@ -635,7 +662,7 @@ hr{
 	<!-- 訂單狀態變更的Modal -->
 	<div class="modal fade" id="changeOrderListStatus" tabindex="-1"
 		role="dialog" aria-labelledby="statusRadio" aria-hidden="true">
-		<div class="modal-dialog modal-mg" role="document">
+		<div class="modal-dialog modal-mg modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 <!-- 					<h3 class="modal-title" id="statusRadio">訂單狀態更新</h3> -->
@@ -656,7 +683,7 @@ hr{
 	<!-- Modal --會員基本資訊 -->
 	<div class="modal fade" id="memberDetails" tabindex="-1" role="dialog"
 		aria-labelledby="memberDetailsLabel" aria-hidden="true">
-		<div class="modal-dialog modal-mg" role="document">
+		<div class="modal-dialog modal-mg modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 <!-- 					<h3 class="modal-title" id="memberDetailsLabel">會員基本訊息</h3> -->
@@ -671,21 +698,21 @@ hr{
 						<fieldset>
 							<legend class="form-title">會員資訊</legend>
 							<div class="form-group row">
-								<label for="memberNameV1" class="col-sm-3 col-form-label">會員姓名</label>
+								<label for="memberNameV1" class="col-sm-3 col-form-label orderType">會員姓名</label>
 								<div class="col-sm-5">
 									<input type="text" readonly class="form-control-plaintext"
 										id="memberNameV1" value="...">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="genderV1" class="col-sm-3 col-form-label">性別</label>
+								<label for="genderV1" class="col-sm-3 col-form-label orderType">性別</label>
 								<div class="col-sm-3">
 									<input type="text" readonly class="form-control-plaintext"
 										id="genderV1" value="...">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="phoneV1" class="col-sm-3 col-form-label">手機號碼</label>
+								<label for="phoneV1" class="col-sm-3 col-form-label orderType">手機號碼</label>
 								<div class="col-sm-5">
 									<input type="text" readonly class="form-control-plaintext"
 										id="phoneV1" value="...">
@@ -693,7 +720,7 @@ hr{
 							</div>
 
 							<div class="form-group row">
-								<label for="emailV1" class="col-sm-3 col-form-label">信箱</label>
+								<label for="emailV1" class="col-sm-3 col-form-label orderType">信箱</label>
 								<div class="col-sm-9">
 									<input type="text" readonly class="form-control-plaintext"
 										id="emailV1" value="...">
@@ -714,7 +741,7 @@ hr{
 <!-- Modal --總金額詳細資訊 -->
 	<div class="modal fade" id="amountDetails" tabindex="-1" role="dialog"
 		aria-labelledby="amountDetailsLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 <!-- 					<h4 class="modal-title" id="amountDetailsLabel">金額詳細資訊</h4> -->
@@ -730,12 +757,15 @@ hr{
 							<c:forEach var="i" begin="1" end="5">
 							<div id="amountProduct<c:out value="${i}"/>">
 							<div class="form-group row">
+								<div class="col-sm-2">
+									<img class="img-fluid" id="amountImg<c:out value="${i}"/>">
+								</div>
 								<label for="amountProductId<c:out value="${i}"/>" class="col-sm-2 col-form-label">商品編號</label>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<input type="text" readonly class="form-control-plaintext" id="amountProductId<c:out value="${i}"/>" value="...">
 								</div>
 								<label for="amountProductPrice<c:out value="${i}"/>" class="col-sm-2 col-form-label">單價&nbsp;&nbsp;(TWD)</label>
- 								<div class="col-sm-4">
+ 								<div class="col-sm-3">
  									<input type="text" readonly class="form-control-plaintext"
 										id="amountProductPrice<c:out value="${i}"/>" value="...">
  								</div>
@@ -757,16 +787,16 @@ hr{
  							</div>
  							
 							</c:forEach>
-							<div class="form-group row">
+							<div class="form-group row justify-content-end">
 								<label for="productDiscount" class="col-sm-2 col-form-label">折扣&nbsp;&nbsp;(TWD)</label>
-								<div class="col-sm-4">
+								<div class="col-sm-2">
 									<input type="text" readonly class="form-control-plaintext"
 										id="productDiscount" value="...">
 								</div>
-								<label for="productAmount" class="col-sm-2 col-form-label">總金額&nbsp;&nbsp;(TWD)</label>
-								<div class="col-sm-4">
+								<label for="productAmount" class="col-sm-3 col-form-label">總金額&nbsp;&nbsp;(TWD)</label>
+								<div class="col-sm-3">
 									<input type="text" readonly class="form-control-plaintext"
-										id="productAmount" value="...">
+										id="productAmount" value="..." style="color:#C20000;font-size:18px;font-weight:bold;">
 								</div>
 							</div>
 						</fieldset>
