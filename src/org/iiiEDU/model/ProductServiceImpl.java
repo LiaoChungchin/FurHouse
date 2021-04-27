@@ -10,31 +10,37 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 	
+	// Interface DI
 	@Autowired
-	private ProductDAO productDAOImpl;
+	private ProductDAO productDAO;
 	
 	@Override
 	public List<Product> selectAllProduct() {
-		return productDAOImpl.selectAllProduct();
+		
+		return productDAO.selectAllProduct();
 	}
 
 	@Override
 	public Product selectOneProduct(Integer id) {
-		return productDAOImpl.selectOneProduct(id);
+		
+		return productDAO.selectOneProduct(id);
 	}
 
 	@Override
 	public Integer insertProduct(Product product) {
-		return productDAOImpl.insertProduct(product);
+		
+		return productDAO.insertProduct(product);
 	}
 
 	@Override
 	public Integer updateProduct(Product product) {
-		return productDAOImpl.updateProduct(product);
+		
+		return productDAO.updateProduct(product);
 	}
 
 	@Override
 	public Integer deleteProduct(Integer id) {
-		return productDAOImpl.deleteProduct(id);
+		
+		return productDAO.deleteProduct(id);
 	}
 }

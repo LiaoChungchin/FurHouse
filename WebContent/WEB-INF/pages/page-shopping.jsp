@@ -183,7 +183,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="${product.photo1}"
+											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -212,7 +212,7 @@
 							<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="${product.photo1}"
+											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -241,7 +241,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="${product.photo1}"
+											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -270,7 +270,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="${product.photo1}"
+											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">
@@ -299,7 +299,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="${product.photo1}"
+											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">

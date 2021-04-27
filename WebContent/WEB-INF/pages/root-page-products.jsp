@@ -133,9 +133,9 @@
 								<c:forEach items="${prods}" var="prod" varStatus="s">
 									<tr id="${prod.id}">
 										<td>${prod.id}</td>
-										<td><img class="figure-img img-fluid rounded" src="${prod.photo1}" alt="喵~" onerror="imgchange()"></td>
-										<td><img class="figure-img img-fluid rounded" src="${prod.photo2}" alt="喵~" onerror="imgchange()"></td>
-										<td><img class="figure-img img-fluid rounded" src="${prod.photo3}" alt="喵~" onerror="imgchange()"></td>					
+										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo1' />" alt="" onerror="imgchange()"></td>
+										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo2' />" alt="" onerror="imgchange()"></td>
+										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo3' />" alt="" onerror="imgchange()"></td>					
 										<td>${prod.productName}</td>
 										<td>${prod.type}</td>
 										<td>${prod.subType}</td>
@@ -200,7 +200,7 @@
     /*-------------------------圖片無法讀取顯示預設圖-----------------------------*/
     function imgchange(){
         var img=event.srcElement;
-        img.src="assets\\img\\testlogo.jpg";
+        img.src="<c:url value='product.getPhoto/0/empt' />";
         img.onerror=null; //控制不要一直觸發錯誤
     }
     

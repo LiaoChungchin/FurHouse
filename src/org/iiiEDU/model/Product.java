@@ -12,6 +12,9 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 /**
  * 獲得Product表中所有的資訊
  * 
@@ -26,9 +29,6 @@ import org.springframework.stereotype.Component;
 public class Product implements Serializable{
 	
 	private static final long serialVersionUID = 127486782574836748L;
-	/**
-	 * 所有欄位名稱與於資料表中的欄位名稱一致
-	 */
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,6 +75,7 @@ public class Product implements Serializable{
 	private String photo3;
 	
 	@Column(name="updateDate")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Taipei")
 	private Timestamp updateDate;
 	
 	@Column(name="shelf")
