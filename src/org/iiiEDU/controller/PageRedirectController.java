@@ -85,6 +85,11 @@ public class PageRedirectController {
 		return "root-page-talk.jsp";
 	}
 	
+	@GetMapping("/index.disclaimer")
+	public String catBowDisclaimer() {
+		return "index-disclaimer.jsp";
+	}
+	
 	// 測試用
 	@GetMapping("/chat04test.controller")
 	public String mytest04(){
