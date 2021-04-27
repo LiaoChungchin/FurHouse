@@ -589,7 +589,7 @@
 									<!-- 貓咪表格 -->
 									<table class="allCattb table-hover" id="allCattb" style="width:100%">
 										<thead>
-											<tr style="color:#5A5AAD;font-family:DFKai-sb;font-size:20px;background:#F0F0F0;">
+											<tr style="color:#5A5AAD;font-size:20px;background:#F0F0F0;">
 												<th>編號</th>
 												<th>名字</th>
 												<th>樣式</th>
