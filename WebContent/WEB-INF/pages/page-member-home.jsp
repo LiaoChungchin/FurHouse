@@ -196,6 +196,7 @@
 
 			break;
 		case 2:
+
 			$('.text-content').html('<div class="wrapper"></div><div class="pageGroup"></div>');
 			$('.wrapper').attr("style", "display:block;");
 			currentPage = 1;
@@ -264,7 +265,9 @@
 				tempstr += '</td></tr>';			
 			}
 		}
+
 		tempstr += '</tbody></table>';
+
 		$('.wrapper').html(tempstr);
 	}
 	
