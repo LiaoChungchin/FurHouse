@@ -57,13 +57,12 @@
 <script src="assets/js/tw-city-selector.min.js"></script>
 <!-- User Define JS -->
 <script>
- 	new TwCitySelector(); 
-/* 	new TwCitySelector({
+ 	new TwCitySelector({
     el: '.city-selector-set',
     elCounty: '.county', // 在 el 裡查找 element
     elDistrict: '.district', // 在 el 裡查找 element
     elZipcode: '.zipcode' // 在 el 裡查找 element
-  });*/
+  });
 </script>
 
 <script>
@@ -142,6 +141,7 @@
 							            flag1 = false;
 							        }else{
 							        	//清除错误提示，改成成功提示
+							        	 $("#checkSubmit").attr("disabled",true);
 								        userName.classList.remove("is-invalid");
 								        userName.classList.add("is-valid");
 								        feedback.innerHTML="";
@@ -231,18 +231,26 @@
 							$(phone2).val("(02)66316666");
 							$(comment).val("請於平日上午送達");
 							$(radio2).prop('checked',true);
+							$(radio7).prop('checked',true);
 							$(userName).val("林小歆");
 							userName.classList.add("is-valid");
 							$(phone1).val("0919302313");
 							phone1.classList.add("is-valid");
 							$(address).val("復興南路一段390號2樓");
 							address.classList.add("is-valid");
-							/*$(county).val("台北市");
-							$(district).html('<option value="大安區"  data-zipcode="100">大安區</option>');
+							$(county).val("台北市");
+							$(district).html('<option value="大安區"  data-zipcode="106">大安區</option>');
 							$(district).val("大安區");
-							$(zipcode).val("106");*/
+							$(zipcode).html('<input class="zipcode form-control col-md-3" id="zipcode" type="text" size="3" readonly placeholder="106">');
+							$(zipcode).val("106");
 							flag1=true;flag2=true;flag3=true;
 							$("#checkSubmit").removeAttr("disabled");
+						});
+						
+						/*-------------------------清除選項時，清除郵遞區號------------------------------*/
+						$("body").on("change","select#county,select#district",function(){
+							let form = $('#myOrderForm');
+							form.find('input:read-only').val('');
 						});
 	});
 					
@@ -313,15 +321,15 @@
 
 					<div class="form-group mb-3">
 						<form:label path="address" class="control-label">收貨地址<small id="need">&nbsp&nbsp&nbsp(必填)</small></form:label>
-						<div role="tw-city-selector" data-bootstrap-style data-has-zipcode></div> 
-<!-- 							<div class="city-selector-set row ml-1"> -->
+<!-- 						<div role="tw-city-selector" data-bootstrap-style data-has-zipcode></div> -->
+							<div class="city-selector-set row ml-1">
 							    <!-- 縣市選單 -->
-<!-- 							    <select class="county form-control col-md-4 mb-4 mr-3" id="county"></select> -->
+							    <select class="county form-control col-md-4 mb-4 mr-3" id="county"></select>
 								<!-- 區域選單 -->
-<!-- 								<select class="district form-control col-md-4 mr-3" id="district"></select> -->
+								<select class="district form-control col-md-4 mr-3" id="district"></select>
 							    <!-- 郵遞區號欄位 (建議加入 readonly 屬性，防止修改) -->
-<!-- 							    <input class="zipcode form-control col-md-3" id="zipcode" type="text" size="3" readonly placeholder="郵遞區號" > -->
-<!-- 							</div> -->
+							    <input class="zipcode form-control col-md-3" id="zipcode" name="zipcode" type="text" size="3" readonly placeholder="郵遞區號" >
+							</div>
 						<form:input type="text" path="address"
 							class="form-control" id="address" name="address"/>
 						<div class="invalid-feedback" id="address-feedback">請輸入您的收貨地址 </div>
@@ -363,35 +371,35 @@
 								class="custom-control-label" for="radio3">銀行轉帳</label>
 						</div>
 					</div>
-<!-- 						<h4 class="mb-2 my-3">送貨方式</h4> -->
-<!-- 						<div class="row" id="radio4box"> -->
-<!-- 							<div class="custom-control custom-radio col-sm"> -->
-<!-- 							<input id="radio4" name="ShippingType" type="radio" value="7-ELEVEn" -->
-<!-- 								class="custom-control-input"> <label -->
-<!-- 								class="custom-control-label" for="radio4">7-ELEVEn</label> -->
-<!-- 							<img id="shippingImg" src="assets\img\order\7ELEVEn.jpg">	 -->
-<!-- 							</div> -->
-<!-- 							<div class="custom-control custom-radio col-sm"> -->
-<!-- 							<input id="radio5" name="ShippingType" type="radio" value="FamilyMart" -->
-<!-- 								class="custom-control-input"> <label -->
-<!-- 								class="custom-control-label" for="radio5">FamilyMart</label> -->
-<!-- 							<img id="shippingImg" src="assets\img\order\FamilyMart.jpg"> -->
-<!-- 							</div> -->
-<!-- 							<div class="custom-control custom-radio col-sm"> -->
-<!-- 							<input id="radio6" name="ShippingType" type="radio" value="黑貓宅急便" -->
-<!-- 								class="custom-control-input"> <label -->
-<!-- 								class="custom-control-label" for="radio6">黑貓宅急便</label> -->
-<!-- 							<img id="shippingImg" src="assets\img\order\BlackCat.jpg"> -->
-<!-- 							</div> -->
-<!-- 							<div class="custom-control custom-radio col-sm"> -->
-<!-- 							<input id="radio7" name="ShippingType" type="radio" value="物流/宅配" -->
-<!-- 								class="custom-control-input"> <label -->
-<!-- 								class="custom-control-label" for="radio7">物流/宅配</label> -->
-<!-- 							<br> -->
-<!-- 							<img id="shippingImg" src="assets\img\order\KERRY.jpg"> -->
-<!-- 							</div> -->
+						<h4 class="mb-2 my-3">送貨方式</h4>
+						<div class="row" id="radio4box">
+							<div class="custom-control custom-radio col-sm">
+							<input id="radio4" name="ShippingType" type="radio" value="7-ELEVEn"
+								class="custom-control-input"> <label
+								class="custom-control-label" for="radio4">7-ELEVEn</label>
+							<img id="shippingImg" src="assets\img\order\7ELEVEn.jpg">	
+							</div>
+							<div class="custom-control custom-radio col-sm">
+							<input id="radio5" name="ShippingType" type="radio" value="FamilyMart"
+								class="custom-control-input"> <label
+								class="custom-control-label" for="radio5">FamilyMart</label>
+							<img id="shippingImg" src="assets\img\order\FamilyMart.jpg">
+							</div>
+							<div class="custom-control custom-radio col-sm">
+							<input id="radio6" name="ShippingType" type="radio" value="黑貓宅急便"
+								class="custom-control-input"> <label
+								class="custom-control-label" for="radio6">黑貓宅急便</label>
+							<img id="shippingImg" src="assets\img\order\BlackCat.jpg">
+							</div>
+							<div class="custom-control custom-radio col-sm">
+							<input id="radio7" name="ShippingType" type="radio" value="物流/宅配"
+								class="custom-control-input" checked> <label
+								class="custom-control-label" for="radio7">物流/宅配</label>
+							<br>
+							<img id="shippingImg" src="assets\img\order\KERRY.jpg">
+							</div>
 						
-<!-- 						</div> -->
+						</div>
 					
 					<hr class="mb-4" />
 					<div class="col-mb-4 text-right">

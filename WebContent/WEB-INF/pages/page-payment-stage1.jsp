@@ -196,7 +196,6 @@ form#product-list-formcheck {
 						let qua = $(this).val();
 						let price = $(this).parent().prev().text();
 // 						console.log(qua);
-						//(qua>0)?$(this).parent().next().find("b").eq(0).text(qua*price):$(this).parent().next().find("b").eq(0).text(price);
 						if(qua>0){
 							$(this).parent().next().find("b").eq(0).text(qua*price);
 						}else{
@@ -244,7 +243,7 @@ form#product-list-formcheck {
 							$(this).parent().parent().remove();
 							// 如果沒有商品了就顯示 : "商品明細沒有資料" 並且給予返回首頁的按鈕
 							if (productCount === 0) {
-								$("form#product-list-formcheck").children("div").eq(0).after("&nbsp;&nbsp;&nbsp;商品明細沒有資料");
+								$("form#product-list-formcheck").children("div").eq(0).after('<div style="font-size: 150px;text-align:center;"><i class="bi bi-cart4"></i></div><br><h4 style="text-align:center;">您的購物車裡沒有任何商品。</h4>');
 								$("button:contains('下一步')").remove();
 								let returnA = document.createElement("a");
 								returnA.setAttribute("class","btn btn-secondary btn-lg btn-block");
@@ -254,8 +253,6 @@ form#product-list-formcheck {
 								$("h3 span:first-of-type").attr("class","text-danger");
 							}
 						})
-						
-					
 						
 				// 訂單進入下一步 : 確認付款方式與地址
 				$("body").on("click", "button#button-next-step", function() {
