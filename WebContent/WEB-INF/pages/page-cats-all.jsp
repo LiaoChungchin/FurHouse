@@ -191,7 +191,7 @@ body {
 
 											<div class="SupportCat link">
 												<a class=" btn btn-primary"
-													href="supportOneCat?supportCatId=${cat.id}">我要助養</a>
+													href="supportOneCat?supportCatId=${cat.id}">我要認識</a>
 											</div>
 											<div class="SupportCat description">${cat.comment1}</div>
 										</div>

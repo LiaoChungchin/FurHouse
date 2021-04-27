@@ -207,7 +207,7 @@
 												style="background-image: url('catImageToByte?path=${cat.photo2}')"
 												id="supportCatDetailShow"></div>
 												</c:when>
-												<c:when test="${cat.photo2==null}">
+												<c:when test="${cat.photo2==null || cat.photo2==''}">
 												<div class="pcpLeading"
 												style="background-image: url('catImageToByte?path=${cat.photo1}')"
 												id="supportCatDetailShow"></div>

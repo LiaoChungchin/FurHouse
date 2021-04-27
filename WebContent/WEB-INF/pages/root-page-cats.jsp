@@ -269,6 +269,11 @@
 																		id="InsCatfile1" name="file1" style="display:none;"></input>
 																	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳													
 																</label>
+																<c:choose>
+																<c:when test="${InsCatfile1 == null}">
+																&nbsp;&nbsp;<div id="test1" style="color:red">至少上傳一張圖</div>
+																</c:when>
+																</c:choose>
 																<input type="hidden" name="base64photo1" id="base64photo1">			
 															</div>
 															<!-- 照片2 -->
@@ -582,9 +587,9 @@
 								    </div>
 									
 									<!-- 貓咪表格 -->
-									<table class="allCattb" id="allCattb" style="width:100%">
+									<table class="allCattb table-hover" id="allCattb" style="width:100%">
 										<thead>
-											<tr>
+											<tr style="color:#5A5AAD;font-family:DFKai-sb;font-size:20px;background:#F0F0F0;">
 												<th>編號</th>
 												<th>名字</th>
 												<th>樣式</th>
@@ -602,7 +607,7 @@
 										</thead>
 										<tbody>
 											<c:forEach items="${cats}" var="cat" varStatus="s">
-												<tr id="${cat.id}">
+												<tr id="${cat.id}" style="color:#842B00" >
 													<td>${cat.id}</td>
 													<td>${cat.nickname}</td>
 													<td>${cat.type}</td>
@@ -804,7 +809,9 @@
 	// 		preview(this);
 			$(".InsertCatfilepreview1").removeAttr("style");
 			$(".InsertCatfile1After").removeAttr("style");
-	        flag4=true;
+// 			$("#test1").attr("style","color:#FFFFFF");
+            $("#test1").html("");
+	        flag4=true;	        
 	        if(flag1&&flag2&&flag3&&flag4==true){
 	        	$("#InsertCatSubmit").attr("disabled",false);      	
 	        }
@@ -848,6 +855,7 @@
 		        $("#InsertCatcreateDate").removeClass("is-invalid");
 		        $("#InsertCatcreateDate").removeClass("is-valid");
 		        createDateHelp.innerHTML = `<span style="color:rgb(0, 170, 0)"><span>`;
+		    $("#test1").html("至少上傳一張圖 ")
 			
 	       	document.getElementById("InsertCatForm").reset();
 		})
