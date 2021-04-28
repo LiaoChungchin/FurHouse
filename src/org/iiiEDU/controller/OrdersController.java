@@ -60,7 +60,7 @@ public class OrdersController {
 	
 	@GetMapping("/myOrderList")
 	public String myOrderList(){
-		return "page-member-home-orders.jsp";
+		return "page-member-home.jsp";
 	}
 	
 	@GetMapping("/order.mainPage")
