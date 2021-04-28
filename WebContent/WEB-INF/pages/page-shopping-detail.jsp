@@ -117,15 +117,14 @@
 
 
 				<!-- ###置入本頁資訊### -->
-				<c:forEach items="${Products}" var="product">
 					<div class="container">
 						<div class="row" id="box-product">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="row">
 										<div class="col-md-12">
-											<img alt="喵~"
-												src="assets/img/Products/product${product.id}_1.jpg"
+											<img alt=""
+												src="<c:url value='/product.getPhoto/${product.id}/photo1' />"
 												class="img-photo1" />
 										</div>
 									</div>
@@ -134,9 +133,18 @@
 										<div class="col-md-6">
 											<c:choose>
 												<c:when test="${product.photo2!=null}">
-													<img alt="喵~"
-														src="assets/img/Products/product${product.id}_2.jpg"
+													<img alt=""
+														src="<c:url value='/product.getPhoto/${product.id}/photo2' />"
 														class="img-photo2" />
+												</c:when>
+											</c:choose>
+										</div>
+										<div class="col-md-6">
+											<c:choose>
+												<c:when test="${product.photo3!=null}">
+													<img alt="喵~"
+														src="<c:url value='/product.getPhoto/${product.id}/photo3' />"
+														class="img-photo3" />
 												</c:when>
 											</c:choose>
 										</div>
@@ -232,9 +240,6 @@
 							</div>
 						</div>
 					</div>
-				</c:forEach>
-
-
 
 			</div>
 		</div>
@@ -267,8 +272,7 @@
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>
 	<script>
-			<!--下方細項切頁
-			-->
+			<!--下方細項切頁-->
 			$(function()
 			{
 			$("#tabs").tabs({
@@ -315,6 +319,8 @@
 		}
 		});
 		});
+		
+		
 		</script>
 
 
