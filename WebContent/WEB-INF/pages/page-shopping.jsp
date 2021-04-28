@@ -484,22 +484,20 @@
 							</c:choose>
 						</c:forEach>
 					</div>
-
 				</div>
-
-				<div id="myShoppingBasket" class="position-fixed btn-group ">
-					<button type="button"
-						class="btn btn-warning dropdown-toggle bi bi-basket"
-						id="button-basket" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false" data-display="static">購物藍</button>
-					<div
-						class="dropdown-menu dropdown-menu-lg-right border border-light">
-						<form class="px-1 py-1" id="form-myShoppingBasket"
-							ondrop="drop(event)" ondragover="allowDrop(event)" method="post"
-							action="#">
-							<div class="form-group" id="noItems">沒有購物商品</div>
-						</form>
-					</div>
+			</div>
+			<div id="myShoppingBasket" class="position-fixed btn-group ">
+				<button type="button"
+					class="btn btn-warning dropdown-toggle bi bi-basket"
+					id="button-basket" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false" data-display="static">購物藍</button>
+				<div
+					class="dropdown-menu dropdown-menu-lg-right border border-light">
+					<form class="px-1 py-1" id="form-myShoppingBasket"
+						ondrop="drop(event)" ondragover="allowDrop(event)" method="post"
+						action="#">
+						<div class="form-group" id="noItems">沒有購物商品</div>
+					</form>
 				</div>
 			</div>
 		</div>
