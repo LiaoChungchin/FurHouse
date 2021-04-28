@@ -123,8 +123,8 @@
 								<div class="col-md-6">
 									<div class="row">
 										<div class="col-md-12">
-											<img alt="喵~"
-												src="${product.photo1}"
+											<img alt=""
+												src="<c:url value='/product.getPhoto/${product.id}/photo1' />"
 												class="img-photo1" />
 										</div>
 									</div>
@@ -133,8 +133,8 @@
 										<div class="col-md-6">
 											<c:choose>
 												<c:when test="${product.photo2!=null}">
-													<img alt="喵~"
-														src="${product.photo2}"
+													<img alt=""
+														src="<c:url value='/product.getPhoto/${product.id}/photo2' />"
 														class="img-photo2" />
 												</c:when>
 											</c:choose>
@@ -143,7 +143,7 @@
 											<c:choose>
 												<c:when test="${product.photo3!=null}">
 													<img alt="喵~"
-														src="${product.photo3}"
+														src="<c:url value='/product.getPhoto/${product.id}/photo3' />"
 														class="img-photo3" />
 												</c:when>
 											</c:choose>
