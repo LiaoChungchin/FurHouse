@@ -28,12 +28,11 @@
 			margin-top : 300px;
 		}
 		
-		.wrapper,.contentBox{
+		.contentBox{
 			margin: 30px auto;
 			width: 80%;
 			display:none;
 			background-color: rgba(255,255,242,0.65)
-/* 			background-color: white;  */
 		}
 		
 		.littleWindow{
@@ -42,15 +41,12 @@
 			top: 200px;
 		}
 		
-		.pageGroup{
-/* 			position: fixed; */
-/* 			bottom:50px; */
-/* 			left:15%; */
+		.pageGroup2{
 			margin:30px 0 50px 10px;
 			text-align:center;
 		}
 		
-		.pageGroup button{
+		.pageGroup2 button{
 			width: 45px;
 			margin: 0px 2px;
 		}
@@ -69,7 +65,7 @@
 			/* 	 color:#fff !important;  */
 		}
 		
-		.modal-title{
+		.modal-title#orderListDetailsLabel{
 			color:#BD0000;
 		}
 		
@@ -133,7 +129,7 @@
 		
 		
 	</script>
-	<title>FurHouse_V2</title>
+	<title>FurHouse</title>
 	
 </head>
 <body>
@@ -278,9 +274,9 @@
 		case 0:
 			break;
 		case 1:
-			$('.text-content').html('<div class="row contentBox"></div><div class="pageGroup"></div>');
+			$('.text-content').html('<div class="row contentBox"></div><div class="pageGroup2"></div>');
 			$('.contentBox').attr("style","display:block;");
-			currentPage = 1;
+			currentPage2 = 1;
 			selectAllOrderListMemberId()
 			break;
 		case 2:
@@ -296,14 +292,14 @@
 	
 	
 	/*-------------------訂單---------------------------------------------------------------*/
-	var pageLimit = 10;
-	var currentPage = 1; 
+	var pageLimitt = 10;
+	var currentPage2 = 1; 
 	
 	/*顯示個人訂單*/
 	function selectAllOrderListMemberId(){
 		$.ajax({
 			type:"GET",
-			url:"order.getAllOrderListsMemberId/${sessionScope.login_user.memberId}"+"/"+pageLimit+"/"+currentPage,
+			url:"order.getAllOrderListsMemberId/${sessionScope.login_user.memberId}"+"/"+pageLimitt+"/"+currentPage2,
 			dataType : "json",
 			beforeSend:function(XMLHttpRequest){
 	            console.log(this); 
@@ -378,18 +374,18 @@
 		let secondaryBtn = '<button type="button" class="btn btn-secondary" onclick="chooseBtnVal(this)">';
 		
 		let pagestr = "";
-		if(orderListTotal/pageLimit > 10){
-			if(currentPage>6 && currentPage <= (orderListTotal/pageLimit)-4){
-				for(let i = currentPage-6 ; i < currentPage+4 ; i++){
-					if(i == currentPage-1){
+		if(orderListTotal/pageLimitt > 10){
+			if(currentPage2>6 && currentPage2 <= (orderListTotal/pageLimitt)-4){
+				for(let i = currentPage2-6 ; i < currentPage2+4 ; i++){
+					if(i == currentPage2-1){
 						pagestr+=primaryBtn+(i+1)+'</button>';		
 					}else{
 						pagestr+=secondaryBtn+(i+1)+'</button>';
 					}
 				}
-			}else if(currentPage > (orderListTotal/pageLimit)-4){
-				for(let i = ((orderListTotal/pageLimit)-10) ; i <(orderListTotal/pageLimit) ; i++){
-					if(i == currentPage-1){
+			}else if(currentPage2 > (orderListTotal/pageLimitt-4)){
+				for(let i = ((orderListTotal/pageLimitt-10)) ; i <(orderListTotal/pageLimitt); i++){
+					if(i == currentPage2-1){
 						pagestr+=primaryBtn+(i+1)+'</button>';		
 					}else{
 						pagestr+=secondaryBtn+(i+1)+'</button>';
@@ -397,7 +393,7 @@
 				}
 			}else{
 				for(let i = 0 ; i < 10 ; i++){
-					if(i == currentPage-1){
+					if(i == currentPage2-1){
 						pagestr+=primaryBtn+(i+1)+'</button>';		
 					}else{
 						pagestr+=secondaryBtn+(i+1)+'</button>';
@@ -405,8 +401,8 @@
 				}
 			}
 		}else{
-			for(let i = 0 ; i < orderListTotal/pageLimit ; i++){
-				if(i == currentPage-1){
+			for(let i = 0 ; i < orderListTotal/pageLimitt ; i++){
+				if(i == currentPage2-1){
 					pagestr+=primaryBtn+(i+1)+'</button>';		
 				}else{
 					pagestr+=secondaryBtn+(i+1)+'</button>';
@@ -414,13 +410,13 @@
 			}
 		}
 		
-		$('.pageGroup').html(pagestr);
+		$('.pageGroup2').html(pagestr);
 			
 	}
 	
 	/*取得按鈕標籤內的值，並顯示當前頁數的內容*/
 	function chooseBtnVal(e){	
-		currentPage =  parseInt(e.innerText, 10);/*innerText 為 字串 須轉型成數字型態*/
+		currentPage2 =  parseInt(e.innerText, 10);/*innerText 為 字串 須轉型成數字型態*/
 		selectAllOrderListMemberId()
 	}
 	
