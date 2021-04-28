@@ -247,10 +247,29 @@
 							$("#checkSubmit").removeAttr("disabled");
 						});
 						
-						/*-------------------------清除選項時，清除郵遞區號------------------------------*/
+						/*-------------------------清除選項時清除郵遞區號------------------------------*/
 						$("body").on("change","select#county,select#district",function(){
 							let form = $('#myOrderForm');
 							form.find('input:read-only').val('');
+						});
+						
+						/*-------------------------收貨地址與會員通訊錄地址相同------------------------*/
+						$('body').on("click","#rememberAddr",function(){
+							$.ajax({
+								type:"GET",
+								url:"order.selectById/"+"${sessionScope.login_user.memberId}",
+								dataType : "json",
+								beforeSend:function(XMLHttpRequest){
+						            console.log(this); 
+						        },
+						        success:function(orderList){
+						            console.log(orderList.member.address); 
+						            $('input#address').val(orderList.member.address);
+						        },
+						        error:function(xhr, ajaxOptions, thrownError){
+						        	alert(xhr.status + "\n" + thrownError);
+						        }
+							});
 						});
 	});
 					
@@ -299,7 +318,7 @@
 				<h3 class="mb-3" id="Newdata" >收貨人資訊</h3>
 
 				<!-- form data binding start-->
-				<form:form Class="needs-validation" method="POST" id="myOrderForm" action="order.insert" modelAttribute="formOrderlist" onsubmit="return checkForm()">
+				<form:form Class="needs-validation" method="POST" id="myOrderForm" action="order.insert" modelAttribute="formOrderlist">
 					<div class="form-group mb-3">
 							<label for="userName" class="control-label">收貨人姓名<small id="need">&nbsp&nbsp&nbsp(必填)</small></label> 
 							<input type="text" class="form-control" id="userName" name="userName" >
