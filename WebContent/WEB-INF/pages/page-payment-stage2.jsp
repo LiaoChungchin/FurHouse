@@ -252,26 +252,31 @@
 							let form = $('#myOrderForm');
 							form.find('input:read-only').val('');
 						});
-						
-						/*-------------------------收貨地址與會員通訊錄地址相同------------------------*/
-						$('body').on("click","#rememberAddr",function(){
-							$.ajax({
-								type:"GET",
-								url:"order.selectById/"+"${sessionScope.login_user.memberId}",
-								dataType : "json",
-								beforeSend:function(XMLHttpRequest){
-						            console.log(this); 
-						        },
-						        success:function(orderList){
-						            console.log(orderList.member.address); 
-						            $('input#address').val(orderList.member.address);
-						        },
-						        error:function(xhr, ajaxOptions, thrownError){
-						        	alert(xhr.status + "\n" + thrownError);
-						        }
-							});
-						});
 	});
+	
+	/*-------------------------收貨地址與會員通訊錄地址相同()------------------------*/
+	function myChecked(){
+		var checkBox = document.getElementById("rememberAddr");
+		$.ajax({
+			type:"GET",
+			url:"member.profile/${sessionScope.login_user.memberId}",
+			dataType : "json",
+			beforeSend:function(XMLHttpRequest){
+	            console.log(this); 
+	        },
+	        success:function(member){
+	        	if (checkBox.checked == true){
+		        	console.log(member.address); 
+		            $('input#address').val(member.address);
+	        	}else {
+	        		 $('input#address').val('');
+	        	}
+	        },
+	        error:function(xhr, ajaxOptions, thrownError){
+	        	alert(xhr.status + "\n" + thrownError);
+	        }
+		});
+	}
 					
 	
 </script>
@@ -362,7 +367,7 @@
 					<hr class="mb-4" />
 					<div class="custom-control custom-checkbox">
 						<input type="checkbox" class="custom-control-input"
-							id="rememberAddr" name="rememberAddr" value="true" /> <label
+							id="rememberAddr" name="rememberAddr" value="true" onclick="myChecked()"/> <label
 							class="custom-control-label" for="rememberAddr">收貨地址與會員通訊錄地址相同</label>
 					</div>
 					<div class="custom-control custom-checkbox">

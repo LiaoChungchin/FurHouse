@@ -15,13 +15,23 @@ public class OrderListDAO {
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sf;
+	
+	private Integer orderListTotal;
+	
+	public Integer getOrderListTotal() {
+		return orderListTotal;
+	}
 		
 	public List<OrderList> getAllOrderLists(){
 		Session session = sf.getCurrentSession();
-		String hql = "FROM OrderList";
-		Query<OrderList> query = session.createQuery(hql, OrderList.class);
 		
-		return query.list();
+		String hql = "FROM OrderList";
+		
+		Query<OrderList> query = session.createQuery(hql, OrderList.class);
+		List<OrderList> orderLists = query.list();
+		
+		return orderLists;
+		//return query.list();
 	}
 	
 	public OrderList getOrderListById(Integer id){
@@ -57,4 +67,39 @@ public class OrderListDAO {
 		
 		return false;
 	}
+	
+	//------------------------個人訂單相關------------------------
+	public List<OrderList> getAllOrderListsPage(Integer pageLimit,Integer currentPage){
+		Session session = sf.getCurrentSession();
+		
+		String hql = "FROM OrderList";
+		
+		Query<OrderList> query = session.createQuery(hql, OrderList.class);
+		
+		orderListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
+		List<OrderList> orderLists = query.list(); 
+		
+		return orderLists;
+	}
+	
+	public List<OrderList> getAllOrderListsMemberId(Integer memberId,Integer pageLimit,Integer currentPage){
+		Session session = sf.getCurrentSession();
+		
+		String hql = "FROM OrderList where FK_member_memberId = :memberId order by createDate desc";
+		
+		Query<OrderList> query = session.createQuery(hql, OrderList.class);
+		query.setParameter("memberId", memberId);
+		
+		orderListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
+		
+		List<OrderList> orderLists = query.getResultList();
+		
+		return orderLists;		
+	}
+	
+	
 }
