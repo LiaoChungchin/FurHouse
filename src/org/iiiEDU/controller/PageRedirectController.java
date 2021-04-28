@@ -72,7 +72,7 @@ public class PageRedirectController {
 	
 	@GetMapping("/paymentS1")
 	public String directToPay1(){
-		return "page-payment-stage1.html";
+		return "page-payment-stage1.jsp";
 	}
 	
 	@GetMapping("/member.chat")
@@ -83,6 +83,11 @@ public class PageRedirectController {
 	@GetMapping("/contact.mainPage")
 	public String chat2(){
 		return "root-page-talk.jsp";
+	}
+	
+	@GetMapping("/index.disclaimer")
+	public String catBowDisclaimer() {
+		return "index-disclaimer.jsp";
 	}
 	
 	// 測試用
