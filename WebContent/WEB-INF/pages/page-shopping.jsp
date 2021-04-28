@@ -73,7 +73,18 @@
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4){
 					if(xhr.status == 200){
-						$("div.card-deck").append(xhr.responseText);
+						
+						let selectedProducts = JSON.parse(xhr.responseText);
+// 						console.log(JSON.parse(xhr.responseText));
+						
+						for(let i = 0; i < selectedProducts.length; i ++){
+							
+							let id = selectedProducts[i].id;
+							let productName = selectedProducts[i].productName;
+							let price = selectedProducts[i].price;
+							let cardContent = setCard(id, productName, price);
+							$("div.card-deck").append(cardContent);
+						}
 					}
 				}
 			};
@@ -82,8 +93,7 @@
 			
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('罐頭餐')").parent().addClass("active");
-			
-			$("div#div-v-pills").text("");
+			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='can'><h3>&nbsp;&nbsp;&nbsp;罐頭餐</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "罐頭餐"), true);
@@ -91,7 +101,17 @@
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4){
 					if(xhr.status == 200){
-						$("div#div-v-pills").text(xhr.responseText);
+						
+						let selectedProducts = JSON.parse(xhr.responseText);
+						
+						for(let i = 0; i < selectedProducts.length; i ++){
+							
+							let id = selectedProducts[i].id;
+							let productName = selectedProducts[i].productName;
+							let price = selectedProducts[i].price;
+							let cardContent = setCard(id, productName, price);
+							$("div.card-deck").append(cardContent);
+						}
 					}
 				}
 			};
@@ -100,8 +120,7 @@
 			
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('清潔用品')").parent().addClass("active");
-			
-			$("div#div-v-pills").text("");
+			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='clean'><h3>&nbsp;&nbsp;&nbsp;清潔用品</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "清潔用品"), true);
@@ -109,7 +128,17 @@
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4){
 					if(xhr.status == 200){
-						$("div#div-v-pills").text(xhr.responseText);
+						
+						let selectedProducts = JSON.parse(xhr.responseText);
+						
+						for(let i = 0; i < selectedProducts.length; i ++){
+							
+							let id = selectedProducts[i].id;
+							let productName = selectedProducts[i].productName;
+							let price = selectedProducts[i].price;
+							let cardContent = setCard(id, productName, price);
+							$("div.card-deck").append(cardContent);
+						}
 					}
 				}
 			};
@@ -118,8 +147,7 @@
 			
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('遊樂玩具')").parent().addClass("active");
-			
-			$("div#div-v-pills").text("");
+			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='fun'><h3>&nbsp;&nbsp;&nbsp;遊樂玩具</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "遊樂玩具"), true);
@@ -127,7 +155,17 @@
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4){
 					if(xhr.status == 200){
-						$("div#div-v-pills").text(xhr.responseText);
+						
+						let selectedProducts = JSON.parse(xhr.responseText);
+						
+						for(let i = 0; i < selectedProducts.length; i ++){
+							
+							let id = selectedProducts[i].id;
+							let productName = selectedProducts[i].productName;
+							let price = selectedProducts[i].price;
+							let cardContent = setCard(id, productName, price);
+							$("div.card-deck").append(cardContent);
+						}
 					}
 				}
 			};
@@ -136,8 +174,7 @@
 			
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('生活用品')").parent().addClass("active");
-			
-			$("div#div-v-pills").text("");
+			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='dailyuse'><h3>&nbsp;&nbsp;&nbsp;生活用品</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "生活用品"), true);
@@ -145,17 +182,51 @@
 			xhr.onreadystatechange = function(){
 				if(xhr.readyState == 4){
 					if(xhr.status == 200){
-						$("div#div-v-pills").text(xhr.responseText);
+						console.log(JSON.parse(xhr.responseText));
+						let selectedProducts = JSON.parse(xhr.responseText);
+						
+						for(let i = 0; i < selectedProducts.length; i ++){
+							
+							let id = selectedProducts[i].id;
+							let productName = selectedProducts[i].productName;
+							let price = selectedProducts[i].price;
+							let cardContent = setCard(id, productName, price);
+							$("div.card-deck").append(cardContent);
+						}
 					}
 				}
 			};
 		});
 		
 		//通用card樣板
-		function setCard(id, photoPath, productName, price){
+		function setCard(id, productName, price){
 			
+			var card = "";
 			
+			card += "<div class='col-md-3' style='margin-bottom: 30px;'>";
+			card += "<div class='card SelectProductByClass' id='prod";
+			card += id;
+			card += "'>";
+			card += "<img src='/FurHouse/product.getPhoto/";
+			card += id;
+			card += "/photo1'";
+			card += "class='card-img-top' alt='...' id='";
+			card += id
+			card += "' draggable='true' ondragstart='drag(event)'>";
+			card += "<div class='card-body'>";
+			card += "<h5 class='card-title'>";
+			card += productName;
+			card += "</h5>";
+			card += "<p class='card-text text-danger font-weight-bold'>$NT";
+			card += price;
+			card += "</p>";
+			card += "<p class='card-text'>";
+			card += "<small class='text-muted'>商品編號：";
+			card += id;
+			card += "</small>";
+			card += "</p></div></div></div>";
 			
+			return card;
 		};
 	});
 </script>
@@ -281,7 +352,7 @@
 									<!-- 調整卡片分佈 -->
 									<div class="col-md-3" style="margin-bottom: 30px;">
 										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
+											<img src="<c:url value='/product.getPhoto/${product.id}/photo1' />"
 												class="card-img-top" alt="..." id="${product.id}"
 												draggable="true" ondragstart="drag(event)">
 											<div class="card-body">

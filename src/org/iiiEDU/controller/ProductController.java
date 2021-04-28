@@ -378,7 +378,7 @@ public class ProductController {
 		return "redirect:/SelectAllProduct_Root";
 	}
 	
-	@GetMapping("product.getPhoto/{no}/{id}")
+	@GetMapping("/product.getPhoto/{no}/{id}")
 	public ResponseEntity<byte[]> getProductPhoto(@PathVariable("no") Integer no, @PathVariable("id") String id){
 		
 		ResponseEntity<byte[]> entity = null;
