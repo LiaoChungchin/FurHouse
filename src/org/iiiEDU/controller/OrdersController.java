@@ -1,11 +1,14 @@
 package org.iiiEDU.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.iiiEDU.model.Member;
 import org.iiiEDU.model.MemberDAOService;
 import org.iiiEDU.model.OrderList;
@@ -14,8 +17,13 @@ import org.iiiEDU.model.OrderStatus;
 import org.iiiEDU.model.OrderStatusDAOService;
 import org.iiiEDU.model.Product;
 import org.iiiEDU.model.ProductImplDAO;
+import org.iiiEDU.utils.PathHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
@@ -25,6 +33,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -48,7 +57,12 @@ public class OrdersController {
 	@Autowired
 	@Qualifier("memberDAOService")
 	private MemberDAOService memberDAOService;
-
+	
+	@GetMapping("/myOrderList")
+	public String myOrderList(){
+		return "page-member-home.jsp";
+	}
+	
 	@GetMapping("/order.mainPage")
 	public String orderMainPage(Model model) {
 
@@ -58,17 +72,48 @@ public class OrdersController {
 
 		return "root-page-orders.jsp";
 	}
-
+	
+	//------------個人訂單相關開始------------
+	
+	@GetMapping(path = "/order.getAllOrderListsPage/{pageLimit}/{currentPage}")
+	public @ResponseBody Map<String,Object> getAllOrderListsPage(@PathVariable("pageLimit") Integer pageLimit,@PathVariable("currentPage") Integer currentPage){
+		List<OrderList> orderLists = orderListService.getAllOrderListsPage(pageLimit,currentPage);
+		
+		Map<String,Object> orderListsResource = new LinkedHashMap<String,Object>();
+		
+		orderListsResource.put("orderLists",orderLists);
+		orderListsResource.put("orderListTotal",orderListService.getOrderListTotal());
+		
+		return orderListsResource;
+	}
+	
+	@GetMapping(path = "/order.getAllOrderListsMemberId/{id}/{pageLimit}/{currentPage}")
+	public @ResponseBody Map<String,Object> getAllOrderListsMemberId(@PathVariable("id") Integer id,
+			@PathVariable("pageLimit") Integer pageLimit,@PathVariable("currentPage") Integer currentPage){
+		List<OrderList> orderLists = orderListService.getAllOrderListsMemberId(id, pageLimit, currentPage);
+		
+		Map<String,Object> orderListsResource = new LinkedHashMap<String,Object>();
+		
+		orderListsResource.put("orderLists",orderLists);
+		orderListsResource.put("orderListTotal",orderListService.getOrderListTotal());
+		
+		return orderListsResource;
+	}
+	
+	//------------個人訂單相關結束------------
 	@GetMapping(value = "/order.selectById/{id}", produces = { "application/json; charset=UTF-8" })
 	public @ResponseBody OrderList selectById(@PathVariable(required = true) Integer id) {
 
 		return orderListService.getOrderListById(id);
 	}
+	
 
 	@PutMapping(value = "/order.updateStatus/{id}", consumes = { "application/json" }, produces = {
 			"application/json; charset=UTF-8" })
 	public @ResponseBody Map<String, String> updateStatus(@PathVariable(required = true) Integer id,
 			@RequestBody Map<String, Integer> status) {
+		
+		System.out.println(status);
 
 		Map<String, String> ans = new LinkedHashMap<>();
 		if (orderListService.updateOrderListCondition(id, status.get("condition"))) {
@@ -80,6 +125,24 @@ public class OrdersController {
 		return ans;
 	}
 
+	@PutMapping(value = "/order.updateOrderStatus/{id}", produces = {"application/json; charset=UTF-8" })
+	public @ResponseBody Map<String, String> updateOrderStatus(@PathVariable(required = true) Integer id) {
+		OrderList orderList =  orderListService.getOrderListById(id);
+		
+		Integer i = orderList.getOrderStatus().getCondition();
+		
+		Map<String, String> ans = new LinkedHashMap<>();
+		if(i<=3) {
+			//進行棄單加回的判斷(尚未撰寫)
+			orderListService.updateOrderListCondition(id, 41);
+			ans.put("result", "success");
+		}else {
+			ans.put("result", "fail");
+		}
+
+		return ans;
+	}
+	
 	@GetMapping(value = "/orderStatus.selectAll", produces = { "application/json; charset=UTF-8" })
 	public @ResponseBody List<OrderStatus> selectAll() {
 
@@ -98,13 +161,14 @@ public class OrdersController {
 	public String orderInsert(
 			Model model,
 			@ModelAttribute("formOrderlist") OrderList orderList,
-			@RequestParam(name = "firstName", defaultValue = "null") String firstName,
-			@RequestParam(name = "lastName", defaultValue = "null") String lastName,
+			@RequestParam(name = "userName", defaultValue = "null") String userName,
 			@RequestParam(name = "email", defaultValue = "null") String email,
-			@RequestParam(name = "address2", defaultValue = "null") String address2,
-			@RequestParam(name = "state", defaultValue = "null") String state,
-			@RequestParam(name = "zip", defaultValue = "0") Integer zip,
+			@RequestParam(name = "county", defaultValue = "null") String county,
+			@RequestParam(name = "district", defaultValue = "null") String district,
+			@RequestParam(name = "zipcode", defaultValue = "0") Integer zipcode,
+			@RequestParam(name = "comment",defaultValue = "null") String comment,
 			@RequestParam(name = "paymentMethod", defaultValue = "null") String paymentMethod,
+			@RequestParam(name = "ShippingType", defaultValue = "null") String ShippingType,
 			@RequestParam(name = "productsJson", defaultValue = "null") String productsJson) {
 		Member member = (Member)model.getAttribute("login_user");
 		if(member != null) {			
@@ -153,17 +217,40 @@ public class OrdersController {
 			orderList.setTotalPrice(totalPrice - 60); // discount included...
 			orderList.setPaymentType(paymentMethod);
 			orderList.setOrderStatus(orderStatusService.getStatusByCondition(0));
-			orderList.setShippingType("7-ELEVEN"); // shippingTypq now is fixed...
-			orderList.setContact(firstName + lastName);
-			orderList.setAddress(orderList.getAddress() + state + address2);
-			orderList.setComment("目前表單無備註資訊");
-		}
-		if(orderListService.insertOne(orderList)) {
+			if(county=="null"&&district=="null") {
+				orderList.setAddress(orderList.getAddress());
+			}else {
+				orderList.setAddress(county + district + zipcode + orderList.getAddress());
+			}
+			orderList.setShippingType(ShippingType);
+			orderList.setContact(userName);
+			orderList.setComment(comment);
+		}		
 			
-			return "page-payment-stage3.html";
-		}
+			if(orderListService.insertOne(orderList)) {
+					return "page-payment-stage3.html";
+				}else {
+					return "page-payment-error.html";
+			}
+	}
+	
+	@GetMapping("/orderImageToByte")
+	@ResponseBody
+	public ResponseEntity<byte[]> catImageToByte(@RequestParam("path") String path) {
 		
-		return "page-payment-error.html";
+		if(path.length()!=0) {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+				
+			try {
+				return new ResponseEntity<byte[]>(PathHandler.getPhotoBiteArray(path),headers, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}	
+		}else {
+			return null;
+		}
 	}
 }
 
