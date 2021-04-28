@@ -20,8 +20,8 @@ public class OrderListDAOService {
 	@Qualifier("orderStatusDAO")
 	private OrderStatusDAO orderStatusDAO;
 
-	@Autowired
-	private ProductImplDAO productImplDAO;
+//	@Autowired
+//	private ProductDAO productDAO;
 
 	public List<OrderList> getAllOrderLists() {
 
