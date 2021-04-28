@@ -8,4 +8,5 @@ public interface ProductService {
 	Integer insertProduct(Product product);
 	Integer updateProduct(Product product);
 	Integer deleteProduct(Integer id);
+	List<Product> selectProductByType(String type);
 }

@@ -59,6 +59,104 @@
 		$("div#menu-detail>div>a>small:contains('清潔用品')").parent().show();
 		$("div#menu-detail>div>a>small:contains('遊樂玩具')").parent().show();
 		$("div#menu-detail>div>a>small:contains('生活用品')").parent().show();
+		
+		$("body").on("click", "a#v-pills-shopping-diet-tab", function(){
+			
+			$("div#menu-detail>div>a[class~='active']").removeClass("active");
+			$("div#menu-detail>div>a>small:contains('飼糧')").parent().addClass("active");
+			
+			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='diet'><h3>&nbsp;&nbsp;&nbsp;飼糧</h3></div><div class='card-deck'></div></div></div></div>");
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "飼糧"), true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						$("div.card-deck").append(xhr.responseText);
+					}
+				}
+			};
+		});
+		$("body").on("click", "a#v-pills-shopping-can-tab", function(){
+			
+			$("div#menu-detail>div>a[class~='active']").removeClass("active");
+			$("div#menu-detail>div>a>small:contains('罐頭餐')").parent().addClass("active");
+			
+			$("div#div-v-pills").text("");
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "罐頭餐"), true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						$("div#div-v-pills").text(xhr.responseText);
+					}
+				}
+			};
+		});
+		$("body").on("click", "a#v-pills-shopping-clean-tab", function(){
+			
+			$("div#menu-detail>div>a[class~='active']").removeClass("active");
+			$("div#menu-detail>div>a>small:contains('清潔用品')").parent().addClass("active");
+			
+			$("div#div-v-pills").text("");
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "清潔用品"), true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						$("div#div-v-pills").text(xhr.responseText);
+					}
+				}
+			};
+		});
+		$("body").on("click", "a#v-pills-shopping-fun-tab", function(){
+			
+			$("div#menu-detail>div>a[class~='active']").removeClass("active");
+			$("div#menu-detail>div>a>small:contains('遊樂玩具')").parent().addClass("active");
+			
+			$("div#div-v-pills").text("");
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "遊樂玩具"), true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						$("div#div-v-pills").text(xhr.responseText);
+					}
+				}
+			};
+		});
+		$("body").on("click", "a#v-pills-shopping-dailyuse-tab", function(){
+			
+			$("div#menu-detail>div>a[class~='active']").removeClass("active");
+			$("div#menu-detail>div>a>small:contains('生活用品')").parent().addClass("active");
+			
+			$("div#div-v-pills").text("");
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "生活用品"), true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						$("div#div-v-pills").text(xhr.responseText);
+					}
+				}
+			};
+		});
+		
+		//通用card樣板
+		function setCard(id, photoPath, productName, price){
+			
+			
+			
+		};
 	});
 </script>
 

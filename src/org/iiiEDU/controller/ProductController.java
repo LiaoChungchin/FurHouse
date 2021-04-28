@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -89,19 +90,19 @@ public class ProductController {
 	//新增商品
 	@PostMapping("/InsertProduct_Root")
 	public String InsertProductRoot(Model model
-		,@RequestParam(name = "type")String type
-		,@RequestParam(name = "subType")String subType
-		,@RequestParam(name = "brandName")String brandName
-		,@RequestParam(name = "productName")String productName
-		,@RequestParam(required = false, defaultValue = "0", name = "price")Integer price
-		,@RequestParam(required = false, defaultValue = "0", name = "quantity")Integer quantity
-		,@RequestParam(required = false, defaultValue = "0", name = "stock")Integer stock
-		,@RequestParam(name = "place")String place
-		,@RequestParam(required = false, name = "comment1")String comment1
-		,@RequestParam(required = false, name = "comment2")String comment2
-		,@RequestParam(name = "file1")MultipartFile file1
-		,@RequestParam(required = false, name = "file2")MultipartFile file2
-		,@RequestParam(required = false, name = "file3")MultipartFile file3
+		, @RequestParam(name = "type")String type
+		, @RequestParam(name = "subType")String subType
+		, @RequestParam(name = "brandName")String brandName
+		, @RequestParam(name = "productName")String productName
+		, @RequestParam(required = false, defaultValue = "0", name = "price")Integer price
+		, @RequestParam(required = false, defaultValue = "0", name = "quantity")Integer quantity
+		, @RequestParam(required = false, defaultValue = "0", name = "stock")Integer stock
+		, @RequestParam(name = "place")String place
+		, @RequestParam(required = false, name = "comment1")String comment1
+		, @RequestParam(required = false, name = "comment2")String comment2
+		, @RequestParam(name = "file1")MultipartFile file1
+		, @RequestParam(required = false, name = "file2")MultipartFile file2
+		, @RequestParam(required = false, name = "file3")MultipartFile file3
 		){
 		
 		//-----------setProductBean
@@ -421,5 +422,12 @@ public class ProductController {
 		}
 		
 		return entity;
+	}
+	
+	
+	@GetMapping(value = "/product.selectByType/{type}", produces = { "application/json; charset=UTF-8" })
+	public @ResponseBody List<Product> selectById(@PathVariable(required = true) String type) {
+
+		return productService.selectProductByType(type);
 	}
 }

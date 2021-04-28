@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class PathHandler {
 	
-	public static final String globalProjectImgPath = "D:/iiiEDUproject/Workspace/FurHouse/WebContent/assets/img";
+	public static final String globalProjectImgPath = "C:/iiiEDUproject/Workspace/FurHouse/WebContent/assets/img";
 
 	
 	public static byte[] getPhotoBiteArray(String photoPath){

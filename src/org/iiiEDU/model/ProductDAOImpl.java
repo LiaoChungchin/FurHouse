@@ -99,4 +99,16 @@ public class ProductDAOImpl implements ProductDAO {
 		
 		return 0;
 	}
+	
+	@Override
+	public List<Product> selectProductByType(String type) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Product WHERE type = :myType";
+		
+		List<Product> query = session.createQuery(hql, Product.class)
+									 .setParameter("myType", type)
+									 .list();
+		return query;
+	}
 }
