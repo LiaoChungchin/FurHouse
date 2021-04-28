@@ -92,11 +92,9 @@ public class MemberController {
 	@RequestMapping(path = "/member.update", method = RequestMethod.POST)
 	public String memberUpdate(@RequestParam("updateNo") int memberId, @RequestParam("updatePwd") String password,
 			@RequestParam("updateName") String name, @RequestParam("updatePhone") String phone,
-			@RequestParam("updateMail") String email, @RequestParam("updateAddress") String address) { 
+			@RequestParam("updateMail") String email, @RequestParam("updateAddress") String address) {
 
-		service.updateById(memberId, password, name, phone, email, address); 
-		
-		
+		service.updateById(memberId, password, name, phone, email, address);
 
 		return "redirect:/member.mainPage";
 	}
@@ -139,8 +137,8 @@ public class MemberController {
 			@RequestParam("accountmail") String email, @RequestParam("accountname") String name,
 			@RequestParam("accountphone") String phone,
 			@RequestParam(value = "gender", defaultValue = "private") String gender,
-			@RequestParam("accountaddr") String address,
-			@RequestParam("accountphoto") MultipartFile photoPart, Model model) {
+			@RequestParam("accountaddr") String address, @RequestParam("accountphoto") MultipartFile photoPart,
+			Model model) {
 
 		String photoPath = null;
 		String photoPathShort = null;
@@ -213,9 +211,37 @@ public class MemberController {
 	public Member memberUpdate1(@RequestParam("updateNo") Integer memberId, @RequestParam("updateName") String name,
 //			 @RequestParam("updatePwd") String password,
 			@RequestParam("updatePhone") String phone, @RequestParam("updateMail") String email,
-			@RequestParam("updateAddress") String address) {
+			@RequestParam("updateAddress") String address
+//			, @RequestParam("photo") MultipartFile photo
+			) {
 
-		Member member = service.updateById1(memberId, name,  phone, email, address);
+	
+		
+//		try {
+//			if (!photo.isEmpty()) {
+//				byte[] BinaryPhoto = photo.getBytes();
+//
+//				String photoPathNew = PathHandler.producePhotoPathStr("m", photo);
+//				String photoPathNewShort = PathHandler.produceShortPhotoPathStr("members", photo);
+//				String photoPathOrigin = PathHandler.getFullPathName(service.getMemberById(memberId).getPhotoPath());
+//
+//				boolean isUpdate = service.updatePhoto(memberId, BinaryPhoto, photoPathNewShort);
+//
+//				if (isUpdate) {
+//					if (photoPathOrigin != null) {
+//						File oldFile = new File(photoPathOrigin);
+//						oldFile.delete();
+//					}
+//					File newFile = new File(photoPathNew);
+//					photo.transferTo(newFile);
+//				}
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
+		Member member = service.updateById1(memberId, name, phone, email, address);
 
 		return member;
 	}
@@ -226,11 +252,11 @@ public class MemberController {
 		Member member = service.getMemberById(memberId);
 		return member;
 	}
-	
+
 	@RequestMapping(path = "/member.password.update", method = RequestMethod.POST)
 	@ResponseBody
 	public Member memberUpdate2(@RequestParam("updateNo") Integer memberId,
-			 @RequestParam("updatePwd") String password) {
+			@RequestParam("updatePwd") String password) {
 
 		Member member = service.updateById2(memberId, password);
 

@@ -82,6 +82,7 @@ h1 {
 						<input type="text" class="form-control" id="updatePwd" name="updatePwd"
 						 placeholder="新密碼"><div class=""></div>
 				      </div>
+				      
 				     <br>
 				     
 					  <div>
@@ -90,7 +91,7 @@ h1 {
 					  </div>
 				 <br>
 				 <div>
-						<button type="button" class="btn btn-primary" id="sucess1">儲存</button >
+						<button type="button" class="btn btn-primary" id="sucess1" disabled>儲存</button >
 						
 				 </div>
 			</form>
