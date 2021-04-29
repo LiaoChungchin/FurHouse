@@ -9,4 +9,5 @@ public interface ProductDAO {
 	Integer updateProduct(Product product);	
 	Integer deleteProduct(Integer id);
 	List<Product> selectProductByType(String type);
+	Integer updateProductQuota(Integer id, Integer quantity);
 }

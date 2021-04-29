@@ -83,7 +83,22 @@ public class ProductDAOImpl implements ProductDAO {
 		
 		return 0;
 	}
+	
+	@Override
+	public Integer updateProductQuota(Integer id, Integer quantity) {
 		
+		Session session = sessionFactory.getCurrentSession();
+		Product setProduct = session.get(Product.class,id);
+		
+		if(setProduct != null && setProduct.getQuantity() > 0) {
+			setProduct.setQuantity(quantity);
+			
+			return 1;
+		}
+		
+		return 0;
+	}
+	
 	//刪除
 	@Override
 	public Integer deleteProduct(Integer id) {
