@@ -1,12 +1,14 @@
 package org.iiiEDU.model;
 
+import java.sql.SQLException;
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service("orderListDAOService")
 @Transactional
@@ -20,8 +22,8 @@ public class OrderListDAOService {
 	@Qualifier("orderStatusDAO")
 	private OrderStatusDAO orderStatusDAO;
 
-//	@Autowired
-//	private ProductDAO productDAO;
+	@Autowired
+	private ProductDAO productDAO;
 
 	public List<OrderList> getAllOrderLists() {
 
@@ -38,39 +40,94 @@ public class OrderListDAOService {
 
 		return orderListDAO.updateOrderListCondition(id, orderStatus);
 	}
-
+	
+	@Transactional(rollbackFor = { SQLException.class })
 	public boolean insertOne(OrderList orderList) {
-	/*	System.out.println("1" + orderList.getProduct1());
-		if (orderList.getProduct1() != null) {
-			Product product = productImplDAO.SelectOneProductById(orderList.getProduct1().getId());
-			System.out.println(product.toString());
-			System.out.println("0" + product.getQuantity());
-			System.out.println("1" + orderList.getProductQua01());
-			product.setQuantity(product.getQuantity() - orderList.getProductQua01());
-			System.out.println("2" + product.getQuantity());
+		
+		boolean orderResult = false;
+		Integer myProductCounts = 0;
+		Integer orderQua01 = 0, orderQua02 = 0, orderQua03 = 0, orderQua04 = 0, orderQua05 = 0;
+		Integer orderProductId01 = 0, orderProductId02 = 0, orderProductId03 = 0, orderProductId04 = 0, orderProductId05 = 0;
+		Integer nowQuantity01 = 0, nowQuantity02 = 0, nowQuantity03 = 0, nowQuantity04 = 0, nowQuantity05 = 0;
+		Integer sum01 = 0, sum02 = 0, sum03 = 0, sum04 = 0, sum05 = 0;
+		Integer conditionCheck = 0;
+		
+		orderQua01 = orderList.getProductQua01();
+		orderProductId01 = orderList.getProduct1().getId();
+		nowQuantity01 = productDAO.selectOneProduct(orderProductId01).getQuantity();
+		sum01 = nowQuantity01 - orderQua01;
+		myProductCounts ++;
+		
+		if(orderList.getProductQua02() != null) {
 			
-			if(product.getQuantity()<=0) {
-				return false;
+			orderQua02 = orderList.getProductQua02();
+			orderProductId02 = orderList.getProduct2().getId();
+			nowQuantity02 = productDAO.selectOneProduct(orderProductId02).getQuantity();
+			sum02 = nowQuantity02 - orderQua02;
+			myProductCounts ++;
+		}
+		if(orderList.getProductQua03() != null) {
+			
+			orderQua03 = orderList.getProductQua03();
+			orderProductId03 = orderList.getProduct3().getId();
+			nowQuantity03 = productDAO.selectOneProduct(orderProductId03).getQuantity();
+			sum03 = nowQuantity03 - orderQua03;
+			myProductCounts ++;
+		}
+		if(orderList.getProductQua04() != null) {
+			
+			orderQua04 = orderList.getProductQua04();
+			orderProductId04 = orderList.getProduct4().getId();
+			nowQuantity04 = productDAO.selectOneProduct(orderProductId04).getQuantity();
+			sum04 = nowQuantity04 - orderQua04;
+			myProductCounts ++;
+		}
+		if(orderList.getProductQua05() != null) {
+			
+			orderQua05 = orderList.getProductQua05();
+			orderProductId05 = orderList.getProduct5().getId();
+			nowQuantity05 = productDAO.selectOneProduct(orderProductId05).getQuantity();
+			sum05 = nowQuantity05 - orderQua05;
+			myProductCounts ++;
+		}
+		
+		if(sum01 < 0 || sum02 < 0 || sum03 < 0 || sum04 < 0 || sum05 < 0) {
+			
+			return orderResult;
+		}
+		
+		switch(myProductCounts) {
+		
+		case 5 :
+			conditionCheck += productDAO.updateProductQuota(orderProductId05, sum05);
+		case 4 :
+			conditionCheck += productDAO.updateProductQuota(orderProductId04, sum04);
+		case 3 :
+			conditionCheck += productDAO.updateProductQuota(orderProductId03, sum03);
+		case 2 :
+			conditionCheck += productDAO.updateProductQuota(orderProductId02, sum02);
+		case 1 :
+			conditionCheck += productDAO.updateProductQuota(orderProductId01, sum01);
+			break;
+		}
+		
+		try {
+			if(conditionCheck == myProductCounts) {
+				
+				orderResult = orderListDAO.insertOne(orderList);
+				
+				return orderResult;
+			} else {
+				
+				throw new SQLException("OrderList invalid...");
 			}
-		}*/
-	/*	if (orderList.getProduct2() != null) {
-			Product product = productImplDAO.SelectOneProductById(orderList.getProduct2().getId());
-			product.setQuantity(product.getQuantity() - orderList.getProductQua02());
+		} catch (SQLException e) {
+			
+			System.err.println("\nOrderListOAOService insertOne function rollback...");
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
-		if (orderList.getProduct3() != null) {
-			Product product = productImplDAO.SelectOneProductById(orderList.getProduct3().getId());
-			product.setQuantity(product.getQuantity() - orderList.getProductQua03());
-		}
-		if (orderList.getProduct4() != null) {
-			Product product = productImplDAO.SelectOneProductById(orderList.getProduct4().getId());
-			product.setQuantity(product.getQuantity() - orderList.getProductQua04());
-		}
-		if (orderList.getProduct5() != null) {
-			Product product = productImplDAO.SelectOneProductById(orderList.getProduct5().getId());
-			product.setQuantity(product.getQuantity() - orderList.getProductQua05());
-		}*/
-
-		return orderListDAO.insertOne(orderList);
+			
+			return orderResult;
 	}
 
 	// --------------個人訂單相關------------------------

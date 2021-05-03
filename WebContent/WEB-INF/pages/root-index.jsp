@@ -346,7 +346,7 @@
 				break;
 			case 2:
 				fadeInAndOut("商品管理系統" , $(this).index());
-				locationhref = "order.mainPage";
+				locationhref = "SelectAllProduct_Root";
 				break;
 			case 3:
 				fadeInAndOut("會員管理系統" , $(this).index());
