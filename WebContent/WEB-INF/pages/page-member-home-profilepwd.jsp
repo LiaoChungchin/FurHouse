@@ -53,23 +53,23 @@ h1 {
 		<h2 class="my-0 mr-md-auto font-weight-normal">修改密碼</h2>
 		<a class="btn btn-outline-warning" href="<c:url value='/index'/>">返回首頁</a>
 	</div>
-	<div class="text-center" >
-		<nav class="my-2 my-md-0 mr-md-3">
-			<a
-				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
-				href="<c:url value='/member.profile/${login_user.memberId}'/>"><i
-				class="bi bi-file-earmark-person-fill"></i> 個人資料</a> <a
-				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
-				href="javascript:;"><i class="bi bi-bag-check-fill"></i> 我的訂單</a> <a
-				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
-				href="javascript:;"><i class="bi bi-calendar-week-fill"></i>
-				預約紀錄</a> <a
-				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
-				href="member.chat"><i class="bi bi-chat-left-dots-fill"></i>
-				客服視窗</a>
-		</nav>
+<!-- 	<div class="text-center" > -->
+<!-- 		<nav class="my-2 my-md-0 mr-md-3"> -->
+<!-- 			<a -->
+<!-- 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded" -->
+<%-- 				href="<c:url value='/member.profile/${login_user.memberId}'/>"> --%>
+<!-- 				<i class="bi bi-file-earmark-person-fill"></i> 個人資料</a> <a -->
+<!-- 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded" -->
+<!-- 				href="javascript:;"><i class="bi bi-bag-check-fill"></i> 我的訂單</a> <a -->
+<!-- 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded" -->
+<!-- 				href="javascript:;"><i class="bi bi-calendar-week-fill"></i> -->
+<!-- 				預約紀錄</a> <a -->
+<!-- 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded" -->
+<!-- 				href="member.chat"><i class="bi bi-chat-left-dots-fill"></i> -->
+<!-- 				客服視窗</a> -->
+<!-- 		</nav> -->
 
-	</div>
+<!-- 	</div> -->
 
 	<div class="form-group col-md-6">
 	<form method="post" id="profileupdateform1" enctype="multipart/form-data">
@@ -97,7 +97,9 @@ h1 {
 				 <br>
 				 <div>
 						<button type="button" class="btn btn-primary" id="sucess1" disabled style="margin-left:50px;">儲存</button >
+						<input type ="button" class="btn btn-primary" onclick="history.back()" value="返回會員專區"></input>
 		    </div>
+		    
 		    </form>
 		</div>
 				
