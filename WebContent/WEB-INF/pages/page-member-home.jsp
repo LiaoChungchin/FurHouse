@@ -27,77 +27,60 @@
 		h1 {
 			margin-top : 300px;
 		}
-		.wrapper{
-			margin: 30px auto;
-			width: 70%;
-			display:none;
-			background-color: white; 
-		}
-		
 		.confirmAdoptListBtn{
 			margin-left: 5px;
 		}
-		
 		.littleWindow{
 			position: fixed;
 			right: 20px;
 			top: 200px;
 		}
-		
 		.pageGroup{
-			position: fixed;
-			bottom:50px;
-			left:15%;
+			margin:30px 0 50px 10px;
+			text-align:center;
 		}
-		
 		.pageGroup button{
 			width: 45px;
 			margin: 0px 2px;
 		}
-		
+		/*----------------------表單樣式----------------------*/
+ 		/*訂單抬頭*/
+		.table thead{
+			background-color: rgba(243, 155, 39, 0.9);
+			color:#FAFAFA !important;
+		}
+		/*訂單表格*/
 		.contentBox{
 			margin: 30px auto;
 			width: 80%;
 			display:none;
 			background-color: rgba(255,255,242,0.65)
 		}
-		
-				.pageGroup2{
-			margin:30px 0 50px 10px;
-			text-align:center;
-		}
-		
-		.pageGroup2 button{
-			width: 45px;
-			margin: 0px 2px;
-		}
-		
-/* 		表單抬頭樣式 */
-		.table thead{
-/* 			background-color: rgba(0, 0, 143, 0.7); */
-			background-color: rgba(243, 155, 39, 0.7);
+		/*貓預約抬頭*/
+		.table thead#tablethead2{
+			background-color: rgba(106, 195, 46, 0.7);
 			color:#FAFAFA !important;
 		}
- 		
- 		/* 	更改Bootstrap 懸停顏色 */
+		/*貓預約表格*/
+		.wrapper{
+			margin: 30px auto;
+			width: 70%;
+			display:none;
+			background-color: rgba(234,249,232,0.7);
+		}
+ 		/* 	更改 Bootstrap 懸停顏色 */
 		.table-hover tbody tr:hover, .table-hover tbody tr:hover td,
 		.table-hover tbody tr:hover th {
- 			background: rgba(0, 184, 0, 0.2) !important; 
+		/*background: rgba(0, 184, 0, 0.2) !important;  */
+			background: rgba(246, 219, 51, 0.3) !important;
 			/* 	 color:#fff !important;  */
 		}
-		
-		modal-title#orderListDetailsLabel{
+		/*----------------------modal 樣式 ----------------------------------*/
+		/*modal標題顏色 */
+		.modaltitle{
 			color:#BD0000;
 		}
-		
-		#form-title{
-			margin-top:10px;
-			background:#009494;
-			color:#FAFAFA;
-			font-size:18px;
-			border-radius:5px;
-		}
-		
+		/*modal 水平分隔線漸進色 */		
 		.modal-hr{
 		width: 80%;
 		margin: 20px auto;
@@ -106,34 +89,42 @@
 		background: #ff9f99;
  		background-image: linear-gradient(to right, #ccc, #ff9f99, #ccc);
 		}
-		
+		#form-title{
+			margin-top:10px;
+			background:#009494;
+			color:#FAFAFA;
+			font-size:18px;
+			border-radius:5px;
+		}
 		.formtitle{
 			padding:10px;
 			margin:10px 5px 10px 2px;
 		}
-		
+		/*貓預約取消內容樣式*/
+		#catType{
+			margin-left:10px;
+			background-color:rgba(212,212,212,0.5);
+		}
 		.orderType{
 			margin:10px 10px 0 15px;
 			padding-right:22px;
 			border-radius:5px;
 			background-color:rgba(153,183,183,0.5);
 		}
-		
+		/*訂單modal標題距離*/
 		.plaintext{
 			margin-top:10px;
 		}
-		
+		/*訂單modal內備註距離*/
 		#comment{
 			padding:20px;
 		}
-		
+		/*訂單取消內容樣式*/
 		#modalConditionContent{
 			margin:5px;
 			text-align:center;
 			font-size:18px;
 		}
-		
-		
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -178,7 +169,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="updateAdoptListModalCenterTitle">確認取消預約</h5>
+					<h5 class="modal-title modaltitle" id="updateAdoptListModalCenterTitle">確認取消預約</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -186,26 +177,26 @@
 				<div class="modal-body">
 					<form action="/updateAdoptList" enctype="multipart/form-data" id="adoptListUpdateForm">
 						<div class="form-group row">
-							<label for="adoptListId" class="col-sm-3 col-form-label">編號</label>
-							<div class="col-sm-9">
+							<label for="adoptListId" class="col-sm-3 col-form-label" id="catType" >編號</label>
+							<div class="col-sm-8">
 								<input type="text" readonly class="form-control-plaintext" id="adoptListId" name="adoptListId">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="adoptListId" class="col-sm-3 col-form-label">探望日期</label>
-							<div class="col-sm-9">
+							<label for="adoptListId" class="col-sm-3 col-form-label" id="catType">探望日期</label>
+							<div class="col-sm-8">
 								<input type="text" readonly class="form-control-plaintext" id="adoptListVisitTime" name="visitTime">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="adoptListId" class="col-sm-3 col-form-label">貓編號</label>
-							<div class="col-sm-9">
+							<label for="adoptListId" class="col-sm-3 col-form-label" id="catType">貓編號</label>
+							<div class="col-sm-8">
 								<input type="text" readonly class="form-control-plaintext" id="adoptListCatId" name="catId">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="adoptListId" class="col-sm-3 col-form-label">貓名</label>
-							<div class="col-sm-9">
+							<label for="adoptListId" class="col-sm-3 col-form-label" id="catType">貓名</label>
+							<div class="col-sm-8">
 								<input type="text" readonly class="form-control-plaintext" id="adoptListCatNickname">
 							</div>
 						</div>
@@ -226,7 +217,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="confirmAdoptListModalCenterTitle">確認領養</h5>
+					<h5 class="modal-title modaltitle" id="confirmAdoptListModalCenterTitle">確認領養</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -273,7 +264,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3 class="modal-title" id="orderListDetailsLabel">&nbsp;&nbsp;訂單詳細資訊</h3>
+					<h3 class="modal-title modaltitle" id="orderListDetailsLabel">&nbsp;&nbsp;訂單詳細資訊</h3>
 					<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -370,7 +361,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="updateOrderListTitle">確認取消訂單</h5>
+					<h5 class="modal-title modaltitle" id="updateOrderListTitle">確認取消訂單</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -393,9 +384,9 @@
 
 			break;
 		case 1:
-			$('.text-content').html('<div class="row contentBox"></div><div class="pageGroup2"></div>');
+			$('.text-content').html('<div class="row contentBox"></div><div class="pageGroup"></div>');
 			$('.contentBox').attr("style","display:block;");
-			currentPage2 = 1;
+			currentPage = 1;
 			selectAllOrderListMemberId();
 			break;
 		case 2:
@@ -415,8 +406,7 @@
 	})
 	
 	/*-------------------領養單-----------------------------------------------------------------*/
-	var pageLimit = 10;
-	var currentPage = 1; 
+
 	
 	/*顯示個人領養單*/
 	function selectAllAdoptListMemberId() {
@@ -438,8 +428,8 @@
 
 	/*寫入表單內容*/
 	function writeHtml(adoptLists) {
-		let tempstr = '<table class="table table-hover table-striped">'
-				+ '	<thead class="thead-light">' + '		<tr>'
+		let tempstr = '<table class="table table-hover table-striped" id="table2">'
+				+ '	<thead id="tablethead2">' + '		<tr>'
 				+ '			<th scope="col">編號</th>' 
 				+ '			<th scope="col">探望時間</th>'
 				+ '			<th scope="col">貓編號</th>' 
@@ -559,14 +549,14 @@
 	}
 	
 	/*-------------------訂單---------------------------------------------------------------*/
-	var pageLimitt = 10;
-	var currentPage2 = 1; 
+	var pageLimit = 10;
+	var currentPage = 1; 
 	
 	/*顯示個人訂單*/
 	function selectAllOrderListMemberId(){
 		$.ajax({
 			type:"GET",
-			url:"order.getAllOrderListsMemberId/${sessionScope.login_user.memberId}"+"/"+pageLimitt+"/"+currentPage2,
+			url:"order.getAllOrderListsMemberId/${sessionScope.login_user.memberId}"+"/"+pageLimit+"/"+currentPage,
 			dataType : "json",
 			beforeSend:function(XMLHttpRequest){
 	            console.log(this); 
@@ -641,18 +631,18 @@
 		let secondaryBtn = '<button type="button" class="btn btn-secondary" onclick="chooseBtnVal(this)">';
 		
 		let pagestr = "";
-		if(orderListTotal/pageLimitt > 10){
-			if(currentPage2>6 && currentPage2 <= (orderListTotal/pageLimitt)-4){
-				for(let i = currentPage2-6 ; i < currentPage2+4 ; i++){
-					if(i == currentPage2-1){
+		if(orderListTotal/pageLimit > 10){
+			if(currentPage>6 && currentPage <= (orderListTotal/pageLimit)-4){
+				for(let i = currentPage-6 ; i < currentPage+4 ; i++){
+					if(i == currentPage-1){
 						pagestr+=primaryBtn+(i+1)+'</button>';		
 					}else{
 						pagestr+=secondaryBtn+(i+1)+'</button>';
 					}
 				}
-			}else if(currentPage2 > (orderListTotal/pageLimitt-4)){
-				for(let i = ((orderListTotal/pageLimitt-10)) ; i <(orderListTotal/pageLimitt); i++){
-					if(i == currentPage2-1){
+			}else if(currentPage > (orderListTotal/pageLimit-4)){
+				for(let i = ((orderListTotal/pageLimit-10)) ; i <(orderListTotal/pageLimit); i++){
+					if(i == currentPage-1){
 						pagestr+=primaryBtn+(i+1)+'</button>';		
 					}else{
 						pagestr+=secondaryBtn+(i+1)+'</button>';
@@ -660,7 +650,7 @@
 				}
 			}else{
 				for(let i = 0 ; i < 10 ; i++){
-					if(i == currentPage2-1){
+					if(i == currentPage-1){
 						pagestr+=primaryBtn+(i+1)+'</button>';		
 					}else{
 						pagestr+=secondaryBtn+(i+1)+'</button>';
@@ -668,8 +658,8 @@
 				}
 			}
 		}else{
-			for(let i = 0 ; i < orderListTotal/pageLimitt ; i++){
-				if(i == currentPage2-1){
+			for(let i = 0 ; i < orderListTotal/pageLimit ; i++){
+				if(i == currentPage-1){
 					pagestr+=primaryBtn+(i+1)+'</button>';		
 				}else{
 					pagestr+=secondaryBtn+(i+1)+'</button>';
@@ -677,13 +667,13 @@
 			}
 		}
 		
-		$('.pageGroup2').html(pagestr);
+		$('.pageGroup').html(pagestr);
 			
 	}
 	
 	/*取得按鈕標籤內的值，並顯示當前頁數的內容*/
 	function chooseBtnVal(e){	
-		currentPage2 =  parseInt(e.innerText, 10);/*innerText 為 字串 須轉型成數字型態*/
+		currentPage =  parseInt(e.innerText, 10);/*innerText 為 字串 須轉型成數字型態*/
 		selectAllOrderListMemberId()
 	}
 	

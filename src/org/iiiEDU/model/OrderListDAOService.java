@@ -123,7 +123,8 @@ public class OrderListDAOService {
 			}
 		} catch (SQLException e) {
 			
-			 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			System.err.println("\nOrderListOAOService insertOne function rollback...");
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 			
 			return orderResult;
