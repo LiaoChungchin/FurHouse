@@ -111,8 +111,8 @@ public class MemberController {
 
 			byte[] BinaryPhoto = multipartFile.getBytes();
 
-			String photoPathNew = PathHandler.producePhotoPathStr("m", multipartFile);
 			String photoPathNewShort = PathHandler.produceShortPhotoPathStr("members", multipartFile);
+			String photoPathNew = PathHandler.producePhotoPathStr("m", photoPathNewShort);
 			String photoPathOrigin = PathHandler.getFullPathName(service.getMemberById(memberId).getPhotoPath());
 
 			boolean isUpdate = service.updatePhoto(memberId, BinaryPhoto, photoPathNewShort);
@@ -219,35 +219,41 @@ public class MemberController {
 			@RequestParam("photo") MultipartFile photoPart
 			) {
 
-		String photoPathShort = null;
+		String photoPathNewShort = null, photoPathNew = null, photoPathOrigin = null;
 		byte[] photoArray = null;
-		Member member = null;
+		Member member = service.getMemberById(memberId);
+		Member updatedMember = null;
+		boolean isUpdate = false;
 		
 		try {
 			if (!photoPart.isEmpty()) {
 				
 				photoArray = photoPart.getBytes();
-				photoPathShort = PathHandler.produceShortPhotoPathStr("members", photoPart);
+				photoPathNewShort = PathHandler.produceShortPhotoPathStr("members", photoPart);
+				photoPathNew = PathHandler.producePhotoPathStr("m", photoPathNewShort);
+				photoPathOrigin = PathHandler.getFullPathName(member.getPhotoPath());
+				
+				isUpdate = service.updatePhoto(memberId, photoArray, photoPathNewShort);
+				if (isUpdate) {
+					if (photoPathOrigin != null) {
+						File oldFile = new File(photoPathOrigin);
+						oldFile.delete();
+					}
+					
+					File newFile = new File(photoPathNew);
+					photoPart.transferTo(newFile);
+					member.setPhotoPath(photoPathNewShort);
+				}
 			}
-
-			member = service.getMemberById(memberId);
-			service.updateById(memberId, member.getPassword(), name, phone, email, address);
-			service.updatePhoto(memberId, photoArray, photoPathShort);
 			
-			member.setName(name);
-			member.setPhone(phone);
-			member.setEmail(email);
-			member.setAddress(address);
-			member.setPhoto(photoArray);
-			member.setPhotoPath(photoPathShort);
-
+			updatedMember = service.updateById(memberId, member.getPassword(), name, phone, email, address);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return member;
+		return updatedMember;
 	}
-
 
 	@GetMapping("/member.profile/{memberId}")
 	@ResponseBody
@@ -265,5 +271,4 @@ public class MemberController {
 
 		return member;
 	}
-
 }

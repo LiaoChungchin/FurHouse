@@ -467,17 +467,19 @@
 	  console.log($(this).index());
 		switch ($(this).index()) {
 		case 0:
-		  $(".memberprofile").attr("style", " ");
+			$(".memberprofile").attr("style", "");
 			$('.text-content').html('');
 			memberprofile();
 			break;
 		case 1:
-      $('.text-content').html('<div class="row contentBox"></div><div class="pageGroup"></div>');
+     		$(".memberprofile").attr("style", "display:none;");
+     		$('.text-content').html('<div class="row contentBox"></div><div class="pageGroup"></div>');
 			$('.contentBox').attr("style","display:block;");
 			currentPage = 1;
 			selectAllOrderListMemberId();
 			break;
 		case 2:
+			$(".memberprofile").attr("style", "display:none;");
 			$('.text-content').html('<div class="wrapper"></div><div class="pageGroup"></div>');
 			$('.wrapper').attr("style", "display:block;");
 			currentPage = 1;
@@ -539,13 +541,23 @@
 	//ajax for 修改後顯示
 	$('#sucess').on("click", function() {
 		let formData = new FormData($('#profileupdateform')[0]);
+		$.ajax({
+					type : "POST",
+					url : "member.profile.update",
+					data : formData,
+					contentType: false,
+					cache: false,
+					processData: false,
+					success : function(memeber) {alert("修改成功");},
+					error : function(xhr, ajaxOptions, thrownError) {alert(ajaxOptions + " " + thrownError);}
+				});
 	})
 	
 	/*--------------------------------------------領養單--------------------------------------------*/
 	/*顯示個人領養單*/
 	function selectAllAdoptListMemberId() {
 		$.ajax({
-		  type : "GET",
+			type : "GET",
 			url : "searchAllAdoptListMemberId/${sessionScope.login_user.memberId}",
 			dataType : "json",
 			beforeSend : function(XMLHttpRequest) {
@@ -650,34 +662,26 @@
 	})
 
 	/*確認領養按鈕*/
-	$('#confirmAdoptListSubmit')
-			.on(
-					"click",
-					function() {
-						$
-								.ajax({
-									type : "GET", //指定http參數傳輸格式為POST
-									url : "sendEmail/${sessionScope.login_user.name}/${sessionScope.login_user.email}", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
-									beforeSend : function(xhr) {
-										$('#loadingGIF').attr("style", " ");
-										$('.confirmAdoptListBtn').attr("style",
-												"display:none");
-									},
-									success : function(response) {
-										$('#loadingGIF').attr("style",
-												"display:none");
-										$('.confirmAdoptListBtn').attr("style",
-												"");
-										createtoast(response);
-									},
-									//Ajax失敗後要執行的function，此例為印出錯誤訊息
-									error : function(xhr, ajaxOptions,
-											thrownError) {
-										createtoast("發生錯誤!!!");
-									}
-								});
-						$('#confirmAdoptListModalCenter').modal("hide");
-					})
+	$('#confirmAdoptListSubmit').on("click",function() {
+		$.ajax({
+					type : "GET", //指定http參數傳輸格式為POST
+					url : "sendEmail/${sessionScope.login_user.name}/${sessionScope.login_user.email}", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+					beforeSend : function(xhr) {
+									$('#loadingGIF').attr("style", " ");
+									$('.confirmAdoptListBtn').attr("style","display:none");
+								},
+					success : function(response) {
+								$('#loadingGIF').attr("style","display:none");
+								$('.confirmAdoptListBtn').attr("style","");
+								createtoast(response);
+							},
+					//Ajax失敗後要執行的function，此例為印出錯誤訊息
+					error : function(xhr, ajaxOptions,thrownError) {
+								createtoast("發生錯誤!!!");
+							}
+				});
+		$('#confirmAdoptListModalCenter').modal("hide");
+	})
 
 	/*小提示*/
 	function createtoast(toaststr) {
