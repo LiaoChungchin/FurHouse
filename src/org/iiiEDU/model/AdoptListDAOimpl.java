@@ -244,6 +244,4 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		return adoptLists;
 	}
 
-	
-	
 }

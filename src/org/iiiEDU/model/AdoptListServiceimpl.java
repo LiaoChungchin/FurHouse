@@ -90,6 +90,4 @@ public class AdoptListServiceimpl implements AdoptListService {
 	public List<AdoptList> searchAllAdoptListMemberName(String memberName,Integer pageLimit,Integer currentPage) {
 		return adoptListDAO.searchAllAdoptListMemberName(memberName,pageLimit,currentPage);
 	}
-
-
 }

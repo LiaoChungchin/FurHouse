@@ -1,7 +1,10 @@
 package org.iiiEDU.controller;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.iiiEDU.model.AdoptList;
+import org.iiiEDU.model.AdoptListService;
 import org.iiiEDU.model.Cat;
 import org.iiiEDU.model.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class ComponentCatController {
 	@Qualifier("catServiceimpl")
 	private CatService catServiceimpl;
 	
+	@Autowired
+	private AdoptListService adoptListService;
+	
 	@GetMapping("/supportCat")
 	public String selectAllCat(Model model) {
 		List<Cat> cats = catServiceimpl.selectAllCat();
@@ -36,4 +42,24 @@ public class ComponentCatController {
 		
 		return "page-cats-detail.jsp";
 	}
+	
+	
+	@GetMapping(path = "/selectAllCatForReservation")
+	public String selectAllCatForReservation(Model model) {
+		List<Cat> cats = catServiceimpl.selectSomeCatNR();
+		model.addAttribute("cats",cats);
+		
+		List<Cat> randcats = catServiceimpl.selectSomeCatNR();
+		Collections.shuffle(randcats);
+		model.addAttribute("randcats",randcats);
+		
+//		List<Cat> pcats = catServiceimpl.selectPopularCat();
+//		
+//		for(Cat cat:pcats) {
+//			System.out.println(cat);
+//		}
+//		model.addAttribute("randcats",pcats);
+		
+		return "page-cat-reservation.jsp";
+	} 
 }

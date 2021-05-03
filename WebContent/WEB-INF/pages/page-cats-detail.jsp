@@ -201,18 +201,18 @@
 											  	</div>
 											</div>
 											<!-- 領養Dialog End-->
-										      <c:choose>
-										      <c:when test="${cat.photo2!=null}">
-											<div class="pcpLeading"
-												style="background-image: url('catImageToByte?path=${cat.photo2}')"
-												id="supportCatDetailShow"></div>
-												</c:when>
-												<c:when test="${cat.photo2==null || cat.photo2==''}">
+										    <c:choose>
+											    <c:when test="${cat.photo2!=null}">
 												<div class="pcpLeading"
-												style="background-image: url('catImageToByte?path=${cat.photo1}')"
-												id="supportCatDetailShow"></div>
+													style="background-image: url('catImageToByte?path=${cat.photo2}')"
+													id="supportCatDetailShow"></div>
+													</c:when>
+													<c:when test="${cat.photo2==null || cat.photo2==''}">
+													<div class="pcpLeading"
+													style="background-image: url('catImageToByte?path=${cat.photo1}')"
+													id="supportCatDetailShow"></div>
 												</c:when>
-		                                   	 </c:choose>
+		                                   	</c:choose>
 											<div class="supportCatDatailTitle">
 												<h2>貓貓資訊</h2>
 											</div>
@@ -301,7 +301,7 @@
 	$(".datepicker").datepicker({
 		format : "yyyy-mm-dd", //設定格式為2019-04-01
 		autoclose : true,//選擇日期後就會自動關閉
-		startDate : "today",//起始日期為今天
+		startDate : "+1d",//起始日期為今天
 		todayHighlight : true,//今天會有一個底色
 		language : 'zh-TW'//中文化
 	});

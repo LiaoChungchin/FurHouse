@@ -107,7 +107,7 @@ public class Cat implements Serializable{
 	@OneToMany(mappedBy = "cat" , fetch = FetchType.LAZY)  
 	@JsonIgnore
 	private Set<AdoptList> adoptList = new LinkedHashSet<>();
-	
+
 	public Cat() {
 		super();
 	}
@@ -231,13 +231,21 @@ public class Cat implements Serializable{
 	public void setAdoptStatus(AdoptStatus adoptStatus) {
 		this.adoptStatus = adoptStatus;
 	}
+	
+	public Set<AdoptList> getAdoptList() {
+		return adoptList;
+	}
+
+	public void setAdoptList(Set<AdoptList> adoptList) {
+		this.adoptList = adoptList;
+	}
 
 	@Override
 	public String toString() {
 		return "Cat [id=" + id + ", nickname=" + nickname + ", type=" + type + ", gender=" + gender + ", ligation="
 				+ ligation + ", vaccination=" + vaccination + ", fk_adoptStatusId=" + fk_adoptStatusId + ", createDate="
 				+ createDate + ", comment1=" + comment1 + ", comment2=" + comment2 + ", photo1=" + photo1 + ", photo2="
-				+ photo2 + "]";
+				+ photo2 + ", adoptStatus=" + adoptStatus + ", setsize="+adoptList.size()+"]";
 	}
 
 }
