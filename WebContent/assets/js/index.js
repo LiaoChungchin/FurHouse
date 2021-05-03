@@ -33,15 +33,25 @@ $(document).ready(function () {
     // 還需要判斷當下是否重複點擊同一分類
     let nowAt = "", beforeAt = "";
     $("div#v-pills-tab>a[class*='cp01']").click(function () {
-        nowAt = this.getAttribute("id");   
+        nowAt = this.getAttribute("id"); 
         if($(this).nextUntil("a[class*='cp01']").filter(".active").length == 0){
         	if (nowAt != beforeAt) {
-	        	// 滑出/入顯示動畫
-	            $(this).parent().children().not("[class*='cp01']").slideUp();
-	            $(this).nextUntil("a[class*='cp01']").slideToggle();
-	            // 當前目標反藍底
-			    $("div#menu-detail>div>a[class~='active']").removeClass("active");
-			    $(this).addClass("active");
+        		if (nowAt == "v-pills-shopping-tab"){
+        			// 滑出/入顯示動畫
+					$(this).parent().children().not("[class*='cp01']").slideUp();
+					$(this).next().slideToggle();
+					$(this).next().next().slideToggle();
+        			// 當前目標反藍底
+					$("div#menu-detail>div>a[class~='active']").removeClass("active");
+					$(this).addClass("active");
+        		} else {
+					// 滑出/入顯示動畫
+					$(this).parent().children().not("[class*='cp01']").slideUp();
+					$(this).nextUntil("a[class*='cp01']").slideToggle();
+					// 當前目標反藍底
+					$("div#menu-detail>div>a[class~='active']").removeClass("active");
+					$(this).addClass("active");
+        		}
 	        }
 	        beforeAt = nowAt;
         }     
