@@ -221,7 +221,11 @@ public class CatController {
 				}
 			}
 		}else {
-			filepath.add(photo1);
+			if(photo1.isEmpty()) {
+				filepath.add(null);
+			}else {
+				filepath.add(photo1);
+			}
 		}
 		
 		if(file2.getSize()!=0) {
@@ -256,7 +260,11 @@ public class CatController {
 				}
 			}
 		}else {
-			filepath.add(photo2);
+			if(photo2.isEmpty()) {
+				filepath.add(null);
+			}else {
+				filepath.add(photo2);
+			}
 		}
 				
 		/*---------------設定貓----------------*/

@@ -1,5 +1,6 @@
 package org.iiiEDU.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -9,6 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 /**
  * 獲得Product表中所有的資訊
  * 
@@ -17,13 +23,12 @@ import javax.persistence.Table;
  * @最後修改時間:2021-03-21
  */
 
+@Component("product")
 @Entity
-@Table(name="Product")
-public class Product {
-
-	/**
-	 * 所有欄位名稱與於資料表中的欄位名稱一致
-	 */
+@Table(name="product")
+public class Product implements Serializable{
+	
+	private static final long serialVersionUID = 127486782574836748L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +75,7 @@ public class Product {
 	private String photo3;
 	
 	@Column(name="updateDate")
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Taipei")
 	private Timestamp updateDate;
 	
 	@Column(name="shelf")
@@ -79,11 +85,10 @@ public class Product {
 		super();
 	}
 	
-	public Product(Integer id, String type, String subType, String brandName, String productName, Integer price, Integer quantity, Integer stock,
+	public Product(String type, String subType, String brandName, String productName, Integer price, Integer quantity, Integer stock,
 			String place, String comment1, String comment2, String photo1, String photo2, String photo3,
 			Timestamp updateDate,Integer shelf) {
 		super();
-		this.id = id;
 		this.type = type;
 		this.subType = subType;
 		this.brandName = brandName;

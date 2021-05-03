@@ -21,15 +21,15 @@
 	
 	<style>
 		.supportCatDetail {
-			height: 768px;
+			height: 868px;
 			width: 100%;
 		}
 		
 		.pcpLeading {
-			min-height: 300px;
+			min-height: 400px;
 			overflow: hidden;
 			background-repeat: no-repeat;
-			background-position: 50% 50%;
+			background-position: 50% 23%;
 			background-size: cover;
 		}
 		
@@ -56,11 +56,14 @@
 			border-radius: 30%;
 			overflow: hidden;
 			float: left;
+		
 		}
 		
 		.supportCatDatailInfo-img img{
-			width: 300px;
-			height: auto;
+			width: 280px;
+			height: 200px;
+			margin-left: -40px;
+	        margin-top: 0px;
 		}
 		
 		
@@ -198,11 +201,18 @@
 											  	</div>
 											</div>
 											<!-- 領養Dialog End-->
-										
+										      <c:choose>
+										      <c:when test="${cat.photo2!=null}">
 											<div class="pcpLeading"
+												style="background-image: url('catImageToByte?path=${cat.photo2}')"
+												id="supportCatDetailShow"></div>
+												</c:when>
+												<c:when test="${cat.photo2==null || cat.photo2==''}">
+												<div class="pcpLeading"
 												style="background-image: url('catImageToByte?path=${cat.photo1}')"
 												id="supportCatDetailShow"></div>
-			
+												</c:when>
+		                                   	 </c:choose>
 											<div class="supportCatDatailTitle">
 												<h2>貓貓資訊</h2>
 											</div>

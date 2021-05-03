@@ -96,6 +96,51 @@
 <!-- User Define JS -->
 <script src="assets/js/index.js"></script>
 
+<script>
+	
+	// 購物車加上本頁購物的商品資訊
+	var name = "${product.productName}";
+	var id = "${product.id}";
+	var quantity = 0;
+	var price = "${product.price}";
+	var imgSrc = "/FurHouse/product.getPhoto/" + ${product.id} + "/photo1";
+	var nowProductionItems = JSON.parse(localStorage.myProducts).length;
+	
+	$(function(){
+		$("body").on("change","input.qty",function(){
+			quantity = $("input.qty").val();	
+		})
+		$("body").on("click","button#qtyplus",function(){
+			quantity = $("input.qty").val();	
+		})
+		$("body").on("click","button#qtyminus",function(){
+			quantity = $("input.qty").val();	
+		})
+		$("body").on("click","a#goBuyIt",function(){
+			let newProductJSON = { "name"     : name,
+								   "id"       : id,
+								   "quantity" : quantity,
+								   "price"    : price,
+								   "imgSrc"   : imgSrc
+								 };
+
+			let alreadyBuyJSON = JSON.parse(localStorage.myProducts);
+			alreadyBuyJSON.push(newProductJSON);
+			localStorage.myProducts = JSON.stringify(alreadyBuyJSON);
+			
+			nowProductionItems = JSON.parse(localStorage.myProducts).length;
+			if (nowProductionItems !== 0) {
+	            $("span#cart-total").text(nowProductionItems);
+	        }
+		})
+		// 在購物車上顯示商品件數
+        if (nowProductionItems !== 0) {
+            $("span#cart-total").text(nowProductionItems);
+        }
+	});
+	
+</script>
+
 <title>FurHouse</title>
 
 <%-- EL接收session中的member bean有沒有認證過 --%>
@@ -117,15 +162,14 @@
 
 
 				<!-- ###置入本頁資訊### -->
-				<c:forEach items="${Products}" var="product">
 					<div class="container">
 						<div class="row" id="box-product">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="row">
 										<div class="col-md-12">
-											<img alt="喵~"
-												src="assets/img/Products/product${product.id}_1.jpg"
+											<img alt=""
+												src="<c:url value='/product.getPhoto/${product.id}/photo1' />"
 												class="img-photo1" />
 										</div>
 									</div>
@@ -134,9 +178,18 @@
 										<div class="col-md-6">
 											<c:choose>
 												<c:when test="${product.photo2!=null}">
-													<img alt="喵~"
-														src="assets/img/Products/product${product.id}_2.jpg"
+													<img alt=""
+														src="<c:url value='/product.getPhoto/${product.id}/photo2' />"
 														class="img-photo2" />
+												</c:when>
+											</c:choose>
+										</div>
+										<div class="col-md-6">
+											<c:choose>
+												<c:when test="${product.photo3!=null}">
+													<img alt=""
+														src="<c:url value='/product.getPhoto/${product.id}/photo3' />"
+														class="img-photo3" />
 												</c:when>
 											</c:choose>
 										</div>
@@ -178,7 +231,7 @@
 												</span>
 											</div>
 											<div class="card-footer bg-transparent">
-												<a href="#" class="btn btn-primary"> <i
+												<a href="javascript:;" class="btn btn-primary" id="goBuyIt"> <i
 													class="bi bi-cart-check"></i> 加入購物車
 												</a>
 											</div>
@@ -232,9 +285,6 @@
 							</div>
 						</div>
 					</div>
-				</c:forEach>
-
-
 
 			</div>
 		</div>
@@ -260,6 +310,18 @@
 				$("a#anchor-login-modal").text("登出");
 				let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
 				$("a#anchor-login-modal").before(memberBadge);
+				$("a#myShoppingCart").attr("class","btn btn-outline-primary");
+				$("a#myShoppingCart").attr("href","paymentS1");
+				$("a#myShoppingCart>span").attr("class","badge btn-danger");
+			});
+		</script>
+	</c:if>
+	<c:if test="${sessionScope.login_user == null}">
+		<script>
+			$(document).ready(function (){
+				$("body").on("click","a#myShoppingCart",function() {
+					alert("請先登入會員喔~~~");
+				});
 			});
 		</script>
 	</c:if>
@@ -267,8 +329,7 @@
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>
 	<script>
-			<!--下方細項切頁
-			-->
+			<!--下方細項切頁-->
 			$(function()
 			{
 			$("#tabs").tabs({
@@ -315,8 +376,7 @@
 		}
 		});
 		});
-		</script>
-
-
+		
+	</script>
 </body>
 </html>

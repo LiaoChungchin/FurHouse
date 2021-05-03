@@ -72,7 +72,7 @@ public class PageRedirectController {
 	
 	@GetMapping("/paymentS1")
 	public String directToPay1(){
-		return "page-payment-stage1.html";
+		return "page-payment-stage1.jsp";
 	}
 	
 	@GetMapping("/member.chat")
