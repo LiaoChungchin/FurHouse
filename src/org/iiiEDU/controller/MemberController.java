@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -206,45 +207,47 @@ public class MemberController {
 		return entity;
 	}
 
-	@RequestMapping(path = "/member.profile.update", method = RequestMethod.POST)
+
+	@PostMapping("/member.profile.update")
 	@ResponseBody
-	public Member memberUpdate1(@RequestParam("updateNo") Integer memberId, @RequestParam("updateName") String name,
-//			 @RequestParam("updatePwd") String password,
-			@RequestParam("updatePhone") String phone, @RequestParam("updateMail") String email,
-			@RequestParam("updateAddress") String address
-//			, @RequestParam("photo") MultipartFile photo
+	public Member memberUpdate1(
+			@RequestParam("updateNo") Integer memberId, 
+			@RequestParam("updateName") String name,
+			@RequestParam("updatePhone") String phone, 
+			@RequestParam("updateMail") String email,
+			@RequestParam("updateAddress") String address,
+			@RequestParam("photo") MultipartFile photoPart
 			) {
 
-	
+		String photoPathShort = null;
+		byte[] photoArray = null;
+		Member member = null;
 		
-//		try {
-//			if (!photo.isEmpty()) {
-//				byte[] BinaryPhoto = photo.getBytes();
-//
-//				String photoPathNew = PathHandler.producePhotoPathStr("m", photo);
-//				String photoPathNewShort = PathHandler.produceShortPhotoPathStr("members", photo);
-//				String photoPathOrigin = PathHandler.getFullPathName(service.getMemberById(memberId).getPhotoPath());
-//
-//				boolean isUpdate = service.updatePhoto(memberId, BinaryPhoto, photoPathNewShort);
-//
-//				if (isUpdate) {
-//					if (photoPathOrigin != null) {
-//						File oldFile = new File(photoPathOrigin);
-//						oldFile.delete();
-//					}
-//					File newFile = new File(photoPathNew);
-//					photo.transferTo(newFile);
-//				}
-//			}
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			if (!photoPart.isEmpty()) {
+				
+				photoArray = photoPart.getBytes();
+				photoPathShort = PathHandler.produceShortPhotoPathStr("members", photoPart);
+			}
 
-		Member member = service.updateById1(memberId, name, phone, email, address);
+			member = service.getMemberById(memberId);
+			service.updateById(memberId, member.getPassword(), name, phone, email, address);
+			service.updatePhoto(memberId, photoArray, photoPathShort);
+			
+			member.setName(name);
+			member.setPhone(phone);
+			member.setEmail(email);
+			member.setAddress(address);
+			member.setPhoto(photoArray);
+			member.setPhotoPath(photoPathShort);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return member;
 	}
+
 
 	@GetMapping("/member.profile/{memberId}")
 	@ResponseBody

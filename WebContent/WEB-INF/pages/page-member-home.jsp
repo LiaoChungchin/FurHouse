@@ -154,6 +154,7 @@ h1 {
 				<br><div>
 					<input type="file" name="photo" id="changephoto"/>
    							 <ul class="picture_list"></ul>
+   							 <img src="" id="photo" alt="" style="width:256px; height:256px;"/>
  
 					<img src="" id="photo" alt="" />
 				</div>
@@ -329,42 +330,66 @@ h1 {
 				$('#updatePhone').val(member.phone);
 				$('#updateAddress').val(member.address);
 				$('#photo').attr("src", "member.getPhoto/" + member.memberId);
-
 			},
-
+			
 			//Ajax失敗後要執行的function，此例為印出錯誤訊息
 			error : function(xhr, ajaxOptions, thrownError) {
 			}
 		})
 	};
 
-// 	$('#changephoto').on('change', function() {
-// 		let reader = new FileReader();
-// 		reader.onload = function(event) {
-// 			$("#photo").attr('src', event.target.result);
-// 		}
-// 		reader.readAsDataURL(this.files[0]);
-// 	});
+	$('#changephoto').on('change', function() {
+		
+		let reader = new FileReader();
+		
+		if(uploadImage()){
+			
+			reader.readAsDataURL(this.files[0]);
+			reader.onload = function(event) {
+				$("#photo").attr('src', event.target.result);
+			}
+		}
+		
+		function uploadImage() {
+	        // 判斷是否有選擇上傳文件 
+        	let imgPath = $("#changephoto").val(); 
+	        if (imgPath == "") { 
+					        	alert("請選擇上傳圖片！");
+					        	$("#changephoto").val('');
+					        	
+					        	return false; 
+					        	}
+	        // 判斷上傳文件的後綴名 
+	        let strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+	        if (strExtension != 'jpg' && strExtension != 'gif' && strExtension != 'png' && strExtension != 'bmp') {
+	            alert("請選擇圖片文件"); 
+	            $("#changephoto").val('');
+	            
+	            return false;
+	        }
+     
+	        return true;
+	    }
+	});
+
 
 	//ajax for 修改後顯示
 	$('#sucess').on("click", function() {
-		console.log($("#profileupdateform").serializeArray());
+
+		let formData = new FormData($('#profileupdateform')[0]);
 		$.ajax({
-			type : "POST", //指定http參數傳輸格式為POST
-			url : "member.profile.update", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
-			data : $("#profileupdateform").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
+			type : "POST",
+			url : "member.profile.update",
+			data : formData,
+			contentType: false,
+			cache: false,
+			processData: false,
 			success : function(memeber) {
-				console.log(memeber);
-				// 				$('#updateName').val(member.name);
-				// 				$('#updateMail').val(member.email);
-				// 				$('#updatePhone').val(member.phone);
-				// 				$('#updateAddress').val(member.address);
 				alert("修改成功");
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert(ajaxOptions + " " + thrownError);
 			}
-
 		});
 	})
 
