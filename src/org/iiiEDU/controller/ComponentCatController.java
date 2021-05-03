@@ -1,5 +1,6 @@
 package org.iiiEDU.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,16 +50,20 @@ public class ComponentCatController {
 		List<Cat> cats = catServiceimpl.selectSomeCatNR();
 		model.addAttribute("cats",cats);
 		
-		List<Cat> randcats = catServiceimpl.selectSomeCatNR();
-		Collections.shuffle(randcats);
-		model.addAttribute("randcats",randcats);
 		
-//		List<Cat> pcats = catServiceimpl.selectPopularCat();
-//		
-//		for(Cat cat:pcats) {
-//			System.out.println(cat);
-//		}
-//		model.addAttribute("randcats",pcats);
+		List<Cat> pcats = new ArrayList<Cat>();
+		for(Cat cat : cats) {
+			pcats.add(cat);
+		}
+		
+		pcats.sort((a,b) -> b.getAdoptList().size()-a.getAdoptList().size());
+		
+//		List<Cat> randcats = catServiceimpl.selectSomeCatNR();
+//		Collections.shuffle(randcats);
+//		model.addAttribute("randcats",randcats);
+		
+				
+		model.addAttribute("randcats",pcats);
 		
 		return "page-cat-reservation.jsp";
 	} 

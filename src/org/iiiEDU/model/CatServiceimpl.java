@@ -42,9 +42,4 @@ public class CatServiceimpl implements CatService {
 	public List<Cat> selectSomeCatNR(){
 		return catimplDAO.selectSomeCatNR();
 	}
-
-	@Override
-	public List<Cat> selectPopularCat(){
-		return catimplDAO.selectPopularCat();
-	}
 }

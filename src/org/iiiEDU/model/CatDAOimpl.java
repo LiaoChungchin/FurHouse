@@ -102,7 +102,7 @@ public class CatDAOimpl implements CatDAO {
 	public List<Cat> selectSomeCatNR(){
 		Session session = sessionFactory.getCurrentSession();
 		
-		String hql = "from Cat where fk_adoptStatusId <= 3";
+		String hql = "from Cat where fk_adoptStatusId < 3";
 		
 		Query<Cat> query = session.createQuery(hql,Cat.class);
 		
@@ -114,22 +114,4 @@ public class CatDAOimpl implements CatDAO {
 		
 		return cats;
 	}
-	
-	@Override
-	public List<Cat> selectPopularCat(){
-		Session session = sessionFactory.getCurrentSession();
-		
-		String hql = "select a.cat,count(*) from AdoptList a where a.cat.id = 995001";
-		
-		Query<Cat> query = session.createQuery(hql,Cat.class);
-		
-		List<Cat> cats = query.list();
-		for(Cat cat : cats) {
-		      Hibernate.initialize(cat);
-		      Hibernate.initialize(cat.getAdoptList());
-		}
-			
-		return cats;
-	}
-
 }

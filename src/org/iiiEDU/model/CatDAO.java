@@ -9,5 +9,4 @@ public interface CatDAO {
 	Integer updateCat(Cat cat);
 	Integer deleteCat(Integer id);
 	List<Cat> selectSomeCatNR();
-	List<Cat> selectPopularCat();
 }
