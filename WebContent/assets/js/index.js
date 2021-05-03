@@ -64,7 +64,7 @@ $(document).ready(function () {
     });
  // 簡易註冊驗證效果
     // for 帳戶名稱
-    $("body").on("blur", "form>div>div>input#accountid", function () {
+    $("body").on("blur keyup", "form>div>div>input#accountid", function () {
         let reg = /^[0-9a-zA-Z]{4,}$/;
         if (/^[0-9a-zA-Z]{4,}$/.test($(this).val())) {
             $(this).removeClass("is-invalid");
@@ -72,7 +72,13 @@ $(document).ready(function () {
             $(this).next().removeClass("invalid-feedback");
             $(this).next().addClass("valid-feedback");
             $(this).next().html("帳號格式正確");
-        } else {
+        }else if(accountid.value==""){
+            $(this).removeClass("is-valid");
+            $(this).addClass("is-invalid");
+            $(this).next().removeClass("valid-feedback");
+            $(this).next().addClass("invalid-feedback");
+            $(this).next().html("帳號不可空白");
+        }else{
             $(this).removeClass("is-valid");
             $(this).addClass("is-invalid");
             $(this).next().removeClass("valid-feedback");
@@ -80,8 +86,10 @@ $(document).ready(function () {
             $(this).next().html("帳號格式不符");
         }
     });
+    
+    
     // for 帳戶密碼
-    $("body").on("blur", "form>div>div>input#accountpwd", function () {
+    $("body").on("blur keyup", "form>div>div>input#accountpwd", function () {
         let reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/;
         if (/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/.test($(this).val())) {
             $(this).removeClass("is-invalid");
@@ -89,7 +97,13 @@ $(document).ready(function () {
             $(this).next().removeClass("invalid-feedback");
             $(this).next().addClass("valid-feedback");
             $(this).next().html("密碼格式正確");
-        } else {
+        } else if(accountpwd.value==""){
+            $(this).removeClass("is-valid");
+            $(this).addClass("is-invalid");
+            $(this).next().removeClass("valid-feedback");
+            $(this).next().addClass("invalid-feedback");
+            $(this).next().html("密碼不可空白");
+        }else {
             $(this).removeClass("is-valid");
             $(this).addClass("is-invalid");
             $(this).next().removeClass("valid-feedback");
@@ -100,7 +114,7 @@ $(document).ready(function () {
     
     //for 電子信箱
     
-    $("body").on("blur", "form>div>input#accountmail", function () {
+    $("body").on("blur keyup", "form>div>input#accountmail", function () {
         let reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($(this).val())) {
             $(this).removeClass("is-invalid");
@@ -108,6 +122,12 @@ $(document).ready(function () {
             $(this).next().removeClass("invalid-feedback");
             $(this).next().addClass("valid-feedback");
             $(this).next().html("E-mail格式正確");
+        }else if(accountmail.value==""){
+            $(this).removeClass("is-valid");
+            $(this).addClass("is-invalid");
+            $(this).next().removeClass("valid-feedback");
+            $(this).next().addClass("invalid-feedback");
+            $(this).next().html("密碼不可空白");
         } else {
             $(this).removeClass("is-valid");
             $(this).addClass("is-invalid");
@@ -120,34 +140,45 @@ $(document).ready(function () {
     
     //----------------------------------------//
     let flag1=false,flag2=false,flag3=false;
-						$("body").on("blur","accountname",function(){
-							let userName = document.getElementById("accountname");
-							let feedback = document.getElementById("accountname-feedback");
-							userName.classList.remove("is-valid");
-							userName.classList.remove("is-invalid");
-								//不能为空
-						        if(accountname.value==""){
-						            feedback.innerHTML ="<b>請輸入您的姓名</b>";//修改username-feedback div中的内容
-						            userName.classList.remove("is-valid");//清除合法狀態
-						            userName.classList.add("is-invalid");//添加非法狀態
-						            $("#checkSubmit").attr("disabled",true);//添加禁用
-						            flag1 = false;
-						        }else{
-						        	//不能有特殊符号
-							        let patrn = /[@#\$%\^&\*]+/g;//正則表達式
+			$("body").on("blur keyup","#accountname",function(){
+						 $("#accountname").removeClass("is-invalid");
+           				 $("#accountname").addClass("is-valid");
+           				 $(this).next().removeClass("invalid-feedback");
+			            $(this).next().addClass("valid-feedback");
+			            $(this).next().html("姓名格式正確");
+            			 		
+				//不能为空	
+				if(accountname.value==""){
+						   $(this).removeClass("is-valid");
+						   $(this).addClass("is-invalid");
+						   $(this).next().removeClass("valid-feedback");
+						   $(this).next().addClass("invalid-feedback");
+						   $(this).next().html("請輸入您的姓名");
+						   $("#checkSubmit").attr("disabled",true);//添加禁用
+						   flag1 = false;
+				}else{
+				//不能有特殊符号
+				
+				let patrn = /[@#\$%\^&\*]+/g;//正則表達式
 							        if(patrn.exec(accountname.value)){
-							            feedback.innerHTML ="<b>用户名不能存在特殊符号</b>";
-							            accountname.classList.remove("is-valid");
-							            accountname.classList.add("is-invalid");
-							            $("#checkSubmit").attr("disabled",true);
-							            flag1 = false;
+							        $(this).next().html("姓名不能存在特殊符號");
+							        
+							            $(this).removeClass("is-valid");
+						   				$(this).addClass("is-invalid");
+							            $(this).next().removeClass("valid-feedback");
+						   				$(this).next().addClass("invalid-feedback");
+							            
+							$("#checkSubmit").attr("disabled",true);
+							flag1 = false;
 							        }else{
 							        	//清除错误提示，改成成功提示
 							        	 $("#checkSubmit").attr("disabled",true);
 							        	 accountname.classList.remove("is-invalid");
 							        	 accountname.classList.add("is-valid");
-								        feedback.innerHTML="";
+								        
+								        console.log("flag1")
 								        flag1 = true;
+								        console.log("flag1")
 							        }
 						        }
 		 						if(flag1&&flag2&&flag3==true){
@@ -155,22 +186,30 @@ $(document).ready(function () {
 	 							};
 						});
 						
-						$("body").on("blur","accountphone",function(){
-							let accountphone = document.getElementById("accountphone");
-							let feedback = document.getElementById("accountphone-feedback");
-							accountphone.classList.remove("is-valid");
-							accountphone.classList.remove("is-invalid");
-					        if(accountphone.value==""){
-					            feedback.innerHTML ="<b>請輸入您的手機號碼 </b>";
-					            accountphone.classList.remove("is-valid");
-					            accountphone.classList.add("is-invalid");
-					            $("#checkSubmit").attr("disabled",true);
-					            flag2 = false;
+						$("body").on("blur keyup","#accountphone",function(){
+							 $(this).removeClass("is-valid");
+           					 $(this).addClass("is-invalid");
+				             $(this).next().removeClass("invalid-feedback");
+				             $(this).next().addClass("valid-feedback");
+				             $(this).next().html("手機格式正確");
+				            
+					    if(accountphone.value==""){
+						   $(this).removeClass("is-valid");
+						   $(this).addClass("is-invalid");
+						   $(this).next().removeClass("valid-feedback");
+						   $(this).next().addClass("invalid-feedback");
+						   $(this).next().html("手機不可為空白");
+						   $("#checkSubmit").attr("disabled",true);//添加禁用
+						   flag1 = false;
 					        }else{
 						        //格式需符合台灣手機號碼
 						        let patrn =/^09\d{8}$/;
 						        if(!patrn.exec(accountphone.value)){
-						            feedback.innerHTML = "請輸入正確的手機格式(台灣手機門號)";
+						        $("#accountphone").next().html("請輸入正確的手機格式(台灣手機門號)");
+						        $(this).next().removeClass("valid-feedback");
+						   		$(this).next().addClass("invalid-feedback");
+						           
+						           
 						            accountphone.classList.remove("is-valid");
 						            accountphone.classList.add("is-invalid");
 						            $("#checkSubmit").attr("disabled",true);
@@ -179,8 +218,10 @@ $(document).ready(function () {
 									//清除错误提示，改成成功提示
 							        accountphone.classList.remove("is-invalid");
 							        accountphone.classList.add("is-valid");
-							        feedback.innerHTML="";
+							       
+							        console.log("flag2")
 							        flag2 = true;
+							        console.log("flag2")
 						        }
 					        }
 	 						if(flag1&&flag2&&flag3==true){
@@ -188,22 +229,26 @@ $(document).ready(function () {
 	 						};
 						});
 						
-						$("body").on("blur","accountaddr",function(){
-							let address = document.getElementById("accountaddr");
-							let feedback = document.getElementById("accountaddr-feedback");
-							accountaddr.classList.remove("is-valid");
-							accountaddr.classList.remove("is-invalid");
+						$("body").on("blur keyup","#accountaddr",function(){
+								 $(this).removeClass("is-valid");
+	           					 $(this).addClass("is-invalid");
+					             $(this).next().removeClass("invalid-feedback");
+					             $(this).next().addClass("valid-feedback");
+					             $(this).next().html("地址格式正確");
 					        if(accountaddr.value==""){
-					            feedback.innerHTML = "請輸入您的收貨地址 ";
-					            accountaddr.classList.remove("is-valid");
-					            accountaddr.classList.add("is-invalid");
-					            $("#checkSubmit").attr("disabled",true);
-					            flag3 = false;
+					        	   $(this).removeClass("is-valid");
+								   $(this).addClass("is-invalid");
+								   $(this).next().removeClass("valid-feedback");
+								   $(this).next().addClass("invalid-feedback");
+								   $(this).next().html("地址不可為空白");
+								   $("#checkSubmit").attr("disabled",true);//添加禁用
+								   flag3 = false;
 					        }else{
 					        	accountaddr.classList.remove("is-invalid");
 					        	accountaddr.classList.add("is-valid");
-					        feedback.innerHTML="";
-					        flag3 = true;
+							    console.log("flag3")
+					        	flag3 = true;
+					        	console.log("flag3")
 					        }
 	 						if(flag1&&flag2&&flag3==true){
 	 							$("#checkSubmit").removeAttr("disabled"); 
@@ -239,10 +284,20 @@ $(document).ready(function () {
 			            $("#accountmail").next().html("Email格式正確");
 	        /*---------------------------------------------------------------*/
 	        $("#accountname").val("陳皓");
+	        			$("#accountname").addClass("is-valid");
+			            $("#accountname").next().addClass("valid-feedback");
+			            $("#accountname").next().html("姓名格式正確");
 	        $("#accountphone").val("0920350693");
+	        			$("#accountphone").addClass("is-valid");
+			            $("#accountphone").next().addClass("valid-feedback");
+			            $("#accountphone").next().html("手機格式正確");
 	        $("#radio1").prop("checked",true);
 	        $("#accountaddr").val("淡水區淡海路231巷20號");
-	        $("#agreecheck").prop("checked");
+	         			$("#accountaddr").addClass("is-valid");
+			            $("#accountaddr").next().addClass("valid-feedback");
+			            $("#accountaddr").next().html("地址格式正確");        
+	       $("#agreecheck").prop('checked', 'checked');
+	       $("#checkSubmit").removeAttr("disabled");
 	        });
 	        
 	        
@@ -264,9 +319,31 @@ $(document).ready(function () {
 	  		$("#accountmail").next().html("");
 	  		$("#accountmail").removeClass("is-valid");
             $("#accountmail").next().removeClass("valid-feedback");
+       /*-------------------------------------------------------------*/      
+            $("#accountname").removeClass("is-invalid");
+	  		$("#accountname").next().removeClass("invalid-feedback");
+	  		$("#accountname").next().html("");
+	  		$("#accountname").removeClass("is-valid");
+            $("#accountname").next().removeClass("valid-feedback");
+        /*-------------------------------------------------------------*/      
+            $("#accountphone").removeClass("is-invalid");
+	  		$("#accountphone").next().removeClass("invalid-feedback");
+	  		$("#accountphone").next().html("");
+	  		$("#accountphone").removeClass("is-valid");
+            $("#accountphone").next().removeClass("valid-feedback");
+        /*-------------------------------------------------------------*/      
+            $("#accountaddr").removeClass("is-invalid");
+	  		$("#accountaddr").next().removeClass("invalid-feedback");
+	  		$("#accountaddr").next().html("");
+	  		$("#accountaddr").removeClass("is-valid");
+            $("#accountaddr").next().removeClass("valid-feedback");
+        /*-------------------------------------------------------------*/  
+            $("#checkSubmit").attr("disabled",true);
 	  });
-		
-
+	  
+	   $("body").on("click", "#agreecheck", function (){
+		 });
+		 
     // 購物籃啟動
     $("body").on("mouseover", "button#button-basket", function () {
         $("button#button-basket").dropdown('toggle');

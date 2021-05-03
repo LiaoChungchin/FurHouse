@@ -33,10 +33,12 @@
 		<div class="form-group col-md-6">
 			<label for="accountname">姓名</label> <input type="text"
 				class="form-control" id="accountname" name="accountname" required>
+				<div class=""></div>
 		</div>
 		<div class="form-group col-md-6">
 			<label for="accountphone">電話</label> <input type="text"
 				class="form-control" id="accountphone" name="accountphone" required>
+				<div class=""></div>
 		</div>
 	</div>
 	<div class="form-row">
@@ -95,6 +97,7 @@
 		<div class="form-group col-md-10">
 			<label for="accountaddr">地址</label> <input type="text"
 				class="form-control" id="accountaddr" name="accountaddr">
+				<div class=""></div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -112,8 +115,7 @@
 		</div>
 	</div>
 </form>
-<script type="text/javascript">	
-</script>
+
 
 
 

@@ -106,7 +106,7 @@ h1 {
 	
 
 	<h1 class="text-center font-weight-bolder">Hello ~</h1>
-		<h2 class="mt-1 text-center text-muted font-weight-bolder">I'm Here...</h2>
+		
 
 
 </body>
