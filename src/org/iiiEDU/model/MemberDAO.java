@@ -19,7 +19,7 @@ public class MemberDAO {
 	public Member getMemberById(Integer memberId) {
 
 		Session session = sf.getCurrentSession();
-		
+
 		return session.get(Member.class, memberId);
 	}
 
@@ -52,7 +52,7 @@ public class MemberDAO {
 		return false;
 	}
 
-	public Member updateById(Integer memberId, String password, String name, String phone, String email) {
+	public Member updateById(Integer memberId, String password, String name, String phone, String email, String address) {
 
 		Session session = sf.getCurrentSession();
 		Member member = session.get(Member.class, memberId);
@@ -61,15 +61,16 @@ public class MemberDAO {
 			member.setName(name);
 			member.setPhone(phone);
 			member.setEmail(email);
+			member.setAddress(address);
 		}
 		return member;
 	}
-	
+
 	public boolean updatePhoto(Integer memberId, byte[] photo, String photoPath) {
-		
+
 		Session session = sf.getCurrentSession();
 		Member member = session.get(Member.class, memberId);
-		if(member != null) {
+		if (member != null) {
 			member.setPhoto(photo);
 			member.setPhotoPath(photoPath);
 			return true;
@@ -89,5 +90,15 @@ public class MemberDAO {
 			return member;
 		}
 		return null;
+	}
+	
+	public Member updateById2(Integer memberId, String password) {
+
+		Session session = sf.getCurrentSession();
+		Member member = session.get(Member.class, memberId);
+		if (member != null) {
+			member.setPassword(password);
+		}
+		return member;
 	}
 }

@@ -23,9 +23,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -35,7 +37,7 @@ public class MemberController {
 	@Autowired
 	@Qualifier("memberDAOService")
 	private MemberDAOService service;
-	
+
 	@Autowired
 	private ServletContext ctx;
 
@@ -43,12 +45,12 @@ public class MemberController {
 	public String mamberMainPage(Model model) {
 
 		List<Member> lists = service.getAllMembers();
-		
+
 		// Download all member's photo
 		for (Member mem : lists) {
 			byte[] binaryData = mem.getPhoto();
 			String photoPath = PathHandler.globalProjectImgPath + mem.getPhotoPath();
-			
+
 			FileOutputStream fos = null;
 			if (binaryData != null && binaryData.length != 0) {
 				try {
@@ -67,7 +69,7 @@ public class MemberController {
 				}
 			}
 		}
-				
+
 //		PathStringHandler.photoPathParse("members", lists);		
 		model.addAttribute("Members", lists);
 
@@ -91,9 +93,9 @@ public class MemberController {
 	@RequestMapping(path = "/member.update", method = RequestMethod.POST)
 	public String memberUpdate(@RequestParam("updateNo") int memberId, @RequestParam("updatePwd") String password,
 			@RequestParam("updateName") String name, @RequestParam("updatePhone") String phone,
-			@RequestParam("updateMail") String email) {
+			@RequestParam("updateMail") String email, @RequestParam("updateAddress") String address) {
 
-		service.updateById(memberId, password, name, phone, email);
+		service.updateById(memberId, password, name, phone, email, address);
 
 		return "redirect:/member.mainPage";
 	}
@@ -106,17 +108,17 @@ public class MemberController {
 			if (multipartFile.isEmpty()) {
 				return "redirect:/member.mainPage";
 			}
-			
+
 			byte[] BinaryPhoto = multipartFile.getBytes();
-			
+
 			String photoPathNew = PathHandler.producePhotoPathStr("m", multipartFile);
 			String photoPathNewShort = PathHandler.produceShortPhotoPathStr("members", multipartFile);
 			String photoPathOrigin = PathHandler.getFullPathName(service.getMemberById(memberId).getPhotoPath());
 
 			boolean isUpdate = service.updatePhoto(memberId, BinaryPhoto, photoPathNewShort);
 
-			if(isUpdate) {
-				if(photoPathOrigin != null) {
+			if (isUpdate) {
+				if (photoPathOrigin != null) {
 					File oldFile = new File(photoPathOrigin);
 					oldFile.delete();
 				}
@@ -136,7 +138,8 @@ public class MemberController {
 			@RequestParam("accountmail") String email, @RequestParam("accountname") String name,
 			@RequestParam("accountphone") String phone,
 			@RequestParam(value = "gender", defaultValue = "private") String gender,
-			@RequestParam("accountphoto") MultipartFile photoPart, Model model) {
+			@RequestParam("accountaddr") String address, @RequestParam("accountphoto") MultipartFile photoPart,
+			Model model) {
 
 		String photoPath = null;
 		String photoPathShort = null;
@@ -151,7 +154,7 @@ public class MemberController {
 				photoPathShort = PathHandler.produceShortPhotoPathStr("members", photoPart);
 			}
 
-			Member bean = new Member(account, password, name, phone, email, gender, null, photoArray, photoPathShort,
+			Member bean = new Member(account, password, name, phone, email, gender, address, photoArray, photoPathShort,
 					initialBlock, currentDateTime);
 			Member insertResult = service.insert(bean);
 
@@ -166,20 +169,20 @@ public class MemberController {
 //		System.out.println("insert fail");
 		return "index.jsp"; // need a fail page and return, later...
 	}
-	
+
 	@GetMapping("/member.myPage")
 	public String directToRootIndex() {
 		return "page-member-home.jsp";
 	}
-	
+
 	@GetMapping("member.getPhoto/{no}")
-	public ResponseEntity<byte[]> getMemberPhoto(@PathVariable("no") Integer no){
-		
+	public ResponseEntity<byte[]> getMemberPhoto(@PathVariable("no") Integer no) {
+
 		ResponseEntity<byte[]> entity = null;
 		byte[] photoByteArray = null;
 		String filename = null;
-		
-		if(no != 0) {
+
+		if (no != 0) {
 			Member member = service.getMemberById(no);
 			filename = member.getPhotoPath();
 			photoByteArray = PathHandler.getPhotoBiteArray(filename);
@@ -187,20 +190,80 @@ public class MemberController {
 			filename = "/members/m-0.jpg";
 			photoByteArray = PathHandler.getPhotoBiteArray(filename);
 		}
-		
-		if(photoByteArray != null) {
-			
+
+		if (photoByteArray != null) {
+
 			String mimeType = ctx.getMimeType(filename);
 			MediaType mediaType = MediaType.valueOf(mimeType);
-			
+
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(mediaType);
 			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 			entity = new ResponseEntity<byte[]>(photoByteArray, headers, HttpStatus.OK);
-			
+
 			return entity;
 		}
-		
+
 		return entity;
 	}
+
+
+	@PostMapping("/member.profile.update")
+	@ResponseBody
+	public Member memberUpdate1(
+			@RequestParam("updateNo") Integer memberId, 
+			@RequestParam("updateName") String name,
+			@RequestParam("updatePhone") String phone, 
+			@RequestParam("updateMail") String email,
+			@RequestParam("updateAddress") String address,
+			@RequestParam("photo") MultipartFile photoPart
+			) {
+
+		String photoPathShort = null;
+		byte[] photoArray = null;
+		Member member = null;
+		
+		try {
+			if (!photoPart.isEmpty()) {
+				
+				photoArray = photoPart.getBytes();
+				photoPathShort = PathHandler.produceShortPhotoPathStr("members", photoPart);
+			}
+
+			member = service.getMemberById(memberId);
+			service.updateById(memberId, member.getPassword(), name, phone, email, address);
+			service.updatePhoto(memberId, photoArray, photoPathShort);
+			
+			member.setName(name);
+			member.setPhone(phone);
+			member.setEmail(email);
+			member.setAddress(address);
+			member.setPhoto(photoArray);
+			member.setPhotoPath(photoPathShort);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return member;
+	}
+
+
+	@GetMapping("/member.profile/{memberId}")
+	@ResponseBody
+	public Member getprofile(@PathVariable("memberId") Integer memberId) {
+		Member member = service.getMemberById(memberId);
+		return member;
+	}
+
+	@RequestMapping(path = "/member.password.update", method = RequestMethod.POST)
+	@ResponseBody
+	public Member memberUpdate2(@RequestParam("updateNo") Integer memberId,
+			@RequestParam("updatePwd") String password) {
+
+		Member member = service.updateById2(memberId, password);
+
+		return member;
+	}
+
 }

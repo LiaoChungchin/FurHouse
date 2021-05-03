@@ -60,3 +60,8 @@ span#cart-total {
 			max-height:350px;
 			min-height:350px;
 		}
+		
+/*鼠標變成小手手*/
+		.myMOUSE {
+			cursor: pointer;
+		}		
