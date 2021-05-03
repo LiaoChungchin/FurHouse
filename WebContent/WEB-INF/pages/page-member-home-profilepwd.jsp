@@ -26,6 +26,9 @@ body {
 h1 {
 	margin-top: 300px;
 }
+#MemberDivPadding{
+	padding-left:50px;
+}
 </style>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
@@ -41,7 +44,6 @@ h1 {
 		$("h1").append(nickName);
 	})
 </script>
-<script src="assets/js/index.js"></script>
 <title>FurHouse</title>
 
 </head>
@@ -51,7 +53,7 @@ h1 {
 		<h2 class="my-0 mr-md-auto font-weight-normal">修改密碼</h2>
 		<a class="btn btn-outline-warning" href="<c:url value='/index'/>">返回首頁</a>
 	</div>
-	<div class="text-center">
+	<div class="text-center" >
 		<nav class="my-2 my-md-0 mr-md-3">
 			<a
 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
@@ -70,33 +72,36 @@ h1 {
 	</div>
 
 	<div class="form-group col-md-6">
-		<div>
-			<form method="post" id="profileupdateform1" enctype="multipart/form-data">
-				<input type="hidden" id="updateNo" name="updateNo" value="${login_user.memberId}";>
-					<br> 
+	<form method="post" id="profileupdateform1" enctype="multipart/form-data">
+		<div id="MemberDivPadding">
+			
+				<input type="hidden" id="updateNo" name="updateNo" value="${login_user.memberId}">
+					 <br>
 					   <div>
-						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}" disabled="disabled">
+						<input type="text" class="form-control" id="oldPwd" value="${login_user.password}" disabled="disabled">
 					    </div>
 					    <br>
 					  <div>
-						<input type="text" class="form-control" id="updatePwd" name="updatePwd"
-						 placeholder="新密碼"><div class=""></div>
+						<input type="password" class="form-control" id="updatePwd" name="updatePwd"
+						 placeholder="新密碼" ><div class=""></div>
 				      </div>
 				      
 				     <br>
 				     
 					  <div>
-						<input type="text" class="form-control" id="updatePwdCheck" name="updatePwdCheck"
-						 placeholder="確認新密碼">
+						<input type="password" class="form-control" id="updatePwd1" name="updatePwd1" 
+						 placeholder="確認新密碼" ><div class=""></div>
+						 </div> <br>
+						 
 					  </div>
 				 <br>
 				 <div>
-						<button type="button" class="btn btn-primary" id="sucess1" disabled>儲存</button >
-						
-				 </div>
-			</form>
+						<button type="button" class="btn btn-primary" id="sucess1" disabled style="margin-left:50px;">儲存</button >
+		    </div>
+		    </form>
 		</div>
-	</div>
+				
+	
 
 	<h1 class="text-center font-weight-bolder">Hello ~</h1>
 		<h2 class="mt-1 text-center text-muted font-weight-bolder">I'm Here...</h2>
@@ -110,7 +115,7 @@ $(function(){
 		type : "GET", //指定http參數傳輸格式為POST
 		url : "member.profile/${login_user.memberId}", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 		success : function(member) {
-			$('#updatePwd').val(member.password);	
+			$('#oldPwd').val(member.password);	
 		},
 		
 		//Ajax失敗後要執行的function，此例為印出錯誤訊息
@@ -142,26 +147,51 @@ $(function(){
 			}
 			
 		});
+});
 		
+	
+
+
+		// for 密碼update
+	    $("body").on("blur", "#updatePwd" , function () {
+	        let reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/;
+	        if (/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/.test($(this).val())) {
+	            $(this).removeClass("is-invalid");
+	            $(this).addClass("is-valid");
+	            $(this).next().removeClass("invalid-feedback");
+	            $(this).next().addClass("valid-feedback");
+	            $(this).next().html("密碼格式正確");
+	        } else {
+	            $(this).removeClass("is-valid");
+	            $(this).addClass("is-invalid");
+	            $(this).next().removeClass("valid-feedback");
+	            $(this).next().addClass("invalid-feedback");
+	            $(this).next().html("密碼格式不符");
+	        }
+	    });
+	    
+	    
+	    	    $("body").on("keyup", "#updatePwd1" , function () {
+	        
+	        if ($('#updatePwd').val() == $('#updatePwd1').val()){
+	            $(this).removeClass("is-invalid");
+	            $(this).addClass("is-valid");
+	            $(this).next().removeClass("invalid-feedback");
+	            $(this).next().addClass("valid-feedback");
+	            $(this).next().html("密碼格式正確");
+	            $("#sucess1").removeAttr("disabled");
+	        } else {
+	            $(this).removeClass("is-valid");
+	            $(this).addClass("is-invalid");
+	            $(this).next().removeClass("valid-feedback");
+	            $(this).next().addClass("invalid-feedback");
+	            $(this).next().html("密碼格式不符");
+	        }
+	    });
+	  
+
+
+	
 		
-// 		// for 密碼update
-// 	    $("body").on("blur", "#updatePwd", function () {
-// 	        let reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/;
-// 	        if (/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/.test($(this).val())) {
-// 	            $(this).removeClass("is-invalid");
-// 	            $(this).addClass("is-valid");
-// 	            $(this).next().removeClass("invalid-feedback");
-// 	            $(this).next().addClass("valid-feedback");
-// 	            $(this).next().html("密碼格式正確");
-// 	        } else {
-// 	            $(this).removeClass("is-valid");
-// 	            $(this).addClass("is-invalid");
-// 	            $(this).next().removeClass("valid-feedback");
-// 	            $(this).next().addClass("invalid-feedback");
-// 	            $(this).next().html("密碼格式不符");
-// 	        }
-// 	    });
-		
-	})
 </script>
 </html>

@@ -170,24 +170,6 @@ $(document).ready(function () {
 	  		$("#accountmail").removeClass("is-valid");
             $("#accountmail").next().removeClass("valid-feedback");
 	  });
-	  
-	   		// for 密碼update
-	    $("body").on("blur", "#updatePwd", function () {
-	        let reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/;
-	        if (/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/.test($(this).val())) {
-	            $(this).removeClass("is-invalid");
-	            $(this).addClass("is-valid");
-	            $(this).next().removeClass("invalid-feedback");
-	            $(this).next().addClass("valid-feedback");
-	            $(this).next().html("密碼格式正確");
-	        } else {
-	            $(this).removeClass("is-valid");
-	            $(this).addClass("is-invalid");
-	            $(this).next().removeClass("valid-feedback");
-	            $(this).next().addClass("invalid-feedback");
-	            $(this).next().html("密碼格式不符");
-	        }
-	    });
 		
 
     // 購物籃啟動

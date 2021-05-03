@@ -57,6 +57,9 @@ h1 {
 	width: 45px;
 	margin: 0px 2px;
 }
+#MemberDivPadding{
+	padding-left:50px;
+}
 </style>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
@@ -104,7 +107,7 @@ h1 {
 	</div>
 
 	<!-- 會員資料 -->
-	<div class="form-group col-md-6 memberprofile" style="display: none;">
+	<div class="form-group col-md-6 memberprofile" style="display: none;" id="MemberDivPadding">
 		<h3>編輯會員資料</h3>
 		<div>
 			<form method="post" id="profileupdateform"
@@ -155,7 +158,7 @@ h1 {
 					<img src="" id="photo" alt="" />
 				</div>
 				<div>
-					<button type="button" class="btn btn-primary" id="sucess" style="margin-left:400px;">儲存</button>
+					<button type="button" class="btn btn-primary" id="sucess" style="margin-left:630px;">儲存</button>
 				</div>
 
 			</form>
