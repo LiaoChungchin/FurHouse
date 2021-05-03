@@ -152,8 +152,8 @@ h1 {
 				</div>
 
 				<br><div>
-<!-- 					<input type="file" name="photo" id="changephoto"/> -->
-<!--    							 <ul class="picture_list"></ul> -->
+					<input type="file" name="photo" id="changephoto"/>
+   							 <ul class="picture_list"></ul>
  
 					<img src="" id="photo" alt="" />
 				</div>

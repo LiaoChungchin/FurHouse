@@ -154,7 +154,7 @@ $(function(){
 	
 
 
-		// for 密碼update
+		// for 密碼update驗證
 	    $("body").on("blur", "#updatePwd" , function () {
 	        let reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/;
 	        if (/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_ `\-={}:";'<>?,.\/]).{4,}$/.test($(this).val())) {
@@ -172,7 +172,7 @@ $(function(){
 	        }
 	    });
 	    
-	    
+	    //確認密碼之驗證
 	    	    $("body").on("keyup", "#updatePwd1" , function () {
 	        
 	        if ($('#updatePwd').val() == $('#updatePwd1').val()){

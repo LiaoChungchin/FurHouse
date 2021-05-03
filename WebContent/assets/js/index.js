@@ -118,6 +118,101 @@ $(document).ready(function () {
     });
     
     
+    //----------------------------------------//
+    let flag1=false,flag2=false,flag3=false;
+						$("body").on("blur","accountname",function(){
+							let userName = document.getElementById("accountname");
+							let feedback = document.getElementById("accountname-feedback");
+							userName.classList.remove("is-valid");
+							userName.classList.remove("is-invalid");
+								//不能为空
+						        if(accountname.value==""){
+						            feedback.innerHTML ="<b>請輸入您的姓名</b>";//修改username-feedback div中的内容
+						            userName.classList.remove("is-valid");//清除合法狀態
+						            userName.classList.add("is-invalid");//添加非法狀態
+						            $("#checkSubmit").attr("disabled",true);//添加禁用
+						            flag1 = false;
+						        }else{
+						        	//不能有特殊符号
+							        let patrn = /[@#\$%\^&\*]+/g;//正則表達式
+							        if(patrn.exec(accountname.value)){
+							            feedback.innerHTML ="<b>用户名不能存在特殊符号</b>";
+							            accountname.classList.remove("is-valid");
+							            accountname.classList.add("is-invalid");
+							            $("#checkSubmit").attr("disabled",true);
+							            flag1 = false;
+							        }else{
+							        	//清除错误提示，改成成功提示
+							        	 $("#checkSubmit").attr("disabled",true);
+							        	 accountname.classList.remove("is-invalid");
+							        	 accountname.classList.add("is-valid");
+								        feedback.innerHTML="";
+								        flag1 = true;
+							        }
+						        }
+		 						if(flag1&&flag2&&flag3==true){
+	 							$("#checkSubmit").removeAttr("disabled"); 
+	 							};
+						});
+						
+						$("body").on("blur","accountphone",function(){
+							let accountphone = document.getElementById("accountphone");
+							let feedback = document.getElementById("accountphone-feedback");
+							accountphone.classList.remove("is-valid");
+							accountphone.classList.remove("is-invalid");
+					        if(accountphone.value==""){
+					            feedback.innerHTML ="<b>請輸入您的手機號碼 </b>";
+					            accountphone.classList.remove("is-valid");
+					            accountphone.classList.add("is-invalid");
+					            $("#checkSubmit").attr("disabled",true);
+					            flag2 = false;
+					        }else{
+						        //格式需符合台灣手機號碼
+						        let patrn =/^09\d{8}$/;
+						        if(!patrn.exec(accountphone.value)){
+						            feedback.innerHTML = "請輸入正確的手機格式(台灣手機門號)";
+						            accountphone.classList.remove("is-valid");
+						            accountphone.classList.add("is-invalid");
+						            $("#checkSubmit").attr("disabled",true);
+						            flag2 = false;
+						        }else{
+									//清除错误提示，改成成功提示
+							        accountphone.classList.remove("is-invalid");
+							        accountphone.classList.add("is-valid");
+							        feedback.innerHTML="";
+							        flag2 = true;
+						        }
+					        }
+	 						if(flag1&&flag2&&flag3==true){
+	 							$("#checkSubmit").removeAttr("disabled"); 
+	 						};
+						});
+						
+						$("body").on("blur","accountaddr",function(){
+							let address = document.getElementById("accountaddr");
+							let feedback = document.getElementById("accountaddr-feedback");
+							accountaddr.classList.remove("is-valid");
+							accountaddr.classList.remove("is-invalid");
+					        if(accountaddr.value==""){
+					            feedback.innerHTML = "請輸入您的收貨地址 ";
+					            accountaddr.classList.remove("is-valid");
+					            accountaddr.classList.add("is-invalid");
+					            $("#checkSubmit").attr("disabled",true);
+					            flag3 = false;
+					        }else{
+					        	accountaddr.classList.remove("is-invalid");
+					        	accountaddr.classList.add("is-valid");
+					        feedback.innerHTML="";
+					        flag3 = true;
+					        }
+	 						if(flag1&&flag2&&flag3==true){
+	 							$("#checkSubmit").removeAttr("disabled"); 
+	 						};
+						});	
+    //----------------------------------------//
+    
+    
+    
      /*-------------------------一鍵新增input------------------------------*/ 
 	     $("body").on("click", "#inputdemo", function () {
 	    		    	

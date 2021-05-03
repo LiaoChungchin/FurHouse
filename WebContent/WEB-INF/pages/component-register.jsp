@@ -106,15 +106,15 @@
 	</div>
 	<div class="form-group">
 		<div class="col-md-4 offset-md-4">
-			<button fl type="submit" class="btn btn-primary" >註冊</button>
+			<button type="submit" class="btn btn-primary" id="checkSubmit" disabled>註冊</button>
 		
 			<button type="reset" class="btn btn-primary" style="margin-left:40px;" id="removeattr">重置</button>
 		</div>
 	</div>
-	
-	
-
 </form>
+<script type="text/javascript">	
+</script>
+
 
 
 
