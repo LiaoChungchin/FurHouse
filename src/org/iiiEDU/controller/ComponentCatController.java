@@ -1,11 +1,8 @@
 package org.iiiEDU.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import org.iiiEDU.model.AdoptList;
-import org.iiiEDU.model.AdoptListService;
 import org.iiiEDU.model.Cat;
 import org.iiiEDU.model.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +20,6 @@ public class ComponentCatController {
 	@Autowired
 	@Qualifier("catServiceimpl")
 	private CatService catServiceimpl;
-	
-	@Autowired
-	private AdoptListService adoptListService;
 	
 	@GetMapping("/supportCat")
 	public String selectAllCat(Model model) {
@@ -58,6 +52,7 @@ public class ComponentCatController {
 		
 		pcats.sort((a,b) -> b.getAdoptList().size()-a.getAdoptList().size());
 		
+		/*隨機貓*/
 //		List<Cat> randcats = catServiceimpl.selectSomeCatNR();
 //		Collections.shuffle(randcats);
 //		model.addAttribute("randcats",randcats);

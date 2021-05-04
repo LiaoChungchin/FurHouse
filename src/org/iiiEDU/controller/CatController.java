@@ -38,6 +38,9 @@ public class CatController {
 	@Qualifier("catServiceimpl")
 	private CatService catServiceimpl;
 	
+	@Autowired
+	private Cat cat;
+	
 	//首頁
 	@RequestMapping(path = "/root",method = {RequestMethod.GET,RequestMethod.POST})
 	public String indexPage() {		
@@ -134,7 +137,6 @@ public class CatController {
 		
 		//-----------setCatBean
 		
-		Cat cat = new Cat();
 		cat.setNickname(nickname);
 		cat.setType(type);
 		cat.setGender(gender);
@@ -185,7 +187,7 @@ public class CatController {
 			,@RequestParam(required=false,name="file2") MultipartFile file2
 			,@RequestParam(required=false,name="base64photo3") String base64photo3 
 			,@RequestParam(required=false,name="base64photo4") String base64photo4) {
-		
+
 		//-------------------圖片-----------------------------------
 		ArrayList<String> filepath = new ArrayList<String>();
 		
@@ -268,8 +270,8 @@ public class CatController {
 		}
 				
 		/*---------------設定貓----------------*/
-		Cat cat = new Cat();
-		cat.setId(id);
+		cat = catServiceimpl.selectOneCat(id);
+		
 		cat.setNickname(nickname);
 		cat.setType(type);
 		cat.setGender(gender);
@@ -287,6 +289,18 @@ public class CatController {
 		cat.setCreateDate(createDate);
 		cat.setComment1(comment1);
 		cat.setComment2(comment2);
+		
+		if(filepath.get(1)==null) {
+			if(cat.getPhoto1().equals(filepath.get(0))) {
+				System.out.println("setPhoto1:"+cat.getPhoto1());
+				File oldfile = new File(PathHandler.globalProjectImgPath+cat.getPhoto2());
+				oldfile.delete();
+			}else if(cat.getPhoto2().equals(filepath.get(0))){
+				System.out.println("setPhoto2:"+cat.getPhoto2());
+				File oldfile = new File(PathHandler.globalProjectImgPath+cat.getPhoto1());
+				oldfile.delete();
+			}
+		}
 		cat.setPhoto1(filepath.get(0));
 		cat.setPhoto2(filepath.get(1));
 		
@@ -303,10 +317,22 @@ public class CatController {
 	
 	//刪除貓
 	@RequestMapping(path = "/deleteCat.controller",method = RequestMethod.GET)
-	public String deleteCat(Model model,HttpServletRequest request,@RequestParam(required=false,name="deletecatid") String deletecatid) {
-			
+	public String deleteCat(Model model,HttpServletRequest request,@RequestParam(required=false,name="deletecatid") Integer deletecatid) {
+		Cat cat = catServiceimpl.selectOneCat(deletecatid);
+		if(cat.getPhoto1()!=null) {
+			String delpathstr = PathHandler.globalProjectImgPath+cat.getPhoto1();
+			File oldFile = new File(delpathstr);
+			oldFile.delete();
+		}
+		
+		if(cat.getPhoto2()!=null) {
+			String delpathstr = PathHandler.globalProjectImgPath+cat.getPhoto2();
+			File oldFile = new File(delpathstr);
+			oldFile.delete();
+		}
+		
 		try {
-			catServiceimpl.deleteCat(Integer.parseInt(deletecatid));
+			catServiceimpl.deleteCat(deletecatid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
