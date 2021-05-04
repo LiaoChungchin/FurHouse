@@ -1,12 +1,15 @@
 package org.iiiEDU.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.iiiEDU.model.AdoptList;
 import org.iiiEDU.model.AdoptListService;
+import org.iiiEDU.model.Cat;
+import org.iiiEDU.model.CatService;
 import org.iiiEDU.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,9 @@ public class AdoptListController {
 	@Autowired
 	private AdoptListService adoptListService;
 
+	@Autowired
+	private CatService catServiceimpl;
+	
 	@Autowired
 	private AdoptList adoptList;
 	
@@ -81,7 +87,6 @@ public class AdoptListController {
 
 		
 		AdoptList a = adoptListService.selectOneAdoptList(visitTime);
-		System.out.println(a);
 		
 		if(a!=null) {
 			if(a.getAdoptListStatus().getId() == 1) {
@@ -100,6 +105,47 @@ public class AdoptListController {
 		}
 
 		return "預約失敗";
+	};
+	
+	@PostMapping(path = "/insertAdoptListForReservation", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Map<String,Object> insertAdoptListForReservation(@RequestParam("visitTime") Timestamp visitTime,
+			@RequestParam("catId") Integer catId, @RequestParam("memberId") Integer memberId) {	
+		
+		adoptList.setVisitTime(visitTime);
+		adoptList.setFk_catId(catId);
+		adoptList.setFk_memberId(memberId);
+
+		
+		AdoptList a = adoptListService.selectOneAdoptList(visitTime);
+				
+		Map<String,Object> strmap = new HashMap<>();
+		
+		if(a!=null) {
+			if(a.getAdoptListStatus().getId() == 1) {
+				strmap.put("result", "該時段已有此預約");
+				return strmap;
+			}else {
+				Integer i = adoptListService.insertAdoptList(adoptList);
+				if(i.intValue()==1) {
+					Cat cat = catServiceimpl.selectOneCat(catId);
+					strmap.put("catAdoptListSize", cat.getAdoptList().size());
+					strmap.put("result", "預約成功");
+					return strmap;
+				}
+			}
+		}else {
+			Integer i = adoptListService.insertAdoptList(adoptList);
+			if(i.intValue()==1) {
+				Cat cat = catServiceimpl.selectOneCat(catId);
+				strmap.put("catAdoptListSize", cat.getAdoptList().size());
+				strmap.put("result", "預約成功");
+				return strmap;
+			}
+		}
+		
+		strmap.put("result", "預約失敗");
+		return strmap;
 	};
 	
 	@PostMapping(path = "/updateAdoptList", produces = "text/plain;charset=utf-8")

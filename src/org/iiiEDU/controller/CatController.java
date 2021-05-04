@@ -51,7 +51,7 @@ public class CatController {
 		model.addAttribute("cats",cats);
 		
 		return "root-page-cats.jsp";
-	}
+	} 
 	
 	//新增貓
 	@RequestMapping(path = "/insertCat.controller",method = RequestMethod.POST)

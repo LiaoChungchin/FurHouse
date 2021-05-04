@@ -37,5 +37,9 @@ public class CatServiceimpl implements CatService {
 	public Integer deleteCat(Integer id) {
 		return catimplDAO.deleteCat(id);
 	}
-
+	
+	@Override
+	public List<Cat> selectSomeCatNR(){
+		return catimplDAO.selectSomeCatNR();
+	}
 }

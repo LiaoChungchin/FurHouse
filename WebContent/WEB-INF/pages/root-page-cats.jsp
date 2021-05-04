@@ -40,6 +40,9 @@
 		    overflow: hidden;
 		    text-overflow: ellipsis;
 		}
+		.cr-slider{
+			margin-left: 200px;
+		}
 	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -565,7 +568,7 @@
 									</div>
 									<!-- 切割圖片Dialog -->
 								    <div id="uploadimageModal" class="modal" role="dialog">
-								        <div class="modal-dialog">
+								        <div class="modal-dialog modal-lg">
 								            <div class="modal-content">
 								                <div class="modal-header">
 								                    <h4 class="modal-title">確認圖片大小</h4>
@@ -1050,13 +1053,13 @@
 		let image_crop = $('#image_demo').croppie({
 		    enableExif: true,
 		    viewport: {
-		        width: 300,
-		        height: 200,
+		        width: 600,
+		        height: 400,
 		        type: 'square' //circle
 		    },
 		    boundary: {
-		        width: 400,
-		        height: 400
+		        width: 700,
+		        height: 500
 		    }
 		});
 		
@@ -1097,7 +1100,8 @@
 		    image_crop.croppie('result', {
 		        type: 'canvas',
 		        size: 'viewport',
-		        format: 'jpeg'
+		        format: 'jpeg',
+		        quality: 1
 		    }).then(function (data) {
 		    	$("#spantext"+changImgId).text("圖片預覽");
 		        $("#img"+changImgId).attr("src", data);

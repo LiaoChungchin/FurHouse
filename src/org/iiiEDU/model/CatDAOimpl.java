@@ -2,6 +2,7 @@ package org.iiiEDU.model;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -20,21 +21,21 @@ public class CatDAOimpl implements CatDAO {
 		
 		String hql = "from Cat";
 		
-		
 		Query<Cat> query = session.createQuery(hql,Cat.class);
 		
 		List<Cat> cats = query.list();
 		
-		
 		return cats;
-
 	}
 
 	@Override
 	public Cat selectOneCat(Integer id){
 		Session session = sessionFactory.getCurrentSession();
 		Cat cat = session.get(Cat.class, id);
+		
 		if(cat!=null) {
+			Hibernate.initialize(cat);
+		    Hibernate.initialize(cat.getAdoptList());
 			return cat;
 		}
 		return null;
@@ -96,5 +97,21 @@ public class CatDAOimpl implements CatDAO {
 		}
 		return 0;
 	}
-
+	
+	@Override
+	public List<Cat> selectSomeCatNR(){
+		Session session = sessionFactory.getCurrentSession();
+		
+		String hql = "from Cat where fk_adoptStatusId < 3";
+		
+		Query<Cat> query = session.createQuery(hql,Cat.class);
+		
+		List<Cat> cats = query.list();
+		for(Cat cat : cats) {
+	      Hibernate.initialize(cat);
+	      Hibernate.initialize(cat.getAdoptList());
+	    }
+		
+		return cats;
+	}
 }
