@@ -13,7 +13,11 @@
 	<!-- Bootstrap CSS -->
 	<link href="assets/css/bootstrap.css" rel="stylesheet">
 	<link href="assets/css/bootstrap-icons.css" rel="stylesheet">
+	
 	<!-- User Define CSS -->
+	
+	<link href="assets/css/talk-for-user.css" rel="stylesheet">
+	
 	<style>
 		body {
 			background-image :linear-gradient(rgba(252,252,252,0.8), rgba(252,252,252,0.8)), url(assets/img/member_bg.jpg); 
@@ -132,18 +136,171 @@
  			padding-right:80px;
  		} 
 	</style>
+	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	
 	<!-- User Define JS -->
+	
 	<script>
 		$(function(){
 			var myName = "${sessionScope.login_user.name}";
 			var nickName = " " + myName.substr(1) + ",";
 			$("h1").append(nickName);
 		})
+		
+// ----------------------------------客服對話框----------------------------------
+		var websocket = null;
+		$(function(){
+			var myName = "${sessionScope.login_user.name}";
+			var nickName = myName.substr(1);
+			
+			$("div.received_withd_msg>p").eq(0).prepend("您好！" + nickName + "，");
+			
+			if ("WebSocket" in window) {
+		        var sendUser = document.getElementById("sendUser").value;
+		        websocket = new WebSocket("ws://localhost:8080/FurHouse/chatToServer/${sessionScope.login_user.memberId}");
+		    } else {
+		        alert("Not support Websocket")
+		    }
+		
+		    websocket.onerror = function () {
+		    	
+		    };
+		
+		    websocket.onopen = function (event) {
+		    	
+		    }
+		
+		    websocket.onmessage = function (event) {
+		        var msg = event.data;
+		        if (event.data.indexOf("count") > -1) {
+		            
+		        } else {
+		        	msg = JSON.parse(msg);
+// 		        	console.log("接收後台getBasicRemote().sendText(message) : " + JSON.stringify(msg));
+					// setMessageInnerHTML(event.data);
+					if(msg.sendUser == sendUser){
+						setMessageDiv("client", msg);
+					} else {
+						setMessageDiv("server", msg);
+					}
+		        }
+		    }
+		
+		    websocket.onclose = function () {
+		        
+		    }
+		
+		    window.onbeforeunload = function () {
+		        websocket.close();
+		    }
+		    
+			//最小化客服對話框
+		    $("body").on("click", "i.bi-arrow-down-right-square", function(){
+		    	
+		    	$("div#talkToMe").hide();
+		    	$("div#catbowTalk").show();
+		    });
+			//彈出客服對話框
+			$("body").on("click", "div#catbowTalk", function(){
+		    	
+		    	$("div#catbowTalk").hide();
+		    	$("div#talkToMe").show();
+		    });
+		});
+				
+		function setMessageDiv(type, msg) {
+		    if(type === "client"){
+		    	// clinet 的 msg 給的是 String
+		    	function fillzeros(value){
+		    		if(value < 9){
+		    			return "0" + value;
+		    		}
+		    		return value;
+		    	};
+		    	
+		    	let timeAtNow = new Date();
+		    	timeAtNow = (timeAtNow.getFullYear()) 
+		    				+ "-" 
+		    				+ fillzeros((timeAtNow.getMonth() + 1))
+		    				+ "-" 
+		    				+ fillzeros(timeAtNow.getDate())
+		    				+ " " 
+		    				+ fillzeros(timeAtNow.getHours()) 
+		    				+ ":" 
+		    				+ fillzeros(timeAtNow.getMinutes())
+		    				+ ":" 
+		    				+ fillzeros(timeAtNow.getSeconds());
+		    	
+		    	// 由於若是資料庫來的資料會是物件所以增加此判斷
+		    	if(typeof msg == "object") {
+		    		
+		    		timeAtNow = msg.talkTime;
+		    		msg = msg.message;
+		    	}
+		    				
+		    	let fillinMsg = "<div class='outgoing_msg'><div class='sent_msg'><p>"
+		    					+ msg
+		    					+ "</p><span class='time_date'>"
+		    					+ timeAtNow
+		    					+ "</span></div></div>";
+		    	$("div#showMsg").append(fillinMsg);
+		    	
+		    	// scrollbar保持在最底部
+			    let thisScrollMainWindow = $("#showMsg").get(0);
+			    thisScrollMainWindow.scrollTop = thisScrollMainWindow.scrollHeight;
+		    };
+		    if(type === "server"){
+		    	// server 的 msg 給的是 JSON
+		    	let fillinMsg = "<div class='incoming_msg'>"
+		    					+ "<div class='incoming_msg_img'>"
+		    					+ "<img src='assets/img/service-profile.png' alt=''>"
+		    					+ "</div>"
+		    					+ "<div class='received_msg'>"
+		    					+ "<div class='received_withd_msg'>"
+		    					+ "<p>"
+		    					+ msg.message
+		    					+ "</p>"
+		    					+ "<span class='time_date'>"
+		    					+ msg.talkTime
+		    					+ "</span></div></div></div>"
+		    	$("div#showMsg").append(fillinMsg);
+		    					
+		    	// scrollbar保持在最底部
+			    let thisScrollMainWindow = $("#showMsg").get(0);
+			    thisScrollMainWindow.scrollTop = thisScrollMainWindow.scrollHeight;
+		    };
+		};
+		
+		function closeWebSocket(){
+			websocket.close();
+		};
+		
+		function send() {
+			
+			if(document.getElementById("write_msg").value != ""){
+				
+			    var sendUser = parseInt(document.getElementById("sendUser").value);
+			    var toUser = 0; // 在用戶端固定將信息回覆給管理員
+			    var message = document.getElementById("write_msg").value;
+			
+			    var jsonMsg = {"sendUser": sendUser, "toUser": toUser, "message": message}
+			    websocket.send(JSON.stringify(jsonMsg));
+			    
+// 		    	console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
+				
+				setMessageDiv("client", message);
+			    document.getElementById("write_msg").value = "";
+			    
+			    // scrollbar保持在最底部
+			    let thisScrollMainWindow = $("#showMsg").get(0);
+			    thisScrollMainWindow.scrollTop = thisScrollMainWindow.scrollHeight;
+			};
+		};
 	</script>
 	<title>FurHouse</title>
 </head>
@@ -155,20 +312,16 @@
 	</div>
 	<div class="text-center">
 		<nav class="my-2 my-md-0 mr-md-3 connectOtherFeatures">
-			<a
-				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
-				href="javascript:;"><i class="bi bi-file-earmark-person-fill"></i>
-				個人資料</a> <a
-				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
-				href="javascript:;"><i class="bi bi-bag-check-fill"></i> 我的訂單</a> <a
-				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
-				href="javascript:;"><i class="bi bi-calendar-week-fill"></i>
-				預約紀錄</a> <a
-				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded"
-				href="member.chat"><i class="bi bi-chat-left-dots-fill"></i>
-				客服視窗</a>
+			<a class="mx-2 p-2 text-dark text-decoration-none bg-warning shadow rounded" href="javascript:;">
+				<i class="bi bi-file-earmark-person-fill"></i> 個人資料
+			</a>
+			<a class="mx-2 p-2 text-dark text-decoration-none bg-warning shadow rounded" href="javascript:;">
+				<i class="bi bi-bag-check-fill"></i> 我的訂單
+			</a>
+			<a class="mx-2 p-2 text-dark text-decoration-none bg-warning shadow rounded" href="javascript:;">
+				<i class="bi bi-calendar-week-fill"></i> 預約紀錄
+			</a>
 		</nav>
-
 	</div>
 	<div class="text-content">
 		<h1 class="text-center font-weight-bolder">Hello ~</h1>
@@ -177,7 +330,7 @@
 	</div>
 
 	<!-- 會員資料 -->
-	<div class="form-group col-md-6 memberprofile" style="display: none;" id="MemberDivPadding">
+	<div class="form-group col-md-6 mt-md-3 memberprofile" style="display: none;" id="MemberDivPadding">
 		<h3>編輯會員資料</h3>
 		<div>
 			<form method="post" id="profileupdateform"
@@ -466,8 +619,32 @@
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 	
+	<!-- 客服對話框 -->
+	<div id="catbowTalk" 
+			style="position:fixed; bottom:0; right:10%; z-index:9999; display:block; hight:200px; width:200px; display:none">
+		<img alt="" src="assets/img/Catbow_TalkToMe.png">
+	</div>
+	<div class="messaging" id="talkToMe" style="position:fixed; bottom:0; right:0; z-index:9998; display:block">
+      <div class="inbox_msg">
+          <div class="mesgs">
+              <div id="chathead"><i class="bi bi-arrow-down-right-square"></i></div>
+              <div class="msg_history" id="showMsg">
+				<!-- 對話內容 -->
+              </div>
+              <div class="type_msg">
+                  <div class="input_msg_write">
+                      <input type="hidden" id="sendUser" value="${sessionScope.login_user.memberId}" />
+                      <input type="text" id="write_msg" placeholder="請輸入......" />
+                      <button class="msg_send_btn" onclick="send()">
+                          <i class="bi bi-chat-dots"></i>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </body>
 <script>
 	$(".connectOtherFeatures a").on("click",function() {
@@ -491,9 +668,6 @@
 			$('.wrapper').attr("style", "display:block;");
 			currentPage = 1;
 			selectAllAdoptListMemberId();
-			break;
-		case 3:
-			console.log("客服視窗")
 			break;
 		default:
 			alert("無法辨識");
@@ -803,7 +977,7 @@
 					}
 				}
 			}else if(currentPage > (orderListTotal/pageLimit-4)){
-				for(let i = ((orderListTotal/pageLimit-10)) ; i <(orderListTotal/pageLimit); i++){
+				for(let i = ((orderListTotal / pageLimit - 10)); i < (orderListTotal / pageLimit); i++){
 					if(i == currentPage-1){
 						pagestr+=primaryBtn+(i+1)+'</button>';		
 					}else{
