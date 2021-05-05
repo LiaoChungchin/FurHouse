@@ -684,7 +684,7 @@
 				$('#updateMail').val(member.email);
 				$('#updatePhone').val(member.phone);
 				$('#updateAddress').val(member.address);
-				$('#photo').attr("src", "member.getPhoto/" + member.memberId);
+				$('#photo').attr("src", "member.getPhoto/" + member.memberId + "?" + Math.random());
 			},
 			
 			//Ajax失敗後要執行的function，此例為印出錯誤訊息
@@ -729,7 +729,10 @@
 					contentType: false,
 					cache: false,
 					processData: false,
-					success : function(memeber) {alert("修改成功");},
+					success : function(memeber) {
+								alert("修改成功");
+								$("#changephoto").val('');
+							},
 					error : function(xhr, ajaxOptions, thrownError) {alert(ajaxOptions + " " + thrownError);}
 				});
 	})

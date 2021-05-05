@@ -150,8 +150,8 @@ public class MemberController {
 		try {
 			if (!photoPart.isEmpty()) {
 				photoArray = photoPart.getBytes();
-				photoPath = PathHandler.producePhotoPathStr("m", photoPart);
 				photoPathShort = PathHandler.produceShortPhotoPathStr("members", photoPart);
+				photoPath = PathHandler.producePhotoPathStr("m", photoPathShort);
 			}
 
 			Member bean = new Member(account, password, name, phone, email, gender, address, photoArray, photoPathShort,
@@ -185,6 +185,7 @@ public class MemberController {
 		if (no != 0) {
 			Member member = service.getMemberById(no);
 			filename = member.getPhotoPath();
+			System.err.println(filename);
 			photoByteArray = PathHandler.getPhotoBiteArray(filename);
 		} else {
 			filename = "/members/m-0.jpg";
