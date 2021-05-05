@@ -14,6 +14,7 @@ import org.iiiEDU.model.OrderStatus;
 import org.iiiEDU.model.OrderStatusDAOService;
 import org.iiiEDU.model.Product;
 import org.iiiEDU.model.ProductService;
+import org.iiiEDU.utils.MailUtils;
 import org.iiiEDU.utils.PathHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -56,6 +57,9 @@ public class OrdersController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private MailUtils mailUtils;
 	
 	@GetMapping("/myOrderList")
 	public String myOrderList(){
@@ -131,9 +135,9 @@ public class OrdersController {
 		Integer i = orderList.getOrderStatus().getCondition();
 		
 		Map<String, String> ans = new LinkedHashMap<>();
+		
 		if(i<=3) {
-			//進行棄單加回的判斷(尚未撰寫)
-			orderListService.updateOrderListCondition(id, 41);
+			orderListService.updateOrderListCondition(id, 4);
 			ans.put("result", "success");
 		}else {
 			ans.put("result", "fail");
@@ -212,7 +216,6 @@ public class OrdersController {
 			}
 			orderList.setCreateDate(new Timestamp(System.currentTimeMillis()));
 			orderList.setMember(memberDAOService.getMemberById(member.getMemberId()));
-			orderList.setTotalPrice(totalPrice - 60); // discount included...
 			orderList.setPaymentType(paymentMethod);
 			orderList.setOrderStatus(orderStatusService.getStatusByCondition(0));
 			if(county=="null"&&district=="null") {
@@ -222,7 +225,19 @@ public class OrdersController {
 			}
 			orderList.setShippingType(ShippingType);
 			orderList.setContact(userName);
-			orderList.setComment(comment);
+			
+			if(totalPrice>=160) {
+				orderList.setTotalPrice(totalPrice - 60);
+			}else {
+				orderList.setTotalPrice(totalPrice);
+			}
+			
+			if(comment!="null") {
+				orderList.setComment(comment);
+			}else {
+				orderList.setComment("無備註");
+			}
+			
 		}		
 			
 			if(orderListService.insertOne(orderList)) {
@@ -250,6 +265,29 @@ public class OrdersController {
 			return null;
 		}
 	}
+	
+	@GetMapping(path = "/sendOrderEmail/{memberName}/{memberMail}", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String sendOrderEmail(@PathVariable("memberName") String memberName,@PathVariable("memberMail") String memberMail){
+		
+		String subject = "CatBow 貓飽×貓寶";
+		
+		String htmlcontent = "<h3>" + memberName + "您好</h3></br>" 
+				+"&emsp;&emsp;<h3>您的訂單已確認，我們將立即為您安排物流運送您的商品</h3></div>" + 
+				"<br>" +
+				"<div>我們的官網 :<br><a href = http://localhost:8080/FurHouse><img src = \"cid:image\" width=\"100px\" height=\"100px\" ></a></div><br>"; 
+
+		String imagePath = "/Catbow.png";
+		
+		boolean b = mailUtils.sendOrderEmail(memberMail,subject,htmlcontent,imagePath);
+		
+		if(b) {
+			return "已寄送相關資料至會員E-Mail";
+		}else {
+			return "發生錯誤，請尋求管理員幫助";
+		}
+	}
+	
 }
 
 class MyProductTemp{

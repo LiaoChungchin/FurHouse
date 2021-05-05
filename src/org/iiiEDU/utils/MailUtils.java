@@ -112,4 +112,54 @@ public class MailUtils {
 			return false;
 		}
 	}
+	
+	//訂單成立通知信件
+	public Boolean sendOrderEmail(String to ,String subject,String htmlcontent,String imagePath) {
+		Properties props = new Properties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.port", port);
+		Session session = Session.getInstance(props, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+			
+			MimeMultipart multipart = new MimeMultipart("related");
+			
+			MimeBodyPart htmlBodyPart = new MimeBodyPart();
+			htmlBodyPart.setContent(htmlcontent, "text/html;charset=UTF-8");
+			multipart.addBodyPart(htmlBodyPart);
+			
+			//內嵌圖片
+	        MimeBodyPart image = new MimeBodyPart();
+	        FileDataSource fds = new FileDataSource(PathHandler.globalProjectImgPath+imagePath);
+	        image.setDataHandler(new DataHandler(fds));
+	        image.setDisposition(MimeBodyPart.INLINE);
+	        image.setFileName(fds.getName());
+	        image.setHeader("Content-ID", "<image>");
+	        multipart.addBodyPart(image);	        
+			
+	        MimeMessage message = new MimeMessage(session);
+	        message.setFrom(new InternetAddress(fromMail));
+	        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+	        message.setSubject(subject);
+	        message.setContent(multipart);
+	        
+	        Transport transport = session.getTransport("smtp");
+	        transport.connect(host, port, username, password);
+	        
+	        transport.sendMessage(message, message.getAllRecipients());
+	        
+			return true;
+		} catch (MessagingException e) {
+			return false;
+		} catch(Exception e) {
+			return false;
+		}
+	}
+	
 }

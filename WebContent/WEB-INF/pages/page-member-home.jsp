@@ -16,7 +16,6 @@
 	<!-- User Define CSS -->
 	<style>
 		body {
-/* 			background-image : url(assets/img/member_bg.jpg); */
 			background-image :linear-gradient(rgba(252,252,252,0.8), rgba(252,252,252,0.8)), url(assets/img/member_bg.jpg); 
 			background-size : 1440px 900px;
 			background-position : right bottom;
@@ -70,7 +69,6 @@
  		/* 	更改 Bootstrap 懸停顏色 */
 		.table-hover tbody tr:hover, .table-hover tbody tr:hover td,
 		.table-hover tbody tr:hover th {
-		/*background: rgba(0, 184, 0, 0.2) !important;  */
 			background: rgba(246, 219, 51, 0.3) !important;
 			/* 	 color:#fff !important;  */
 		}
@@ -124,6 +122,15 @@
 			text-align:center;
 			font-size:18px;
 		}
+				/*按鈕顏色*/
+		.bg-warning {
+		    background-color: #FADA34 !important;
+		}
+		
+ 		#totalPrice{ 
+ 			text-align:right; 
+ 			padding-right:80px;
+ 		} 
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -605,7 +612,7 @@
 						+ '</td>'
 						+ '		<td><button type="button" class="btn btn-secondary updateAdoptListBtn" data-toggle="modal" data-target="#updateAdoptListModalCenter">取消</button>';
 				if (adoptList.adoptListStatus.id == 2) {
-					tempstr += '<button type="button" class="btn btn-success confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>'
+					tempstr += '<button type="button" class="btn btn-info confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>'
 							+ '  <img src="<c:url value="/assets/img/AdoptListLoading.gif" />" width="30px" id="loadingGIF" style="display:none">';
 				} else {
 					tempstr += '	<button type="button" style="visibility: hidden;" class="btn btn-success">確認領養</button>';
@@ -725,6 +732,10 @@
 		});
 	}
 	
+	var formatter = new Intl.NumberFormat('en-IN', {
+		maximumSignificantDigits: 3,
+	});
+	
 	/*寫入表單內容*/
 	function writeHtml2(orderLists){
 		let tempList = '<table class="table table-hover table-striped" id="datatable">'
@@ -748,18 +759,18 @@
 				+ orderList.createDate
 				+ '</td>'
 				+ '<td>'
-				+ '$'
-				+ orderList.totalPrice
+				+ '$ &nbsp;'
+				+ formatter.format(orderList.totalPrice)
 				+ '</td>'
 				+ '<td>'
 				+ '<div>'
 				+ orderList.orderStatus.description
 				if(orderList.orderStatus.condition<3){
 	 				tempList += '&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary btn-sm" href="javascript:;" role="button" id="orderStatus" data-toggle="modal" data-target="#updateOrderList">'
-	 						 + ' 更新 </a>';
+	 						 + '取消 </a>';
 				}else{
 					tempList += '&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary btn-sm" style="visibility: hidden;" href="javascript:;" role="button" id="orderStatus">'
-						 + ' 更新 </a>';
+						 + ' 取消 </a>';
 				}
 			tempList += '</div>'
 				+ '</td>'
@@ -829,6 +840,10 @@
 	}
 	
 	$('body').on("click","a#orderDetail",function(){
+		//金額格式化
+		let formatter = new Intl.NumberFormat('en-IN', {
+			maximumSignificantDigits: 3,
+		});
 		let currentOrderId = parseInt($(this).parent().parent().parent().find('td').eq(0).text());
 		//alert(currentOrderId);
 		$.ajax({
@@ -836,19 +851,25 @@
 			url :"order.selectById"+"/"+currentOrderId,   //後端的URL
 			dataType : "json",       //response的資料格式
 			success: function(orderLists) {
-	            console.log(orderLists);  //成功後回傳的資料
-	            $('input#productAmount').val(orderLists.totalPrice);
+	            //console.log(orderLists);  //成功後回傳的資料
+	            let totalPrice=formatter.format(orderLists.totalPrice);
+	            $('input#productAmount').val("$ "+totalPrice);
 	            $('input#contact').val(orderLists.contact);
 	            $('input#paymentType').val(orderLists.paymentType);
 	            $('input#shippingType').val(orderLists.shippingType);
 	            $('input#address').val(orderLists.address);
-	            $('textarea#comment').text("## "+orderLists.comment);
-	            
+				//備註判斷
+	            if(orderLists.comment!="null"){
+	          		  $('textarea#comment').text("## "+orderLists.comment);
+				}else{
+					 $('textarea#comment').val("無備註");
+				}
 	            if(orderLists.product1){
 	            	$("div#MyProduct1").css("display","block");
 	            	$("#img1").attr("src","orderImageToByte?path="+orderLists.product1.photo1);
 	            	$("input#productName1").val(orderLists.product1.productName);
-					$("input#productPrice1").val(orderLists.product1.price);
+	            	let product1Price = formatter.format(orderLists.product1.price);
+	            	$("input#productPrice1").val("$ "+product1Price);
 					$("input#productQuota1").val(orderLists.productQua01);
 	            }else{
 	            	$("div#MyProduct1").css("display","none");
@@ -858,7 +879,8 @@
 	            	$("div#MyProduct2").css("display","block");
 	            	$("#img2").attr("src","orderImageToByte?path="+orderLists.product2.photo1);
 	            	$("input#productName2").val(orderLists.product2.productName);
-					$("input#productPrice2").val(orderLists.product2.price);
+	            	let product2Price = formatter.format(orderLists.product2.price);
+					$("input#productPrice2").val("$ "+product2Price);
 					$("input#productQuota2").val(orderLists.productQua02);
 	            }else{
 	            	$("div#MyProduct2").css("display","none");
@@ -868,8 +890,9 @@
 	            	$("div#MyProduct3").css("display","block");
 	            	$("#img3").attr("src","orderImageToByte?path="+orderLists.product3.photo1);
 	            	$("input#productName3").val(orderLists.product3.productName);
-					$("input#productPrice3").val(orderLists.product3.price);
-					$("input#productQuota3").val(orderLists.productQua03);
+	            	let product3Price = formatter.format(orderLists.product3.price);
+					$("input#productPrice3").val("$ "+product3Price);
+	            	$("input#productQuota3").val(orderLists.productQua03);
 	            }else{
 	            	$("div#MyProduct3").css("display","none");
 	            }
@@ -878,8 +901,9 @@
 	            	$("div#MyProduct4").css("display","block");
 	            	$("#img4").attr("src","orderImageToByte?path="+orderLists.product4.photo1);
 	            	$("input#productName4").val(orderLists.product4.productName);
-					$("input#productPrice4").val(orderLists.product4.price);
-					$("input#productQuota4").val(orderLists.productQua04);
+	            	let product4Price = formatter.format(orderLists.product4.price);
+					$("input#productPrice4").val("$ "+product4Price);
+	            	$("input#productQuota4").val(orderLists.productQua04);
 	            }else{
 	            	$("div#MyProduct4").css("display","none");
 	            }
@@ -888,14 +912,21 @@
 	            	$("div#MyProduct5").css("display","block");
 	            	$("#img5").attr("src","orderImageToByte?path="+orderLists.product5.photo1);
 	            	$("input#productName5").val(orderLists.product5.productName);
-					$("input#productPrice5").val(orderLists.product5.price);
+	            	let product5Price = formatter.format(orderLists.product5.price);
+	            	$("input#productPrice5").val("$ "+product5Price);
 					$("input#productQuota5").val(orderLists.productQua05);
 	            }else{
 	            	$("div#MyProduct5").css("display","none");
 	            }
 	            
-	            $("input#productDiscount").val("60");
-	            
+	            //折扣判斷
+	            if(orderLists.totalPrice<=160){
+	            	$("input#productDiscount").css("font-size"," 15px");
+	            	$("input#productDiscount").val("無折扣");
+	            }else{
+	            	$("input#productDiscount").css("font-size"," 18px");
+	            	$("input#productDiscount").val("$ 60");
+	            }
 			}
 		});
 		
@@ -915,11 +946,11 @@
 			url :"order.updateOrderStatus"+"/"+currentOrderId,   //後端的URL
 			dataType : "json",       //response的資料格式
 			success: function(orderLists) {
-				console.log(orderLists.result);
+// 				console.log(orderLists.result);
 				selectAllOrderListMemberId();
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
-				console.log(xhr+" "+ajaxOptions+" "+thrownError);
+// 				console.log(xhr+" "+ajaxOptions+" "+thrownError);
 			}
 		});
  		

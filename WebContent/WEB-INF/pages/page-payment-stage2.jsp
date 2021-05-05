@@ -29,7 +29,8 @@
 }
 
 #Newdata{
-	cursor: pointer;
+/* 	cursor: pointer; */
+cursor:url("assets/img/mouse.png"),pointer;
 } 
 
 
@@ -114,7 +115,6 @@
 						// 購物籃商品總數
 						$("span.badge").text(productCount);
 						// 顯示總金額
-						$("ul#myTotalLists li strong").text("$" + (totalPrice - 60));
 						
 						//---------------------表單驗證---------------------
 						let flag1=false,flag2=false,flag3=false;
@@ -211,7 +211,7 @@
 						
 						$("body").on("click","button#resetMyForm",function(){
 							let form = $('#myOrderForm');
-							form.find('#userName,#phone1,#address,#email,#phone2,#comment,select,textarea').val('');
+							form.find('#userName,#phone1,#address,#email,#phone2,#comment,select,textarea,select#county,select#district').val('');
 							form.find('input:read-only').val('');
 // 							console.log(form.find('input:read-only'));
 							form.find('#userName-feedback,#phone1-feedback,#address-feedback').innerHTML = '';
@@ -243,15 +243,66 @@
 							$(district).val("大安區");
 							$(zipcode).html('<input class="zipcode form-control col-md-3" id="zipcode" type="text" size="3" readonly placeholder="106">');
 							$(zipcode).val("106");
+							//清除错误提示，改成成功提示
+							userName.classList.remove("is-invalid");
+					        userName.classList.add("is-valid");
+					        phone1.classList.remove("is-invalid");
+					        phone1.classList.add("is-valid");
+					        address.classList.remove("is-invalid");
+					        address.classList.add("is-valid");
 							flag1=true;flag2=true;flag3=true;
-							$("#checkSubmit").removeAttr("disabled");
+							if(totalPrice>=160){
+								$(checkSubmit).removeAttr("disabled");
+							}
 						});
 						
-						/*-------------------------清除選項時清除郵遞區號------------------------------*/
-						$("body").on("change","select#county,select#district",function(){
-							let form = $('#myOrderForm');
-							form.find('input:read-only').val('');
+						// 清空localStorage數據
+						$("body").on("click","button#checkSubmit",function(){
+							localStorage.clear();
 						});
+						/*-------------------------訂單成功寄信給使用者------------------------------*/
+						/*確認送出訂單按鈕*/
+						$('#checkSubmit').on("click",function(){
+							$.ajax({
+								//指定http參數傳輸格式為POST
+								type : "GET",
+								//請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+								url : "sendOrderEmail/${sessionScope.login_user.name}/${sessionScope.login_user.email}", 
+// 								beforeSend : function(xhr){
+// 									$('#loadingGIF').attr("style"," ");
+// 									$('.confirmAdoptListBtn').attr("style","display:none");
+// 								},
+								success : function(response) {
+// 									$('#loadingGIF').attr("style","display:none");
+// 									$('.confirmAdoptListBtn').attr("style","");
+									alert(response);
+								},
+								//Ajax失敗後要執行的function，此例為印出錯誤訊息
+								error : function(xhr, ajaxOptions, thrownError) {
+									alert("發生錯誤!!!");
+								}
+							});
+							
+						});			
+						/*-------------------------商品出貨判斷------------------------------*/
+						if(totalPrice>=160){
+							$("ul#myTotalLists li strong").text("$" + (totalPrice - 60));
+						}else{
+							$("ul#myTotalLists li strong").text("$" + (totalPrice));
+							$("#rebate").text("無折扣");
+							$(".coupon").remove();
+							let stopLi = document.createElement("li");
+							stopLi.setAttribute("class","list-group-item d-flex justify-content-between lh-condensed");
+							let stopDiv = document.createElement("div");
+							let stopH6 = document.createElement("h6");
+							stopH6.setAttribute("class", "my-1");
+							stopH6.innerHTML="因進銷成本，商品總金額(含運費)需大於$160才會安排出貨喔! 謝謝您!";
+							stopH6.setAttribute("style", "color:red;font-weight:bold");
+							stopDiv.appendChild(stopH6);
+							stopLi.appendChild(stopDiv);
+							stopLi.setAttribute("style", "background-color:#FFFF78");
+							$("ul#myTotalLists").prepend(stopLi);
+						}
 	});
 	
 	/*-------------------------收貨地址與會員通訊錄地址相同()------------------------*/
@@ -304,7 +355,7 @@
 						<div class="text-success">
 							<h6 class="my-0">開站慶祝運費優惠折扣</h6>
 							<small>Code : ewQri97Gre</small>
-						</div> <span class="text-success">-$60</span>
+						</div> <span class="text-success" id="rebate">-$60</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between"><span>Total
 							(TWD)</span> <strong class="text-danger"></strong></li>
@@ -345,7 +396,6 @@
 
 					<div class="form-group mb-3">
 						<form:label path="address" class="control-label">收貨地址<small id="need">&nbsp&nbsp&nbsp(必填)</small></form:label>
-<!-- 						<div role="tw-city-selector" data-bootstrap-style data-has-zipcode></div> -->
 							<div class="city-selector-set row ml-1">
 							    <!-- 縣市選單 -->
 							    <select class="county form-control col-md-4 mb-4 mr-3" id="county"></select>

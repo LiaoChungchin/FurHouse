@@ -20,7 +20,7 @@
                         <input type="checkbox" value="remember-me"> Remember me
                     </label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
+                <button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
                 <p class="mt-2 mb-3 text-muted text-center">&copy; 2021-2021</p>
             </form>
         </div>
@@ -28,7 +28,7 @@
             <button type="button" class="btn btn-secondary"
                     data-dismiss="modal">離開
             </button>
-            <a href="javascript:;" class="try-me btn btn-primary">我要註冊</a>
+            <a href="javascript:;" class="try-me btn btn-info">我要註冊</a>
         </div>
     </div>
 </div>

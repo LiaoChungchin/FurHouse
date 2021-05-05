@@ -49,7 +49,7 @@ h1 {
 </head>
 <body>
 	<div
-		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 		<h2 class="my-0 mr-md-auto font-weight-normal">修改密碼</h2>
 		<a class="btn btn-outline-warning" href="<c:url value='/index'/>">返回首頁</a>
 	</div>

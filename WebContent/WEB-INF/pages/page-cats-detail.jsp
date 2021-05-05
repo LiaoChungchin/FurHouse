@@ -113,6 +113,30 @@
 			right: 20px;
 			top: 200px;
 		}
+		
+		 .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+   			 color: #fff;
+   			 /*background-color: rgba(255,127,80,1);*/
+   			 background-color: rgba(255,134,51,0.9);
+		}
+		.nav-pills a:hover {
+		    color: #ff4e0d;
+		    cursor:url("assets/img/mouse.png"),pointer;
+		}
+		.nav-link {
+			display: block;
+    		padding: 0.8rem 1rem;
+		}
+		a {
+		    color: #404040;
+		    text-decoration: none;
+		    background-color: transparent;
+		}
+		small, .small {
+		    font-size: 90%;
+		    font-weight: 400;
+		}
+		
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -136,7 +160,7 @@
 </head>
 <body>
 	<div
-		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
+		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm"
 		w3-include-html="<c:url value='/addFrame.controller/header'/>"></div>
 	<div class="container-fluid">
 		<div class="row">
@@ -277,8 +301,35 @@
 		<script>
 			$(document).ready(function () {
 				$("a#anchor-login-modal").text("登出");
-				let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
+				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
 				$("a#anchor-login-modal").before(memberBadge);
+				$("a#myShoppingCart").attr("class","btn btn-outline-warning");
+				$("a#myShoppingCart").attr("href","paymentS1");
+				$("a#myShoppingCart>span").attr("class","badge btn-danger");
+				if(localStorage.myProducts != null){
+					var productsListJSON = JSON.parse(localStorage.myProducts);
+					//購物籃商品總數
+					var productCount = productsListJSON.length;
+					//商品清單總價
+					var totalPrice = 0;
+					//新增圖標判斷
+					$("span#cart-total").text(productsListJSON.length);
+				}
+			});
+		</script>
+	</c:if>
+	<c:if test="${sessionScope.login_user == null}">
+		<script>
+			$(document).ready(function (){
+				$("body").on("click","a#myShoppingCart",function() {
+					alert("請先登入會員喔~~~");
+				});
+				if(localStorage.myProducts != null){
+					var productsListJSON = JSON.parse(localStorage.myProducts);
+					var productCount = productsListJSON.length;
+					var totalPrice = 0;
+					$("span#cart-total").text(productsListJSON.length);
+				}
 			});
 		</script>
 	</c:if>
