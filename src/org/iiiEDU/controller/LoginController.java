@@ -2,6 +2,7 @@ package org.iiiEDU.controller;
 
 import org.iiiEDU.model.Member;
 import org.iiiEDU.model.MemberDAOService;
+import org.iiiEDU.utils.CipherHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class LoginController {
 		
 		Member queryMember = service.getMemberByAccount(inputAccount);
 		
+		// PWD need SHA512 encryption
+		inputPassword = CipherHandler.getStringSHA512(inputPassword);
+				
 		if(queryMember == null) {	
 			model.addAttribute("loginErrorMsg", "登入失敗,帳號不存在");
 			return "index.jsp";

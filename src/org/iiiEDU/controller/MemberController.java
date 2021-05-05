@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 
 import org.iiiEDU.model.Member;
 import org.iiiEDU.model.MemberDAOService;
+import org.iiiEDU.utils.CipherHandler;
 import org.iiiEDU.utils.PathHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -94,7 +95,10 @@ public class MemberController {
 	public String memberUpdate(@RequestParam("updateNo") int memberId, @RequestParam("updatePwd") String password,
 			@RequestParam("updateName") String name, @RequestParam("updatePhone") String phone,
 			@RequestParam("updateMail") String email, @RequestParam("updateAddress") String address) {
-
+		
+		// PWD need SHA512 encryption
+		password = CipherHandler.getStringSHA512(password);
+		
 		service.updateById(memberId, password, name, phone, email, address);
 
 		return "redirect:/member.mainPage";
@@ -153,7 +157,10 @@ public class MemberController {
 				photoPathShort = PathHandler.produceShortPhotoPathStr("members", photoPart);
 				photoPath = PathHandler.producePhotoPathStr("m", photoPathShort);
 			}
-
+			
+			// PWD need SHA512 encryption
+			password = CipherHandler.getStringSHA512(password);
+			
 			Member bean = new Member(account, password, name, phone, email, gender, address, photoArray, photoPathShort,
 					initialBlock, currentDateTime);
 			Member insertResult = service.insert(bean);
@@ -256,20 +263,23 @@ public class MemberController {
 		return updatedMember;
 	}
 
-	@GetMapping("/member.profile/{memberId}")
-	@ResponseBody
-	public Member getprofile(@PathVariable("memberId") Integer memberId) {
-		Member member = service.getMemberById(memberId);
-		return member;
-	}
-
 	@RequestMapping(path = "/member.password.update", method = RequestMethod.POST)
 	@ResponseBody
 	public Member memberUpdate2(@RequestParam("updateNo") Integer memberId,
 			@RequestParam("updatePwd") String password) {
+		
+		// PWD need SHA512 encryption
+		password = CipherHandler.getStringSHA512(password);
 
 		Member member = service.updateById2(memberId, password);
 
+		return member;
+	}
+	
+	@GetMapping("/member.profile/{memberId}")
+	@ResponseBody
+	public Member getprofile(@PathVariable("memberId") Integer memberId) {
+		Member member = service.getMemberById(memberId);
 		return member;
 	}
 }

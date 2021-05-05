@@ -69,7 +69,11 @@
 								<tr>
 									<th scope="row">${requestScope.Members[0].memberId}</th>
 									<td>${requestScope.Members[0].account}</td>
-									<td>${requestScope.Members[0].password}</td>
+									<td>
+										<span class="d-inline-block text-truncate" style="max-width: 50px;">
+											${requestScope.Members[0].password}
+										</span>
+									</td>
 									<td>${requestScope.Members[0].name}</td>
 									<td>${requestScope.Members[0].phone}</td>
 									<td>${requestScope.Members[0].email}</td>
@@ -110,7 +114,11 @@
 									<tr>
 										<th scope="row">${member.memberId}</th>
 										<td>${member.account}</td>
-										<td>${member.password}</td>
+										<td>
+											<span class="d-inline-block text-truncate" style="max-width: 50px;">
+												${member.password}
+											</span>
+										</td>
 										<td>${member.name}</td>
 										<td>${member.phone}</td>
 										<td>${member.email}</td>
