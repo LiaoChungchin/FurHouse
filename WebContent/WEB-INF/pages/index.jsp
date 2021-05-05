@@ -165,6 +165,7 @@
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/js/anime.min.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
 	
@@ -535,7 +536,7 @@
 				easing:"easeOutQuint",
 			});
 	</script>
-	
+
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>
 </body>

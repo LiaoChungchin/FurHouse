@@ -1,4 +1,24 @@
 // modify by 廖崇欽
+
+// 我不是機器人驗證相關
+var verifyCallback = function(re) {
+	if(grecaptcha.getResponse()){
+		$("#userLoginButton").prop("disabled", false);
+	};
+};
+
+var onloadCallback = function() {
+	grecaptcha.render('recaptcha', {
+		'sitekey' : '6LczUscaAAAAALeBvAUE6l7-AnBjxcgiXeJaVRZL',
+		'callback' : verifyCallback,
+	});
+};
+
+$("div#component-login").on('hidden.bs.modal', function (e) {
+	grecaptcha.reset();
+	$("#userLoginButton").prop("disabled", true);
+})
+
 $(document).ready(function () {
 
 	// 匯入HTML

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+<div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width:335px">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title" id="LoginTitle">會員登入</h3>
@@ -20,7 +20,8 @@
                         <input type="checkbox" value="remember-me"> Remember me
                     </label>
                 </div>
-                <button class="btn btn-lg btn-info btn-block" type="submit">登入</button>
+                <div class="g-recaptcha my-3" id="recaptcha"></div>
+                <button class="btn btn-lg btn-info btn-block" id="userLoginButton" type="submit" disabled>登入</button>
                 <p class="mt-2 mb-3 text-muted text-center">&copy; 2021-2021</p>
             </form>
         </div>
