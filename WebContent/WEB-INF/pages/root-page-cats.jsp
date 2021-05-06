@@ -1181,7 +1181,7 @@
         	$("#InsertCatcreateDate").removeClass("is-invalid");
 	        $("#InsertCatcreateDate").addClass("is-valid");
 	        createDateHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
-	        $("#InsertCatcomment1").val("贊助演示貓");
+	        $("#InsertCatcomment1").val("你好，我是演示貓");
 	        $("#InsertCatcomment2").val("常常端著高冷表情的演示貓，其實才六個月是個臉蛋清秀的小美女");
 	        
 	       flag1=true;
