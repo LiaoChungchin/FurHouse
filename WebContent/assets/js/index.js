@@ -1,5 +1,3 @@
-// modify by 廖崇欽
-
 // 我不是機器人驗證相關
 var verifyCallback = function(re) {
 	if(grecaptcha.getResponse()){
@@ -20,6 +18,48 @@ $("div#component-login").on('hidden.bs.modal', function (e) {
 })
 
 $(document).ready(function () {
+
+	// 會員登入開關燈模式
+	let masterMode = 1;
+	$("body").on("click", "i#master", function(){
+	
+		let showMemberLists = "<div class='btn-group dropup' id='masterMode2'>"
+							+ "<button type='button' class='btn btn-secondary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>使用者</button>"
+							+ "<div class='dropdown-menu'>"
+							+ "<a class='dropdown-item' href='javascript:clickMe08()'>廖崇欽</a>"
+							+ "<a class='dropdown-item' href='javascript:clickMe01()'>鄭弘翔</a>"
+							+ "<a class='dropdown-item' href='javascript:clickMe04()'>林純歆</a>"
+							+ "<a class='dropdown-item' href='javascript:clickMe03()'>羅振旂</a>"
+							+ "<a class='dropdown-item' href='javascript:clickMe05()'>陳皓</a>"
+							+ "<a class='dropdown-item' href='javascript:clickMe33()'>李政瑩</a>"
+							+ "</div>"
+							+ "</div>";
+	
+		if(masterMode == 1) {
+			$("i#master").removeClass("bi-toggle-off");
+			$("i#master").addClass("bi-toggle-on");
+			masterMode = 2;
+			
+			// 機器人驗證忽略
+			$("div#recaptcha").after("<div id='recaptchaFixed' style='margin-top:16px;margin-bottom:15px'><img src='assets/img/reCAPTCHA.png' /></div>");
+			$("div#recaptcha").hide();
+			$("button#userLoginButton").prop("disabled", false);
+			$("#masterMode1").after(showMemberLists);
+			$("#masterMode1").hide();
+			
+		} else if(masterMode == 2) {
+			$("i#master").removeClass("bi-toggle-on");
+			$("i#master").addClass("bi-toggle-off");
+			masterMode = 1;
+			
+			// 機器人驗證開啟
+			$("div#recaptchaFixed").remove();
+			$("div#recaptcha").show();
+			$("button#userLoginButton").prop("disabled", true);
+			$("#masterMode2").remove();
+			$("#masterMode1").show();
+		}
+	});
 
 	// 匯入HTML
 	w3.includeHTML();

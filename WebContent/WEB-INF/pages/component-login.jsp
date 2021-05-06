@@ -3,7 +3,7 @@
 <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width:335px">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title" id="LoginTitle">會員登入</h3>
+            <h3 class="modal-title" id="LoginTitle">會員登入<i class="bi bi-toggle-off" id="master"></i></h3>
             <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -30,7 +30,7 @@
             <button type="button" class="btn btn-secondary"
                     data-dismiss="modal">離開
             </button>
-            <a href="javascript:;" class="try-me btn btn-info">我要註冊</a>
+            <a href="javascript:;" class="try-me btn btn-info" id="masterMode1" >我要註冊</a>
         </div>
     </div>
 </div>

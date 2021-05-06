@@ -21,8 +21,9 @@
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
 	

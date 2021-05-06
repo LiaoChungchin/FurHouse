@@ -199,7 +199,6 @@ public class MemberController {
 		if (no != 0) {
 			Member member = service.getMemberById(no);
 			filename = member.getPhotoPath();
-			System.err.println(filename);
 			photoByteArray = PathHandler.getPhotoBiteArray(filename);
 		} else {
 			filename = "/members/m-0.jpg";
