@@ -167,28 +167,20 @@
 									<img id="photo1" src="prodImageToByte?path=${prod.photo1}" onerror="imgchange()">
 								</div>
 								<div class="col">
-								<c:choose>
-								<c:when test="${prod.photo1!=null}">
 									<label class="form-label" for="SetProdFile2">圖片2</label>
 									<label class="btn btn-primary">
 										<input type="file" accept="image/*" class="form-control-file" id="SetProdFile2" name="file2" style="display:none;">
 						            	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
 					            	</label>
 					            	<img id="photo2" src="prodImageToByte?path=${prod.photo2}" onerror="imgchange()">
-					            </c:when>
-					            </c:choose>
 								</div>
 								<div class="col">
-								<c:choose>
-								<c:when test="${prod.photo2!=null}">
 									<label class="form-label" for="SetProdFile3">圖片3</label>
 									<label class="btn btn-primary">
 										<input type="file" accept="image/*" class="form-control-file" id="SetProdFile3" name="file3" style="display:none;">
 						            	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
 					            	</label>
 					            	<img id="photo3" src="prodImageToByte?path=${prod.photo3}" onerror="imgchange()">
-								</c:when>
-					            </c:choose>
 								</div>
 							</div>
 							<!-- Submit button -->
@@ -202,7 +194,6 @@
 							</div>
 						</form>
 						</div>
-						
 					</article>
                 </div>
             </div>

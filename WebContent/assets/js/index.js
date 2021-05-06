@@ -6,7 +6,7 @@ var verifyCallback = function(re) {
 };
 
 var onloadCallback = function() {
-	grecaptcha.render('recaptcha', {
+	grecaptcha.render(document.getElementById('recaptcha'), {
 		'sitekey' : '6LczUscaAAAAALeBvAUE6l7-AnBjxcgiXeJaVRZL',
 		'callback' : verifyCallback,
 	});
