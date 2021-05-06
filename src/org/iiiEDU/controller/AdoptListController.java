@@ -1,6 +1,7 @@
 package org.iiiEDU.controller;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -85,12 +86,19 @@ public class AdoptListController {
 		adoptList.setFk_catId(catId);
 		adoptList.setFk_memberId(memberId);
 
+		List<AdoptList> peosonAdoptLists = adoptListService.searchAllAdoptListMemberId(memberId,1);
+		List<AdoptList> adoptLists = adoptListService.selectSomeAdoptListForvisitTime(visitTime);
 		
-		AdoptList a = adoptListService.selectOneAdoptList(visitTime);
-		
-		if(a!=null) {
-			if(a.getAdoptListStatus().getId() == 1) {
-				return "該時段已有此預約";
+		System.out.println("person:"+peosonAdoptLists.size());
+		if(adoptLists!=null) {
+			if(adoptLists.size() > 10) {
+				for(AdoptList a : peosonAdoptLists)
+				{
+					System.out.println("AAAAAAAAAAAAAAAAAAAA"+a);
+				}
+				return "該預約時段超出人數";
+			}else if(peosonAdoptLists.size() > 10){
+				return "已超出10筆預約，請妥善考慮";
 			}else {
 				Integer i = adoptListService.insertAdoptList(adoptList);
 				if(i.intValue()==1) {
@@ -98,9 +106,17 @@ public class AdoptListController {
 				}
 			}
 		}else {
-			Integer i = adoptListService.insertAdoptList(adoptList);
-			if(i.intValue()==1) {
-				return "預約成功";
+			if(peosonAdoptLists.size() > 10){
+				for(AdoptList a : peosonAdoptLists)
+				{
+					System.out.println("BBBBBBBBBBBBBBBBBBB"+a);
+				}
+				return "已超出10筆預約，請妥善考慮";
+			}else {
+				Integer i = adoptListService.insertAdoptList(adoptList);
+				if(i.intValue()==1) {
+					return "預約成功";
+				}
 			}
 		}
 
@@ -116,14 +132,21 @@ public class AdoptListController {
 		adoptList.setFk_catId(catId);
 		adoptList.setFk_memberId(memberId);
 
-		
-		AdoptList a = adoptListService.selectOneAdoptList(visitTime);
+		List<AdoptList> peosonAdoptLists = adoptListService.searchAllAdoptListMemberId(memberId,1);
+		List<AdoptList> adoptLists = adoptListService.selectSomeAdoptListForvisitTime(visitTime);
 				
 		Map<String,Object> strmap = new HashMap<>();
 		
-		if(a!=null) {
-			if(a.getAdoptListStatus().getId() == 1) {
-				strmap.put("result", "該時段已有此預約");
+		if(adoptLists!=null) {
+			if(adoptLists.size() > 10) {
+				for(AdoptList a : peosonAdoptLists)
+				{
+					System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCC"+a);
+				}
+				strmap.put("result", "該預約時段超出人數");
+				return strmap;
+			}else if(peosonAdoptLists.size() > 10){
+				strmap.put("result", "已超出10筆預約，請妥善考慮");
 				return strmap;
 			}else {
 				Integer i = adoptListService.insertAdoptList(adoptList);
@@ -135,12 +158,21 @@ public class AdoptListController {
 				}
 			}
 		}else {
-			Integer i = adoptListService.insertAdoptList(adoptList);
-			if(i.intValue()==1) {
-				Cat cat = catServiceimpl.selectOneCat(catId);
-				strmap.put("catAdoptListSize", cat.getAdoptList().size());
-				strmap.put("result", "預約成功");
+			if(peosonAdoptLists.size() > 10){
+				for(AdoptList a : peosonAdoptLists)
+				{
+					System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+a);
+				}
+				strmap.put("result", "已超出10筆預約，請妥善考慮");
 				return strmap;
+			}else {
+				Integer i = adoptListService.insertAdoptList(adoptList);
+				if(i.intValue()==1) {
+					Cat cat = catServiceimpl.selectOneCat(catId);
+					strmap.put("catAdoptListSize", cat.getAdoptList().size());
+					strmap.put("result", "預約成功");
+					return strmap;
+				}
 			}
 		}
 		
@@ -188,8 +220,17 @@ public class AdoptListController {
 	@ResponseBody
 	public List<AdoptList> searchAllAdoptListVisitTime(@PathVariable("visitTime") String visitTime) {
 
-		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListVisitTime(visitTime);
+		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListVisitTime(visitTime);			
+		
+		return adoptLists;
+	}
+	
+	@GetMapping(path = "/searchAllAdoptListVisitTimeForCatId/{visitTime}/{catId}")
+	@ResponseBody
+	public List<AdoptList> searchAllAdoptListVisitTimeForCatId(@PathVariable("visitTime") String visitTime,@PathVariable("catId") Integer catId) {
 
+		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListVisitTime(visitTime,catId);
+		
 		return adoptLists;
 	}
 	
@@ -213,7 +254,7 @@ public class AdoptListController {
 	public List<AdoptList> searchAllAdoptListMemberIdDesc(@PathVariable("id") Integer id) {
 
 		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListMemberId(id);
-			
+		
 		return adoptLists;
 	}
 	
@@ -286,5 +327,22 @@ public class AdoptListController {
 			return "發生錯誤，請尋求管理員幫助";
 		}
 		
+	}
+	
+	@GetMapping("/cancelAdoptListBeforeNow/{memberId}")
+	@ResponseBody
+	public List<AdoptList> cancelAdoptListBeforeNow(@PathVariable("memberId") Integer memberId) {
+		  Timestamp ts = Timestamp.from(Instant.now());
+		  
+			List<AdoptList> adoptLists = adoptListService.searchAllAdoptListMemberIdBeforeToday(memberId,ts);
+			
+			for(AdoptList adoptList:adoptLists) {
+				adoptList.setFk_catId(adoptList.getCat().getId());
+				adoptList.setFk_memberId(adoptList.getMember().getMemberId());
+				adoptList.setFk_adoptListStatusId(0);
+				adoptListService.updateAdoptList(adoptList);			
+			}
+		  
+		  return adoptLists;
 	}
 }

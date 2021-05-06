@@ -13,11 +13,8 @@
 	<!-- Bootstrap CSS -->
 	<link href="assets/css/bootstrap.css" rel="stylesheet">
 	<link href="assets/css/bootstrap-icons.css" rel="stylesheet">
-	
 	<!-- User Define CSS -->
-	
 	<link href="assets/css/talk-for-user.css" rel="stylesheet">
-	
 	<style>
 		body {
 			background-image :linear-gradient(rgba(252,252,252,0.8), rgba(252,252,252,0.8)), url(assets/img/member_bg.jpg); 
@@ -134,17 +131,14 @@
  		#totalPrice{ 
  			text-align:right; 
  			padding-right:80px;
- 		} 
+ 		}
 	</style>
-	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
-	
 	<!-- User Define JS -->
-	
 	<script>
 		$(function(){
 			var myName = "${sessionScope.login_user.name}";
@@ -647,6 +641,10 @@
   </div>
 </body>
 <script>
+	$(function(){
+		cancelAdoptListBeforeNow();
+	})
+
 	$(".connectOtherFeatures a").on("click",function() {
 	  console.log($(this).index());
 		switch ($(this).index()) {
@@ -670,7 +668,7 @@
 			selectAllAdoptListMemberId();
 			break;
 		default:
-			alert("無法辨識");
+//			alert("無法辨識");
 		}
 	});
 	/*--------------------------------------------會員資訊--------------------------------------------*/
@@ -751,14 +749,16 @@
 			            writeHtml(adoptLists);
 			          },
 			error : function(xhr, ajaxOptions, thrownError) {
-			          alert(xhr.status + "\n" + thrownError);
+//			          console.log(xhr.status + "\n" + thrownError);
 			        }
 		});
 	};
 	/*寫入表單內容*/
 	function writeHtml(adoptLists) {
-		let tempstr = '<table class="table table-hover table-striped" id="table2">'
-				+ '	<thead id="tablethead2">' + '		<tr>'
+		let cancelstr = "";
+		let nowstr = "";
+		let startstr = '<table class="table table-hover table-striped" id="table2">'
+				+ '	<thead id="tablethead2">' + '<tr>'
 				+ '			<th scope="col">編號</th>' 
 				+ '			<th scope="col">探望時間</th>'
 				+ '			<th scope="col">貓編號</th>' 
@@ -771,7 +771,7 @@
 		for (let i = 0; i < adoptLists.length; i++) {
 			let adoptList = adoptLists[i];
 			if (adoptList.adoptListStatus.id > 0) { //須加寫DAO
-				tempstr += '<tr>'
+				nowstr += '<tr>'
 						+ '		<td scope="row">'
 						+ adoptList.id
 						+ '</td>'
@@ -789,18 +789,35 @@
 						+ '</td>'
 						+ '		<td><button type="button" class="btn btn-secondary updateAdoptListBtn" data-toggle="modal" data-target="#updateAdoptListModalCenter">取消</button>';
 				if (adoptList.adoptListStatus.id == 2) {
-					tempstr += '<button type="button" class="btn btn-info confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>'
+					nowstr += '<button type="button" class="btn btn-info confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>'
 							+ '  <img src="<c:url value="/assets/img/AdoptListLoading.gif" />" width="30px" id="loadingGIF" style="display:none">';
 				} else {
-					tempstr += '	<button type="button" style="visibility: hidden;" class="btn btn-success">確認領養</button>';
+					nowstr += '	<button type="button" style="visibility: hidden;" class="btn btn-success">確認領養</button>';
 				}
-				tempstr += '</td></tr>';
+				nowstr += '</td></tr>';
+			}else{
+				cancelstr += '<tr>'
+					+ '		<td scope="row">'
+					+ adoptList.id
+					+ '</td>'
+					+ '		<td>'
+					+ adoptList.visitTime
+					+ '</td>'
+					+ '		<td>'
+					+ adoptList.cat.id
+					+ '</td>'
+					+ '		<td>'
+					+ adoptList.cat.nickname
+					+ '</td>'
+					+ '		<td>'
+					+ adoptList.adoptListStatus.description
+					+ '</td>'
+					+ '<td><button type="button" class="btn btn-secondary" disabled>已取消</button></td></tr>';
 			}
 		}
 
-		tempstr += '</tbody></table>';
-
-		$('.wrapper').html(tempstr);
+		let endstr = '</tbody></table>';
+		$('.wrapper').html(startstr+nowstr+cancelstr+endstr);
 	}
 
 	/*取得表格內容*/
@@ -866,6 +883,24 @@
 				});
 		$('#confirmAdoptListModalCenter').modal("hide");
 	})
+	
+	/*將進行中超過當前時間的領養單取消*/
+	function cancelAdoptListBeforeNow() {
+		$.ajax({
+			type : "GET",
+			url : "cancelAdoptListBeforeNow/${sessionScope.login_user.memberId}",
+			dataType : "json",
+			beforeSend : function(XMLHttpRequest) {
+						console.log("gif");
+                  },
+			success : function(responses) {
+			           console.log("cancelOK");
+			          },
+			error : function(xhr, ajaxOptions, thrownError) {
+//			          console.log(xhr.status + "\n" + thrownError);
+			        }
+		});
+	};
 
 	/*小提示*/
 	function createtoast(toaststr) {
@@ -909,6 +944,7 @@
 		});
 	}
 	
+	/*存心*/
 	var formatter = new Intl.NumberFormat('en-IN', {
 		maximumSignificantDigits: 3,
 	});
@@ -944,7 +980,7 @@
 				+ orderList.orderStatus.description
 				if(orderList.orderStatus.condition<3){
 	 				tempList += '&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary btn-sm" href="javascript:;" role="button" id="orderStatus" data-toggle="modal" data-target="#updateOrderList">'
-	 						 + '取消 </a>';
+	 						 + ' 取消 </a>';
 				}else{
 					tempList += '&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary btn-sm" style="visibility: hidden;" href="javascript:;" role="button" id="orderStatus">'
 						 + ' 取消 </a>';
@@ -1029,13 +1065,13 @@
 			dataType : "json",       //response的資料格式
 			success: function(orderLists) {
 	            //console.log(orderLists);  //成功後回傳的資料
-	            let totalPrice=formatter.format(orderLists.totalPrice);
+	         	let totalPrice=formatter.format(orderLists.totalPrice);
 	            $('input#productAmount').val("$ "+totalPrice);
 	            $('input#contact').val(orderLists.contact);
 	            $('input#paymentType').val(orderLists.paymentType);
 	            $('input#shippingType').val(orderLists.shippingType);
 	            $('input#address').val(orderLists.address);
-				//備註判斷
+	            //備註判斷
 	            if(orderLists.comment!="null"){
 	          		  $('textarea#comment').text("## "+orderLists.comment);
 				}else{
@@ -1045,7 +1081,7 @@
 	            	$("div#MyProduct1").css("display","block");
 	            	$("#img1").attr("src","orderImageToByte?path="+orderLists.product1.photo1);
 	            	$("input#productName1").val(orderLists.product1.productName);
-	            	let product1Price = formatter.format(orderLists.product1.price);
+					let product1Price = formatter.format(orderLists.product1.price);
 	            	$("input#productPrice1").val("$ "+product1Price);
 					$("input#productQuota1").val(orderLists.productQua01);
 	            }else{
@@ -1056,7 +1092,7 @@
 	            	$("div#MyProduct2").css("display","block");
 	            	$("#img2").attr("src","orderImageToByte?path="+orderLists.product2.photo1);
 	            	$("input#productName2").val(orderLists.product2.productName);
-	            	let product2Price = formatter.format(orderLists.product2.price);
+					let product2Price = formatter.format(orderLists.product2.price);
 					$("input#productPrice2").val("$ "+product2Price);
 					$("input#productQuota2").val(orderLists.productQua02);
 	            }else{
@@ -1067,7 +1103,7 @@
 	            	$("div#MyProduct3").css("display","block");
 	            	$("#img3").attr("src","orderImageToByte?path="+orderLists.product3.photo1);
 	            	$("input#productName3").val(orderLists.product3.productName);
-	            	let product3Price = formatter.format(orderLists.product3.price);
+					let product3Price = formatter.format(orderLists.product3.price);
 					$("input#productPrice3").val("$ "+product3Price);
 	            	$("input#productQuota3").val(orderLists.productQua03);
 	            }else{
@@ -1078,7 +1114,7 @@
 	            	$("div#MyProduct4").css("display","block");
 	            	$("#img4").attr("src","orderImageToByte?path="+orderLists.product4.photo1);
 	            	$("input#productName4").val(orderLists.product4.productName);
-	            	let product4Price = formatter.format(orderLists.product4.price);
+					let product4Price = formatter.format(orderLists.product4.price);
 					$("input#productPrice4").val("$ "+product4Price);
 	            	$("input#productQuota4").val(orderLists.productQua04);
 	            }else{
@@ -1089,7 +1125,7 @@
 	            	$("div#MyProduct5").css("display","block");
 	            	$("#img5").attr("src","orderImageToByte?path="+orderLists.product5.photo1);
 	            	$("input#productName5").val(orderLists.product5.productName);
-	            	let product5Price = formatter.format(orderLists.product5.price);
+					let product5Price = formatter.format(orderLists.product5.price);
 	            	$("input#productPrice5").val("$ "+product5Price);
 					$("input#productQuota5").val(orderLists.productQua05);
 	            }else{
@@ -1123,11 +1159,11 @@
 			url :"order.updateOrderStatus"+"/"+currentOrderId,   //後端的URL
 			dataType : "json",       //response的資料格式
 			success: function(orderLists) {
-// 				console.log(orderLists.result);
+//				console.log(orderLists.result);
 				selectAllOrderListMemberId();
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
-// 				console.log(xhr+" "+ajaxOptions+" "+thrownError);
+//				console.log(xhr+" "+ajaxOptions+" "+thrownError);
 			}
 		});
  		
