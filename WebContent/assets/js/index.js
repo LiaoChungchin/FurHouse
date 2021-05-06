@@ -26,14 +26,15 @@ $(document).ready(function () {
 		let showMemberLists = "<div class='btn-group dropup' id='masterMode2'>"
 							+ "<button type='button' class='btn btn-secondary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>使用者</button>"
 							+ "<div class='dropdown-menu'>"
-							+ "<a class='dropdown-item' href='javascript:clickMe08()'>廖崇欽</a>"
-							+ "<a class='dropdown-item' href='javascript:clickMe01()'>鄭弘翔</a>"
-							+ "<a class='dropdown-item' href='javascript:clickMe04()'>林純歆</a>"
-							+ "<a class='dropdown-item' href='javascript:clickMe03()'>羅振旂</a>"
-							+ "<a class='dropdown-item' href='javascript:clickMe05()'>陳皓</a>"
-							+ "<a class='dropdown-item' href='javascript:clickMe33()'>李政瑩</a>"
+							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk0'>廖崇欽</a>"
+							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk1'>鄭弘翔</a>"
+							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk2'>林純歆</a>"
+							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk3'>羅振旂</a>"
+							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk4'>陳皓</a>"
+							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk5'>李政瑩</a>"
+							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk6'>管理員</a>"
 							+ "</div>"
-							+ "</div>";
+							+ "</div>";	
 	
 		if(masterMode == 1) {
 			$("i#master").removeClass("bi-toggle-off");
@@ -60,6 +61,28 @@ $(document).ready(function () {
 			$("#masterMode1").show();
 		}
 	});
+	
+	$("body").on('click',".dropList",function(){
+		let index = this.id.substr(10);
+		clickMe(index);
+		
+	})
+	
+	function clickMe(index){
+		let peoplearr = [{account:"ccliao",pwd:"iiiEDU@08"},{account:"redfly",pwd:"iiiEDU@01"},{account:"pureheart",pwd:"iiiEDU@04"},{account:"xleo999",pwd:"iiiEDU@03"},{account:"haofun",pwd:"iiiEDU@05"},{account:"squarewin",pwd:"iiiEDU@033"},{account:"root",pwd:"0000"}];
+		
+		$("#inputAccount").val(peoplearr[index].account);
+	  	$("#inputPassword").val(peoplearr[index].pwd);
+		
+	}
+	
+	  $("div").on("click", "#LoginTitle1", function () {
+	  		 $("#inputAccount").val("ccliao");
+	  		  $("#inputPassword").val("iiiEDU@08");
+	  });
+	
+
+	
 
 	// 匯入HTML
 	w3.includeHTML();
