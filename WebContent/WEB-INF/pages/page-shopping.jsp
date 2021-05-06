@@ -361,10 +361,39 @@
 			<div class="col-lg-2" id="menu-detail"
 				w3-include-html="<c:url value='/addFrame.controller/aside'/>"></div>
 			<div class="col-lg-10" id="div-v-pills">
-
-
+			
 				<!-- ###置入本頁資訊### -->
 				<div class="container-fluid">
+				
+					<!-- ###輪播圖廣告區### -->
+					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+						  	<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						  	<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+						</ol>
+					  	<div class="carousel-inner">
+					   		<div class="carousel-item active">
+					    		<img src="assets/img/ad1.jpg" class="d-block w-100" alt="...">
+					   		</div>
+					   		<div class="carousel-item">
+					    		<img src="assets/img/ad2.jpg" class="d-block w-100" alt="...">
+					    	</div>
+					    	<div class="carousel-item">
+					    		<img src="assets/img/ad3.jpg" class="d-block w-100" alt="...">
+					    	</div>
+					  	</div>
+						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					    	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    	<span class="sr-only">Previous</span>
+						</a>
+					  	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+					    	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    	<span class="sr-only">Next</span>
+						</a>
+					</div>
+					<!-- ###輪播圖結尾### -->
+					
 					<div class="v-pills-shopping-title" id="diet">
 						<h3>&nbsp;&nbsp;&nbsp;飼糧</h3>
 					</div>
