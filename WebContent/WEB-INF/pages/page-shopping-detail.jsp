@@ -90,21 +90,22 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script> 
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery-ui_1.12.1.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
     <!-- User Define JS -->
     <script src="assets/js/index.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
     <script>
         $(document).ready(function () {
             //購買數量輸入值為負值或者超過產品剩餘數量時的處理
+            $("input.qty").val(1);
             $("body").on("blur", "input.qty", function () {
-                let num = $(this).val();
+                let num = $("input.qty").val();
                 let quantity = ${product.quantity};
-                if (num < 0) {
-                    num = 0;
+                if (num < 1) {
+                    num = 1;
                 } else if (num > quantity) {
                     num = quantity;
                 }
-                $(this).val(num);
+                $("input.qty").val(num);
             });
             $("body").on("click", "button#qtyplus", function () {
                 let num = $("input.qty").val();
@@ -114,6 +115,12 @@
                 }
                 $("input.qty").val(num);
             });
+            $("body").on("click", "button#qtyminus", function () {
+                let num = $("input.qty").val();
+                if (num < 1) {
+                	$("input.qty").val(1);
+                }
+            });
         });
         // 購物車加上本頁購物的商品資訊
         var name = "${product.productName}";
@@ -121,7 +128,10 @@
         var quantity = 0;
         var price = "${product.price}";
         var imgSrc = "prodImageToByte?path=${product.photo1}";
-        var nowProductionItems = JSON.parse(localStorage.myProducts).length;
+        var nowProductionItems = 0;
+        if(localStorage.myProducts){
+	        nowProductionItems = JSON.parse(localStorage.myProducts).length;
+        }
 
         $(function () {
             $("body").on("blur", "input.qty", function () {
@@ -134,6 +144,11 @@
                 quantity = $("input.qty").val();
             })
             $("body").on("click", "a#goBuyIt", function () {
+            	nowProductionItems ++;
+            	if(nowProductionItems > 5){
+					alert("一次購物訂單至多能有5項商品");
+					return;
+            	}
                 let newProductJSON = {
                     "name"    : name,
                     "id"      : id,
@@ -142,7 +157,10 @@
                     "imgSrc"  : imgSrc
                 };
 
-                let alreadyBuyJSON = JSON.parse(localStorage.myProducts);
+                let alreadyBuyJSON = [];
+                if(localStorage.myProducts){
+                	alreadyBuyJSON = JSON.parse(localStorage.myProducts);
+                }
                 alreadyBuyJSON.push(newProductJSON);
                 localStorage.myProducts = JSON.stringify(alreadyBuyJSON);
 

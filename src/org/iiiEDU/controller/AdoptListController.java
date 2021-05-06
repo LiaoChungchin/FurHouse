@@ -89,7 +89,7 @@ public class AdoptListController {
 		List<AdoptList> peosonAdoptLists = adoptListService.searchAllAdoptListMemberId(memberId,1);
 		List<AdoptList> adoptLists = adoptListService.selectSomeAdoptListForvisitTime(visitTime);
 		
-		System.out.println("person:"+peosonAdoptLists.size());
+//		System.out.println("person:"+peosonAdoptLists.size());
 		if(adoptLists!=null) {
 			if(adoptLists.size() >= 10) {
 				return "該預約時段超出人數";
@@ -173,9 +173,9 @@ public class AdoptListController {
 	public String updateAdoptList(@RequestParam("adoptListId") Integer id, @RequestParam("visitTime") Timestamp visitTime,
 			@RequestParam("catId") Integer catId, @RequestParam("memberId") Integer memberId,@RequestParam("adoptListStatusId") Integer adoptListStatusId) {	
 		
-		System.out.println(visitTime);
-		System.out.println(catId);
-		System.out.println(memberId);
+//		System.out.println(visitTime);
+//		System.out.println(catId);
+//		System.out.println(memberId);
 		
 		AdoptList a = adoptListService.selectOneAdoptList(id);
 		if(a != null) {

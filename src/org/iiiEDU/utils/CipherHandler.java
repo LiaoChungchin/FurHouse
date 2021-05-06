@@ -57,7 +57,7 @@ public class CipherHandler {
 				buffer.append(s);
 			}
 		} catch (NoSuchAlgorithmException e) {
-			System.out.println("請檢查使用的演算法，演算法有誤");
+//			System.out.println("請檢查使用的演算法，演算法有誤");
 			return null;
 		}
 		return buffer.toString();
@@ -95,14 +95,14 @@ public class CipherHandler {
 				buffer.append(s);
 			}
 		} catch (NoSuchAlgorithmException e) {
-			System.out.println("請檢查使用的演算法，演算法有誤");
+//			System.out.println("請檢查使用的演算法，演算法有誤");
 			return null;
 		} catch (FileNotFoundException e) {
-			System.out.println("檔案不存在，請檢查");
+//			System.out.println("檔案不存在，請檢查");
 			return null;
 		} 		
 		catch (IOException e) {
-			System.out.println("發生IO錯誤");
+//			System.out.println("發生IO錯誤");
 			return null;
 		}
 		return buffer.toString();

@@ -23,9 +23,10 @@
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/anime.min.js"></script>
-	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+	
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 	
 	<script>
 		$(function(){

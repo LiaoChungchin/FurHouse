@@ -38,8 +38,8 @@ form#product-list-formcheck {
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
 <script src="assets/js/jQuery-3.6.0.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <!-- User Define JS -->
 <script>
 	$(document).ready(
@@ -49,12 +49,12 @@ form#product-list-formcheck {
 				if(localStorage.myProducts != null){
 					var productsListJSON = JSON.parse(localStorage.myProducts);
 				// console.log("payment收到的JSON : ")
-				console.log(productsListJSON);
+// 				console.log(productsListJSON);
 				// 購物籃商品總數
 					var productCount = productsListJSON.length;
 				// console.log(productCount);
 				}else{
-					console.log($('button#button-next-step'));
+// 					console.log($('button#button-next-step'));
 					$("button:contains('下一步')").remove();
 					$("form#product-list-formcheck").children("div").eq(0).after('<div style="font-size: 150px;text-align:center;"><i class="bi bi-cart4"></i></div><br><h4 style="text-align:center;">您的購物車裡沒有任何商品。</h4>');
 					let returnA = document.createElement("a");
@@ -263,6 +263,8 @@ form#product-list-formcheck {
 							// console.log("剩下的list" + productsListJSON);
 							// 送出清單的按鈕移除
 							$(this).parent().parent().remove();
+							// local storage 刪除單向商品
+							localStorage.myProducts = JSON.stringify(productsListJSON);
 							// 如果沒有商品了就顯示 : "商品明細沒有資料" 並且給予返回首頁的按鈕
 							if (productCount === 0) {
 								$("form#product-list-formcheck").children("div").eq(0).after('<div style="font-size: 150px;text-align:center;"><i class="bi bi-cart4"></i></div><br><h4 style="text-align:center;">您的購物車裡沒有任何商品。</h4>');

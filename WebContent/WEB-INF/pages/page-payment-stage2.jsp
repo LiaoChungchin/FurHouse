@@ -51,8 +51,8 @@ cursor:url("assets/img/mouse.png"),pointer;
 <script src="assets/js/w3.js"></script>
 <script src="assets/js/jQuery-3.6.0.js"></script>
 <script src="assets/js/bootstrapValidator.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 
 <!-- User Define JS -->
 <script src="assets/js/tw-city-selector.min.js"></script>
@@ -313,11 +313,11 @@ cursor:url("assets/img/mouse.png"),pointer;
 			url:"member.profile/${sessionScope.login_user.memberId}",
 			dataType : "json",
 			beforeSend:function(XMLHttpRequest){
-	            console.log(this); 
+// 	            console.log(this); 
 	        },
 	        success:function(member){
 	        	if (checkBox.checked == true){
-		        	console.log(member.address); 
+// 		        	console.log(member.address); 
 		            $('input#address').val(member.address);
 	        	}else {
 	        		 $('input#address').val('');

@@ -140,8 +140,8 @@
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
 	<!-- User Define JS -->
 	<script>
 		$(function(){
@@ -650,7 +650,7 @@
 	})
 
 	$(".connectOtherFeatures a").on("click",function() {
-	  console.log($(this).index());
+// 	  console.log($(this).index());
 		switch ($(this).index()) {
 		case 0:
 			$(".memberprofile").attr("style", "");
@@ -747,7 +747,7 @@
 			url : "searchAllAdoptListMemberId/${sessionScope.login_user.memberId}",
 			dataType : "json",
 			beforeSend : function(XMLHttpRequest) {
-						        console.log("gif");
+// 						        console.log("gif");
                   },
 			success : function(adoptLists) {
 			            writeHtml(adoptLists);
@@ -895,10 +895,10 @@
 			url : "cancelAdoptListBeforeNow/${sessionScope.login_user.memberId}",
 			dataType : "json",
 			beforeSend : function(XMLHttpRequest) {
-						console.log("gif");
+// 						console.log("gif");
                   },
 			success : function(responses) {
-			           console.log("cancelOK");
+// 			           console.log("cancelOK");
 			          },
 			error : function(xhr, ajaxOptions, thrownError) {
 //			          console.log(xhr.status + "\n" + thrownError);
@@ -934,10 +934,10 @@
 			url:"order.getAllOrderListsMemberId/${sessionScope.login_user.memberId}"+"/"+pageLimit+"/"+currentPage,
 			dataType : "json",
 			beforeSend:function(XMLHttpRequest){
-	            console.log(this); 
+// 	            console.log(this); 
 	        },
 	        success:function(orderListsResource){
-	            console.log(orderListsResource.orderLists); 
+// 	            console.log(orderListsResource.orderLists); 
 
 	        	writeHtml2(orderListsResource.orderLists);
 	        	createPageBtn(orderListsResource.orderListTotal);

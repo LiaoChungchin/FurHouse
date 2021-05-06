@@ -292,11 +292,11 @@ public class CatController {
 		
 		if(filepath.get(1)==null) {
 			if(cat.getPhoto1().equals(filepath.get(0))) {
-				System.out.println("setPhoto1:"+cat.getPhoto1());
+//				System.out.println("setPhoto1:"+cat.getPhoto1());
 				File oldfile = new File(PathHandler.globalProjectImgPath+cat.getPhoto2());
 				oldfile.delete();
 			}else if(cat.getPhoto2().equals(filepath.get(0))){
-				System.out.println("setPhoto2:"+cat.getPhoto2());
+//				System.out.println("setPhoto2:"+cat.getPhoto2());
 				File oldfile = new File(PathHandler.globalProjectImgPath+cat.getPhoto1());
 				oldfile.delete();
 			}
@@ -304,7 +304,7 @@ public class CatController {
 		cat.setPhoto1(filepath.get(0));
 		cat.setPhoto2(filepath.get(1));
 		
-		System.out.println("beforeupdate:"+cat);
+//		System.out.println("beforeupdate:"+cat);
 		
 		try {
 			catServiceimpl.updateCat(cat);

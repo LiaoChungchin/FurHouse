@@ -64,7 +64,7 @@ public class CatDAOimpl implements CatDAO {
 		Cat changcat = session.get(Cat.class,cat.getId());
 		
 		AdoptStatus adoptStatus = session.get(AdoptStatus.class,cat.getFk_adoptStatusId());
-		System.out.println(adoptStatus);
+//		System.out.println(adoptStatus);
 		if(changcat!=null) {
 			changcat.setNickname(cat.getNickname());
 			changcat.setType(cat.getType());
@@ -78,7 +78,7 @@ public class CatDAOimpl implements CatDAO {
 			changcat.setPhoto2(cat.getPhoto2());
 			changcat.setAdoptStatus(adoptStatus);
 			
-			System.out.println("update:"+changcat);
+//			System.out.println("update:"+changcat);
 			
 			session.save(changcat);
 			return 1;

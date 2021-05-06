@@ -31,8 +31,8 @@
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
 	<!-- User Define JS -->
 	
 	<title>*ROOT*</title>
@@ -204,7 +204,7 @@
 					}
 				},
 				error:function(xhr, ajaxOptions, thrownError){
-					console.log(xhr.status+"\n"+thrownError);
+// 					console.log(xhr.status+"\n"+thrownError);
 				}	
 			});	
 		}
@@ -240,7 +240,7 @@
 			let primaryBtn = '<button type="button" class="btn btn-primary" onclick="chooseBtnVal(this)">';
 			let secondaryBtn = '<button type="button" class="btn btn-secondary" onclick="chooseBtnVal(this)">';
 			
-			console.log(currentPage);
+// 			console.log(currentPage);
 			let pagestr = "";
 			if(adoptListTotal/pageLimit > 10){
 				if(currentPage>6 && currentPage <= (adoptListTotal/pageLimit)-4){
@@ -366,12 +366,12 @@
 				url : "updateAdoptList", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 				data : $("#setAdoptListStatusForm").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
 				success : function(response) {
-					console.log(response);
+// 					console.log(response);
 					selectAllAdoptListPage();
 				},
 				//Ajax失敗後要執行的function，此例為印出錯誤訊息
 				error : function(xhr, ajaxOptions, thrownError) {
-					console.log("更新狀態失敗!!!");
+// 					console.log("更新狀態失敗!!!");
 				}
 			});
 			$('#setAdoptListStatusModalCenter').modal("hide");	

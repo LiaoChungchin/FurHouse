@@ -139,11 +139,11 @@
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/anime.min.js"></script>
 	<!-- User Define JS -->
 	<script src="assets/js/path-slider.js"></script>
-    <script src="assets/js/anime.min.js"></script>
 	
 	<title>*ROOT*</title>
 	
@@ -338,7 +338,7 @@
 		if(nowindex != $(this).index()){
 			switch($(this).index()){
 			case 0:
-				console.log(this.id);
+// 				console.log(this.id);
 				break;
 			case 1:
 				fadeInAndOut("訂單管理系統" , $(this).index());

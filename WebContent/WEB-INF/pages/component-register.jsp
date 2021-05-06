@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<link href="assets/css/index.css" rel="stylesheet">
-<script src="assets/js/index.js"></script>
-
 <form id="form-register" method="post" action="member.register"
 	enctype="multipart/form-data">
 	<div class="form-row" >

@@ -38,8 +38,8 @@ h1 {
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
 <script src="assets/js/jQuery-3.6.0.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 
 
 
@@ -79,13 +79,13 @@ $(function(){
 	 
 	 	//ajax for 修改後顯示
 	 $('#changePwd').on("click",function(){
-		 console.log($("#profileupdateform1").serializeArray());
+// 		 console.log($("#profileupdateform1").serializeArray());
 		$.ajax({
 			type : "POST", //指定http參數傳輸格式為POST
 			url : "member.password.update", //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 			data : $("#profileupdateform1").serializeArray(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之內含有name的物件value
 			success : function(memeber) {
-				 console.log(memeber);
+// 				 console.log(memeber);
 // 				$('#updateName').val(member.name);
 // 				$('#updateMail').val(member.email);
 // 				$('#updatePhone').val(member.phone);

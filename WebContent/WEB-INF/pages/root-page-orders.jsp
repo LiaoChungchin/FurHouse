@@ -127,8 +127,8 @@ hr{
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
 <script src="assets/js/jQuery-3.6.0.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <!-- User Define JS -->
 <script src="assets/js/bootstrap-datatables.min.js"></script>
 
@@ -276,7 +276,7 @@ hr{
 							if (xhr3.readyState == 4){
 								if (xhr3.status == 200){
  								var orderList = JSON.parse(xhr3.responseText);
-									console.log(xhr3.responseText);
+// 									console.log(xhr3.responseText);
 									
 									if (orderList.product1) {
 										$("hr#amountV1").css("display","block");

@@ -116,7 +116,7 @@ public class OrdersController {
 	public @ResponseBody Map<String, String> updateStatus(@PathVariable(required = true) Integer id,
 			@RequestBody Map<String, Integer> status) {
 		
-		System.out.println(status);
+//		System.out.println(status);
 
 		Map<String, String> ans = new LinkedHashMap<>();
 		if (orderListService.updateOrderListCondition(id, status.get("condition"))) {

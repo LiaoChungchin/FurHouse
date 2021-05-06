@@ -171,16 +171,16 @@ public class MemberController {
 
 			if (insertResult != null && !photoPart.isEmpty()) {
 				photoPart.transferTo(new File(photoPath));
-				System.out.println("insert ok");
+//				System.out.println("insert ok");
 				return "page-member-home-registersuccess.jsp"; // need a success page and return, later...
 			}else if(insertResult != null){
-				System.out.println("insert photo null ok");
+//				System.out.println("insert photo null ok");
 				return "page-member-home-registersuccess.jsp";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("insert fail");
+//		System.out.println("insert fail");
 		return "page-member-home-registerfailed.jsp"; // need a fail page and return, later...
 	}
 
