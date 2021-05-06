@@ -97,11 +97,7 @@
             //購買數量輸入值為負值或者超過產品剩餘數量時的處理
             $("body").on("blur", "input.qty", function () {
                 let num = $(this).val();
-                let quantity = $
-                {
-                    product.quantity
-                }
-                ;
+                let quantity = ${product.quantity};
                 if (num < 0) {
                     num = 0;
                 } else if (num > quantity) {
@@ -111,11 +107,7 @@
             });
             $("body").on("click", "button#qtyplus", function () {
                 let num = $("input.qty").val();
-                let quantity = $
-                {
-                    product.quantity
-                }
-                ;
+                let quantity = ${product.quantity};
                 if (num > quantity) {
                     num = quantity;
                 }
@@ -131,7 +123,7 @@
         var nowProductionItems = JSON.parse(localStorage.myProducts).length;
 
         $(function () {
-            $("body").on("change", "input.qty", function () {
+            $("body").on("blur", "input.qty", function () {
                 quantity = $("input.qty").val();
             })
             $("body").on("click", "button#qtyplus", function () {
@@ -142,11 +134,11 @@
             })
             $("body").on("click", "a#goBuyIt", function () {
                 let newProductJSON = {
-                    "name": name,
-                    "id": id,
+                    "name"    : name,
+                    "id"      : id,
                     "quantity": quantity,
-                    "price": price,
-                    "imgSrc": imgSrc
+                    "price"   : price,
+                    "imgSrc"  : imgSrc
                 };
 
                 let alreadyBuyJSON = JSON.parse(localStorage.myProducts);
@@ -372,19 +364,19 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top"
         w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>
     <script>
-< !--下方細項切頁-->
+			<!--下方細項切頁-->
             $(function () {
                 $("#tabs").tabs({
                     collapsible: true
                 });
             });
 
-< !--控制數量-->
+			<!--控制數量-->
             $(function () {
                 // This button will increment the value
                 $('#qtyplus').click(
                     function (e) {
-                        // Stop acting like a button
+                        // Stop acting like a button	
                         e.preventDefault();
                         // Get the field name
                         fieldName = $(this).attr('field');

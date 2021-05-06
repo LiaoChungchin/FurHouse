@@ -413,7 +413,7 @@
 												<h5 class="card-title">${product.productName}</h5>
 												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
 												<p class="card-text">
-													<small class="text-muted">商品編號：${product.id}</small>
+													<small class="text-muted">產品數量：${product.quantity}</small>
 												</p>
 											</div>
 										</div>
@@ -442,7 +442,7 @@
 												<h5 class="card-title">${product.productName}</h5>
 												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
 												<p class="card-text">
-													<small class="text-muted">商品編號：${product.id}</small>
+													<small class="text-muted">產品數量：${product.quantity}</small>
 												</p>
 											</div>
 										</div>
@@ -471,7 +471,7 @@
 												<h5 class="card-title">${product.productName}</h5>
 												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
 												<p class="card-text">
-													<small class="text-muted">商品編號：${product.id}</small>
+													<small class="text-muted">產品數量：${product.quantity}</small>
 												</p>
 											</div>
 										</div>
@@ -500,7 +500,7 @@
 												<h5 class="card-title">${product.productName}</h5>
 												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
 												<p class="card-text">
-													<small class="text-muted">商品編號：${product.id}</small>
+													<small class="text-muted">產品數量：${product.quantity}</small>
 												</p>
 											</div>
 										</div>
@@ -529,7 +529,7 @@
 												<h5 class="card-title">${product.productName}</h5>
 												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
 												<p class="card-text">
-													<small class="text-muted">商品編號：${product.id}</small>
+													<small class="text-muted">產品數量：${product.quantity}</small>
 												</p>
 											</div>
 										</div>
