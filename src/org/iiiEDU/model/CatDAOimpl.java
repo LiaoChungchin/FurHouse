@@ -15,6 +15,8 @@ public class CatDAOimpl implements CatDAO {
 	@Autowired @Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 	
+	private AdoptListService adoptListService;
+	
 	@Override
 	public List<Cat> selectAllCat(){
 		Session session = sessionFactory.getCurrentSession();
@@ -90,8 +92,14 @@ public class CatDAOimpl implements CatDAO {
 		
 		Cat cat = session.get(Cat.class, id);
 		
+		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListCatId(id);
+
 		if(cat!=null) {
 			cat.setAdoptStatus(null);
+			cat.setAdoptList(null);
+			for(AdoptList adoptList : adoptLists) {
+				session.delete(adoptList);
+			}
 			session.delete(cat);
 			return 1;
 		}

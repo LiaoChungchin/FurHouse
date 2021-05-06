@@ -17,6 +17,7 @@ public interface AdoptListDAO {
 	List<AdoptList> searchAllAdoptListVisitTime(String visitTime,Integer catId);
 	List<AdoptList> searchAllAdoptListStatus(String adoptListStatus);
 	List<AdoptList> searchAllAdoptListCatId(Integer catId,Integer pageLimit,Integer currentPage);
+	List<AdoptList> searchAllAdoptListCatId(Integer catId);
 	List<AdoptList> searchAllAdoptListCatNickname(String catNickname,Integer pageLimit,Integer currentPage);
 	List<AdoptList> searchAllAdoptListMemberId(Integer memberId,Integer pageLimit,Integer currentPage);
 	List<AdoptList> searchAllAdoptListMemberId(Integer memberId);

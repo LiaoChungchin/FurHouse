@@ -190,6 +190,20 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 	}
 	
 	@Override
+	public List<AdoptList> searchAllAdoptListCatId(Integer catId){
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "from AdoptList as a where a.cat.id = :catId";
+		
+		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
+		query.setParameter("catId", catId);
+		
+		List<AdoptList> adoptLists = query.getResultList();
+		
+		return adoptLists;
+	}
+	
+	@Override
 	public List<AdoptList> searchAllAdoptListCatNickname(String catNickname,Integer pageLimit,Integer currentPage) {
 		Session session = sessionFactory.getCurrentSession();
 
