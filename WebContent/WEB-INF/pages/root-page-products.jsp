@@ -59,6 +59,10 @@
             // 匯入include所有語句
             w3.includeHTML();
             
+            //aside active
+            $('.nav-item').children().attr("class","nav-link");
+			$('.nav-item').eq(3).children().attr("class","nav-link active");
+            
             $('#allProdtb').removeAttr('width').DataTable({
 	        	"columnDefs": [
 	        		{ "width": "4%",className: 'dt-body-center', "targets": 0 },
@@ -118,7 +122,7 @@
 	                                <th>產品名稱</th>
 	                                <th>分類</th>
 	                                <th>子分類</th>
-	                                <th>品牌名稱</th>                               
+	                                <th>品牌</th>                               
 	                                <th>售價</th>
 	                                <th>數量</th>
 	                                <th>庫存</th>
@@ -133,9 +137,9 @@
 								<c:forEach items="${prods}" var="prod" varStatus="s">
 									<tr id="${prod.id}">
 										<td>${prod.id}</td>
-										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo1' />" alt="" onerror="imgchange()"></td>
-										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo2' />" alt="" onerror="imgchange()"></td>
-										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo3' />" alt="" onerror="imgchange()"></td>					
+										<td><img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo1}" alt="喵~" onerror="imgchange()"></td>
+										<td><img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo2}" alt="喵~" onerror="imgchange()"></td>
+										<td><img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo3}" alt="喵~" onerror="imgchange()"></td>					
 										<td>${prod.productName}</td>
 										<td>${prod.type}</td>
 										<td>${prod.subType}</td>
@@ -200,7 +204,7 @@
     /*-------------------------圖片無法讀取顯示預設圖-----------------------------*/
     function imgchange(){
         var img=event.srcElement;
-        img.src="<c:url value='product.getPhoto/0/empt' />";
+        img.src="assets/img/Catbow-nobg.png";
         img.onerror=null; //控制不要一直觸發錯誤
     }
     
