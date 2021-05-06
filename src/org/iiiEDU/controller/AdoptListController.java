@@ -91,13 +91,9 @@ public class AdoptListController {
 		
 		System.out.println("person:"+peosonAdoptLists.size());
 		if(adoptLists!=null) {
-			if(adoptLists.size() > 10) {
-				for(AdoptList a : peosonAdoptLists)
-				{
-					System.out.println("AAAAAAAAAAAAAAAAAAAA"+a);
-				}
+			if(adoptLists.size() >= 10) {
 				return "該預約時段超出人數";
-			}else if(peosonAdoptLists.size() > 10){
+			}else if(peosonAdoptLists.size() >= 10){
 				return "已超出10筆預約，請妥善考慮";
 			}else {
 				Integer i = adoptListService.insertAdoptList(adoptList);
@@ -106,11 +102,7 @@ public class AdoptListController {
 				}
 			}
 		}else {
-			if(peosonAdoptLists.size() > 10){
-				for(AdoptList a : peosonAdoptLists)
-				{
-					System.out.println("BBBBBBBBBBBBBBBBBBB"+a);
-				}
+			if(peosonAdoptLists.size() >= 10){
 				return "已超出10筆預約，請妥善考慮";
 			}else {
 				Integer i = adoptListService.insertAdoptList(adoptList);
@@ -138,14 +130,12 @@ public class AdoptListController {
 		Map<String,Object> strmap = new HashMap<>();
 		
 		if(adoptLists!=null) {
-			if(adoptLists.size() > 10) {
-				for(AdoptList a : peosonAdoptLists)
-				{
-					System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCC"+a);
-				}
+			if(adoptLists.size() >= 10) {
 				strmap.put("result", "該預約時段超出人數");
 				return strmap;
-			}else if(peosonAdoptLists.size() > 10){
+			}else if(peosonAdoptLists.size() >= 10){
+				Cat cat = catServiceimpl.selectOneCat(catId);
+				strmap.put("catAdoptListSize", cat.getAdoptList().size());
 				strmap.put("result", "已超出10筆預約，請妥善考慮");
 				return strmap;
 			}else {
@@ -158,11 +148,9 @@ public class AdoptListController {
 				}
 			}
 		}else {
-			if(peosonAdoptLists.size() > 10){
-				for(AdoptList a : peosonAdoptLists)
-				{
-					System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+a);
-				}
+			if(peosonAdoptLists.size() >= 10){
+				Cat cat = catServiceimpl.selectOneCat(catId);
+				strmap.put("catAdoptListSize", cat.getAdoptList().size());
 				strmap.put("result", "已超出10筆預約，請妥善考慮");
 				return strmap;
 			}else {
@@ -209,7 +197,7 @@ public class AdoptListController {
 	@GetMapping(path = "/deleteAdoptList/{id}")
 	@ResponseBody
 	public String deleteAdoptList(@PathVariable("id") Integer id) {
-
+		
 		Integer i = adoptListService.deleteAdoptList(id);
 		if (i == 1)
 			return "delete OK";

@@ -685,7 +685,6 @@
 		function SetCat(myObj) {
 			let catNo = myObj.id.substr(6);
 	        let cat = document.getElementById(catNo);
-	        console.log(cat);
 	        let catresource = cat.children;
 	        let tempstr = new Array();
 	        for (let i = 0; i < catresource.length; i++) {
@@ -818,7 +817,6 @@
 	        if(flag1&&flag2&&flag3&&flag4==true){
 	        	$("#InsertCatSubmit").attr("disabled",false);      	
 	        }
-	        console.log("1"+flag1+"2"+flag2+"3"+flag3+"4"+flag4);
 	  	})
 	   	$("#InsCatfile2").on("change", function() {
 	   		$(".InsertCatfilepreview2").removeAttr("style");
@@ -859,7 +857,8 @@
 		        $("#InsertCatcreateDate").removeClass("is-valid");
 		        createDateHelp.innerHTML = `<span style="color:rgb(0, 170, 0)"><span>`;
 		    $("#test1").html("至少上傳一張圖 ")
-			
+		    
+			flag1=false;flag2=false;flag3=false;flag4=false;
 	       	document.getElementById("InsertCatForm").reset();
 		})
 	
@@ -909,10 +908,11 @@
 	    function datevalIO(){
 	        let dateval = datein.value.substr(0,19);
 	        let datesp = document.getElementById("createDateHelp");
-	        let datearr = dateval.split(" ");
-	        let dateymd = datearr[0].split("-");
-	        let dateHms = datearr[1].split(":");
 	        if(dateval!=""){
+	        	let datearr = dateval.split(" ");
+		        let dateymd = datearr[0].split("-");
+		        let dateHms = datearr[1].split(":");
+	        	
 		        if(dateval.length!=19 || datearr.length!=2 || dateval.length==0 ){
 		        	$("#InsertCatcreateDate").removeClass("is-valid");
 		        	$("#InsertCatcreateDate").addClass("is-invalid");
@@ -1074,12 +1074,11 @@
 		$('.uploadImage').on('change', function () {
 		    let reader = new FileReader();
 		    changImgId = this.id.substr(10);
-		    console.log(changImgId);
 		    reader.onload = function (event) {
 		        image_crop.croppie('bind', {
 		            url: event.target.result
 		        }).then(function () {
-		            console.log('jQuery bind complete');
+// 		            console.log('jQuery bind complete');
 		        });
 		        $("#img"+changImgId).attr('src', event.target.result);
 		        $("#spantext"+changImgId).text("圖片預覽");
@@ -1163,11 +1162,14 @@
 		
 		 /*-------------------------一鍵新增input------------------------------*/ 
 	    function Newdata(){
-	    	console.log("123");	    	
-	        $("#InsertCatInputName").val("灰咪");
+	        $("#InsertCatInputName").val("演示貓");
+        	$("#InsertCatInputName").removeClass("is-valid");
+        	$("#InsertCatInputName").removeClass("is-invalid");
 	        $("#InsertCatInputName").addClass("is-valid");
 	        nameHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
 	        $("#InsertCatInputType").val("花貓");
+	        $("#InsertCatInputType").removeClass("is-valid");
+        	$("#InsertCatInputType").removeClass("is-invalid");
 	        $("#InsertCatInputType").addClass("is-valid");
             typeHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
 	        $("#InsertCatgender2").prop("checked",true);
@@ -1175,17 +1177,20 @@
 	        $("#InsertCatisVaccination1").prop("checked",true);
 	        $("#InsertCatadoptStatus1").prop("checked",true);
 	        $("#InsertCatcreateDate").val("2021-05-14 10:10:00");
+	        $("#InsertCatcreateDate").removeClass("is-valid");
+        	$("#InsertCatcreateDate").removeClass("is-invalid");
 	        $("#InsertCatcreateDate").addClass("is-valid");
 	        createDateHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
-	        $("#InsertCatcomment1").val("贊助灰咪");
-	        $("#InsertCatcomment2").val("常常端著高冷表情的灰咪，其實才六個月大有著淡淡的灰色毛髮加上臉蛋清秀是個非常漂亮的小美女");
+	        $("#InsertCatcomment1").val("贊助演示貓");
+	        $("#InsertCatcomment2").val("常常端著高冷表情的演示貓，其實才六個月是個臉蛋清秀的小美女");
 	        
 	       flag1=true;
 	       flag2=true;
 	       flag3=true;
 	        
-	 
-		
+	       if(flag1&&flag2&&flag3&&flag4){
+	        	$("#InsertCatSubmit").attr("disabled",false);
+	       }
 	    }
 		
     </script>

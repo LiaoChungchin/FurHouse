@@ -49,29 +49,6 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
- 			 color: #fff;
- 			 /*background-color: rgba(255,127,80,1);*/
- 			 background-color: rgba(255,134,51,0.9);
-}
-.nav-pills a:hover {
-    color: #ff4e0d;
-    cursor:url("assets/img/mouse.png"),pointer;
-}
-.nav-link {
-	display: block;
-  		padding: 0.8rem 1rem;
-}
-a {
-    color: #404040;
-    text-decoration: none;
-    background-color: transparent;
-}
-small, .small {
-    font-size: 90%;
-    font-weight: 400;
-}
 </style>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -153,36 +130,9 @@ small, .small {
 					.ready(
 							function() {
 								$("a#anchor-login-modal").text("登出");
-								let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
+								let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
 								$("a#anchor-login-modal").before(memberBadge);
-								$("a#myShoppingCart").attr("class","btn btn-outline-warning");
-								$("a#myShoppingCart").attr("href","paymentS1");
-								$("a#myShoppingCart>span").attr("class","badge btn-danger");
-								if(localStorage.myProducts != null){
-									var productsListJSON = JSON.parse(localStorage.myProducts);
-									//購物籃商品總數
-									var productCount = productsListJSON.length;
-									//商品清單總價
-									var totalPrice = 0;
-									//新增圖標判斷
-									$("span#cart-total").text(productsListJSON.length);
-								}
 							});
-		</script>
-	</c:if>
-	<c:if test="${sessionScope.login_user == null}">
-		<script>
-			$(document).ready(function (){
-				$("body").on("click","a#myShoppingCart",function() {
-					alert("請先登入會員喔~~~");
-				});
-				if(localStorage.myProducts != null){
-					var productsListJSON = JSON.parse(localStorage.myProducts);
-					var productCount = productsListJSON.length;
-					var totalPrice = 0;
-					$("span#cart-total").text(productsListJSON.length);
-				}
-			});
 		</script>
 	</c:if>
 
@@ -194,9 +144,26 @@ small, .small {
 			createData();
 		})
 
-		$('#selectRegion').on('change', function() {
+		$('#selectRegion').on('click', function() {
+			let RegionData = [
+				{name:"台北市", lat: 25.037133596918775, lng: 121.56360440559632},
+				{name:"台中市", lat: 24.16219751644647, lng: 120.64902347628696},
+				{name:"台南市", lat: 22.986924395388716, lng: 120.18496912570596},
+				{name:"高雄市", lat: 22.615233150370504, lng: 120.31102698669244},
+				{name:"台東市", lat: 22.751378178843673, lng: 121.14622961220473},
+			]
+
+			map.closePopup();
+			
 			let myRegion = this.value;
 			if (myRegion != "all") {
+				
+				RegionData.forEach(function(thisRegion){
+					if(thisRegion.name == myRegion){
+						map.setView([ thisRegion.lat, thisRegion.lng ], 10);
+					}
+				});
+				
 				$.ajax({
 					type : "GET",
 					url : "selectSomeMapByRegion/" + myRegion,
@@ -217,6 +184,7 @@ small, .small {
 				});
 			} else {
 				createData();
+				map.setView([ 23.797088003857067, 120.83413767268159 ], 7);
 			}
 		})
 
@@ -390,6 +358,17 @@ small, .small {
 			$('.storeNameTable').html(tempstr);
 		}
 
+
+// 		function onMapClick(e) {
+// 		  let lat = e.latlng.lat; // 緯度
+// 		  let lng = e.latlng.lng; // 經度
+// 		  popup
+// 		    .setLatLng(e.latlng)
+// 		    .setContent(`緯度：`+lat+ `<br/>經度：`+lng)
+// 		    .openOn(map);
+// 		}
+// 		map.on('click', onMapClick);
+		
 		// /*周圍*/
 		// console.log(getMaxMinLongitudeLatitude(25.02756357102076,121.54348172372552,2));
 

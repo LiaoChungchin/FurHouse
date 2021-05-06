@@ -7,6 +7,6 @@ public interface CatDAO {
 	Cat selectOneCat(Integer id);
 	Integer insertCat(Cat cat);
 	Integer updateCat(Cat cat);
-	Integer deleteCat(Integer id);
+	Integer deleteCat(Integer id,List<AdoptList> adoptLists);
 	List<Cat> selectSomeCatNR();
 }
