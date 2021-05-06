@@ -113,7 +113,6 @@ public class MailUtils {
 		}
 	}
 	
-	//訂單成立通知信件
 	public Boolean sendOrderEmail(String to ,String subject,String htmlcontent,String imagePath) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
@@ -161,5 +160,4 @@ public class MailUtils {
 			return false;
 		}
 	}
-	
 }
