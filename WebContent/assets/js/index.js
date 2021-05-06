@@ -92,7 +92,7 @@ $(document).ready(function () {
         w3.includeHTML();
         $("div#component-login").modal("hide");
     });
- // 簡易註冊驗證效果
+	 // 簡易註冊驗證效果
     // for 帳戶名稱
     $("body").on("blur keyup", "form>div>div>input#accountid", function () {
         let reg = /^[0-9a-zA-Z]{4,}$/;
@@ -168,14 +168,14 @@ $(document).ready(function () {
     });
     
     
-    //----------------------------------------//
-    let flag1=false,flag2=false,flag3=false;
-			$("body").on("blur keyup","#accountname",function(){
-						 $("#accountname").removeClass("is-invalid");
-           				 $("#accountname").addClass("is-valid");
+    //----------------------0504------------------//
+    let flag1=false,flag2=false,flag3=false,flag4=false;
+			$("body").on("blur keyup", "#accountname",function(){
+						 $(this).removeClass("is-invalid");
+           				 $(this).addClass("is-valid");
            				 $(this).next().removeClass("invalid-feedback");
-			            $(this).next().addClass("valid-feedback");
-			            $(this).next().html("姓名格式正確");
+			             $(this).next().addClass("valid-feedback");
+			             $(this).next().html("姓名格式正確");
             			 		
 				//不能为空	
 				if(accountname.value==""){
@@ -192,30 +192,26 @@ $(document).ready(function () {
 				let patrn = /[@#\$%\^&\*]+/g;//正則表達式
 							        if(patrn.exec(accountname.value)){
 							        $(this).next().html("姓名不能存在特殊符號");
-							        
-							            $(this).removeClass("is-valid");
-						   				$(this).addClass("is-invalid");
-							            $(this).next().removeClass("valid-feedback");
-						   				$(this).next().addClass("invalid-feedback");
-							            
-							$("#checkSubmit").attr("disabled",true);
-							flag1 = false;
+							        $(this).removeClass("is-valid");
+						   			$(this).addClass("is-invalid");
+							        $(this).next().removeClass("valid-feedback");
+						   			$(this).next().addClass("invalid-feedback");         
+							        $("#checkSubmit").attr("disabled",true);
+						        	flag1 = false;
 							        }else{
 							        	//清除错误提示，改成成功提示
 							        	 $("#checkSubmit").attr("disabled",true);
 							        	 accountname.classList.remove("is-invalid");
-							        	 accountname.classList.add("is-valid");
-								        
-								        console.log("flag1")
-								        flag1 = true;
-								        console.log("flag1")
+							        	 accountname.classList.add("is-valid");      
+								         flag1 = true;
 							        }
 						        }
-		 						if(flag1&&flag2&&flag3==true){
+		 						if(flag1&&flag2&&flag3&&flag4==true){
 	 							$("#checkSubmit").removeAttr("disabled"); 
 	 							};
 						});
 						
+					
 						$("body").on("blur keyup","#accountphone",function(){
 							 $(this).removeClass("is-valid");
            					 $(this).addClass("is-invalid");
@@ -230,34 +226,30 @@ $(document).ready(function () {
 						   $(this).next().addClass("invalid-feedback");
 						   $(this).next().html("手機不可為空白");
 						   $("#checkSubmit").attr("disabled",true);//添加禁用
-						   flag1 = false;
+						   flag2 = false;
 					        }else{
 						        //格式需符合台灣手機號碼
 						        let patrn =/^09\d{8}$/;
 						        if(!patrn.exec(accountphone.value)){
-						        $("#accountphone").next().html("請輸入正確的手機格式(台灣手機門號)");
+						        $(this).next().html("請輸入正確的手機格式(台灣手機門號)");
 						        $(this).next().removeClass("valid-feedback");
 						   		$(this).next().addClass("invalid-feedback");
-						           
-						           
-						            accountphone.classList.remove("is-valid");
-						            accountphone.classList.add("is-invalid");
-						            $("#checkSubmit").attr("disabled",true);
-						            flag2 = false;
+						        accountphone.classList.remove("is-valid");
+						        accountphone.classList.add("is-invalid");
+						        $("#checkSubmit").attr("disabled",true);
+						        flag2 = false;
 						        }else{
 									//清除错误提示，改成成功提示
 							        accountphone.classList.remove("is-invalid");
-							        accountphone.classList.add("is-valid");
-							       
-							        console.log("flag2")
+							        accountphone.classList.add("is-valid");    
 							        flag2 = true;
-							        console.log("flag2")
 						        }
 					        }
-	 						if(flag1&&flag2&&flag3==true){
+	 						if(flag1&&flag2&&flag3&&flag4==true){
 	 							$("#checkSubmit").removeAttr("disabled"); 
 	 						};
 						});
+						
 						
 						$("body").on("blur keyup","#accountaddr",function(){
 								 $(this).removeClass("is-valid");
@@ -276,21 +268,71 @@ $(document).ready(function () {
 					        }else{
 					        	accountaddr.classList.remove("is-invalid");
 					        	accountaddr.classList.add("is-valid");
-							    console.log("flag3")
 					        	flag3 = true;
-					        	console.log("flag3")
 					        }
-	 						if(flag1&&flag2&&flag3==true){
-	 							$("#checkSubmit").removeAttr("disabled"); 
+	 						if(flag1&&flag2&&flag3&&flag4==true){
+	 							$("#checkSubmit").removeAttr("disabled");	
 	 						};
 						});	
-    //----------------------------------------//
-    
-    
-    
-     /*-------------------------一鍵新增input------------------------------*/ 
+						
+						
+						$("body").on("click","#agreecheck",function(){
+							if($("#agreecheck").prop('checked')){						
+								flag4 = true;
+								/*$("#checkSubmit").attr("disabled",false);*/
+							}else{
+								   $(this).removeClass("is-valid");
+								   flag4 = false;
+								   $("#checkSubmit").attr("disabled",true);
+							 }				 
+						if(flag1&&flag2&&flag3&&flag4==true){
+	 							$("#checkSubmit").removeAttr("disabled"); 
+	 						};
+						});
+  
+     /*-------------------------一鍵新增input------------------------------0504*/ 
 	     $("body").on("click", "#inputdemo", function () {
-	    		    	
+	     
+	     
+	     /*--------------------------清空---------------------------*/
+	     	$("#accountid").removeClass("is-invalid");
+	  		$("#accountid").next().removeClass("invalid-feedback");
+	  		$("#accountid").next().html("");
+	  		$("#accountid").removeClass("is-valid");
+            $("#accountid").next().removeClass("valid-feedback");
+       /*---------------------------------------------------------------*/
+            $("#accountpwd").removeClass("is-invalid");
+	  		$("#accountpwd").next().removeClass("invalid-feedback");
+	  		$("#accountpwd").next().html("");
+	  		$("#accountpwd").removeClass("is-valid");
+            $("#accountpwd").next().removeClass("valid-feedback");
+       /*---------------------------------------------------------------*/      
+            $("#accountmail").removeClass("is-invalid");
+	  		$("#accountmail").next().removeClass("invalid-feedback");
+	  		$("#accountmail").next().html("");
+	  		$("#accountmail").removeClass("is-valid");
+            $("#accountmail").next().removeClass("valid-feedback");
+       /*-------------------------------------------------------------*/      
+            $("#accountname").removeClass("is-invalid");
+	  		$("#accountname").next().removeClass("invalid-feedback");
+	  		$("#accountname").next().html("");
+	  		$("#accountname").removeClass("is-valid");
+            $("#accountname").next().removeClass("valid-feedback");
+        /*-------------------------------------------------------------*/      
+            $("#accountphone").removeClass("is-invalid");
+	  		$("#accountphone").next().removeClass("invalid-feedback");
+	  		$("#accountphone").next().html("");
+	  		$("#accountphone").removeClass("is-valid");
+            $("#accountphone").next().removeClass("valid-feedback");
+        /*-------------------------------------------------------------*/      
+            $("#accountaddr").removeClass("is-invalid");
+	  		$("#accountaddr").next().removeClass("invalid-feedback");
+	  		$("#accountaddr").next().html("");
+	  		$("#accountaddr").removeClass("is-valid");
+            $("#accountaddr").next().removeClass("valid-feedback");
+        /*-------------------------------------------------------------*/  
+            $("#checkSubmit").attr("disabled",true);
+	    	/*-----------------------------------------------------*/	    	
 	        $("#accountid").val("haofun");
 	        /*-------------------------帳號驗證------------------------------*/
 			            $("#accountid").addClass("is-valid");
@@ -326,8 +368,14 @@ $(document).ready(function () {
 	         			$("#accountaddr").addClass("is-valid");
 			            $("#accountaddr").next().addClass("valid-feedback");
 			            $("#accountaddr").next().html("地址格式正確");        
-	       $("#agreecheck").prop('checked', 'checked');
+	       
+	       $("#agreecheck").prop('checked', 'checked')
+	       
+	       flag1=flag2=flag3=flag4=true;
+	      
 	       $("#checkSubmit").removeAttr("disabled");
+
+	       
 	        });
 	        
 	        
@@ -369,10 +417,34 @@ $(document).ready(function () {
             $("#accountaddr").next().removeClass("valid-feedback");
         /*-------------------------------------------------------------*/  
             $("#checkSubmit").attr("disabled",true);
+            
+ 
 	  });
 	  
-	   $("body").on("click", "#agreecheck", function (){
-		 });
+	  	  $("div").on("click", "#LoginTitle1", function () {
+	  		 $("#inputAccount").val("ccliao");
+	  		  $("#inputPassword").val("iiiEDU@08");
+	  });
+	   $("body").on("click", "#LoginTitle2", function () {
+	    $("#inputAccount").val("xleo999");
+	  		  $("#inputPassword").val("iiiEDU@03");
+	   });
+	    $("body").on("click", "#LoginTitle3", function () {
+	     $("#inputAccount").val("redfly");
+	  		  $("#inputPassword").val("iiiEDU@01");
+	    });
+	     $("body").on("click", "#LoginTitle4", function () {
+	      $("#inputAccount").val("pureheart");
+	  		  $("#inputPassword").val("iiiEDU@04");
+	     });
+	      $("body").on("click", "#LoginTitle5", function () {
+	       $("#inputAccount").val("root");
+	  		  $("#inputPassword").val("0000");
+	      });
+	       $("body").on("click", "#LoginTitle6", function () {
+	        $("#inputAccount").val("haofun");
+	  		  $("#inputPassword").val("iiiEDU@05");
+	       });
 		 
     // 購物籃啟動
     $("body").on("mouseover", "button#button-basket", function () {

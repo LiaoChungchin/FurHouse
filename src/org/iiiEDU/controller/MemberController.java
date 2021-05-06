@@ -142,8 +142,12 @@ public class MemberController {
 			@RequestParam("accountmail") String email, @RequestParam("accountname") String name,
 			@RequestParam("accountphone") String phone,
 			@RequestParam(value = "gender", defaultValue = "private") String gender,
-			@RequestParam("accountaddr") String address, @RequestParam("accountphoto") MultipartFile photoPart,
+			@RequestParam(name = "accountcity", defaultValue = "null") String city,
+			@RequestParam("accountaddr") String accountaddr,
+			@RequestParam("accountphoto") MultipartFile photoPart,
 			Model model) {
+		
+		String address = city + accountaddr;
 
 		String photoPath = null;
 		String photoPathShort = null;
@@ -167,14 +171,17 @@ public class MemberController {
 
 			if (insertResult != null && !photoPart.isEmpty()) {
 				photoPart.transferTo(new File(photoPath));
-//				System.out.println("insert ok");
-				return "index.jsp"; // need a success page and return, later...
+				System.out.println("insert ok");
+				return "page-member-home-registersuccess.jsp"; // need a success page and return, later...
+			}else if(insertResult != null){
+				System.out.println("insert photo null ok");
+				return "page-member-home-registersuccess.jsp";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		System.out.println("insert fail");
-		return "index.jsp"; // need a fail page and return, later...
+		System.out.println("insert fail");
+		return "page-member-home-registerfailed.jsp"; // need a fail page and return, later...
 	}
 
 	@GetMapping("/member.myPage")

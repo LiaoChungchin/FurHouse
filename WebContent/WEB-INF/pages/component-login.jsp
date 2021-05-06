@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script src="assets/js/index.js"></script>
 <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width:335px">
     <div class="modal-content">
         <div class="modal-header">

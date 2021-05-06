@@ -29,6 +29,11 @@ h1 {
 #MemberDivPadding{
 	padding-left:50px;
 }
+/* 置中 */
+#shape-ex1{
+ padding-top:px;
+  padding-left:350px;
+}
 </style>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
@@ -36,14 +41,8 @@ h1 {
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-<!-- User Define JS -->
-<script>
-	$(function() {
-		var myName = "${sessionScope.login_user.name}";
-		var nickName = " " + myName.substr(0);
-		$("h1").append(nickName);
-	})
-</script>
+
+
 <title>FurHouse</title>
 
 </head>
@@ -53,59 +52,12 @@ h1 {
 		<h2 class="my-0 mr-md-auto font-weight-normal">修改密碼</h2>
 		<a class="btn btn-outline-warning" href="<c:url value='/index'/>">返回首頁</a>
 	</div>
-<!-- 	<div class="text-center" > -->
-<!-- 		<nav class="my-2 my-md-0 mr-md-3"> -->
-<!-- 			<a -->
-<!-- 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded" -->
-<%-- 				href="<c:url value='/member.profile/${login_user.memberId}'/>"> --%>
-<!-- 				<i class="bi bi-file-earmark-person-fill"></i> 個人資料</a> <a -->
-<!-- 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded" -->
-<!-- 				href="javascript:;"><i class="bi bi-bag-check-fill"></i> 我的訂單</a> <a -->
-<!-- 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded" -->
-<!-- 				href="javascript:;"><i class="bi bi-calendar-week-fill"></i> -->
-<!-- 				預約紀錄</a> <a -->
-<!-- 				class="mx-1 p-2 text-dark text-decoration-none bg-warning shadow rounded" -->
-<!-- 				href="member.chat"><i class="bi bi-chat-left-dots-fill"></i> -->
-<!-- 				客服視窗</a> -->
-<!-- 		</nav> -->
-
-<!-- 	</div> -->
-
-	<div class="form-group col-md-6">
-	<form method="post" id="profileupdateform1" enctype="multipart/form-data">
-		<div id="MemberDivPadding">
-			
-				<input type="hidden" id="updateNo" name="updateNo" value="${login_user.memberId}">
-					 <br>
-					    <br>
-					  <div>
-						<input type="password" class="form-control" id="updatePwd" name="updatePwd"
-						 placeholder="新密碼"  required style="width:300px;"><div class=""></div>
-				      </div>
-				      
-				     <br>
-				     
-					  <div>
-						<input type="password" class="form-control" id="updatePwd1" name="updatePwd1" 
-						 placeholder="確認新密碼" required style="width:300px;"><div class=""></div>
-						 </div> <br>
-						 
-					  </div>
-				 <br>
-				 <div>
-						<button type="button" class="btn btn-warning" id="changePwd" disabled style="margin-left:50px;">儲存</button >
-						<input type ="button" class="btn btn-warning" onclick="history.back()" value="返回會員專區"></input>
-		    </div>
-		    
-		    </form>
+		<div class="form-group col-md-8">
+		   <div id="shape-ex1"><h1>修改成功</h1></div>	
 		</div>
-				
-	
-
-	<h1 class="text-center font-weight-bolder">Hello ~</h1>
-		
-
-
+		<div style="padding-left:380px;">
+			<input type ="button" class="btn btn-warning" onclick="window.location ='member.myPage';" value="返回會員專區" />
+	 	</div>
 </body>
 <script>
 

@@ -89,6 +89,21 @@ public class PageRedirectController {
 	public String profile(){
 		return "page-member-home-profilepwd.jsp";
   }
+	
+	@GetMapping("/member.sussPwd")
+	public String profile1(){
+		return "page-member-home-pwdsuccess.jsp";
+  }
+	
+	@GetMapping("/member.sussregister")
+	public String profile2(){
+		return "page-member-home-registersuccess.jsp";
+  }
+	
+	@GetMapping("/member.failregister")
+	public String profile3(){
+		return "page-member-home-registerfailed.jsp";
+  }
 
 	@GetMapping("/index.disclaimer")
 	public String catBowDisclaimer() {

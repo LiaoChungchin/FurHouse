@@ -36,7 +36,7 @@
 				<div class=""></div>
 		</div>
 		<div class="form-group col-md-6">
-			<label for="accountphone">電話</label> <input type="text"
+			<label for="accountphone">手機號碼</label> <input type="text"
 				class="form-control" id="accountphone" name="accountphone" required>
 				<div class=""></div>
 		</div>

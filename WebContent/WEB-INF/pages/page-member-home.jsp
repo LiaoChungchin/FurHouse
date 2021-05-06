@@ -42,6 +42,10 @@
 			width: 45px;
 			margin: 0px 2px;
 		}
+		/*會員資料*/
+		#MemberDivPadding{
+			padding-left:50px;
+		}
 		/*----------------------表單樣式----------------------*/
  		/*訂單抬頭*/
 		.table thead{
@@ -326,21 +330,21 @@
 	<!-- 會員資料 -->
 	<div class="form-group col-md-6 mt-md-3 memberprofile" style="display: none;" id="MemberDivPadding">
 		<h3>編輯會員資料</h3>
-		<div>
+		<div id="MemberDivPadding">
 			<form method="post" id="profileupdateform"
 				enctype="multipart/form-data">
 				<input type="hidden" id="updateNo" name="updateNo"
 					value="${login_user.memberId}"> <label for="updateName">姓名</label>
 				<div>
 					<input type="text" class="form-control" id="updateName"
-						name="updateName" value="${login_user.name}">
+						name="updateName" value="${login_user.name}" style="width:300px;">
 				</div>
 				<br>
 				<div>
 					<!-- 					<label for="updatePwd" >會員密碼</label> -->
 					<div>
 						<%-- 						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}" disabled="disabled"> --%>
-						<a href="<c:url value='/member.resetpwd'/>">設定新的密碼</a>
+						<a href="<c:url value='/member.resetpwd'/>" class="btn btn-warning">設定新的密碼</a>
 					</div>
 				</div>
 				<br>
@@ -348,7 +352,7 @@
 					<label for="updateMail">電子信箱</label>
 					<div>
 						<input type="text" class="form-control" id="updateMail"
-							name="updateMail" value="${login_user.email}">
+							name="updateMail" value="${login_user.email}" style="width:300px;">
 					</div>
 				</div>
 				<br>
@@ -356,7 +360,7 @@
 					<label for="updatePhone">手機號碼</label>
 					<div>
 						<input type="text" class="form-control" id="updatePhone"
-							name="updatePhone" value="${login_user.phone}">
+							name="updatePhone" value="${login_user.phone}" style="width:300px;">
 					</div>
 				</div>
 				<br>
@@ -364,7 +368,7 @@
 					<label for="updateAddress">地址</label>
 					<div>
 						<input type="text" class="form-control" id="updateAddress"
-							name="updateAddress" value="${login_user.address}">
+							name="updateAddress" value="${login_user.address}" style="width:300px;">
 					</div>
 				</div>
 
@@ -376,7 +380,7 @@
 					<img src="" id="photo" alt="" />
 				</div>
 				<div>
-					<button type="button" class="btn btn-primary" id="sucess" style="margin-left:630px;">儲存</button>
+					<button type="button" class="btn btn-warning" id="sucess" style="margin-left:550px;">儲存</button>
 				</div>
 
 			</form>
@@ -728,7 +732,7 @@
 					cache: false,
 					processData: false,
 					success : function(memeber) {
-								alert("修改成功");
+								window.location = 'member.sussPwd';
 								$("#changephoto").val('');
 							},
 					error : function(xhr, ajaxOptions, thrownError) {alert(ajaxOptions + " " + thrownError);}
