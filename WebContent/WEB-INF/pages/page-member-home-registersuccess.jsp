@@ -192,7 +192,7 @@
 		<script>
 			$(document).ready(function () {
 				$("a#anchor-login-modal").text("登出");
-				let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
+				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.account},您好</a>`;
 				$("a#anchor-login-modal").before(memberBadge);
 				$("a#myShoppingCart").attr("class","btn btn-outline-primary");
 				$("a#myShoppingCart").attr("href","paymentS1");

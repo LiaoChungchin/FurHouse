@@ -72,8 +72,14 @@ $(document).ready(function () {
 	})
 	
 	function clickMe(index){
-		let peoplearr = [{account:"ccliao",pwd:"iiiEDU@08"},{account:"redfly",pwd:"iiiEDU@01"},{account:"pureheart",pwd:"iiiEDU@04"},{account:"xleo999",pwd:"iiiEDU@03"},{account:"haofun",pwd:"iiiEDU@05"},{account:"squarewin",pwd:"iiiEDU@033"},{account:"root",pwd:"0000"}];
-		
+		let peoplearr = [{account:"ccliao"   ,pwd:"iiiEDU@08"},
+						 {account:"redfly"   ,pwd:"iiiEDU@01"},
+						 {account:"pureheart",pwd:"iiiEDU@04"},
+						 {account:"xleo999"  ,pwd:"iiiEDU@03"},
+						 {account:"haofun"   ,pwd:"iiiEDU@05"},
+						 {account:"squarewin",pwd:"iiiEDU@33"},
+						 {account:"root"     ,pwd:"0000"}];
+						 
 		$("#inputAccount").val(peoplearr[index].account);
 	  	$("#inputPassword").val(peoplearr[index].pwd);
 		
@@ -485,29 +491,4 @@ $(document).ready(function () {
             
  
 	  });
-	  
-	  $("body").on("click", "#LoginTitle1", function () {
-			$("#inputAccount").val("ccliao");
-			$("#inputPassword").val("iiiEDU@08");
-		});
-	  $("body").on("click", "#LoginTitle2", function () {
-			$("#inputAccount").val("xleo999");
-			$("#inputPassword").val("iiiEDU@03");
-		});
-	  $("body").on("click", "#LoginTitle3", function () {
-			$("#inputAccount").val("redfly");
-			$("#inputPassword").val("iiiEDU@01");
-	    });
-	  $("body").on("click", "#LoginTitle4", function () {
-			$("#inputAccount").val("pureheart");
-			$("#inputPassword").val("iiiEDU@04");
-		});
-	  $("body").on("click", "#LoginTitle5", function () {
-			$("#inputAccount").val("root");
-			$("#inputPassword").val("0000");
-		});
-	  $("body").on("click", "#LoginTitle6", function () {
-			$("#inputAccount").val("haofun");
-			$("#inputPassword").val("iiiEDU@05");
-		});
 });

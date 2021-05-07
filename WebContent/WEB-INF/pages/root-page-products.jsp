@@ -204,7 +204,7 @@
     /*-------------------------圖片無法讀取顯示預設圖-----------------------------*/
     function imgchange(){
         var img=event.srcElement;
-        img.src="assets/img/Catbow-nobg.png";
+        img.src="<c:url value='/assets/img/Catbow-nobg.png' />";
         img.onerror=null; //控制不要一直觸發錯誤
     }
     
