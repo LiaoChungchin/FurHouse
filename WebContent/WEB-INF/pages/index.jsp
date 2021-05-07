@@ -19,7 +19,8 @@
 	<style>
 		.parallax {
 			/* width: 100vw; */
-			height:100vh;
+/* 			height:100vh; */
+			height:766px;
 			font-weight:bold;
 			font-size:1.25rem;
 			display:flex;
@@ -238,7 +239,7 @@
 				</div>
 				<div class="parallax bg2">
 						<div class="container marketing">
-							<div class="text-center my-lg-3">
+							<div class="text-center">
 								<h1>我們團隊</h1>
 							</div>
 							<div class="row">		
@@ -249,18 +250,20 @@
 										<span class="badge badge-pill badge-secondary">組長</span>
 										廖崇欽
 									</h2>
-									<p class="text-justify text-center">學歷：<br>成功大學 機械工程學系 碩士</p><br>
-									<p class="text-justify text-center">項目：<br>整合專案與專案版本控制，客服系統開發與維護</p>
+									<p class="text-justify text-center">成功大學 機械工程學系</p>
+									<hr>
+									<p class="text-justify text-center">整合專案與專案版本控制，客服系統開發與維護</p>
 								</div>
-								<div class="text-center col-lg-3 offset-lg-2">
+								<div class="text-center col-lg-4 offset-lg-2">
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0797.jpeg" width="160" height="160">
 									<h2 class="text-center">
 										<span class="badge badge-pill badge-secondary">副組長</span>
 										鄭弘翔
 									</h2>
-									<p class="text-justify text-center">學歷：<br>南臺科技大學 多媒體與電腦娛樂科學系 學士</p>
-									<p class="text-justify text-center">項目：<br>資料庫系統建置，流浪貓預約看貓系統的開發與維護</p>
+									<p class="text-justify text-center">南臺科技大學 多媒體與電腦娛樂科學系</p>
+									<hr>
+									<p class="text-justify text-center">資料庫系統建置，流浪貓預約看貓系統的開發與維護</p>
 								</div>
 							</div>
 							<div class="row">		
@@ -268,29 +271,33 @@
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0918.jpeg" width="160" height="160">
 									<h2 class="text-center">林純歆</h2>
-									<p class="text-justify text-center">學歷：<br>中國文化大學 機械工程學系 學士</p>
-									<p class="text-justify text-center">項目：<br>前端網頁建構，商品訂單系統的開發與維護</p>
+									<p class="text-justify text-center">中國文化大學 機械工程學系</p>
+									<hr>
+									<p class="text-justify text-center">前端網頁建構，商品訂單系統的開發與維護</p>
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0799.jpeg" width="160" height="160">
 									<h2 class="text-center">羅振旂</h2>
-									<p class="text-justify text-center">學歷：<br>真理大學 法律系 學士</p><br>
-									<p class="text-justify text-center">項目：<br>後台框架設置，流浪貓名冊管理系統的開發與維護</p>
+									<p class="text-justify text-center">真理大學 法律系</p>
+									<hr>
+									<p class="text-justify text-center">後台框架設置，流浪貓名冊管理系統的開發與維護</p>
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0800.jpeg" width="160" height="160">
 									<h2 class="text-center">陳皓</h2>
-									<p class="text-justify text-center">學歷：<br>真理大學 法律系 學士</p><br>
-									<p class="text-justify text-center">項目：<br>後台框架設置，會員管理系統的開發與維護</p>
+									<p class="text-justify text-center">真理大學 法律系</p>
+									<hr>
+									<p class="text-justify text-center">後台框架設置，會員管理系統的開發與維護</p>
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0920.jpeg" width="160" height="160">
 									<h2 class="text-center">李政瑩</h2>
-									<p class="text-justify text-center">學歷：<br>淡江大學 化學系 學士</p><br>
-									<p class="text-justify text-center">項目：<br>前端網頁建構，商品管理系統的開發與維護</p>
+									<p class="text-justify text-center">淡江大學 化學系</p>
+									<hr>
+									<p class="text-justify text-center">前端網頁建構，商品管理系統的開發與維護</p>
 								</div>
 							</div>
 						</div>
