@@ -35,6 +35,7 @@
         }
         
 		.container {
+			max-width: 100%;
             text-align: center;
             height: 560px;
             background-color: #E0E0E0;

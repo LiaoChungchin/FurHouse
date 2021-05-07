@@ -143,12 +143,12 @@ body {
 		$(function() {
 			$("div#menu-detail").show();
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
-			$("div#menu-detail>div>a>small:contains('領養浪貓')").parent().addClass("active");
 			// 分隔線要顯示
-			$("div#menu-detail>div>a:contains('認識浪貓')").next().show();
+			$("div#menu-detail>div>a:contains('領養專區')").next().show();
 			// 所有子項目要顯示
-			$("div#menu-detail>div>a>small:contains('領養浪貓')").parent().show();
-			$("div#menu-detail>div>a>small:contains('助養浪貓')").parent().show();
+			$("div#menu-detail>div>a>small:contains('認識浪貓')").parent().show();
+			$("div#menu-detail>div>a>small:contains('認識浪貓')").parent().addClass("active");
+			$("div#menu-detail>div>a>small:contains('預約看貓')").parent().show();
 		});
 	</script>
 	

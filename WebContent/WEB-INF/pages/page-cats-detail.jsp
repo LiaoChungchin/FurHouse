@@ -163,7 +163,7 @@
 											  	<div class="modal-dialog">
 											    	<div class="modal-content">
 												      	<div class="modal-header">
-												        	<h5 class="modal-title" id="adoptListModalLabel">我要認養</h5>
+												        	<h5 class="modal-title" id="adoptListModalLabel">預約看貓</h5>
 												        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 												     	</div>
 												     	<form action="/insertAdoptList" enctype="multipart/form-data" id="adoptListForm">
@@ -235,7 +235,7 @@
 															<div>接種：<c:choose><c:when test="${cat.vaccination == true}">是</c:when><c:otherwise>否</c:otherwise></c:choose></div>
 															<div>報到時間：<span class="onlyDate">${cat.createDate}</span></div>
 															<div>
-																<button type="button" class="btn btn-primary IWantIt" data-toggle="modal" data-target="#adoptListDialog">我要認養</button>
+																<button type="button" class="btn btn-primary IWantIt" data-toggle="modal" data-target="#adoptListDialog">預約看貓</button>
 																<a class="btn btn-primary" href="supportCat">回上一頁</a>
 															</div>
 														</div>
