@@ -241,8 +241,8 @@
 	form#form-myShoppingBasket {
 		width: 500px;
 		font-size: 0.75em;
-		border:2px ridge #DEDEDE;
-		border-radius:5px;
+/* 		border:2px ridge #DEDEDE; */
+/* 		border-radius:5px; */
 	}
 	
 	.v-pills-shopping-title {
@@ -357,202 +357,200 @@
 		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm"
 		w3-include-html="<c:url value='/addFrame.controller/header'/>"></div>
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-2" id="menu-detail"
-				w3-include-html="<c:url value='/addFrame.controller/aside'/>"></div>
-			<div class="col-lg-10" id="div-v-pills">
+	<div class="row">
+		<div class="col-lg-2" id="menu-detail"
+			w3-include-html="<c:url value='/addFrame.controller/aside'/>"></div>
+		<div class="col-lg-10" id="div-v-pills">
+		
+			<!-- ###置入本頁資訊### -->
+			<div class="container-fluid">
 			
-				<!-- ###置入本頁資訊### -->
-				<div class="container-fluid">
+				<!-- ###輪播圖廣告區### -->
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+					  	<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+					  	<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+					    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+				  	<div class="carousel-inner">
+				   		<div class="carousel-item active">
+				    		<img src="assets/img/ad1.jpg" class="d-block w-100" alt="...">
+				   		</div>
+				   		<div class="carousel-item">
+				    		<img src="assets/img/ad2.jpg" class="d-block w-100" alt="...">
+				    	</div>
+				    	<div class="carousel-item">
+				    		<img src="assets/img/ad3.jpg" class="d-block w-100" alt="...">
+				    	</div>
+				  	</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				    	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    	<span class="sr-only">Previous</span>
+					</a>
+				  	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				    	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    	<span class="sr-only">Next</span>
+					</a>
+				</div>
+				<!-- ###輪播圖結尾### -->
 				
-					<!-- ###輪播圖廣告區### -->
-					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-						  	<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						  	<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						</ol>
-					  	<div class="carousel-inner">
-					   		<div class="carousel-item active">
-					    		<img src="assets/img/ad1.jpg" class="d-block w-100" alt="...">
-					   		</div>
-					   		<div class="carousel-item">
-					    		<img src="assets/img/ad2.jpg" class="d-block w-100" alt="...">
-					    	</div>
-					    	<div class="carousel-item">
-					    		<img src="assets/img/ad3.jpg" class="d-block w-100" alt="...">
-					    	</div>
-					  	</div>
-						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-					    	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					    	<span class="sr-only">Previous</span>
-						</a>
-					  	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-					    	<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					    	<span class="sr-only">Next</span>
-						</a>
-					</div>
-					<!-- ###輪播圖結尾### -->
-					
-					<div class="v-pills-shopping-title" id="diet">
-						<h3>&nbsp;&nbsp;&nbsp;飼糧</h3>
-					</div>
+				<div class="v-pills-shopping-title" id="diet">
+					<h3>&nbsp;&nbsp;&nbsp;飼糧</h3>
+				</div>
 
-					<div class="card-deck">
-						<c:forEach items="${Products}" var="product">
-							<c:set var="flag" value="false" />
-							<c:choose>
-								<c:when test="${product.type =='飼糧'}">
-									<!-- 調整卡片分佈 -->
-									<div class="col-md-3" style="margin-bottom: 30px;">
-										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="<c:url value='/product.getPhoto/${product.id}/photo1' />"
-												class="card-img-top" alt="..." id="${product.id}"
-												draggable="true" ondragstart="drag(event)">
-											<div class="card-body">
-												<h5 class="card-title">${product.productName}</h5>
-												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
-												<p class="card-text">
-													<small class="text-muted">產品數量：${product.quantity}</small>
-												</p>
-											</div>
+				<div class="card-deck">
+					<c:forEach items="${Products}" var="product">
+						<c:set var="flag" value="false" />
+						<c:choose>
+							<c:when test="${product.type =='飼糧'}">
+								<!-- 調整卡片分佈 -->
+								<div class="col-md-3" style="margin-bottom: 30px;">
+									<div class="card SelectProductByClass" id="prod${product.id}">
+										<img src="<c:url value='/product.getPhoto/${product.id}/photo1' />"
+											class="card-img-top" alt="..." id="${product.id}"
+											draggable="true" ondragstart="drag(event)">
+										<div class="card-body">
+											<h5 class="card-title">${product.productName}</h5>
+											<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
+											<p class="card-text">
+												<small class="text-muted">產品數量：${product.quantity}</small>
+											</p>
 										</div>
 									</div>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</div>
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</div>
 
-					<!--  我是第二個類別分隔線 -->
-					<div class="v-pills-shopping-title" id="can">
-						<h3>&nbsp;&nbsp;&nbsp;罐頭餐</h3>
-					</div>
-					<div class="card-deck">
-						<c:forEach items="${Products}" var="product">
-							<c:set var="flag" value="false" />
-							<c:choose>
-								<c:when test="${product.type =='罐頭餐'}">
-							<!-- 調整卡片分佈 -->
-									<div class="col-md-3" style="margin-bottom: 30px;">
-										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
-												class="card-img-top" alt="..." id="${product.id}"
-												draggable="true" ondragstart="drag(event)">
-											<div class="card-body">
-												<h5 class="card-title">${product.productName}</h5>
-												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
-												<p class="card-text">
-													<small class="text-muted">產品數量：${product.quantity}</small>
-												</p>
-											</div>
+				<!--  我是第二個類別分隔線 -->
+				<div class="v-pills-shopping-title" id="can">
+					<h3>&nbsp;&nbsp;&nbsp;罐頭餐</h3>
+				</div>
+				<div class="card-deck">
+					<c:forEach items="${Products}" var="product">
+						<c:set var="flag" value="false" />
+						<c:choose>
+							<c:when test="${product.type =='罐頭餐'}">
+						<!-- 調整卡片分佈 -->
+								<div class="col-md-3" style="margin-bottom: 30px;">
+									<div class="card SelectProductByClass" id="prod${product.id}">
+										<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
+											class="card-img-top" alt="..." id="${product.id}"
+											draggable="true" ondragstart="drag(event)">
+										<div class="card-body">
+											<h5 class="card-title">${product.productName}</h5>
+											<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
+											<p class="card-text">
+												<small class="text-muted">產品數量：${product.quantity}</small>
+											</p>
 										</div>
 									</div>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</div>
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</div>
 
-					<!-- 我是第三個類別分隔線 -->
-					<div class="v-pills-shopping-title" id="clean">
-						<h3>&nbsp;&nbsp;&nbsp;清潔用品</h3>
-					</div>
-					<div class="card-deck">
-						<c:forEach items="${Products}" var="product">
-							<c:set var="flag" value="false" />
-							<c:choose>
-								<c:when test="${product.type =='清潔用品'}">
-									<!-- 調整卡片分佈 -->
-									<div class="col-md-3" style="margin-bottom: 30px;">
-										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
-												class="card-img-top" alt="..." id="${product.id}"
-												draggable="true" ondragstart="drag(event)">
-											<div class="card-body">
-												<h5 class="card-title">${product.productName}</h5>
-												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
-												<p class="card-text">
-													<small class="text-muted">產品數量：${product.quantity}</small>
-												</p>
-											</div>
+				<!-- 我是第三個類別分隔線 -->
+				<div class="v-pills-shopping-title" id="clean">
+					<h3>&nbsp;&nbsp;&nbsp;清潔用品</h3>
+				</div>
+				<div class="card-deck">
+					<c:forEach items="${Products}" var="product">
+						<c:set var="flag" value="false" />
+						<c:choose>
+							<c:when test="${product.type =='清潔用品'}">
+								<!-- 調整卡片分佈 -->
+								<div class="col-md-3" style="margin-bottom: 30px;">
+									<div class="card SelectProductByClass" id="prod${product.id}">
+										<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
+											class="card-img-top" alt="..." id="${product.id}"
+											draggable="true" ondragstart="drag(event)">
+										<div class="card-body">
+											<h5 class="card-title">${product.productName}</h5>
+											<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
+											<p class="card-text">
+												<small class="text-muted">產品數量：${product.quantity}</small>
+											</p>
 										</div>
 									</div>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</div>
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</div>
 
-					<!-- 我是第四個類別分隔線 -->
-					<div class="v-pills-shopping-title" id="fun">
-						<h3>&nbsp;&nbsp;&nbsp;遊樂玩具</h3>
-					</div>
-					<div class="card-deck">
-						<c:forEach items="${Products}" var="product">
-							<c:set var="flag" value="false" />
-							<c:choose>
-								<c:when test="${product.type =='遊樂玩具'}">
-									<!-- 調整卡片分佈 -->
-									<div class="col-md-3" style="margin-bottom: 30px;">
-										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
-												class="card-img-top" alt="..." id="${product.id}"
-												draggable="true" ondragstart="drag(event)">
-											<div class="card-body">
-												<h5 class="card-title">${product.productName}</h5>
-												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
-												<p class="card-text">
-													<small class="text-muted">產品數量：${product.quantity}</small>
-												</p>
-											</div>
+				<!-- 我是第四個類別分隔線 -->
+				<div class="v-pills-shopping-title" id="fun">
+					<h3>&nbsp;&nbsp;&nbsp;遊樂玩具</h3>
+				</div>
+				<div class="card-deck">
+					<c:forEach items="${Products}" var="product">
+						<c:set var="flag" value="false" />
+						<c:choose>
+							<c:when test="${product.type =='遊樂玩具'}">
+								<!-- 調整卡片分佈 -->
+								<div class="col-md-3" style="margin-bottom: 30px;">
+									<div class="card SelectProductByClass" id="prod${product.id}">
+										<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
+											class="card-img-top" alt="..." id="${product.id}"
+											draggable="true" ondragstart="drag(event)">
+										<div class="card-body">
+											<h5 class="card-title">${product.productName}</h5>
+											<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
+											<p class="card-text">
+												<small class="text-muted">產品數量：${product.quantity}</small>
+											</p>
 										</div>
 									</div>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</div>
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</div>
 
-					<!--  我是第五個類別分隔線 -->
-					<div class="v-pills-shopping-title" id="dailyuse">
-						<h3>&nbsp;&nbsp;&nbsp;生活用品</h3>
-					</div>
-					<div class="card-deck">
-						<c:forEach items="${Products}" var="product">
-							<c:set var="flag" value="false" />
-							<c:choose>
-								<c:when test="${product.type =='生活用品'}">
-									<!-- 調整卡片分佈 -->
-									<div class="col-md-3" style="margin-bottom: 30px;">
-										<div class="card SelectProductByClass" id="prod${product.id}">
-											<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
-												class="card-img-top" alt="..." id="${product.id}"
-												draggable="true" ondragstart="drag(event)">
-											<div class="card-body">
-												<h5 class="card-title">${product.productName}</h5>
-												<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
-												<p class="card-text">
-													<small class="text-muted">產品數量：${product.quantity}</small>
-												</p>
-											</div>
+				<!--  我是第五個類別分隔線 -->
+				<div class="v-pills-shopping-title" id="dailyuse">
+					<h3>&nbsp;&nbsp;&nbsp;生活用品</h3>
+				</div>
+				<div class="card-deck">
+					<c:forEach items="${Products}" var="product">
+						<c:set var="flag" value="false" />
+						<c:choose>
+							<c:when test="${product.type =='生活用品'}">
+								<!-- 調整卡片分佈 -->
+								<div class="col-md-3" style="margin-bottom: 30px;">
+									<div class="card SelectProductByClass" id="prod${product.id}">
+										<img src="<c:url value='product.getPhoto/${product.id}/photo1' />"
+											class="card-img-top" alt="..." id="${product.id}"
+											draggable="true" ondragstart="drag(event)">
+										<div class="card-body">
+											<h5 class="card-title">${product.productName}</h5>
+											<p class="card-text text-danger font-weight-bold">$NT${product.price}</p>
+											<p class="card-text">
+												<small class="text-muted">產品數量：${product.quantity}</small>
+											</p>
 										</div>
 									</div>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</div>
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
 				</div>
 			</div>
-			<div id="myShoppingBasket" class="position-fixed btn-group ">
-				<button type="button"
-					class="btn btn-info dropdown-toggle bi bi-basket"
-					id="button-basket" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false" data-display="static">購物籃</button>
-				<div
-					class="dropdown-menu dropdown-menu-lg-right border border-light">
-					<form class="px-1 py-1" id="form-myShoppingBasket"
-						ondrop="drop(event)" ondragover="allowDrop(event)" method="post"
-						action="#">
-						<div class="form-group" id="noItems">沒有購物商品</div>
-					</form>
-				</div>
+		</div>
+		<div id="myShoppingBasket" class="position-fixed btn-group ">
+			<button type="button"
+				class="btn btn-info dropdown-toggle bi bi-basket"
+				id="button-basket" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false" data-display="static">購物籃</button>
+			<div class="dropdown-menu dropdown-menu-lg-right border" style="max-height: 350px; overflow-y: auto; overflow-x:hidden;">
+				<form class="px-1 py-1" id="form-myShoppingBasket"
+					ondrop="drop(event)" ondragover="allowDrop(event)" method="post"
+					action="#">
+					<div class="form-group" id="noItems">沒有購物商品</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -793,7 +791,7 @@
 		<script>
 			$(document).ready(function () {
 				$("a#anchor-login-modal").text("登出");
-				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.account},您好</a>`;
+				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
 				$("a#anchor-login-modal").before(memberBadge);
 				$("a#myShoppingCart").attr("class","btn btn-outline-warning");
 				$("a#myShoppingCart").attr("href","paymentS1");
@@ -816,11 +814,8 @@
 				$("body").on("click","a#myShoppingCart",function() {
 					alert("請先登入會員喔~~~");
 				});
-				if(localStorage.myProducts != null){
-					var productsListJSON = JSON.parse(localStorage.myProducts);
-					var productCount = productsListJSON.length;
-					var totalPrice = 0;
-					$("span#cart-total").text(productsListJSON.length);
+				if(localStorage.myProducts != null || localStorage.myProducts == ""){
+					localStorage.removeItem('myProducts');
 				}
 			});
 		</script>

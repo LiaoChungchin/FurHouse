@@ -163,7 +163,11 @@ $(document).ready(function () {
         w3.includeHTML();
         $("div#component-login").modal("hide");
     });
-	 // 簡易註冊驗證效果
+    
+    // 會員登出把 local storage 清空
+    
+    
+	// 簡易註冊驗證效果
     // for 帳戶名稱
     $("body").on("blur keyup", "form>div>div>input#accountid", function () {
         let reg = /^[0-9a-zA-Z]{4,}$/;

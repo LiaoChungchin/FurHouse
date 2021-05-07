@@ -278,8 +278,29 @@
 		<script>
 			$(document).ready(function () {
 				$("a#anchor-login-modal").text("登出");
-				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.account},您好</a>`;
+				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
 				$("a#anchor-login-modal").before(memberBadge);
+				$("a#myShoppingCart").attr("class","btn btn-outline-warning");
+				$("a#myShoppingCart").attr("href","paymentS1");
+				$("a#myShoppingCart>span").attr("class","badge btn-danger");
+				if(localStorage.myProducts != null){
+					var productsListJSON = JSON.parse(localStorage.myProducts);
+					var productCount = productsListJSON.length;
+					var totalPrice = 0;
+					$("span#cart-total").text(productsListJSON.length);
+				}
+			});
+		</script>
+	</c:if>
+	<c:if test="${sessionScope.login_user == null}">
+		<script>
+			$(document).ready(function (){
+				$("body").on("click","a#myShoppingCart",function() {
+					alert("請先登入會員喔~~~");
+				});
+				if(localStorage.myProducts != null || localStorage.myProducts == ""){
+					localStorage.removeItem('myProducts');
+				}
 			});
 		</script>
 	</c:if>

@@ -19,7 +19,7 @@
             <button type="button" class="btn btn-secondary invisible"
                     data-dismiss="modal">離開
             </button>
-            <a href="logout" class="try-me btn btn-info">登出</a>
+            <a href="logout" class="try-me btn btn-info" onclick="javascript:removeLS()">登出</a>
         </div>
         <div class="g-recaptcha my-3" id="recaptcha" style="display:none;"></div>
     </div>

@@ -360,7 +360,7 @@
         <script>
             $(document).ready(function () {
                 $("a#anchor-login-modal").text("登出");
-                let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.account},您好</a>`;
+                let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
                 $("a#anchor-login-modal").before(memberBadge);
                 $("a#myShoppingCart").attr("class",
                     "btn btn-outline-primary");
@@ -376,6 +376,9 @@
                 $("body").on("click", "a#myShoppingCart", function () {
                     alert("請先登入會員喔~~~");
                 });
+				if(localStorage.myProducts != null || localStorage.myProducts == ""){
+					localStorage.removeItem('myProducts');
+				}
             });
         </script>
     </c:if>
