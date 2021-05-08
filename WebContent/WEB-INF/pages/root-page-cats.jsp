@@ -16,34 +16,7 @@
 	<link href="assets/css/index-root.css" rel="stylesheet">
 	<link href="assets/css/datatables.min.css" rel="stylesheet" />
 	<link href="assets/css/croppie.css" rel="stylesheet">
-	
-	<style>
-		.allCattb{
-			table-layout:fixed;
-		}
-		.allCattb img{
-			max-width:100px;
-			max-height:100px
-		}
-		.allCattb .odd{
-			background-color:#f9f9f9;
-		}
-		.allCattb td{
-			border-right: 1px solid #E0E0E0;
-		}
-		.allCattb td:last-child{
-			border-right: 0px solid #E0E0E0;
-		}
-		.toolong{
-		    width: 120px;
-			white-space: nowrap;
-		    overflow: hidden;
-		    text-overflow: ellipsis;
-		}
-		.cr-slider{
-			margin-left: 200px;
-		}
-	</style>
+	<link href="assets/css/root-page-cats.css" rel="stylesheet">
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -97,7 +70,7 @@
 				<!-- ###置入本頁資訊### -->
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">CatPage</h1>
+					<h1 class="h2">浪貓照顧</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<!--Button trigger modal -->
 						<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -592,7 +565,7 @@
 									<!-- 貓咪表格 -->
 									<table class="allCattb table-hover" id="allCattb" style="width:100%">
 										<thead>
-											<tr style="color:#5A5AAD;font-size:20px;background:#F0F0F0;">
+											<tr>
 												<th>編號</th>
 												<th>名字</th>
 												<th>樣式</th>
@@ -610,7 +583,7 @@
 										</thead>
 										<tbody>
 											<c:forEach items="${cats}" var="cat" varStatus="s">
-												<tr id="${cat.id}" style="color:#842B00" >
+												<tr id="${cat.id}" style="color:#000000" >
 													<td>${cat.id}</td>
 													<td>${cat.nickname}</td>
 													<td>${cat.type}</td>

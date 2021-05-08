@@ -14,19 +14,7 @@
 	<link href="assets/css/bootstrap-icons.css" rel="stylesheet">
 	<!-- User Define CSS -->
 	<link href="assets/css/index-root.css" rel="stylesheet">
-	<style>
-		.supportCatDetail{
-			width:100%;
-			margin:5px auto;
-		}
-		.pageGroup button{
-			width: 45px;
-			margin: 0px 2px;
-		}
-		.adoptListDelete{
-			width:200px;
-		}
-	</style>
+	<link href="assets/css/root-page-typeBlue.css" rel="stylesheet">
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -55,7 +43,7 @@
 			<nav class="col-md-2 d-none d-md-block bg-light sidebar" w3-include-html="<c:url value='/addFrame.controller/rootaside' />"></nav>
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">AdoptListPage</h1>
+					<h1 class="h2">寵物預約</h1>
 					
 				</div>
 			
@@ -307,7 +295,7 @@
 		/*寫入表單內容*/
 		function writeHtml(adoptLists){
 			let tempstr='<table class="table table-hover table-striped">'+
-						'	<thead class="thead-light">'+
+						'	<thead>'+
 						'		<tr>'+
 						'			<th scope="col">編號</th>'+
 						'			<th scope="col">探望時間</th>'+

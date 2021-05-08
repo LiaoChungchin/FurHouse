@@ -8,18 +8,20 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon"> 
-	
 	<!-- Bootstrap CSS -->
 	<link href="assets/css/bootstrap.css" rel="stylesheet">
 	<link href="assets/css/bootstrap-icons.css" rel="stylesheet">
 	<!-- User Define CSS -->
+	<link href="assets/css/bootstrap-datatables.min.css" rel="stylesheet" />
 	<link href="assets/css/index-root.css" rel="stylesheet">
+	<link href="assets/css/root-page-typeBlue.css" rel="stylesheet">
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<!-- User Define JS -->
+	<script src="assets/js/bootstrap-datatables.min.js"></script>
 	
 	<title>*ROOT*</title>
 	
@@ -30,6 +32,45 @@
 			
 			$('.nav-item').children().attr("class","nav-link");
 			$('.nav-item').eq(4).children().attr("class","nav-link active");
+			
+			$('#allMembertb').DataTable({
+				"ordering": false,
+				//  "searching": false,  保留搜尋功能
+				"paging":   false,
+			    "info":     false,
+				"language": {
+					  "emptyTable":"無資料...",
+					  "processing":"處理中...",
+					  "loadingRecords":"載入中...",
+					  "lengthMenu":"顯示 _MENU_ 項結果",
+					  "zeroRecords":"沒有符合的結果",
+					  "info":"顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+					  "infoEmpty":"顯示第 0 至 0 項結果，共 0 項",
+					  "infoFiltered":"(從 _MAX_ 項結果中過濾)",
+					  "infoPostFix":"",
+					  "search":"搜尋:",
+					   "thousands": ".",
+					   "decimal": ",",
+					  "paginate":{
+					    "first":"第一頁",
+					    "previous":"上一頁",
+					    "next":"下一頁",
+					    "last":"最後一頁"
+					  },
+				},
+				"columnDefs": [
+	        		{ "width": "6%",className: 'dt-body-left', "targets": 0 },
+	        		{ "width": "8%",className: 'dt-body-left', "targets": 1 },
+	        		{ "width": "10%",className: 'dt-body-left', "targets": 2 },
+	        		{ "width": "6%",className: 'dt-body-left', "targets": 3 },
+	        		{ "width": "8%",className: 'dt-body-left', "targets": 4 },
+	        		{ "width": "10%",className: 'dt-body-left', "targets": 5 },
+	        		{ "width": "18%",className: 'dt-body-left', "targets": 6 },
+	        		{ "width": "11%",className: 'dt-body-left', "targets": 7 },
+	        		{ "width": "9%",className: 'dt-body-center', "targets": 8 },
+	        		{ "width": "10%",className: 'dt-body-center', "targets": 9 },
+	        		]
+			});
 		});
 	</script>
 	
@@ -41,16 +82,15 @@
 			<nav class="col-md-2 d-none d-md-block bg-light sidebar" w3-include-html="<c:url value='/addFrame.controller/rootaside' />"></nav>
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 				<div
-					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-					<h2>Members</h2>
-					<small>update : 2021/04/03</small>
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h2>會員管理</h2>
 				</div>
 				
 				<!-- ###置入本頁資訊### -->
 				<div class="row">
 					<!-- ------------------------------------------主頁面起始位置------------------------------------------ -->
 					<div class="col-lg-12">
-						<table class="table table-striped table-hover">
+						<table class="table table-striped table-hover" id="allMembertb">
 							<thead>
 								<tr>
 									<th scope="col">編號</th>
@@ -97,7 +137,7 @@
 										<div class="btn-group btn-group-sm" role="group">
 											<button type="button" class="btn btn-light"
 												name="btn_i${requestScope.Members[0].memberId}" disabled>禁用</button>
-											<button type="button" class="btn btn-secondary"
+											<button type="button" class="btn btn-primary"
 												name="btn_m${requestScope.Members[0].memberId}"
 												data-toggle="modal"
 												data-target="#modal${requestScope.Members[0].memberId}ToUpdate">修改</button>
@@ -115,6 +155,7 @@
 										<th scope="row">${member.memberId}</th>
 										<td>${member.account}</td>
 										<td>
+<!-- 											<span class="d-inline-block text-truncate" style="max-width: 50px;"> -->
 											<span class="d-inline-block text-truncate" style="max-width: 50px;">
 												${member.password}
 											</span>
@@ -140,12 +181,12 @@
 										</c:if>
 										<td>
 											<div class="btn-group btn-group-sm" role="group">
-												<button type="button" class="btn btn-secondary"
+												<button type="button" class="btn btn-light" 
 													name="btn_i${member.memberId}">禁用</button>
-												<button type="button" class="btn btn-secondary"
+												<button type="button" class="btn btn-primary"
 													name="btn_m${member.memberId}" data-toggle="modal"
 													data-target="#modal${member.memberId}ToUpdate">修改</button>
-												<button type="button" class="btn btn-secondary"
+												<button type="button" class="btn btn-primary"
 													name="btn_d${member.memberId}" data-toggle="modal"
 													data-target="#modal${member.memberId}ToDel">刪除</button>
 											</div>
