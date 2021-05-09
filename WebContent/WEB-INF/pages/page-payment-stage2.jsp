@@ -41,7 +41,7 @@ cursor:url("assets/img/mouse.png"),pointer;
 #shippingImg{
 	padding:10px;
 	margin:5px 0 10px 0;
-	height:80px;
+	height:90px;
 	width:auto;
 }
 
@@ -221,6 +221,14 @@ cursor:url("assets/img/mouse.png"),pointer;
 							phone1.classList.remove("is-invalid");
 				            address.classList.remove("is-valid");
 				            address.classList.remove("is-invalid");
+				            
+				          //取消按鈕選項
+				            $("input[name=paymentMethod]").each(function() {
+				                $(this).removeAttr("checked");
+				             });
+				            $("input[name=ShippingType]").each(function() {
+				                $(this).removeAttr("checked");
+				             });
 				            $("#checkSubmit").attr("disabled",true);
 							return false;
 						});
@@ -275,11 +283,11 @@ cursor:url("assets/img/mouse.png"),pointer;
 								success : function(response) {
 // 									$('#loadingGIF').attr("style","display:none");
 // 									$('.confirmAdoptListBtn').attr("style","");
-									alert(response);
+									//alert(response);
 								},
 								//Ajax失敗後要執行的function，此例為印出錯誤訊息
 								error : function(xhr, ajaxOptions, thrownError) {
-									alert("發生錯誤!!!");
+									//alert("發生錯誤!!!");
 								}
 							});
 							
@@ -302,7 +310,8 @@ cursor:url("assets/img/mouse.png"),pointer;
 							stopLi.appendChild(stopDiv);
 							stopLi.setAttribute("style", "background-color:#FFFF78");
 							$("ul#myTotalLists").prepend(stopLi);
-						}
+						};
+						
 	});
 	
 	/*-------------------------收貨地址與會員通訊錄地址相同()------------------------*/
@@ -319,16 +328,19 @@ cursor:url("assets/img/mouse.png"),pointer;
 	        	if (checkBox.checked == true){
 // 		        	console.log(member.address); 
 		            $('input#address').val(member.address);
+					let form = $('#myOrderForm');
+					form.find('select#county,select#district').val('');
+					form.find('input:read-only').val('');
+					
 	        	}else {
 	        		 $('input#address').val('');
 	        	}
 	        },
 	        error:function(xhr, ajaxOptions, thrownError){
-	        	alert(xhr.status + "\n" + thrownError);
+	        	//alert(xhr.status + "\n" + thrownError);
 	        }
 		});
-	}
-					
+	}				
 	
 </script>
 
@@ -447,7 +459,7 @@ cursor:url("assets/img/mouse.png"),pointer;
 					</div>
 						<h4 class="mb-2 my-3">送貨方式</h4>
 						<div class="row" id="radio4box">
-							<div class="custom-control custom-radio col-sm">
+<!-- 							<div class="custom-control custom-radio col-sm">
 							<input id="radio4" name="ShippingType" type="radio" value="7-ELEVEn"
 								class="custom-control-input"> <label
 								class="custom-control-label" for="radio4">7-ELEVEn</label>
@@ -459,10 +471,12 @@ cursor:url("assets/img/mouse.png"),pointer;
 								class="custom-control-label" for="radio5">FamilyMart</label>
 							<img id="shippingImg" src="assets\img\order\FamilyMart.jpg">
 							</div>
+							 -->
 							<div class="custom-control custom-radio col-sm">
 							<input id="radio6" name="ShippingType" type="radio" value="黑貓宅急便"
 								class="custom-control-input"> <label
 								class="custom-control-label" for="radio6">黑貓宅急便</label>
+							<br>
 							<img id="shippingImg" src="assets\img\order\BlackCat.jpg">
 							</div>
 							<div class="custom-control custom-radio col-sm">

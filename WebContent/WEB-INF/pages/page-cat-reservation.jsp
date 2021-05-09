@@ -54,6 +54,10 @@
 			top: 200px;
 		}
 		
+		.nav-pills a:hover {
+	    color: #ff4e0d;
+	    cursor:url("assets/img/mouse.png"),pointer;
+		}
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -91,7 +95,7 @@
 </head>
 <body>
 	<div
-		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
+		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm"
 		w3-include-html="<c:url value='/addFrame.controller/header'/>"></div>
 	<div class="container-fluid">
 		<div class="row">

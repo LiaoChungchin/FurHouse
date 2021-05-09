@@ -14,9 +14,10 @@
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
 <!-- User Define CSS -->
+<link href="assets/css/index.css" rel="stylesheet">
 <style>
 body {
-	background-image: url(assets/img/member_bg.jpg);
+	background-image :linear-gradient(rgba(252,252,252,0.7), rgba(252,252,252,0.7)), url(assets/img/member_bg.jpg); 
 	background-size: 1440px 900px;
 	background-position: right bottom;
 	background-repeat: no-repeat;
@@ -31,8 +32,10 @@ h1 {
 }
 /* 置中 */
 #shape-ex1{
- padding-top:px;
-  padding-left:350px;
+  padding-top:30%;
+  padding-left:300px;
+  font-size:48px;
+  font-weight:700;
 }
 </style>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -41,22 +44,20 @@ h1 {
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 
-
-
 <title>FurHouse</title>
 
 </head>
 <body>
 	<div
-		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 		<h2 class="my-0 mr-md-auto font-weight-normal">修改密碼</h2>
 		<a class="btn btn-outline-warning" href="<c:url value='/index'/>">返回首頁</a>
 	</div>
 		<div class="form-group col-md-8">
-		   <div id="shape-ex1"><h1>修改成功</h1></div>	
-		</div>
+		   <div id="shape-ex1">修&nbsp;改&nbsp;成&nbsp;功</div>	
+		</div><br>
 		<div style="padding-left:380px;">
-			<input type ="button" class="btn btn-warning" onclick="window.location ='member.myPage';" value="返回會員專區" />
+			<input type ="button" class="btn btn-primary" onclick="window.location ='member.myPage';" value="返回會員專區" />
 	 	</div>
 </body>
 <script>

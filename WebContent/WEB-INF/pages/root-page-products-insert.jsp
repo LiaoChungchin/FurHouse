@@ -14,6 +14,7 @@
 <!-- User Define CSS -->
 <link href="assets/css/index-root.css" rel="stylesheet">
 <link href="assets/css/datatables.min.css" rel="stylesheet" />
+<link href="assets/css/root-page-typeBrown.css" rel="stylesheet">
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
 <script src="assets/js/jQuery-3.6.0.js"></script>
@@ -72,7 +73,7 @@
         <!-- ###置入本頁資訊### -->
         
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Products</h1>
+                <h1 class="h2">商品管理</h1>
                 
                 <!--Button trigger modal -->
                 <div class="btn-toolbar mb-2 mb-md-0">
@@ -84,7 +85,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<article>
-							<h2 onclick="Newdata()">新增資料</h2>
+							<h2 onclick="Newdata()" style="color: #A80000;">新增資料</h2>
 							<div class="mt-4 bd-example">
 								<form class="needs-validation" method="POST" action="InsertProduct_Root" enctype="multipart/form-data" id="prodForm">
 									<div class="row mb-4">
@@ -151,7 +152,7 @@
 									<!-- Picture Input -->
 									<div class="row mb-5">	
 										<div class="col">
-											<label class="form-label" for="InsertProdFile1">圖片1</label>
+											<label class="form-label" for="InsertProdFile1">圖片1</label>&nbsp;&nbsp;
 											<label class="btn btn-primary">
 												<input type="file" accept="image/*" class="form-control-file" id="InsertProdFile1" name="file1" style="display:none;">
 								            	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
@@ -185,7 +186,7 @@
 											<button type="reset"  class="btn btn-secondary btn-block mb-4" id="InsertProductReset">重置</button>
 										</div>
 										<div class="col-2">
-											<input type="button" value="取消" class="btn btn-light btn-block mb-4" onclick="window.location.href='SelectAllProduct_Root'">
+											<input type="button" value="取消" class="btn btn-secondary btn-block mb-4" onclick="window.location.href='SelectAllProduct_Root'">
 										</div>
 									</div>
 								</form>

@@ -113,6 +113,11 @@
 			right: 20px;
 			top: 200px;
 		}
+		
+ 		.nav-pills a:hover{ 
+	 	    color: #ff4e0d;
+	 	    cursor:url("assets/img/mouse.png"),pointer; 
+ 		} 
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -195,7 +200,7 @@
 			 										      	</div>
 													      	<div class="modal-footer">
 														        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-														        <button type="button" class="btn btn-primary" id="adoptListSubmit">確認</button>
+														        <button type="button" class="btn btn-info" id="adoptListSubmit">確認</button>
 													      	</div>
 														</form>
 										    		</div>
@@ -235,8 +240,8 @@
 															<div>接種：<c:choose><c:when test="${cat.vaccination == true}">是</c:when><c:otherwise>否</c:otherwise></c:choose></div>
 															<div>報到時間：<span class="onlyDate">${cat.createDate}</span></div>
 															<div>
-																<button type="button" class="btn btn-primary IWantIt" data-toggle="modal" data-target="#adoptListDialog">預約看貓</button>
-																<a class="btn btn-primary" href="supportCat">回上一頁</a>
+																<button type="button" class="btn btn-info IWantIt" data-toggle="modal" data-target="#adoptListDialog">預約看貓</button>
+																<a class="btn btn-info" href="supportCat">回上一頁</a>
 															</div>
 														</div>
 													</div>

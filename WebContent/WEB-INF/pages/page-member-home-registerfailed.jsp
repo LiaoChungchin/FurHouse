@@ -30,16 +30,16 @@
 			background:url("assets/img/background/bg5.jpg") no-repeat;
 			background-size:cover;
 			background-attachment:fixed;
-			text-shadow:white 0.1em 0.1em 0.2em;
+			text-shadow: 0 0 0.2em #FFF633, 0 0 0.2em #FFF633,0 0 0.2em #FFF633,0 0 0.2em #FFF633;
 		}
 		.bg2 {
-			background:url("assets/img/background/bg1.jpg") no-repeat;
+			background-image :linear-gradient(rgba(252,252,252,0.3), rgba(252,252,252,0.3)), url(assets/img/background/bg1.jpg);
 			background-size:cover;
 			background-attachment:fixed;
 			text-shadow:white 0.1em 0.1em 0.2em;
 		}
 		.bg3 {
-			background:url("assets/img/background/bg3.jpg") no-repeat;
+			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg3.jpg);
 			background-size:cover;
 			background-attachment:fixed;
 		}
@@ -163,11 +163,11 @@
 		 
 		 		<div>
 					<div>
-						<h1 class="ml9">
+						<h1 class="ml9 my-4">
 						  <span>
-						    <h1 style="margin-left:355px;">註冊失敗...</h1>
+						    <h1 style="margin-left:355px;font-weight:500;">註冊失敗...</h1>
 						    <br>
-						    <input type ="button" class="btn btn-primary" onclick="window.location ='index';" value="回首頁" style="margin-left:400px;"/>
+						    <input type ="button" class="btn btn-primary " onclick="window.location ='index';" value="回首頁" style="margin-left:400px;"/>
 						  </span>
 						</h1>
 				    </div>

@@ -14,9 +14,10 @@
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
 <!-- User Define CSS -->
+<link href="assets/css/index.css" rel="stylesheet">
 <style>
 body {
-	background-image: url(assets/img/member_bg.jpg);
+	background-image :linear-gradient(rgba(252,252,252,0.7), rgba(252,252,252,0.7)), url(assets/img/member_bg.jpg); 
 	background-size: 1440px 900px;
 	background-position: right bottom;
 	background-repeat: no-repeat;
@@ -49,9 +50,9 @@ h1 {
 </head>
 <body>
 	<div
-		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 		<h2 class="my-0 mr-md-auto font-weight-normal">修改密碼</h2>
-		<a class="btn btn-outline-warning" href="<c:url value='/index'/>">返回首頁</a>
+		<a class="btn btn-outline-primary" href="<c:url value='/index'/>">返回首頁</a>
 	</div>
 <!-- 	<div class="text-center" > -->
 <!-- 		<nav class="my-2 my-md-0 mr-md-3"> -->
@@ -93,8 +94,8 @@ h1 {
 					  </div>
 				 <br>
 				 <div>
-						<button type="button" class="btn btn-warning" id="changePwd" disabled style="margin-left:50px;">儲存</button >
-						<input type ="button" class="btn btn-warning" onclick="history.back()" value="返回會員專區"></input>
+						<button type="button" class="btn btn-primary" id="changePwd" disabled style="margin-left:50px;">儲存</button >
+						&nbsp;&nbsp;&nbsp;<input type ="button" class="btn btn-primary" onclick="history.back()" value="返回會員專區"></input>
 		    </div>
 		    
 		    </form>

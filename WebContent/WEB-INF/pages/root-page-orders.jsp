@@ -35,6 +35,8 @@
 					function() {
 						// 匯入include所有語句
 						w3.includeHTML();
+			            $('.nav-item').children().attr("class","nav-link");
+						$('.nav-item').eq(2).children().attr("class","nav-link active");
 						// 滑鼠移入顯示全文
 						$(".toolong").on("mouseenter", function() {
 							if (!this.title)
@@ -134,6 +136,7 @@
 										if (orderList.product3) {
 											$("div#MyProduct3").css("display","block");
 											$("input#productId3").val(orderList.product3.id);
+											$("input#productName3").val(orderList.product3.productName);
 											let price3 = formatter.format(orderList.product3.price);
 											$("input#productPrice3").val("$ "+price3);
 											$("input#productQuota3").val(orderList.productQua03);
@@ -242,6 +245,7 @@
 										$("#amountImg5").attr("src","orderImageToByte?path="+orderList.product5.photo1);
 										$("input#amountProductId5").val(orderList.product5.id);
 										$("input#amountProductName5").val(orderList.product5.productName);
+										$("input#amountProductCount5").val(orderList.productQua05);
 										let amountPrice5 = formatter.format(orderList.product5.price);
 										$("input#amountProductPrice5").val("$ "+amountPrice5);
 									} else {

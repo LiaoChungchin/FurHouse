@@ -132,9 +132,9 @@ img {
 }
 
 .received_withd_msg p {
-	background: #ebebeb none repeat scroll 0 0;
+	background: rgba(255,255,171,1) none repeat scroll 0 0;/*#ebebeb*/
 	border-radius: 3px;
-	color: #646464;
+	color: #212121;/*#646464*/
 	font-size: 14px;
 	margin: 0;
 	padding: 5px 10px 5px 12px;
@@ -158,11 +158,12 @@ img {
 }
 
 .sent_msg p {
-	background: #ffc107 none repeat scroll 0 0;
+/* 	background: #ffc107 none repeat scroll 0 0; */
+	background: rgba(102,153,255,0.1) none repeat scroll 0 0;
 	border-radius: 3px;
 	font-size: 14px;
 	margin: 0;
-	color: #fff;
+	color: #212121;/*#fff */
 	padding: 5px 10px 5px 12px;
 	width: 100%;
 }
@@ -192,7 +193,7 @@ img {
 }
 
 .msg_send_btn {
-	background: #ffc107 none repeat scroll 0 0;
+	background: rgba(154,167,220,1) none repeat scroll 0 0;/*#ffc107*/
 	border: medium none;
 	border-radius: 50%;
 	color: #fff;
@@ -219,7 +220,12 @@ img {
 #chathead {
 	text-align: right;
 	padding: 3px;
-	background: #acacac;
+	background: rgba(154,167,220,1);/*#acacac;*/
 	font-size: 14px;
+	border-radius:5px 5px 0 0;
 /* 	cursor: move; */
+}
+
+#write_msg{
+	background: rgba(245,245,245,0.7);
 }

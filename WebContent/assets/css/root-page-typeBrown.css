@@ -1,0 +1,201 @@
+/*商品管理*/
+.allProdtb {
+	text-align:center;
+    table-layout: fixed; 
+    background-color: rgba(95, 59, 66, 1); 
+    color:rgba(242, 232, 226, 1) !important;
+ }
+ td.dt-body-center{
+ 	color:#000000;
+ }
+.allProdtb img{
+max-width:80px;
+max-height:80px
+}
+.allProdtb .odd{
+	background-color:rgba(244,244,244,1);
+}
+.allProdtb td{
+	border-right: 1px solid #E0E0E0;
+}
+.allProdtb td:last-child{
+	border-right: 0px solid #E0E0E0;
+}
+.allProdtb tbody tr:hover{
+	background-color:#D2DCD3;
+}
+.toolong{
+       width:90px;
+       overflow: hidden;
+       white-space: nowrap;
+       text-overflow: ellipsis;
+}
+
+/*浪貓照顧*/
+.allCattb{
+	table-layout:fixed;
+	background-color: rgba(95, 59, 66, 1);
+	color:rgba(242, 232, 226, 1) !important;
+}
+.allCattb img{
+	max-width:100px;
+	max-height:100px
+}
+.allCattb .odd{
+	background-color: rgba(244,244,244,1);
+}
+.allCattb td{
+	border-right: 1px solid #E0E0E0;
+	font-size:18px;
+}
+.allCattb td:last-child{
+	border-right: 0px solid #E0E0E0;
+}
+.toolong{
+    width: 120px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cr-slider{
+	margin-left: 200px;
+}
+	/*彈窗標提樣式 */
+.modal-title{
+	color:#A80000;
+	font-size:24px;
+}
+	/*彈窗表單欄位樣式 */
+.col-form-label {
+	margin: 5px 0 0 5px;
+	padding:7px 0 7px 5px;
+	font-size: 16px;
+	color: #4F4F4F;
+	text-align: center;
+	line-height: 30px;
+}
+.catType{
+	margin:5px 8px 0 0;
+}
+.catTypeImg{
+	margin:5px 25px 0 20px;
+	padding:5px 0 5px 10px;
+}
+
+/*表單懸停色*/	
+.table-hover tbody tr:hover, .table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+	background-color:#D2DCD3 !important;
+}
+
+/*按鈕顏色*/
+.btn-primary{
+    color: #fff;
+	background-color:#907474;
+	border-color: rgba(144,116,116,1);
+}
+.btn-primary:hover{
+	color: #fff;
+	background-color: #B09D9D;
+    border-color: rgba(176,157,157,1);
+}	
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(173,153,153,1);
+}
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #330000;
+  background-color: #AA9595;
+  border-color: rgba(170,149,149,0.9);
+}
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: rgba(130,99,99,0.9);
+  border-color: rgba(130,99,99,0.9);
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(173,153,153,1);
+}
+
+
+.btn-secondary {
+  color: #fff;
+  background-color: #C8BABA;
+  border-color: rgba(200,186,186,1);
+}
+.btn-secondary:hover {
+  color: #EDE8E8;
+  background-color: #7E5D5D;
+  border-color: #7E5D5D;
+}
+.btn-secondary:focus, .btn-secondary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+}
+.btn-secondary.disabled, .btn-secondary:disabled {
+  color: #330000;
+  background-color: rgba(130,99,99,0.9);
+  border-color: rgba(130,99,99,0.9);
+}
+.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  color: #fff;
+  background-color: #A28A8A;
+  border-color: #A28A8A;
+}
+.btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-secondary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(192, 176, 176, 0.5);
+}
+
+
+/*dataTables 分頁按鈕顏色 */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #FAFAFA !important;
+    border: 1px solid #704C4C;
+    background-color: rgba(123, 90, 90, 1);
+    background:rgba(123, 90, 90, 1);
+    border-radius:5px;
+}
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: #704C4C;
+    font-weight:bold;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    cursor: default;
+    color: #826363 !important;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+    font-weight:bold;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 0.5em;
+    padding: .5em 1em;
+    margin: 5px 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    *cursor: hand;
+    color: #451717 !important;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 0.5em;
+    padding: .5em 1em;
+    margin: 5px 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    *cursor: hand;
+    color: #FFF !important;
+    border: 1px solid transparent;
+    background-color: #CDC1C1;
+    background:#CDC1C1;
+    border-radius: 5px;
+}

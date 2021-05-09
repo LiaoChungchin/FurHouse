@@ -104,6 +104,11 @@ body {
  filter:grayscale(1); 
 }
 
+.nav-pills a:hover {
+	    color: #ff4e0d;
+	    cursor:url("assets/img/mouse.png"),pointer;
+}
+
 /*	.SupportCatItem:active { 
  		 	border: 2px solid red; 
  		border-radius: 5PX; 

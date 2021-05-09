@@ -158,14 +158,14 @@
 	</c:if>
 </head>
 <body>
-	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm" 
+	<div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm" 
 		 w3-include-html="<c:url value='/addFrame.controller/header'/>"></div>
 		 
 		 		<div>
 					<div>
-						<h1 class="ml9">
+						<h1 class="ml9 my-4">
 						  <span>
-						    <h1 style="margin-left:355px;">註冊成功!</h1>
+						    <h1 style="margin-left:355px;font-weight:500;">註冊成功!</h1>
 						    <br>
 						    <input type ="button" class="btn btn-primary" onclick="window.location ='index';" value="回首頁" style="margin-left:400px;"/>
 						  </span>

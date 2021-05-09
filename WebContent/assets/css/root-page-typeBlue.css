@@ -182,3 +182,20 @@ hr{
     border: 1px solid transparent;
     border-radius: 2px;
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 0.5em;
+    padding: .5em 1em;
+    margin: 5px 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    *cursor: hand;
+    color: #FFF !important;
+    border: 1px solid transparent;
+    background-color: #ACC0D9 ;
+    background:#ACC0D9 ;
+    border-radius: 5px;
+}

@@ -160,6 +160,7 @@ $(document).ready(function () {
         $("div#div-v-pills").addClass("col-lg-6 offset-lg-3  p-lg-3 pb-lg-5 bg-light");
         $("div#div-v-pills").empty();
         $("div#div-v-pills").append("<div w3-include-html='component.register'></div>");
+        $("ul#md li").remove();
         w3.includeHTML();
         $("div#component-login").modal("hide");
     });

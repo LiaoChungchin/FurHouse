@@ -18,6 +18,7 @@
 	<link href="assets/css/index.css" rel="stylesheet">
 	<style>
 		.parallax {
+			max-width: 100%;
 			/* width: 100vw; */
 /* 			height:100vh; */
 			height:766px;
@@ -33,7 +34,7 @@
 			background-size:cover;
 			background-attachment:fixed;
 /* 			text-shadow:white 0.1em 0.1em 0.2em; */
-			text-shadow: 0 0 0.2em #FFF633, 0 0 0.2em #FFF633,0 0 0.2em #FFF633,0 0 0.2em #FFF633; /* #FF9633橘色   #FFF633黃色  #FAFAFA白色*/
+			text-shadow: 0 0 0.2em #FFF633, 0 0 0.2em #FFF633,0 0 0.2em #FFF633,0 0 0.2em #FFF633;
 		}
 		.bg2 {
 /* 			background:url("assets/img/background/bg1.jpg") no-repeat; */
@@ -135,29 +136,29 @@
  		span .letters{
  			display:inline-block;
  		}
-/*  	導覽選單顏色 */
- 		.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
-   			 color: #fff;
-   			 /*background-color: rgba(255,127,80,1);*/
-   			 background-color: rgba(255,134,51,0.9);
-		}
-		.nav-pills a:hover {
-		    color: #ff4e0d;
+/* 導覽列滑鼠樣式 */
+ 		.nav-pills:hover,.nav-pills:focus {
 		    cursor:url("assets/img/mouse.png"),pointer;
 		}
-		.nav-link {
-			display: block;
-    		padding: 0.8rem 1rem;
+		
+		.nav-link:hover, .nav-link:focus {
+		  cursor:url("assets/img/mouse.png"),pointer;
 		}
-		a {
-		    color: #404040;
-		    text-decoration: none;
-		    background-color: transparent;
-		}
-		small, .small {
-		    font-size: 90%;
-		    font-weight: 400;
-		}
+/*瞄點樣式*/
+.md{
+    position: fixed;
+    right: 15px;
+    top: 30%;
+    margin-top: -92.5px;
+}
+.md a{
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.md li{
+	list-style-type:none;
+}
 	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -190,7 +191,7 @@
 				w3-include-html="<c:url value='/addFrame.controller/aside'/>"></div>
 			<div class="col-lg-10" id="div-v-pills">
 			
-				<div class="parallax bg1">
+				<div class="parallax bg1" id="bg1">
 					<div class="container-anime">
 						<h1 class="ml9">
 						  <span class="text-wrapper">
@@ -237,7 +238,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="parallax bg2">
+				<div class="parallax bg2" id="bg2">
 						<div class="container marketing">
 							<div class="text-center">
 								<h1>我們團隊</h1>
@@ -302,7 +303,7 @@
 							</div>
 						</div>
 				</div>
-				<div class="parallax bg3">
+				<div class="parallax bg3" id="bg3">
 					<div class="container marketing">
 						<div class="text-center">
 							<p>學習藍圖</p>
@@ -312,7 +313,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="parallax bg4">使用技術</div>
+				<div class="parallax bg4" id="bg4">使用技術</div>
 			</div>
 		</div>
 	</div>
@@ -363,8 +364,16 @@
 		</script>
 	</c:if>
 	
-	<script>
+	<!-- 指定主題锚点开始-->
+	<ul class="md" id="md">
+	    <li><a href="#bg1"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
+	    <li><a href="#bg2"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
+	    <li><a href="#bg3"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
+	    <li><a href="#bg4"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
+	</ul>
+	<!-- 锚点结束-->
 	
+	<script>
 	// Wrap every letter in a span
 		var textWrapper = document.querySelectorAll(".ml9 .letters");
 		for(let i = 0; i < textWrapper.length; i++){

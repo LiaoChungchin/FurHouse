@@ -12,7 +12,7 @@
             <form class="form-login" method="post" action="login.check">
                 <img class="mb-4 rounded mx-auto d-block" src="assets/img/Catbow.png" alt="" width="72" height="72">
                 <label for="inputAccount" class="sr-only">Account ID</label>
-                <input type="text" id="inputAccount" name="inputAccount" class="form-control" placeholder="Account ID" required>
+                <input type="text" id="inputAccount" name="inputAccount" class="form-control my-2" placeholder="Account ID" required>
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
                 <div class="checkbox mt-1 mb-3">

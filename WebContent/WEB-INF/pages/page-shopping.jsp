@@ -321,7 +321,7 @@
 	
 	.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
   			 color: #fff;
-  			 /*background-color: rgba(255,127,80,1);*/
+  			 background-color: rgba(255,127,80,1);
   			 background-color: rgba(255,134,51,0.9);
 	}
 	.nav-pills a:hover {
@@ -341,6 +341,12 @@
 	    font-size: 90%;
 	    font-weight: 400;
 	}
+	
+	.dropdown-divider:hover,.dropdown-divider:focus {
+		 color: #ff4e0d;
+		 cursor:url("assets/img/mouse.png"),pointer;
+	}
+	
 </style>
 
 <title>FurHouse</title>
@@ -542,7 +548,7 @@
 		</div>
 		<div id="myShoppingBasket" class="position-fixed btn-group ">
 			<button type="button"
-				class="btn btn-info dropdown-toggle bi bi-basket"
+				class="btn btn-primary dropdown-toggle bi bi-basket"
 				id="button-basket" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false" data-display="static">購物籃</button>
 			<div class="dropdown-menu dropdown-menu-lg-right border" style="max-height: 350px; overflow-y: auto; overflow-x:hidden;">

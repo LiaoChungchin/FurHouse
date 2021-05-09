@@ -15,6 +15,7 @@
 	<link href="assets/css/bootstrap-icons.css" rel="stylesheet">
 	<!-- User Define CSS -->
 	<link href="assets/css/talk-for-user.css" rel="stylesheet">
+	<link href="assets/css/index.css" rel="stylesheet">
 	<style>
 		body {
 			background-image :linear-gradient(rgba(252,252,252,0.8), rgba(252,252,252,0.8)), url(assets/img/member_bg.jpg); 
@@ -126,16 +127,22 @@
 			margin:5px;
 			text-align:center;
 			font-size:18px;
-		}
-				/*按鈕顏色*/
-		.bg-warning {
-		    background-color: #FADA34 !important;
-		}
-		
+		}		
  		#totalPrice{ 
  			text-align:right; 
  			padding-right:80px;
  		}
+ 		/*按鈕顏色*/
+		.bg-warning {
+		    background-color: rgba(193,66,66,0.6) !important;
+		}
+        
+		a.bg-warning:hover, a.bg-warning:focus,
+		button.bg-warning:hover,
+		button.bg-warning:focus {
+		  background-color: #ECB2B3 !important;
+		}
+ 		
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -344,7 +351,7 @@
 					<!-- 					<label for="updatePwd" >會員密碼</label> -->
 					<div>
 						<%-- 						<input type="text" class="form-control"  id="updatePwd" name="updatePwd" value="${login_user.password}" disabled="disabled"> --%>
-						<a href="<c:url value='/member.resetpwd'/>" class="btn btn-warning">設定新的密碼</a>
+						<a href="<c:url value='/member.resetpwd'/>" class="btn btn-primary">設定新的密碼</a>
 					</div>
 				</div>
 				<br>
@@ -380,7 +387,7 @@
 					<img src="" id="photo" alt="" />
 				</div>
 				<div>
-					<button type="button" class="btn btn-warning" id="sucess" style="margin-left:550px;">儲存</button>
+					<button type="button" class="btn btn-primary" id="sucess" style="margin-left:550px;">儲存</button>
 				</div>
 
 			</form>
@@ -398,7 +405,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title modaltitle" id="updateAdoptListModalCenterTitle">確認取消預約</h5>
+					<h4 class="modal-title modaltitle" id="updateAdoptListModalCenterTitle">確認取消預約</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					  <span aria-hidden="true">&times;</span>
 				  </button>
@@ -453,7 +460,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title modaltitle" id="confirmAdoptListModalCenterTitle">確認領養</h5>
+					<h4 class="modal-title modaltitle" id="confirmAdoptListModalCenterTitle">確認領養</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -508,7 +515,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3 class="modal-title modaltitle" id="orderListDetailsLabel">&nbsp;&nbsp;訂單詳細資訊</h3>
+					<h4 class="modal-title modaltitle" id="orderListDetailsLabel">&nbsp;&nbsp;訂單詳細資訊</h4>
 					<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -605,7 +612,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title modaltitle" id="updateOrderListTitle">確認取消訂單</h5>
+					<h4 class="modal-title modaltitle" id="updateOrderListTitle">確認取消訂單</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -613,7 +620,7 @@
 				<div class="modal-body" id="modalConditionContent">請再次確認是否取消訂單，或直接聯繫客服，謝謝您!</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary" id="updateOrderListSubmit">確認</button>
+					<button type="button" class="btn btn-info" id="updateOrderListSubmit">確認</button>
 				</div>
 			</div>
 		</div>
@@ -621,7 +628,7 @@
 	
 	<!-- 客服對話框 -->
 	<div id="catbowTalk" 
-			style="position:fixed; bottom:0; right:10%; z-index:9999; display:block; hight:200px; width:200px; display:none">
+			style="position:fixed; bottom:0; right:5%; z-index:9999; display:block; hight:150px; width:150px; display:none">
 		<img alt="" src="assets/img/Catbow_TalkToMe.png">
 	</div>
 	<div class="messaging" id="talkToMe" style="position:fixed; bottom:0; right:0; z-index:9998; display:block">
@@ -793,7 +800,7 @@
 						+ '</td>'
 						+ '		<td><button type="button" class="btn btn-secondary updateAdoptListBtn" data-toggle="modal" data-target="#updateAdoptListModalCenter">取消</button>';
 				if (adoptList.adoptListStatus.id == 2) {
-					nowstr += '<button type="button" class="btn btn-info confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>'
+					nowstr += '<button type="button" class="btn btn-primary confirmAdoptListBtn" data-toggle="modal" data-target="#confirmAdoptListModalCenter">確認領養</button>'
 							+ '  <img src="<c:url value="/assets/img/AdoptListLoading.gif" />" width="30px" id="loadingGIF" style="display:none">';
 				} else {
 					nowstr += '	<button type="button" style="visibility: hidden;" class="btn btn-success">確認領養</button>';
@@ -1006,7 +1013,7 @@
 	
 	/*搜尋全部表單內容(製作分頁按鈕)*/
 	function createPageBtn(orderListTotal){
-		let primaryBtn = '<button type="button" class="btn btn-info" onclick="chooseBtnVal(this)">';
+		let primaryBtn = '<button type="button" class="btn btn-primary" onclick="chooseBtnVal(this)">';
 		let secondaryBtn = '<button type="button" class="btn btn-secondary" onclick="chooseBtnVal(this)">';
 		
 		let pagestr = "";

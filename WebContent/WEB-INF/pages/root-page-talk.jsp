@@ -37,10 +37,12 @@
 		  text-align: right;
 		  width: 60%;
 		}
-		.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+		.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;background-color:#EDE7F8;}
 		
 		.recent_heading h4 {
-		  color: #05728f;
+/* 		  color: rgba(63, 68, 106, 1); */
+		  color: rgba(103,14,133, 1);
+		  font-weight:700;
 		  font-size: 21px;
 		  margin: auto;
 		}
@@ -53,9 +55,9 @@
 		  font-size: 18px;
 		}
 		.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
-		.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
+		.chat_ib h5{ font-size:15px; color:#440059; margin:0 0 8px 0;}
 		.chat_ib h5 span{ font-size:13px; float:right;}
-		.chat_ib p{ font-size:14px; color:#989898; margin:auto}
+		.chat_ib p{ font-size:14px; color:#fff; margin:auto}
 		.chat_img {
 		  float: left;
 		  width: 11%;
@@ -67,13 +69,17 @@
 		}
 		.chat_people{ overflow:hidden; clear:both;}
 		.chat_list {
-		  border-bottom: 1px solid #c4c4c4;
+			background-color:rgba(191,191,219,1);
+			border-bottom: 2px solid #DADAF5;
+	 		border-top: 2px solid rgba(198,198,229,1);
+/* 		  border-bottom: 1px solid #c4c4c4; */
 		  margin: 0;
 		  padding: 18px 16px 10px;
 		}
-		.inbox_chat { height: 550px; overflow-y: scroll;}
+		.inbox_chat { height: 550px; overflow-y: scroll;background-color:#EDE7F8;}
 /* 		.active_chat{ background:#ebebeb;} */
-		.active_chat{ background : linear-gradient(to bottom, #f5f5f5 0%,#dcdcdc 100%);}
+/* 		.active_chat{ background : linear-gradient(to bottom, #f5f5f5 0%,#dcdcdc 100%);} */
+		.active_chat{ background : linear-gradient(to bottom, #f5f5f5 0%,rgba(107,78,186,1) 100%);}
 		.incoming_msg_img {
 		  display: inline-block;
  		  width: 6%;
@@ -107,7 +113,7 @@
 		  width: 70%;
 		}
 		 .sent_msg p {
-		  background: #007bff none repeat scroll 0 0;
+		  background: #6B4EBA none repeat scroll 0 0;/*#007bff*/
 		  border-radius: 3px;
 		  font-size: 14px;
 		  margin: 0; color:#fff;
@@ -129,7 +135,7 @@
 		}
 		.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
 		.msg_send_btn {
-		  background: #007bff none repeat scroll 0 0;
+		  background: #6B4EBA none repeat scroll 0 0;/*#007bff*/
 		  border: medium none;
 		  border-radius: 50%;
 		  color: #fff;
@@ -144,7 +150,7 @@
 /* 		.messaging { padding: 0 0 50px 0;} */
 		.messaging { padding: 0 0 0 0;}
 		.msg_history {
-		  height: 516px;
+		  height: 485px;/*height: 516px;*/
 		  overflow-y: auto;
 		}
 		.px-4 {
@@ -518,8 +524,7 @@
 			<nav class="col-md-2 d-none d-md-block bg-light sidebar" w3-include-html="<c:url value='/addFrame.controller/rootaside' />"></nav>
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h2 class="ml-lg-4">Message Box</h2>
-					<small>update : 2021/04/30</small>
+					<h2 class="ml-lg-4">線上客服</h2>
 				</div>
 				<div class="m-lg-2">連線狀態 : <span class="mr-5" id="status"></span>會員在線人數 : <span id="count"></span></div>
 				<!-- ###置入本頁資訊### -->
@@ -532,7 +537,7 @@
 									<div class="recent_heading">
 										<h4>對話列表</h4>
 									</div>
-									<div class="srch_bar">
+									<!-- <div class="srch_bar">
 										<div class="stylish-input-group">
 											<input type="text" class="search-bar" placeholder="Search">
 											<span class="input-group-addon">
@@ -541,7 +546,7 @@
 												</button>
 											</span>
 										</div>
-									</div>
+									</div>-->
 								</div>
 								<div class="inbox_chat">
 								</div>

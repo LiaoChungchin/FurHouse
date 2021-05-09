@@ -83,6 +83,19 @@
             {
             filter: invert(100%);
         }
+        
+        /*導覽列滑鼠樣式*/
+        .nav-pills a:hover{ 
+	 	    color: #ff4e0d;
+	 	    cursor:url("assets/img/mouse.png"),pointer; 
+ 		} 
+ 		/*分頁切換*/
+ 		.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
+		.ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
+		.ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+			cursor: text;
+			background-color:rgba(102, 162, 255,1)
+		}
     </style>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="assets/js/w3.js"></script>
@@ -185,7 +198,7 @@
 </head>
 
 <body>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
+    <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm"
         w3-include-html="<c:url value='/addFrame.controller/header'/>"></div>
     <div class="container-fluid">
         <div class="row">
@@ -363,7 +376,7 @@
                 let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
                 $("a#anchor-login-modal").before(memberBadge);
                 $("a#myShoppingCart").attr("class",
-                    "btn btn-outline-primary");
+                    "btn btn-outline-warning");
                 $("a#myShoppingCart").attr("href", "paymentS1");
                 $("a#myShoppingCart>span").attr("class",
                     "badge btn-danger");
