@@ -26,6 +26,7 @@
 <!-- User Define JS -->
 <script src="assets/js/index.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+<script src="assets/js/sweetalert.min.js"></script>
 
 <script>
 	$(document).ready(function () {
@@ -818,7 +819,8 @@
 		<script>
 			$(document).ready(function (){
 				$("body").on("click","a#myShoppingCart",function() {
-					alert("請先登入會員喔~~~");
+// 					alert("請先登入會員喔~~~");
+					swal("請先登入會員喔!", "謝謝您~~~", "warning");
 				});
 				if(localStorage.myProducts != null || localStorage.myProducts == ""){
 					localStorage.removeItem('myProducts');

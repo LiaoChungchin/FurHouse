@@ -129,7 +129,7 @@
 	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 	<script src="assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="assets/js/bootstrap-datepicker.zh-TW.min.js"></script>
-
+	<script src="assets/js/sweetalert.min.js"></script>
 	<title>FurHouse</title>
 	
 	<%-- EL接收session中的member bean有沒有認證過 --%>
@@ -301,7 +301,7 @@
 		<script>
 			$(document).ready(function (){
 				$("body").on("click","a#myShoppingCart",function() {
-					alert("請先登入會員喔~~~");
+					swal("請先登入會員喔!", "謝謝您~~~", "warning");
 				});
 				if(localStorage.myProducts != null || localStorage.myProducts == ""){
 					localStorage.removeItem('myProducts');

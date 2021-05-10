@@ -70,7 +70,7 @@
 	<script src="assets/js/bootstrap-datepicker.zh-TW.min.js"></script>
 	<script src="assets/js/index.js"></script>
 	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-	
+	<script src="assets/js/sweetalert.min.js"></script>
 	<script>
 		$(function() {
 			$("div#menu-detail").show();
@@ -228,10 +228,28 @@
 				$("a#anchor-login-modal").text("登出");
 				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
 				$("a#anchor-login-modal").before(memberBadge);
-			});
+                $("a#myShoppingCart").attr("class",
+                "btn btn-outline-warning");
+	            $("a#myShoppingCart").attr("href", "paymentS1");
+	            $("a#myShoppingCart>span").attr("class",
+	                "badge btn-danger");
+	            $("a#goBuyIt").removeClass("disabled");
+				});
 		</script>
 	</c:if>
-	
+    <c:if test="${sessionScope.login_user == null}">
+        <script>
+            $(document).ready(function () {
+                $("body").on("click", "a#myShoppingCart", function () {
+                	swal("請先登入會員喔!", "謝謝您~~~", "warning");
+                });
+				if(localStorage.myProducts != null || localStorage.myProducts == ""){
+					localStorage.removeItem('myProducts');
+				}
+				$("a#goBuyIt").addClass("disabled");
+            });
+        </script>
+    </c:if>
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>
 		
