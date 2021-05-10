@@ -397,22 +397,22 @@
 		// }
 
 		/**********************使用者位置******************************/
-		//          /*抓取使用者位置*/
-		//           map.locate({ setView: true, maxZoom: 15 });
-		//          /*成功抓取function*/
-		//          function onLocationFound(e) {
-		//              let radius = 1000;
-		//              L.marker(e.latlng).addTo(map)
-		//                  .bindPopup("現在位置").openPopup();
-		//              L.circle(e.latlng, radius).addTo(map);
-		//          }
-		//        	 map.on('locationfound', onLocationFound);
-		//          /*失敗抓取function*/
-		//          function onLocationError(e) {
-		//              alert("無法判斷您的所在位置，無法使用此功能。");
-		//              map.setView([23.827088003857067, 120.83413767268159], 8);
-		//          }
-		//          map.on('locationerror', onLocationError);
+		         /*抓取使用者位置*/
+		          map.locate({ setView: true, maxZoom: 15 });
+		         /*成功抓取function*/
+		         function onLocationFound(e) {
+		             let radius = 1000;
+		             L.marker(e.latlng).addTo(map)
+		                 .bindPopup("現在位置").openPopup();
+		             L.circle(e.latlng, radius).addTo(map);
+		         }
+		       	 map.on('locationfound', onLocationFound);
+		         /*失敗抓取function*/
+		         function onLocationError(e) {
+// 		             alert("無法判斷您的所在位置，無法使用此功能。");
+		        	 map.setView([ 23.797088003857067, 120.83413767268159 ], 7);
+		         }
+		         map.on('locationerror', onLocationError);
 	</script>
 </body>
 </html>
