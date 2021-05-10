@@ -19,6 +19,7 @@
 <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 <link href="assets/css/bootstrapValidator.min.css" rel="stylesheet">
 <!-- User Define CSS -->
+<link href="assets/css/index.css" rel="stylesheet">
 <style>
 .container {
 	max-width: 960px;

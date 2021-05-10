@@ -57,7 +57,7 @@ public class MemberDAO {
 		Session session = sf.getCurrentSession();
 		Member member = session.get(Member.class, memberId);
 		if (member != null) {
-			member.setPassword(password);
+//			member.setPassword(password);
 			member.setName(name);
 			member.setPhone(phone);
 			member.setEmail(email);

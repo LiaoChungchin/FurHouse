@@ -92,12 +92,12 @@ public class MemberController {
 	}
 
 	@RequestMapping(path = "/member.update", method = RequestMethod.POST)
-	public String memberUpdate(@RequestParam("updateNo") int memberId, @RequestParam("updatePwd") String password,
+	public String memberUpdate(@RequestParam("updateNo") int memberId, @RequestParam(required = false,name="updatePwd") String password,
 			@RequestParam("updateName") String name, @RequestParam("updatePhone") String phone,
 			@RequestParam("updateMail") String email, @RequestParam("updateAddress") String address) {
 		
 		// PWD need SHA512 encryption
-		password = CipherHandler.getStringSHA512(password);
+//		password = CipherHandler.getStringSHA512(password);
 		
 		service.updateById(memberId, password, name, phone, email, address);
 

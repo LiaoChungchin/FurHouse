@@ -27,7 +27,7 @@ $(document).ready(function () {
 	$("body").on("click", "i#master", function(){
 	
 		let showMemberLists = "<div class='btn-group dropup' id='masterMode2'>"
-							+ "<button type='button' class='btn btn-secondary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>使用者</button>"
+							+ "<button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>使用者</button>"
 							+ "<div class='dropdown-menu'>"
 							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk0'>廖崇欽</a>"
 							+ "<a class='dropdown-item dropList' id='jlfkdlfjrk1'>鄭弘翔</a>"

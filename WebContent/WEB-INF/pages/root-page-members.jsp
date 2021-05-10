@@ -239,14 +239,14 @@
 												</div>
 												<div class="modal-body">
 													<form method="post" action="member.update">
-														<div class="form-group row">
-															<label for="updatePwd" class="col-sm-3 col-form-label">會員密碼</label>
-															<div class="col-sm-9">
-																<input type="text" class="form-control"
-																	id="update${member.memberId}Pwd" name="updatePwd"
-																	value="${member.password}">
-															</div>
-														</div>
+<!-- 														<div class="form-group row"> -->
+<!-- 															<label for="updatePwd" class="col-sm-3 col-form-label">會員密碼</label> -->
+<!-- 															<div class="col-sm-9"> -->
+<!-- 																<input type="text" class="form-control" -->
+<%-- 																	id="update${member.memberId}Pwd" name="updatePwd" --%>
+<%-- 																	value="${member.password}" disabled> --%>
+<!-- 															</div> -->
+<!-- 														</div> -->
 														<div class="form-group row">
 															<label for="updateName" class="col-sm-3 col-form-label">姓名</label>
 															<div class="col-sm-9">
@@ -345,15 +345,15 @@
 								</div>
 								<div class="modal-body">
 									<form method="post" action="member.update">
-										<div class="form-group row">
-											<label for="updatePwd" class="col-sm-3 col-form-label">會員密碼</label>
-											<div class="col-sm-9">
-												<input type="text" class="form-control"
-													id="update${requestScope.Members[0].memberId}Pwd"
-													name="updatePwd"
-													value="${requestScope.Members[0].password}">
-											</div>
-										</div>
+<!-- 										<div class="form-group row"> -->
+<!-- 											<label for="updatePwd" class="col-sm-3 col-form-label">會員密碼</label> -->
+<!-- 											<div class="col-sm-9"> -->
+<!-- 												<input type="text" class="form-control" -->
+<%-- 													id="update${requestScope.Members[0].memberId}Pwd" --%>
+<!-- 													name="updatePwd" -->
+<%-- 													value="${requestScope.Members[0].password}" disabled> --%>
+<!-- 											</div> -->
+<!-- 										</div> -->
 										<div class="form-group row">
 											<label for="updateName" class="col-sm-3 col-form-label">姓名</label>
 											<div class="col-sm-9">

@@ -546,7 +546,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="myShoppingBasket" class="position-fixed btn-group ">
+		<div id="myShoppingBasket" class="position-fixed btn-group" style="z-index:2;">
 			<button type="button"
 				class="btn btn-primary dropdown-toggle bi bi-basket"
 				id="button-basket" data-toggle="dropdown" aria-haspopup="true"
