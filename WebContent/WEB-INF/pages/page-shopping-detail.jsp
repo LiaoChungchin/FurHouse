@@ -380,6 +380,7 @@
                 $("a#myShoppingCart").attr("href", "paymentS1");
                 $("a#myShoppingCart>span").attr("class",
                     "badge btn-danger");
+                $("a#goBuyIt").removeClass("disabled");
             });
         </script>
     </c:if>
@@ -392,6 +393,7 @@
 				if(localStorage.myProducts != null || localStorage.myProducts == ""){
 					localStorage.removeItem('myProducts');
 				}
+				$("a#goBuyIt").addClass("disabled");
             });
         </script>
     </c:if>

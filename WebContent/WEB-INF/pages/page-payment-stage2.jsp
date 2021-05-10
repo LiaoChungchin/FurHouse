@@ -465,12 +465,12 @@ cursor:url("assets/img/mouse.png"),pointer;
 							class="custom-control-label" for="radio4">7-ELEVEn</label>
 						<img id="shippingImg" src="assets\img\order\7ELEVEn.jpg">	
 						</div>
-						<div class="custom-control custom-radio col-sm">
-						<input id="radio5" name="ShippingType" type="radio" value="FamilyMart"
-							class="custom-control-input"  disabled> <label
-							class="custom-control-label" for="radio5">FamilyMart</label>
-						<img id="shippingImg" src="assets\img\order\FamilyMart.jpg">
-						</div>
+<!-- 						<div class="custom-control custom-radio col-sm"> -->
+<!-- 						<input id="radio5" name="ShippingType" type="radio" value="FamilyMart" -->
+<!-- 							class="custom-control-input"  disabled> <label -->
+<!-- 							class="custom-control-label" for="radio5">FamilyMart</label> -->
+<!-- 						<img id="shippingImg" src="assets\img\order\FamilyMart.jpg"> -->
+<!-- 						</div> -->
 						<div class="custom-control custom-radio col-sm">
 						<input id="radio6" name="ShippingType" type="radio" value="黑貓宅急便"
 							class="custom-control-input"> <label
