@@ -437,13 +437,12 @@ cursor:url("assets/img/mouse.png"),pointer;
 							id="rememberInfo" name="rememberInfo" value="true" /> <label
 							class="custom-control-label" for="rememberInfo">記住我這次的資訊，方便下次購物時使用</label>
 					</div>
-					
 					<hr class="mb-4" />
 					<h4 class="mb-3">付款方式</h4>
 					<div class="row" id="radio1box">
 						<div class="custom-control custom-radio col-sm mr-4">
 							<input id="radio1" name="paymentMethod" type="radio" value="線上付款(信用卡)"
-								class="custom-control-input" disabled> <label
+								class="custom-control-input"> <label
 								class="custom-control-label" for="radio1">線上付款(信用卡)</label>
 						</div>
 						<div class="custom-control custom-radio col-sm">
@@ -453,42 +452,38 @@ cursor:url("assets/img/mouse.png"),pointer;
 						</div>
 						<div class="custom-control custom-radio col-sm">
 							<input id="radio3" name="paymentMethod" type="radio" value="銀行轉帳"
-								class="custom-control-input"> <label
+								class="custom-control-input" disabled> <label
 								class="custom-control-label" for="radio3">銀行轉帳</label>
 						</div>
 					</div>
-						<h4 class="mb-2 my-3">送貨方式</h4>
-						<div class="row" id="radio4box">
-<!-- 							<div class="custom-control custom-radio col-sm">
-							<input id="radio4" name="ShippingType" type="radio" value="7-ELEVEn"
-								class="custom-control-input"> <label
-								class="custom-control-label" for="radio4">7-ELEVEn</label>
-							<img id="shippingImg" src="assets\img\order\7ELEVEn.jpg">	
-							</div>
-							<div class="custom-control custom-radio col-sm">
-							<input id="radio5" name="ShippingType" type="radio" value="FamilyMart"
-								class="custom-control-input"> <label
-								class="custom-control-label" for="radio5">FamilyMart</label>
-							<img id="shippingImg" src="assets\img\order\FamilyMart.jpg">
-							</div>
-							 -->
-							<div class="custom-control custom-radio col-sm">
-							<input id="radio6" name="ShippingType" type="radio" value="黑貓宅急便"
-								class="custom-control-input"> <label
-								class="custom-control-label" for="radio6">黑貓宅急便</label>
-							<br>
-							<img id="shippingImg" src="assets\img\order\BlackCat.jpg">
-							</div>
-							<div class="custom-control custom-radio col-sm">
-							<input id="radio7" name="ShippingType" type="radio" value="物流/宅配"
-								class="custom-control-input" checked> <label
-								class="custom-control-label" for="radio7">物流/宅配</label>
-							<br>
-							<img id="shippingImg" src="assets\img\order\KERRY.jpg">
-							</div>
-						
+					<h4 class="mb-2 my-3">送貨方式</h4>
+					<div class="row" id="radio4box">
+						<div class="custom-control custom-radio col-sm">
+						<input id="radio4" name="ShippingType" type="radio" value="7-ELEVEn"
+							class="custom-control-input"  disabled> <label
+							class="custom-control-label" for="radio4">7-ELEVEn</label>
+						<img id="shippingImg" src="assets\img\order\7ELEVEn.jpg">	
 						</div>
-					
+						<div class="custom-control custom-radio col-sm">
+						<input id="radio5" name="ShippingType" type="radio" value="FamilyMart"
+							class="custom-control-input"  disabled> <label
+							class="custom-control-label" for="radio5">FamilyMart</label>
+						<img id="shippingImg" src="assets\img\order\FamilyMart.jpg">
+						</div>
+						<div class="custom-control custom-radio col-sm">
+						<input id="radio6" name="ShippingType" type="radio" value="黑貓宅急便"
+							class="custom-control-input"> <label
+							class="custom-control-label" for="radio6">黑貓宅急便</label>
+						<img id="shippingImg" src="assets\img\order\BlackCat.jpg">
+						</div>
+						<div class="custom-control custom-radio col-sm">
+						<input id="radio7" name="ShippingType" type="radio" value="物流/宅配"
+							class="custom-control-input" checked> <label
+							class="custom-control-label" for="radio7">物流/宅配</label>
+						<br>
+						<img id="shippingImg" src="assets\img\order\KERRY.jpg">
+						</div>
+					</div>
 					<hr class="mb-4" />
 					<div class="col-mb-4 text-right">
 					<div class="help-block with-errors"></div>

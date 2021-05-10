@@ -138,7 +138,7 @@
         // 購物車加上本頁購物的商品資訊
         var name = "${product.productName}";
         var id = "${product.id}";
-        var quantity = 0;
+        var quantity = 1;
         var price = "${product.price}";
         var imgSrc = "prodImageToByte?path=${product.photo1}";
         var nowProductionItems = 0;

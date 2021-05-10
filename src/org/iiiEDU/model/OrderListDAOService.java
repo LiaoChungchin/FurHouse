@@ -34,11 +34,19 @@ public class OrderListDAOService {
 
 		return orderListDAO.getOrderListById(id);
 	}
+	
+	public OrderList getOrderListByCreditTradeNo(String creditTradeNo) {
+		return orderListDAO.getOrderListByCreditTradeNo(creditTradeNo);
+	}
 
 	public boolean updateOrderListCondition(Integer id, Integer condition) {
 		OrderStatus orderStatus = orderStatusDAO.getStatusByCondition(condition);
 
 		return orderListDAO.updateOrderListCondition(id, orderStatus);
+	}
+	
+	public boolean updateOrderListCreditStatus(OrderList orderList) {
+		return orderListDAO.updateOrderListCreditStatus(orderList);
 	}
 	
 	@Transactional(rollbackFor = { SQLException.class })
@@ -122,7 +130,7 @@ public class OrderListDAOService {
 				throw new SQLException("OrderList invalid...");
 			}
 		} catch (SQLException e) {
-			
+			e.printStackTrace();
 			System.err.println("\nOrderListOAOService insertOne function rollback...");
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
@@ -142,5 +150,4 @@ public class OrderListDAOService {
 	public List<OrderList> getAllOrderListsMemberId(Integer memberId, Integer pageLimit, Integer currentPage) {
 		return orderListDAO.getAllOrderListsMemberId(memberId, pageLimit, currentPage);
 	}
-	
 }
