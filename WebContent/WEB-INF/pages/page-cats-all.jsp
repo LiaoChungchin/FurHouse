@@ -104,11 +104,6 @@ body {
  filter:grayscale(1); 
 }
 
-.nav-pills a:hover {
-	    color: #ff4e0d;
-	    cursor:url("assets/img/mouse.png"),pointer;
-}
-
 /*	.SupportCatItem:active { 
  		 	border: 2px solid red; 
  		border-radius: 5PX; 
@@ -140,6 +135,10 @@ body {
 		    font-size: 90%;
 		    font-weight: 400;
 		}
+		.cattitle{
+		color:#B7D8E2;
+		font-weight:bold;
+		}
  	
 </style>
 	
@@ -148,12 +147,12 @@ body {
 		$(function() {
 			$("div#menu-detail").show();
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
+			$("div#menu-detail>div>a>small:contains('領養浪貓')").parent().addClass("active");
 			// 分隔線要顯示
-			$("div#menu-detail>div>a:contains('領養專區')").next().show();
+			$("div#menu-detail>div>a:contains('認識浪貓')").next().show();
 			// 所有子項目要顯示
-			$("div#menu-detail>div>a>small:contains('認識浪貓')").parent().show();
-			$("div#menu-detail>div>a>small:contains('認識浪貓')").parent().addClass("active");
-			$("div#menu-detail>div>a>small:contains('預約看貓')").parent().show();
+			$("div#menu-detail>div>a>small:contains('領養浪貓')").parent().show();
+			$("div#menu-detail>div>a>small:contains('助養浪貓')").parent().show();
 		});
 	</script>
 	
@@ -177,7 +176,8 @@ body {
 			<div class="col-lg-10" id="div-v-pills">
 				<main role="main">
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-						<h1 class="h2">我想了解牠~</h1>
+<!-- 						<h1 class="cattitle">請以領養代替購買</h1> -->
+ 						<img src="assets/img/material.jpg" class="d-block w-100" alt="..."> 
 					</div>
 					<!--main content start-->
 					<section id="main-content">

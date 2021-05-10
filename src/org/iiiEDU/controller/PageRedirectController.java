@@ -109,4 +109,9 @@ public class PageRedirectController {
 	public String catBowDisclaimer() {
 		return "index-disclaimer.jsp";
 	}
+	
+	@GetMapping("/index.reference")
+	public String catBowReference() {
+		return "index-reference.jsp";
+	}
 }
