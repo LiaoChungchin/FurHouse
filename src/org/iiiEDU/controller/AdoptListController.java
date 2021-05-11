@@ -305,7 +305,7 @@ public class AdoptListController {
 		
 		String htmlcontent = "<h3>" + memberName + " 會員你好</h3></br>" +
 				"<div>&emsp;&emsp;謝謝你領養這古錐的小貓咪，領養流程如下:<br>" +
-				"&emsp;&emsp;<h3>填寫申請書>核對相關證件>狗狗健康檢查>諮詢協助服務>帶貓貓回家</h3></div>" + 
+				"&emsp;&emsp;<h3>填寫申請書>核對相關證件>貓貓健康檢查>諮詢協助服務>帶貓貓回家</h3></div>" + 
 				"<br>" +
 				"<div>我們的官網 :<br><a href = http://localhost:8080/FurHouse><img src = \"cid:image\" width=\"100px\" height=\"100px\" ></a></div><br>" + 
 				"<br>" +

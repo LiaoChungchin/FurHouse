@@ -75,7 +75,7 @@
 							<input type="text" class="form-control" id="rootSearch"  onkeyup="value=value.replace(/^[.!@#$%^&*]+$/,'') " >
 						</div>
 					</div>
-					<img src="<c:url value="/assets/img/AdoptListLoading.gif" />"  class="loadingGIF" style="display:none;">
+					<img src="<c:url value="/assets/img/AdoptListLoading.gif" />"  class="loadingGIF">
 					<article class="supportCatDetailContent"></article>
 					<div class="pageGroup d-flex justify-content-center"></div>	
 				</div>
@@ -214,7 +214,7 @@
 				url: "selectAllAdoptListPage/"+pageLimit+"/"+currentPage,
 				dataType: "json",
 				beforeSend : function(xhr) {
-					$('.loadingGIF').attr("style", " ");
+// 					$('.loadingGIF').attr("style", " ");
 				},
 				success: function(adoptListsResource){
 					$('.loadingGIF').attr("style","display:none");
