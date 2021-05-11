@@ -213,11 +213,16 @@
 				type:"GET",
 				url: "selectAllAdoptListPage/"+pageLimit+"/"+currentPage,
 				dataType: "json",
+				beforeSend : function(xhr) {
+					$('#loadingGIF').attr("style", " ");
+				},
 				success: function(adoptListsResource){
+					$('#loadingGIF').attr("style","display:none");
 					writeHtml(adoptListsResource.adoptLists);
 					createPageBtn(adoptListsResource.adoptListTotal);
 				},
 				error:function(xhr, ajaxOptions, thrownError){
+					$('#loadingGIF').attr("style","display:none");
 					alert(xhr.status+"\n"+thrownError);
 				}	
 			});	
@@ -294,6 +299,7 @@
 		
 		/*寫入表單內容*/
 		function writeHtml(adoptLists){
+			let tempstr='<img src="<c:url value="/assets/img/AdoptListLoading.gif" />" width="30px" id="loadingGIF" style="display:none">';
 			let tempstr='<table class="table table-hover table-striped">'+
 						'	<thead>'+
 						'		<tr>'+
