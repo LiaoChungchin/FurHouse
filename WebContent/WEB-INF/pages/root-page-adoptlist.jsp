@@ -300,7 +300,7 @@
 		/*寫入表單內容*/
 		function writeHtml(adoptLists){
 			let tempstr='<img src="<c:url value="/assets/img/AdoptListLoading.gif" />" width="30px" id="loadingGIF" style="display:none">';
-			let tempstr='<table class="table table-hover table-striped">'+
+			tempstr+='<table class="table table-hover table-striped">'+
 						'	<thead>'+
 						'		<tr>'+
 						'			<th scope="col">編號</th>'+
