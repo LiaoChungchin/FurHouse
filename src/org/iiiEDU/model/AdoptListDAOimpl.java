@@ -240,13 +240,17 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 	}
 	
 	@Override
-	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId) {
+	public List<AdoptList> searchAllAdoptListMemberIdByAsc(Integer memberId,Integer pageLimit,Integer currentPage) {
 		Session session = sessionFactory.getCurrentSession();
 
-		String hql = "from AdoptList where fk_memberId = :memberId order by visitTime";
+		String hql = "from AdoptList a where fk_memberId = :memberId order by a.adoptListStatus.id desc,visitTime asc";
 		
 		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
 		query.setParameter("memberId", memberId);
+		
+		adoptListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
 		
 		List<AdoptList> adoptLists = query.getResultList();
 		

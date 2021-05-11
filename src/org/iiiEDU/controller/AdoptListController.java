@@ -236,14 +236,20 @@ public class AdoptListController {
 		
 		return adoptListsResource;
 	}
-	/*根據memberId搜尋全部 反向顯示*/
-	@GetMapping(path = "/searchAllAdoptListMemberId/{id}")
+	/*根據memberId搜尋全部 正向顯示*/
+	@GetMapping(path = "/searchAllAdoptListMemberIdByAsc/{id}/{pageLimit}/{currentPage}")
 	@ResponseBody
-	public List<AdoptList> searchAllAdoptListMemberIdDesc(@PathVariable("id") Integer id) {
+	public Map<String,Object> searchAllAdoptListMemberIdByAsc(@PathVariable("id") Integer id,
+			@PathVariable("pageLimit") Integer pageLimit,@PathVariable("currentPage") Integer currentPage) {
 
-		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListMemberId(id);
+		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListMemberIdByAsc(id,pageLimit,currentPage);
 		
-		return adoptLists;
+		Map<String,Object> adoptListsResource = new LinkedHashMap<String, Object>();
+		
+		adoptListsResource.put("adoptLists", adoptLists);
+		adoptListsResource.put("adoptListTotal", adoptListService.getAdoptListTotal());
+		
+		return adoptListsResource;
 	}
 	
 	@GetMapping(path = "/searchAllAdoptListMemberName/{memberName}/{pageLimit}/{currentPage}")

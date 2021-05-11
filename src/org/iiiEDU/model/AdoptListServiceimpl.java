@@ -92,8 +92,8 @@ public class AdoptListServiceimpl implements AdoptListService {
 	}
 	
 	@Override
-	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId){
-		return adoptListDAO.searchAllAdoptListMemberId(memberId);
+	public List<AdoptList> searchAllAdoptListMemberIdByAsc(Integer memberId,Integer pageLimit,Integer currentPage){
+		return adoptListDAO.searchAllAdoptListMemberIdByAsc(memberId,pageLimit,currentPage);
 	}
 	
 	@Override

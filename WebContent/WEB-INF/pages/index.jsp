@@ -141,21 +141,24 @@
 		    cursor:url("assets/img/mouse.png"),pointer;
 		}
 
+		.nav-link:hover, .nav-link:focus {
+		  cursor:url("assets/img/mouse.png"),pointer;
+		}
 /*瞄點樣式*/
-.md{
-    position: fixed;
-    right: 15px;
-    top: 30%;
-    margin-top: -92.5px;
-}
-.md a{
-    display: inline-block;
-    margin-bottom: 5px;
-}
-
-.md li{
-	list-style-type:none;
-}
+		.md{
+		    position: fixed;
+		    right: 15px;
+		    top: 30%;
+		    margin-top: -92.5px;
+		}
+		.md a{
+		    display: inline-block;
+		    margin-bottom: 5px;
+		}
+		
+		.md li{
+			list-style-type:none;
+		}
 
 
 	</style>

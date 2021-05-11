@@ -61,10 +61,10 @@
 							style="display:block; margin-left:auto; margin-right:auto;">
 					<p class="text-center font-weight-bold">CatBow 貓飽×貓寶</p>
 					<hr>
-					<p class="text-justify">1.歡迎光臨「CatBow貓飽×貓寶網站」(以下簡稱本網站)，本網站設立 之目的在於學術發表之用，任何瀏覽網站的人士，
-						須自行承擔一切風險，本網站不會負責任何因瀏覽或使用而引致之損失。本網站亦不會做出任 何默示的擔保。 </p>
+					<p class="text-justify">1.歡迎光臨「CatBow貓飽×貓寶網站」(以下簡稱本網站)，本網站設立之目的在於學術發表之用，任何瀏覽網站的人士，
+						須自行承擔一切風險，本網站不會負責任何因瀏覽或使用而引致之損失。本網站亦不會做出任何默示的擔保。 </p>
 					<p class="text-justify">2.本網站所載的所有資料、商標、標誌、圖像、短片、聲音檔案、連結及其他資料等（以下簡稱「資料」），僅供資策會成
-						果發表之用。如本網站之 資料有疑似侵權之疑慮，請來信告知(liaochungchin@yahoo.com.tw)。我們將盡速
+						果發表之用。如本網站之資料有疑似侵權之疑慮，請來信告知(liaochungchin@yahoo.com.tw)。我們將盡速
 						與您聯繫確認。</p>
 					<p class="text-justify">3.本聲明的訂立、執行和解釋及爭議的解決均應適用於中華民國法律，並以台灣台北地方法院作為第一審管轄法院。</p>
 				</div>

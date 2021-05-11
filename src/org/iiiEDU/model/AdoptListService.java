@@ -19,7 +19,7 @@ public interface AdoptListService {
 	List<AdoptList> searchAllAdoptListCatId(Integer catId);
 	List<AdoptList> searchAllAdoptListCatNickname(String catNickname,Integer pageLimit,Integer currentPage);
 	List<AdoptList> searchAllAdoptListMemberId(Integer memberId,Integer pageLimit,Integer currentPage);
-	List<AdoptList> searchAllAdoptListMemberId(Integer memberId);
+	List<AdoptList> searchAllAdoptListMemberIdByAsc(Integer memberId,Integer pageLimit,Integer currentPage);	
 	List<AdoptList> searchAllAdoptListMemberIdBeforeToday(Integer memberId,Timestamp today);
 	List<AdoptList> searchAllAdoptListMemberId(Integer memberId,Integer fk_adoptListStatusId);
 	List<AdoptList> searchAllAdoptListMemberName(String memberName,Integer pageLimit,Integer currentPage);
