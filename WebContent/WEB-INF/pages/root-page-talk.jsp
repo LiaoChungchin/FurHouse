@@ -37,7 +37,7 @@
 		  text-align: right;
 		  width: 60%;
 		}
-		.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;background-color:#EDE7F8;}
+		.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;background-color:rgba(237,231,248,0.5);}
 		
 		.recent_heading h4 {
 /* 		  color: rgba(63, 68, 106, 1); */

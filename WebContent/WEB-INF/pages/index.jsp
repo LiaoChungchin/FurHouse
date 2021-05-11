@@ -20,8 +20,8 @@
 		.parallax {
 			max-width: 100%;
 			/* width: 100vw; */
-/* 			height:100vh; */
-			height:766px;
+ 			height:100vh; 
+/* 			height:766px; */
 			font-weight:bold;
 			font-size:1.25rem;
 			display:flex;
@@ -156,6 +156,8 @@
 .md li{
 	list-style-type:none;
 }
+
+
 	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -169,6 +171,7 @@
 	<script src="assets/js/index.js"></script>
 	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 	<script src="assets/js/sweetalert.min.js"></script>
+	<script src="assets/js/chart.xkcd.js"></script>
 	
 	<title>FurHouse</title>
 	
@@ -303,11 +306,15 @@
 				</div>
 				<div class="parallax bg3" id="bg3">
 					<div class="container marketing">
-						<div class="text-center">
-							<p>學習藍圖</p>
+						<div class="text-center mt-1">
+							<h1>學習藍圖</h1>
 						</div>
-						<div class="text-center">
-							<img alt="" src="assets/img/eeit-092101.png" height="640px">
+						<div class="mx-auto col-sm-9 my-5 py-2">
+								<svg id="chart"></svg>
+						</div>
+ 						<div class="text-center col-sm-8">
+<!-- 							<img alt="" src="assets/img/eeit-092101.png" height="640px"> -->
+<!-- 								<img alt="" src="assets/img/learn.jpg" height="360px"> -->
 						</div>
 					</div>
 				</div>
@@ -370,6 +377,31 @@
 	    <li><a href="#bg4"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
 	</ul>
 	<!-- 锚点结束-->
+	<script>
+	//chart
+	const svg = document.getElementById('chart');
+	const chart = new chartXkcd.Pie(svg, {
+	    title: ' 跨域Java軟體工程師養成班 576小時 ',
+	    data: {
+	        labels:[ '前端網頁    ', 'SQL', 'Java', 'Java後端開發    ', '智慧應用   ','實作與專題    '],
+	        datasets: [{
+	            data: [60, 36, 72, 126, 36,222],
+	        }]
+	    }, 
+	    options: {
+	        plugins: {
+	            legend: {
+	                labels: {
+	                    // This more specific font property overrides the global property
+	                    font: {
+	                        size: 18,
+	                    }
+	                }
+	            }
+	        }
+	    },
+	});
+	</script>
 	
 	<script>
 	// Wrap every letter in a span
