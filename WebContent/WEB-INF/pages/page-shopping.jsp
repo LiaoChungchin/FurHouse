@@ -66,7 +66,7 @@
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('飼糧')").parent().addClass("active");
 			
-			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='diet'><h3>&nbsp;&nbsp;&nbsp;飼糧</h3></div><div class='card-deck'></div></div></div></div>");
+			$("div#div-v-pills").html("<div class='container-fluid container2'><div class='v-pills-shopping-title' id='diet'><h3>&nbsp;&nbsp;&nbsp;飼糧</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "飼糧"), true);
@@ -95,7 +95,7 @@
 			
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('罐頭餐')").parent().addClass("active");
-			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='can'><h3>&nbsp;&nbsp;&nbsp;罐頭餐</h3></div><div class='card-deck'></div></div></div></div>");
+			$("div#div-v-pills").html("<div class='container-fluid container2'><div class='v-pills-shopping-title' id='can'><h3>&nbsp;&nbsp;&nbsp;罐頭餐</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "罐頭餐"), true);
@@ -123,7 +123,7 @@
 			
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('清潔用品')").parent().addClass("active");
-			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='clean'><h3>&nbsp;&nbsp;&nbsp;清潔用品</h3></div><div class='card-deck'></div></div></div></div>");
+			$("div#div-v-pills").html("<div class='container-fluid container2'><div class='v-pills-shopping-title' id='clean'><h3>&nbsp;&nbsp;&nbsp;清潔用品</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "清潔用品"), true);
@@ -151,7 +151,7 @@
 			
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('遊樂玩具')").parent().addClass("active");
-			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='fun'><h3>&nbsp;&nbsp;&nbsp;遊樂玩具</h3></div><div class='card-deck'></div></div></div></div>");
+			$("div#div-v-pills").html("<div class='container-fluid container2'><div class='v-pills-shopping-title' id='fun'><h3>&nbsp;&nbsp;&nbsp;遊樂玩具</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "遊樂玩具"), true);
@@ -179,7 +179,7 @@
 			
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
 			$("div#menu-detail>div>a>small:contains('生活用品')").parent().addClass("active");
-			$("div#div-v-pills").html("<div class='container-fluid'><div class='v-pills-shopping-title' id='dailyuse'><h3>&nbsp;&nbsp;&nbsp;生活用品</h3></div><div class='card-deck'></div></div></div></div>");
+			$("div#div-v-pills").html("<div class='container-fluid container2'><div class='v-pills-shopping-title' id='dailyuse'><h3>&nbsp;&nbsp;&nbsp;生活用品</h3></div><div class='card-deck'></div></div></div></div>");
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", ("<c:url value='/product.selectByType'/>" + "/" + "生活用品"), true);
@@ -353,6 +353,23 @@
 		 cursor:url("assets/img/mouse.png"),pointer;
 	}
 	
+			body {
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+			margin-left: 0px;
+		}
+		.container2{
+			margin-top:0px;
+			background: -webkit-linear-gradient(rgba(246,227,227,0.2),rgba(252,242,242,0.1));
+			background: -o-linear-gradient(rgba(246,227,227,0.2),rgba(252,242,242,0.1));
+			background: -moz-linear-gradient(rgba(246,227,227,0.2),rgba(252,242,242,0.1));
+			background: linear-gradient(rgba(246,227,227,0.2),rgba(252,242,242,0.1));
+		}
+		
+		#menu-detail{
+			box-shadow:10px 0px 12px -8px rgba(255,199,162,0.37),-6px 0px 8px -4px rgba(255,199,162,0.37);
+		}
 </style>
 
 <title>FurHouse</title>
@@ -375,7 +392,7 @@
 		<div class="col-lg-10" id="div-v-pills">
 		
 			<!-- ###置入本頁資訊### -->
-			<div class="container-fluid">
+			<div class="container-fluid container2">
 			
 				<!-- ###輪播圖廣告區### -->
 				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

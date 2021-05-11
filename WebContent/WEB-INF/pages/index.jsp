@@ -44,13 +44,13 @@
 			text-shadow:white 0.1em 0.1em 0.2em;
 		}
 		.bg3 {
- 			background:url("assets/img/background/bg4.jpg") no-repeat;
-/*  			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg3.jpg);  */
+/* 			background:url("assets/img/background/bg3.jpg") no-repeat; */
+			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg3.jpg);
 			background-size:cover;
 			background-attachment:fixed;
 		}
 		.bg4 {
- 			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg3.jpg); 
+ 			background:url("assets/img/background/bg4.jpg") no-repeat;
 			background-size:cover;
 			background-attachment:fixed;
 		}
@@ -136,12 +136,15 @@
  		span .letters{
  			display:inline-block;
  		}
-		/* 導覽列滑鼠樣式 */
+/* 導覽列滑鼠樣式 */
  		.nav-pills:hover,.nav-pills:focus {
 		    cursor:url("assets/img/mouse.png"),pointer;
 		}
 
-		/*瞄點樣式*/
+		.nav-link:hover, .nav-link:focus {
+		  cursor:url("assets/img/mouse.png"),pointer;
+		}
+/*瞄點樣式*/
 		.md{
 		    position: fixed;
 		    right: 15px;
@@ -157,11 +160,9 @@
 			list-style-type:none;
 		}
 	
-		.gitflow{
-			width:80%;
-			overflow: hidden;
+		#menu-detail{
+			box-shadow:10px 0px 12px -8px rgba(255,199,162,0.37),-6px 0px 8px -4px rgba(255,199,162,0.37);
 		}
-
 	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -322,20 +323,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="parallax bg4" id="bg4">
-					<div class="container marketing">
-						<div class="text-center my-5">
-							<h1>GitHub版本控管</h1>
-						</div>
-						<div class="mx-auto gitflow">
-							<img src="assets/img/Git.png" width="20%" style="margin-left:15%;">
-							<img src="assets/img/GitHub.png" width="20%" style="float:right;margin-right:15%;">
-						</div>
-						<div class="mx-auto gitflow animegitflow">
-							<img src="assets/img/GitflowPS.png">
-						</div>
-					</div>
-				</div>
+				<div class="parallax bg4" id="bg4">使用技術</div>
 			</div>
 		</div>
 	</div>
@@ -597,17 +585,6 @@
 				delay:1000,
 				easing:"easeOutQuint",
 			});
-		
-		$('.gitflow').click(function(){
-			anime.timeline({loop: false})
-			.add({
-				targets:".animegitflow img",
-				translateX: [0,-3000],
-				duration:2500,
-				easing:"easeInOutCubic",
-				delay:(el, i) => 100 * (i+1)
-			})
-		});
 	</script>
 
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"

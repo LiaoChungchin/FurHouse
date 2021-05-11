@@ -106,10 +106,14 @@
 		.container{
 /* 			height:1000px; */
 			margin-top:0px;
-			background: -webkit-linear-gradient(rgba(251,251,110,0.2),rgba(255,255,242,0.5));
-			background: -o-linear-gradient(rgba(251,251,110,0.2),rgba(255,255,242,0.5));
-			background: -moz-linear-gradient(rgba(251,251,110,0.2),rgba(255,255,242,0.5));
-			background: linear-gradient(rgba(251,251,110,0.2),rgba(255,255,242,0.5));
+			background: -webkit-linear-gradient(rgba(251,251,110,0.1),rgba(255,255,242,0.3));
+			background: -o-linear-gradient(rgba(251,251,110,0.1),rgba(255,255,242,0.3));
+			background: -moz-linear-gradient(rgba(251,251,110,0.1),rgba(255,255,242,0.3));
+			background: linear-gradient(rgba(251,251,110,0.1),rgba(255,255,242,0.3));
+		}
+		
+		#menu-detail{
+			box-shadow:10px 0px 12px -8px rgba(255,199,162,0.37),-6px 0px 8px -4px rgba(255,199,162,0.37);
 		}
     </style>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -270,13 +274,13 @@
                                     <div class="col-md-12" id="box3-product">
                                         <p class="card-title">${product.productName}</p>
                                         <div class="row justify-content-start">
-                                            <div class="col-4">
+                                            <div class="col-3">
                                                 <small>商品編號:${product.id}</small>
                                             </div>
                                             <div class="col-4">
                                                 <small> 分類：${product.type}</small>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-5">
                                                 <p class="card-text-dollar">
                                                     好康價&nbsp;&nbsp;&nbsp;$NT<span
                                                         class="price">${product.price}</span>

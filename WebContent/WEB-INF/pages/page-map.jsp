@@ -55,6 +55,10 @@
 	    cursor:url("assets/img/mouse.png"),pointer;
 }
 
+#menu-detail{
+	box-shadow:10px 0px 12px -8px rgba(255,199,162,0.37),-6px 0px 8px -4px rgba(255,199,162,0.37); 
+}
+
 </style>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

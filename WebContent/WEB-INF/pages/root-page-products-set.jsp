@@ -91,8 +91,8 @@
 	    				<jsp:useBean id="prod" scope="request" class="org.iiiEDU.model.Product" />
 	    				<form class="needs-validation" method="POST" action="UpdateProduct_Root" enctype="multipart/form-data">
 							<div class="form-group row">
-								<label class="col-2 col-form-label" for="SetProdId">產品編號</label>
-								<div class="col-sm-10">
+								<label class="col-1 form-label" for="SetProdId">產品編號</label>
+								<div class="col-2">
 									<input type="text" class="form-control-plaintext" id="SetProdId" name="id" value="${prod.id}" readonly/>
 								</div>
 							</div>
