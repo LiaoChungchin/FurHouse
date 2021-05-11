@@ -81,9 +81,10 @@
 						for(let i = 0; i < selectedProducts.length; i ++){
 							
 							let id = selectedProducts[i].id;
+							let quantity = selectedProducts[i].quantity;
 							let productName = selectedProducts[i].productName;
 							let price = selectedProducts[i].price;
-							let cardContent = setCard(id, productName, price);
+							let cardContent = setCard(id, productName, price, quantity);
 							$("div.card-deck").append(cardContent);
 						}
 					}
@@ -108,9 +109,10 @@
 						for(let i = 0; i < selectedProducts.length; i ++){
 							
 							let id = selectedProducts[i].id;
+							let quantity = selectedProducts[i].quantity;
 							let productName = selectedProducts[i].productName;
 							let price = selectedProducts[i].price;
-							let cardContent = setCard(id, productName, price);
+							let cardContent = setCard(id, productName, price, quantity);
 							$("div.card-deck").append(cardContent);
 						}
 					}
@@ -135,9 +137,10 @@
 						for(let i = 0; i < selectedProducts.length; i ++){
 							
 							let id = selectedProducts[i].id;
+							let quantity = selectedProducts[i].quantity;
 							let productName = selectedProducts[i].productName;
 							let price = selectedProducts[i].price;
-							let cardContent = setCard(id, productName, price);
+							let cardContent = setCard(id, productName, price, quantity);
 							$("div.card-deck").append(cardContent);
 						}
 					}
@@ -162,9 +165,10 @@
 						for(let i = 0; i < selectedProducts.length; i ++){
 							
 							let id = selectedProducts[i].id;
+							let quantity = selectedProducts[i].quantity;
 							let productName = selectedProducts[i].productName;
 							let price = selectedProducts[i].price;
-							let cardContent = setCard(id, productName, price);
+							let cardContent = setCard(id, productName, price, quantity);
 							$("div.card-deck").append(cardContent);
 						}
 					}
@@ -189,9 +193,10 @@
 						for(let i = 0; i < selectedProducts.length; i ++){
 							
 							let id = selectedProducts[i].id;
+							let quantity = selectedProducts[i].quantity;
 							let productName = selectedProducts[i].productName;
 							let price = selectedProducts[i].price;
-							let cardContent = setCard(id, productName, price);
+							let cardContent = setCard(id, productName, price, quantity);
 							$("div.card-deck").append(cardContent);
 						}
 					}
@@ -200,7 +205,7 @@
 		});
 		
 		//通用card樣板
-		function setCard(id, productName, price){
+		function setCard(id, productName, price, quantity){
 			
 			var card = "";
 			
@@ -222,8 +227,8 @@
 			card += price;
 			card += "</p>";
 			card += "<p class='card-text'>";
-			card += "<small class='text-muted'>商品編號：";
-			card += id;
+			card += "<small class='text-muted'>商品數量：";
+			card += quantity;
 			card += "</small>";
 			card += "</p></div></div></div>";
 			

@@ -96,6 +96,21 @@
 			cursor: text;
 			background-color:rgba(102, 162, 255,1)
 		}
+		
+		body {
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+			margin-left: 0px;
+		}
+		.container{
+/* 			height:1000px; */
+			margin-top:0px;
+			background: -webkit-linear-gradient(rgba(251,251,110,0.2),rgba(255,255,242,0.5));
+			background: -o-linear-gradient(rgba(251,251,110,0.2),rgba(255,255,242,0.5));
+			background: -moz-linear-gradient(rgba(251,251,110,0.2),rgba(255,255,242,0.5));
+			background: linear-gradient(rgba(251,251,110,0.2),rgba(255,255,242,0.5));
+		}
     </style>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="assets/js/w3.js"></script>
@@ -285,13 +300,13 @@
                                         <div class="input-group" style="text-aglin: center">
                                             <p>購買數量&nbsp;&nbsp;</p>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-outline-secondary"
+                                                <button type="button" class="btn btn-light"
                                                     id="qtyminus" field="quantity">
                                                     <i class="bi bi-dash"></i>
                                                 </button>
                                             </span> <input type='text' name='quantity' value='1' class='qty'>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-outline-secondary"
+                                                <button type="button" class="btn btn-light"
                                                     id="qtyplus" field="quantity">
                                                     <i class="bi bi-plus"></i>
                                                 </button>

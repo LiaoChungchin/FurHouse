@@ -173,15 +173,45 @@
 										<input type="file" accept="image/*" class="form-control-file" id="SetProdFile2" name="file2" style="display:none;">
 						            	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
 					            	</label>
-					            	<img id="photo2" src="prodImageToByte?path=${prod.photo2}" onerror="imgchange()">
-								</div>
-								<div class="col">
-									<label class="form-label" for="SetProdFile3">圖片3</label>&nbsp;&nbsp;
-									<label class="btn btn-primary">
-										<input type="file" accept="image/*" class="form-control-file" id="SetProdFile3" name="file3" style="display:none;">
-						            	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
-					            	</label>
-					            	<img id="photo3" src="prodImageToByte?path=${prod.photo3}" onerror="imgchange()">
+					            	
+					            	<c:choose>
+										<c:when test="${prod.photo2!=null}">
+						            		<img id="photo2" src="prodImageToByte?path=${prod.photo2}">
+						            	</c:when>
+										<c:otherwise>
+											<img id="photo2">
+										</c:otherwise>
+					            	</c:choose>
+					       		</div>
+									<c:choose>
+									<c:when test="${prod.photo2!=null}">
+									<div class="col">
+										<label class="form-label" for="SetProdFile3">圖片3</label>
+										<label class="btn btn-primary">
+											<input type="file" accept="image/*" class="form-control-file" id="SetProdFile3" name="file3" style="display:none;">
+							            	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
+						            	</label>
+						            	<c:choose>
+										<c:when test="${prod.photo3!=null}">
+						            		<img id="photo3" src="prodImageToByte?path=${prod.photo3}">
+						            	</c:when>
+										<c:otherwise>
+											<img id="photo3">
+										</c:otherwise>
+					            	</c:choose>
+					            	</div>
+									</c:when>
+									<c:otherwise>
+									<div class="col invisible" id="ShowFile3">
+										<label class="form-label" for="SetProdFile3">圖片3</label>
+										<label class="btn btn-primary">
+											<input type="file" accept="image/*" class="form-control-file" id="SetProdFile3" name="file3" style="display:none;">
+							            	<i class="bi bi-cloud-arrow-up"></i>&nbsp;上傳
+						            	</label>
+						            	<img id="photo3">
+					            	</div>
+									</c:otherwise>
+					          	  </c:choose>
 								</div>
 							</div>
 							<!-- Submit button -->
@@ -218,6 +248,7 @@
 		var reader = new FileReader;
 		reader.onload = function(e) {
 			$('#photo2').attr('src', e.target.result);
+			$("#ShowFile3").removeClass("invisible");
 		};
 		reader.readAsDataURL(file);
 	});
@@ -230,12 +261,6 @@
 		};
 		reader.readAsDataURL(file);
 	});
-	/*-------------------------圖片無法讀取顯示預設圖-----------------------------*/
-    function imgchange(){
-        var img=event.srcElement;
-        img.src="<c:url value='/assets/img/Catbow-nobg.png' />";
-        img.onerror=null; //控制不要一直觸發錯誤
-    }
     /*-------------------------滑鼠移入顯示全文-----------------------------*/
 	$(".toolong").on("mouseenter", function() {
   	      if (!this.title) this.title = $(this).text();

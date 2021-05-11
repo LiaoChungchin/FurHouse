@@ -412,6 +412,7 @@
 	
 	/*-----------------------按reset重置所有屬性-----------------------*/
 	$("#InsertProductReset").on("click",function(){
+		flag1=false,flag2=false,flag3=false,flag4=false,flag5=false,flag6=false;
 		let form = $('#prodForm');
 		form.find('#prodName-feedback,#prodBrandName-feedback,#prodType-feedback,#prodSubType-feedback,#prodPlace-feedback').innerHTML = '';
 		$("#photo1").attr('src',"");
@@ -456,6 +457,9 @@
 	    $("#InsertProdType").addClass("is-valid");
 	    $("#InsertProdSubType").addClass("is-valid");
 	    $("#InsertProdPlace").addClass("is-valid");
+	    if(flag1&&flag2&&flag3&&flag4&&flag5&&flag6==true){
+			$("#checkSubmit").removeAttr("disabled"); 
+		};
 	}
 	
 </script>

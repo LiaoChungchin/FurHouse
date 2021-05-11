@@ -135,9 +135,27 @@
 								<c:forEach items="${prods}" var="prod" varStatus="s">
 									<tr id="${prod.id}">
 										<td>${prod.id}</td>
-										<td><img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo1}" alt="喵~" onerror="imgchange()"></td>
-										<td><img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo2}" alt="喵~" onerror="imgchange()"></td>
-										<td><img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo3}" alt="喵~" onerror="imgchange()"></td>					
+										<td><img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo1}"></td>
+										<td>
+											<c:choose>
+												<c:when test="${prod.photo2 != null}">
+													<img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo2}">
+												</c:when>
+												<c:otherwise>
+													<img class="figure-img img-fluid rounded" src="assets/img/testlogo.png">
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>
+											<c:choose>
+												<c:when test="${prod.photo3 != null}">
+													<img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo3}">
+												</c:when>
+												<c:otherwise>
+													<img class="figure-img img-fluid rounded" src="assets/img/testlogo.png">
+												</c:otherwise>
+											</c:choose>
+										</td>
 										<td>${prod.productName}</td>
 										<td>${prod.type}</td>
 										<td>${prod.subType}</td>
@@ -158,13 +176,10 @@
 										<td>${prod.updateDate}</td>		
 										<td class="toolong">${prod.comment1}</td>
 										<td class="toolong">${prod.comment2}</td>																	
-														
-										<c:set var="count" value="${s.count}"></c:set>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
-<%-- 						<h2 class="allProdCount">共${count}筆</h2> --%>
 					</article>
                 </div>
             </div>
@@ -199,12 +214,6 @@
   	      if (!this.title) this.title = $(this).text();
  	});
     
-    /*-------------------------圖片無法讀取顯示預設圖-----------------------------*/
-    function imgchange(){
-        var img=event.srcElement;
-        img.src="<c:url value='/assets/img/Catbow-nobg.png' />";
-        img.onerror=null; //控制不要一直觸發錯誤
-    }
     
 </script>
 </body>
