@@ -16,6 +16,10 @@
 .adoptListDelete{
 	width:200px;
 }
+.loadingGIF{
+	margin: 80px auto;
+	display: block;
+}
 
 /*訂單管理*/
 	/* 表單內文備註滑鼠移入顯示全文樣式 */

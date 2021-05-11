@@ -75,7 +75,7 @@
 							<input type="text" class="form-control" id="rootSearch"  onkeyup="value=value.replace(/^[.!@#$%^&*]+$/,'') " >
 						</div>
 					</div>
-					
+					<img src="<c:url value="/assets/img/AdoptListLoading.gif" />"  class="loadingGIF" style="display:none;">
 					<article class="supportCatDetailContent"></article>
 					<div class="pageGroup d-flex justify-content-center"></div>	
 				</div>
@@ -214,15 +214,15 @@
 				url: "selectAllAdoptListPage/"+pageLimit+"/"+currentPage,
 				dataType: "json",
 				beforeSend : function(xhr) {
-					$('#loadingGIF').attr("style", " ");
+					$('.loadingGIF').attr("style", " ");
 				},
 				success: function(adoptListsResource){
-					$('#loadingGIF').attr("style","display:none");
+					$('.loadingGIF').attr("style","display:none");
 					writeHtml(adoptListsResource.adoptLists);
 					createPageBtn(adoptListsResource.adoptListTotal);
 				},
 				error:function(xhr, ajaxOptions, thrownError){
-					$('#loadingGIF').attr("style","display:none");
+					$('.loadingGIF').attr("style","display:none");
 					alert(xhr.status+"\n"+thrownError);
 				}	
 			});	
@@ -299,8 +299,7 @@
 		
 		/*寫入表單內容*/
 		function writeHtml(adoptLists){
-			let tempstr='<img src="<c:url value="/assets/img/AdoptListLoading.gif" />" width="30px" id="loadingGIF" style="display:none">';
-			tempstr+='<table class="table table-hover table-striped">'+
+			let tempstr ='<table class="table table-hover table-striped">'+
 						'	<thead>'+
 						'		<tr>'+
 						'			<th scope="col">編號</th>'+
