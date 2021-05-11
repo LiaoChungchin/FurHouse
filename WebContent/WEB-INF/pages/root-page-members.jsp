@@ -213,9 +213,9 @@
 														<input type="hidden" name="memberWhoToDelete"
 															value="${member.memberId}" />
 														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
+															data-dismiss="modal">關閉</button>
 														<input type="submit" class="btn btn-primary"
-															value="Confrim" />
+															value="確定刪除" />
 													</form>
 												</div>
 											</div>
@@ -283,7 +283,7 @@
 															<div class="col-sm-10">
 																<input type="hidden" name="updateNo"
 																	value="${member.memberId}">
-																<button type="submit" class="btn btn-primary">Confirm</button>
+																<button type="submit" class="btn btn-primary">修改</button>
 															</div>
 														</div>
 													</form>
