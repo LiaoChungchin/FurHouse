@@ -45,15 +45,17 @@
 		}
 		.bg3 {
  			background:url("assets/img/background/bg4.jpg") no-repeat;
-			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg3.jpg);
+			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg4.jpg);
 			background-size:cover;
 			background-attachment:fixed;
+			text-shadow:white 0.1em 0.1em 0.2em;
 		}
 		.bg4 {
 			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg3.jpg);
 /*  			background:url("assets/img/background/bg4.jpg") no-repeat; */
 			background-size:cover;
 			background-attachment:fixed;
+			text-shadow:white 0.1em 0.1em 0.2em;
 		}
 		.parallax .container-anime {
 			padding-left:0%;
@@ -317,18 +319,117 @@
 				</div>
 				<div class="parallax bg3" id="bg3">
 					<div class="container marketing">
-						<div class="text-center mt-1">
-							<h1>學習藍圖</h1>
+						<div class="text-center mb-5">
+							<h1>使用技術與學習藍圖</h1>
 						</div>
-						<div class="mx-auto col-sm-9 my-5 py-2">
+						<div class="learnings" style="width:800px;height:600px;">
 								<svg id="chart"></svg>
-						</div>
- 						<div class="text-center col-sm-8">
-<!-- 							<img alt="" src="assets/img/eeit-092101.png" height="640px"> -->
-<!-- 								<img alt="" src="assets/img/learn.jpg" height="360px"> -->
+								<img class="inCircleCenter" id="c1" src="assets/img/background/front.png" width="420" height="420" />
+								<img class="inCircleCenter" id="c2" src="assets/img/background/back.png" width="420" height="420" />
+								<img class="inCircleCenter" id="c3" src="assets/img/background/cloud.png" width="420" height="420" />
+								<img class="inCircleCenter" id="c4" src="assets/img/background/extra.png" width="420" height="420" />
+								<img class="inCircleCenter" id="c5" src="assets/img/background/server.png" width="420" height="420" />
 						</div>
 					</div>
 				</div>
+				<style>
+					.learnings {
+						position: relative;
+					}
+					.learnings .inCircleCenter {
+						position: absolute;
+						top: 15%;
+  						left: 80%;
+  						transform-origin: center center;
+    					opacity: 0;
+					}
+				</style>
+				<script>
+					$(function(){
+						$("body").on("click", "svg#chart>g>path", function(){
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(0)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c1',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(1)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c5',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(2)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c2',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(3)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c3',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(4)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c4',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+						})
+					});
+				</script>
 				<div class="parallax bg4" id="bg4">
 					<div class="container marketing">
 						<div class="text-center my-5">
@@ -407,23 +508,9 @@
 	const chart = new chartXkcd.Pie(svg, {
 	    title: ' 跨域Java軟體工程師養成班 576小時 ',
 	    data: {
-	        labels:[ '前端網頁    ', 'SQL', 'Java', 'Java後端開發    ', '智慧應用   ','實作與專題    '],
-	        datasets: [{
-	            data: [60, 36, 72, 126, 36,222],
-	        }]
-	    }, 
-	    options: {
-	        plugins: {
-	            legend: {
-	                labels: {
-	                    // This more specific font property overrides the global property
-	                    font: {
-	                        size: 18,
-	                    }
-	                }
-	            }
-	        }
-	    },
+	        labels:[ '前端網頁', 'SQL', 'Java       ', '智慧應用', '實作與專題'],
+	        datasets: [{data:[60, 36, 198, 36, 222]}]
+	    }
 	});
 	</script>
 	
