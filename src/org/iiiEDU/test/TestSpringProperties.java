@@ -18,7 +18,7 @@ public class TestSpringProperties {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringJavaEEConfig.class);
 		
 		JDBCUtils jdbcUtils = context.getBean("jdbcUtils", JDBCUtils.class);
-		System.out.println(jdbcUtils);
+//		System.out.println(jdbcUtils);
 		
 		String driverClass = jdbcUtils.getTheDriverClass();
 		String url = jdbcUtils.getTheUrl();
@@ -27,7 +27,7 @@ public class TestSpringProperties {
 		
 		Class.forName(driverClass);
 		Connection conn = DriverManager.getConnection(url, user, password);
-		System.out.println(conn);
+//		System.out.println(conn);
 		conn.close();
 		context.close();
 	}

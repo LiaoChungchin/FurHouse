@@ -1,11 +1,16 @@
 package org.iiiEDU.controller;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.iiiEDU.ecpay.payment.integration.AllInOne;
+import org.iiiEDU.ecpay.payment.integration.domain.AioCheckOutALL;
+import org.iiiEDU.ecpay.payment.integration.ecpayOperator.EcpayFunction;
 import org.iiiEDU.model.Member;
 import org.iiiEDU.model.MemberDAOService;
 import org.iiiEDU.model.OrderList;
@@ -14,6 +19,7 @@ import org.iiiEDU.model.OrderStatus;
 import org.iiiEDU.model.OrderStatusDAOService;
 import org.iiiEDU.model.Product;
 import org.iiiEDU.model.ProductService;
+import org.iiiEDU.utils.MailUtils;
 import org.iiiEDU.utils.PathHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -56,6 +62,9 @@ public class OrdersController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private MailUtils mailUtils;
 	
 	@GetMapping("/myOrderList")
 	public String myOrderList(){
@@ -112,7 +121,7 @@ public class OrdersController {
 	public @ResponseBody Map<String, String> updateStatus(@PathVariable(required = true) Integer id,
 			@RequestBody Map<String, Integer> status) {
 		
-		System.out.println(status);
+//		System.out.println(status);
 
 		Map<String, String> ans = new LinkedHashMap<>();
 		if (orderListService.updateOrderListCondition(id, status.get("condition"))) {
@@ -131,9 +140,9 @@ public class OrdersController {
 		Integer i = orderList.getOrderStatus().getCondition();
 		
 		Map<String, String> ans = new LinkedHashMap<>();
+		
 		if(i<=3) {
-			//進行棄單加回的判斷(尚未撰寫)
-			orderListService.updateOrderListCondition(id, 41);
+			orderListService.updateOrderListCondition(id, 4);
 			ans.put("result", "success");
 		}else {
 			ans.put("result", "fail");
@@ -156,6 +165,15 @@ public class OrdersController {
 		return "page-payment-stage2.jsp";
 	}
 	
+	// 測試金流用
+//	@GetMapping("/paymentS2_Test")
+//	public String directToPay2T(Model model){
+//		OrderList orderList = new OrderList();
+//		model.addAttribute("formOrderlist", orderList);
+//		
+//		return "page-payment-stage2-test.jsp";
+//	}
+	
 	@PostMapping("/order.insert")
 	public String orderInsert(
 			Model model,
@@ -169,7 +187,25 @@ public class OrdersController {
 			@RequestParam(name = "paymentMethod", defaultValue = "null") String paymentMethod,
 			@RequestParam(name = "ShippingType", defaultValue = "null") String ShippingType,
 			@RequestParam(name = "productsJson", defaultValue = "null") String productsJson) {
+		
 		Member member = (Member)model.getAttribute("login_user");
+		
+		// 建立當前的時間戳
+		Timestamp timestampNow = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String formatTimestampNow = simpleDateFormat.format(timestampNow);
+		simpleDateFormat = new SimpleDateFormat("MMddHHmmssSSSSS");
+		String orderTradeNo = simpleDateFormat.format(timestampNow);
+		
+		// 計算優惠後總價
+		Integer orderListTotalPrice = 0;
+		
+		// 金流用的商品明細
+		String productsDetails = "";
+		
+//		// 金流測試用
+//		member = memberDAOService.getMemberById(2);
+		
 		if(member != null) {			
 			ObjectMapper objectMapper = new ObjectMapper();
 			List<MyProductTemp> tempList = new ArrayList<>();
@@ -189,30 +225,49 @@ public class OrdersController {
 				Product product = productService.selectOneProduct(Integer.parseInt(tempList.get(i).getId()));
 				switch(i) {
 				case 0 :
+					String product01 = product.getProductName();
+					product01 += "，數量:";
+					product01 += howMany;
+					productsDetails += product01;
 					orderList.setProduct1(product);
 					orderList.setProductQua01(Integer.parseInt(tempList.get(i).getQuantity()));
 					break;
 				case 1 :
+					String product02 = product.getProductName();
+					product02 += "，數量:";
+					product02 += howMany;
+					productsDetails += ("#" + product02);
 					orderList.setProduct2(product);
 					orderList.setProductQua02(Integer.parseInt(tempList.get(i).getQuantity()));
 					break;
 				case 2 :
+					String product03 = product.getProductName();
+					product03 += "，數量:";
+					product03 += howMany;
+					productsDetails += ("#" + product03);
 					orderList.setProduct3(product);
 					orderList.setProductQua03(Integer.parseInt(tempList.get(i).getQuantity()));
 					break;
 				case 3 :
+					String product04 = product.getProductName();
+					product04 += "，數量:";
+					product04 += howMany;
+					productsDetails += ("#" + product04);
 					orderList.setProduct4(product);
 					orderList.setProductQua04(Integer.parseInt(tempList.get(i).getQuantity()));
 					break;
 				case 4 :
+					String product05 = product.getProductName();
+					product05 += "，數量:";
+					product05 += howMany;
+					productsDetails += ("#" + product05);
 					orderList.setProduct5(product);
 					orderList.setProductQua05(Integer.parseInt(tempList.get(i).getQuantity()));
 					break;
 				}
 			}
-			orderList.setCreateDate(new Timestamp(System.currentTimeMillis()));
+			orderList.setCreateDate(timestampNow);
 			orderList.setMember(memberDAOService.getMemberById(member.getMemberId()));
-			orderList.setTotalPrice(totalPrice - 60); // discount included...
 			orderList.setPaymentType(paymentMethod);
 			orderList.setOrderStatus(orderStatusService.getStatusByCondition(0));
 			if(county=="null"&&district=="null") {
@@ -222,14 +277,96 @@ public class OrdersController {
 			}
 			orderList.setShippingType(ShippingType);
 			orderList.setContact(userName);
-			orderList.setComment(comment);
-		}		
+			
+			if(totalPrice>=160) {
+				orderListTotalPrice += (totalPrice - 60);
+				orderList.setTotalPrice(orderListTotalPrice);
+			}else {
+				orderListTotalPrice = totalPrice;
+				orderList.setTotalPrice(orderListTotalPrice);
+			}
+			
+			if(comment!="null") {
+				orderList.setComment(comment);
+			}else {
+				orderList.setComment("無備註");
+			}
+		}	
+		
+		if("線上付款(信用卡)".equals(paymentMethod)) {
+			
+			// 產生ECPay的新用卡付費表單
+			AllInOne all = new AllInOne("");
+			AioCheckOutALL obj = new AioCheckOutALL();
+			obj.setMerchantID("2000132");
+			obj.setMerchantTradeNo("FH" + orderTradeNo);
+			obj.setMerchantTradeDate(formatTimestampNow);
+			obj.setTotalAmount(orderListTotalPrice.toString());
+			obj.setTradeDesc("CatBow 貓飽×貓寶 線上支付明細");
+			obj.setItemName(productsDetails);
+			obj.setReturnURL("http://65ce78eca113.ngrok.io/FurHouse/ECPayFeedback");
+			obj.setOrderResultURL("http://127.0.0.1:8080/FurHouse/ECPaySuccess");
+			obj.setNeedExtraPaidInfo("N");
+
+			String form = all.aioCheckOut(obj, null);
+			model.addAttribute("createECPayForm", form);
+			
+			// 產生ECPay的Hash辨識碼
+			Hashtable<String, String> objToHashtable = EcpayFunction.objToHashtable(obj);
+			String checkMacValue = EcpayFunction.genCheckMacValue("5294y06JbISpM5x9", "v77hoKGq4kWxNNIS", objToHashtable);
+			
+			// 將ECPay相關參數填入資料表中
+			orderList.setCreditTradeNo("FH" + orderTradeNo);
+			orderList.setCreditTradeHash(checkMacValue);
+			orderList.setCreditTradeStatus("fail");
 			
 			if(orderListService.insertOne(orderList)) {
-					return "page-payment-stage3.html";
-				}else {
-					return "page-payment-error.html";
+				return "page-payment-ecpay.jsp";
+			} else {
+				return "page-payment-error.html";
 			}
+		} else {
+			orderList.setCreditTradeStatus("na");
+			if(orderListService.insertOne(orderList)) {
+				return "page-payment-stage3.html";
+			} else {
+				return "page-payment-error.html";
+			}
+		}
+	}
+	
+	@PostMapping("/ECPayFeedback")
+	@ResponseBody
+	public String ECPayFeedbackAns(
+			@RequestParam("RtnMsg") String rtnMsg,
+			@RequestParam("RtnCode") String rtnCode,
+			@RequestParam("MerchantTradeNo") String rtnTradeNo) {
+		
+		if("交易成功".equals(rtnMsg) && "1".equals(rtnCode)) {
+			OrderList orderList = orderListService.getOrderListByCreditTradeNo(rtnTradeNo);
+			if(orderList != null) {
+				orderList.setCreditTradeStatus("completed");
+				if(orderListService.updateOrderListCreditStatus(orderList)) {
+					
+					return "1|OK";
+				}
+			}
+		}
+		
+		return "0|";
+	}
+	
+	@PostMapping("/ECPaySuccess")
+	public String ecpaySuccsee(
+			@RequestParam("RtnMsg") String rtnMsg,
+			@RequestParam("RtnCode") String rtnCode) {
+		
+		if("Succeeded".equals(rtnMsg) && "1".equals(rtnCode)) {
+			
+			return "page-payment-stage3.html";
+		}
+		
+		return "page-payment-error.html";
 	}
 	
 	@GetMapping("/orderImageToByte")
@@ -250,6 +387,29 @@ public class OrdersController {
 			return null;
 		}
 	}
+	
+	@GetMapping(path = "/sendOrderEmail/{memberName}/{memberMail}", produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String sendOrderEmail(@PathVariable("memberName") String memberName,@PathVariable("memberMail") String memberMail){
+		
+		String subject = "CatBow 貓飽×貓寶";
+		
+		String htmlcontent = "<h3>" + memberName + "您好</h3></br>" 
+				+"&emsp;&emsp;<h3>您的訂單已確認，我們將立即為您安排物流運送您的商品</h3></div>" + 
+				"<br>" +
+				"<div>我們的官網 :<br><a href = http://localhost:8080/FurHouse><img src = \"cid:image\" width=\"100px\" height=\"100px\" ></a></div><br>"; 
+
+		String imagePath = "/Catbow.png";
+		
+		boolean b = mailUtils.sendOrderEmail(memberMail,subject,htmlcontent,imagePath);
+		
+		if(b) {
+			return "已寄送相關資料至會員E-Mail";
+		}else {
+			return "發生錯誤，請尋求管理員幫助";
+		}
+	}
+	
 }
 
 class MyProductTemp{

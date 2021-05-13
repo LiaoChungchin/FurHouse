@@ -37,10 +37,12 @@
 		  text-align: right;
 		  width: 60%;
 		}
-		.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+		.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;background-color:rgba(237,231,248,0.5);}
 		
 		.recent_heading h4 {
-		  color: #05728f;
+/* 		  color: rgba(63, 68, 106, 1); */
+		  color: rgba(103,14,133, 1);
+		  font-weight:700;
 		  font-size: 21px;
 		  margin: auto;
 		}
@@ -53,9 +55,9 @@
 		  font-size: 18px;
 		}
 		.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
-		.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
+		.chat_ib h5{ font-size:15px; color:#440059; margin:0 0 8px 0;}
 		.chat_ib h5 span{ font-size:13px; float:right;}
-		.chat_ib p{ font-size:14px; color:#989898; margin:auto}
+		.chat_ib p{ font-size:14px; color:#fff; margin:auto}
 		.chat_img {
 		  float: left;
 		  width: 11%;
@@ -67,16 +69,21 @@
 		}
 		.chat_people{ overflow:hidden; clear:both;}
 		.chat_list {
-		  border-bottom: 1px solid #c4c4c4;
+			background-color:rgba(191,191,219,1);
+			border-bottom: 2px solid #DADAF5;
+	 		border-top: 2px solid rgba(198,198,229,1);
+/* 		  border-bottom: 1px solid #c4c4c4; */
 		  margin: 0;
 		  padding: 18px 16px 10px;
 		}
-		.inbox_chat { height: 550px; overflow-y: scroll;}
+		.inbox_chat { height: 550px; overflow-y: scroll;background-color:#EDE7F8;}
 /* 		.active_chat{ background:#ebebeb;} */
-		.active_chat{ background : linear-gradient(to bottom, #f5f5f5 0%,#dcdcdc 100%);}
+/* 		.active_chat{ background : linear-gradient(to bottom, #f5f5f5 0%,#dcdcdc 100%);} */
+		.active_chat{ background : linear-gradient(to bottom, #f5f5f5 0%,rgba(107,78,186,1) 100%);}
 		.incoming_msg_img {
 		  display: inline-block;
-		  width: 6%;
+ 		  width: 6%;
+		  margin: 5px 0 0 0;
 		}
 		.received_msg {
 		  display: inline-block;
@@ -106,7 +113,7 @@
 		  width: 70%;
 		}
 		 .sent_msg p {
-		  background: #007bff none repeat scroll 0 0;
+		  background: #6B4EBA none repeat scroll 0 0;/*#007bff*/
 		  border-radius: 3px;
 		  font-size: 14px;
 		  margin: 0; color:#fff;
@@ -128,7 +135,7 @@
 		}
 		.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
 		.msg_send_btn {
-		  background: #007bff none repeat scroll 0 0;
+		  background: #6B4EBA none repeat scroll 0 0;/*#007bff*/
 		  border: medium none;
 		  border-radius: 50%;
 		  color: #fff;
@@ -143,7 +150,7 @@
 /* 		.messaging { padding: 0 0 50px 0;} */
 		.messaging { padding: 0 0 0 0;}
 		.msg_history {
-		  height: 516px;
+		  height: 485px;/*height: 516px;*/
 		  overflow-y: auto;
 		}
 		.px-4 {
@@ -157,8 +164,8 @@
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
 	<!-- User Define JS -->
 	
 	<title>*ROOT*</title>
@@ -229,7 +236,7 @@
 				        	setMessageDiv("server", msg);
 						} else {
 							// 將信息轉成管理員的回覆，包裝到用戶對話框中
-							setMessageDiv("client",[msg.message, msg.toUser]);
+							setMessageDiv("client",[msg.message, msg.toUser, msg.talkTime]);
 						}
 			        } else {
 			        	// 或是更新對話列表
@@ -253,7 +260,7 @@
 				        	setMessageDiv("server", msg);
 						} else {
 							// 將信息轉成管理員的回覆，包裝到用戶對話框中
-							setMessageDiv("client",[msg.message, msg.toUser]);
+							setMessageDiv("client",[msg.message, msg.toUser, msg.talkTime]);
 						}
 			        }
 		        }
@@ -291,6 +298,9 @@
 // 						console.log("成功重置userID[" + userId + "]的未讀信息數量");
 					}
 		    	}
+		    	// scrollbar保持在最底部
+				let thisScrollMainWindow = $(msg_history_showMsg).get(0);
+			    thisScrollMainWindow.scrollTop = thisScrollMainWindow.scrollHeight;
 		    });
 		});
 		
@@ -338,7 +348,7 @@
 				let newChatMember = "<div class='chat_list'>"
 									+ "<div class='chat_people'>"
 									+ "<div class='chat_img'>"
-									+ "<img src='assets/img/user-profile.png' alt=''/>"
+									+ "<img src='member.getPhoto/" + member.user + "' alt=''/>"
 									+ "</div>"
 									+ "<div class='chat_ib'>"
 									+ "<h5>"
@@ -362,7 +372,7 @@
 				let newChatMember = "<div class='chat_list'>"
 									+ "<div class='chat_people'>"
 									+ "<div class='chat_img'>"
-									+ "<img src='assets/img/user-profile.png' alt=''/>"
+									+ "<img src='member.getPhoto/" + member.user + "' alt=''/>"
 									+ "</div>"
 									+ "<div class='chat_ib'>"
 									+ "<h5>"
@@ -401,7 +411,7 @@
 		
 		function setMessageDiv(type, msg) {
 		    if(type === "client"){
-		    	// clinet 的 msg 給的是數組 [message, toUser]
+		    	// clinet 的 msg 給的是數組 [message, toUser, talkTime(可能沒有)]
 		    	function fillzeros(value){
 		    		if(value < 9){
 		    			return "0" + value;
@@ -409,32 +419,48 @@
 		    		return value;
 		    	};
 		    	
-		    	let timeAtNow = new Date();
-		    	timeAtNow = (timeAtNow.getFullYear()) 
-		    				+ "-" 
-		    				+ fillzeros((timeAtNow.getMonth() + 1))
-		    				+ "-" 
-		    				+ fillzeros(timeAtNow.getDate())
-		    				+ " " 
-		    				+ fillzeros(timeAtNow.getHours()) 
-		    				+ ":" 
-		    				+ fillzeros(timeAtNow.getMinutes())
-		    				+ ":" 
-		    				+ fillzeros(timeAtNow.getSeconds());
+		    	let theTime; // 要輸出的時間，如果msg從資料庫抓的，會有時間；如果是當下send()的訊息，就需要加上當前時間戳
+		    	
+		    	if(msg[2] == null){
+		    		
+		    		theTime = new Date();
+		    		theTime = (theTime.getFullYear()) 
+			    				+ "-" 
+			    				+ fillzeros((theTime.getMonth() + 1))
+			    				+ "-" 
+			    				+ fillzeros(theTime.getDate())
+			    				+ " " 
+			    				+ fillzeros(theTime.getHours()) 
+			    				+ ":" 
+			    				+ fillzeros(theTime.getMinutes())
+			    				+ ":" 
+			    				+ fillzeros(theTime.getSeconds());
+		    	} else {
+		    		theTime = msg[2];
+		    	}
 		    	
 		    	let fillinMsg = "<div class='outgoing_msg'><div class='sent_msg'><p>"
 		    					+ msg[0]
 		    					+ "</p><span class='time_date'>"
-		    					+ timeAtNow
+		    					+ theTime
 		    					+ "</span></div></div>";
 		    	let chooseElement = "div#showMsg" + msg[1];
 		    	$(chooseElement).append(fillinMsg);
+		    	
+		    	// scrollbar保持在最底部
+		    	let whosDiv = "#showMsg" + msg[1];
+				let thisScrollMainWindow = $(whosDiv).get(0);
+			    thisScrollMainWindow.scrollTop = thisScrollMainWindow.scrollHeight;
+				
+		    	// 更新用戶列表(左側)的最新時間
+		    	let chooseTargetChartList = "h5:contains('用戶ID[" + msg[1] + "]')";
+	        	$(chooseTargetChartList).find("span").eq(0).text(theTime);
 		    };
 		    if(type === "server"){
 		    	// server 的 msg 給的是 JSON
 		    	let fillinMsg = "<div class='incoming_msg'>"
 		    					+ "<div class='incoming_msg_img'>"
-		    					+ "<img src='assets/img/user-profile.png' alt=''>"
+		    					+ "<img src='member.getPhoto/" + msg.sendUser + "' alt=''/>"
 		    					+ "</div>"
 		    					+ "<div class='received_msg'>"
 		    					+ "<div class='received_withd_msg'>"
@@ -452,6 +478,15 @@
 		    					+ "</span></div></div></div>"
 		    	let chooseElement = "div#showMsg" + msg.sendUser;
 		    	$(chooseElement).append(fillinMsg);
+		    	
+		    	// scrollbar保持在最底部
+		    	let whosDiv = "#showMsg" + msg.sendUser;
+			    let thisScrollMainWindow = $(whosDiv).get(0);
+			    thisScrollMainWindow.scrollTop = thisScrollMainWindow.scrollHeight;
+		    	
+		    	// 更新用戶列表(左側)的最新時間
+		    	let chooseTargetChartList = "h5:contains('用戶ID[" + msg.sendUser + "]')";
+	        	$(chooseTargetChartList).find("span").eq(0).text(msg.talkTime);
 		    };
 		};
 		
@@ -460,16 +495,25 @@
 		}
 		
 		function send() {
-		    var sendUser = 0 // 客服ID:0
-		    var toUser = parseInt(document.getElementById("toUser").value);
-			var message = document.getElementById("write_msg").value;
-		    var jsonMsg = {"sendUser": sendUser, "toUser": toUser, "message": message}
-		    websocket.send(JSON.stringify(jsonMsg));
-		    
-// 		    console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
-		
-		    setMessageDiv("client", [message, toUser]);
-		    document.getElementById("write_msg").value = "";
+			
+			if(document.getElementById("write_msg").value != ""){
+				
+			    var sendUser = 0 // 客服ID:0
+			    var toUser = parseInt(document.getElementById("toUser").value);
+				var message = document.getElementById("write_msg").value;
+			    var jsonMsg = {"sendUser": sendUser, "toUser": toUser, "message": message}
+			    websocket.send(JSON.stringify(jsonMsg));
+			    
+	// 		    console.log("送出的JSON字串 : " + JSON.stringify(jsonMsg));
+			
+			    setMessageDiv("client", [message, toUser, null]);
+			    document.getElementById("write_msg").value = "";
+			    
+			 	// scrollbar保持在最底部
+		    	let whosDiv = "#showMsg" + toUser;
+			    let thisScrollMainWindow = $(whosDiv).get(0);
+			    thisScrollMainWindow.scrollTop = thisScrollMainWindow.scrollHeight;
+			};
 		}
 	</script>
 </head>
@@ -480,8 +524,7 @@
 			<nav class="col-md-2 d-none d-md-block bg-light sidebar" w3-include-html="<c:url value='/addFrame.controller/rootaside' />"></nav>
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h2 class="ml-lg-4">Message Box</h2>
-					<small>update : 2021/04/30</small>
+					<h2 class="ml-lg-4">線上客服</h2>
 				</div>
 				<div class="m-lg-2">連線狀態 : <span class="mr-5" id="status"></span>會員在線人數 : <span id="count"></span></div>
 				<!-- ###置入本頁資訊### -->
@@ -494,7 +537,7 @@
 									<div class="recent_heading">
 										<h4>對話列表</h4>
 									</div>
-									<div class="srch_bar">
+									<!-- <div class="srch_bar">
 										<div class="stylish-input-group">
 											<input type="text" class="search-bar" placeholder="Search">
 											<span class="input-group-addon">
@@ -503,7 +546,7 @@
 												</button>
 											</span>
 										</div>
-									</div>
+									</div>-->
 								</div>
 								<div class="inbox_chat">
 								</div>

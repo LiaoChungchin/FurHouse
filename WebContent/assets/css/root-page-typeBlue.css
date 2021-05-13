@@ -1,0 +1,205 @@
+/*會員管理*/
+#allMembertb{
+	text-align:left;
+ 	table-layout: fixed; 
+}
+
+/*寵物預約*/
+.supportCatDetail{
+	width:100%;
+	margin:5px auto;
+}
+.pageGroup button{
+	width: 45px;
+	margin: 0px 2px;
+}
+.adoptListDelete{
+	width:200px;
+}
+.loadingGIF{
+	margin: 80px auto;
+	display: block;
+}
+
+/*訂單管理*/
+	/* 表單內文備註滑鼠移入顯示全文樣式 */
+.toolong {
+	/*width: 120px; */
+	width: 10rem;
+	font-size: 0.75em white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+a#amountDetail{
+	text-align:right; 
+}
+.amountDetailType{
+	margin-right:10px;
+	padding-left:10px;
+}
+.totalPriceType{
+	text-align: center;
+}
+form#orderListForm {
+	font-size: 0.75em;
+	text-align: center;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 0.75rem 2rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #FFF;
+    font-size: 17px;
+    color:#000000;
+}
+.form-group {
+	margin: 10px;
+}
+	/*彈窗表單欄位樣式 */
+.col-form-label {
+	margin-top: 10px;
+	font-size: 16px;
+	color: #4F4F4F;
+	text-align: center;
+	line-height: 30px;
+}
+.orderType{
+	margin-top: 10px;
+	font-size: 16px;
+	color: #000000;
+	background-color:rgba(92,102,204,0.13);
+	text-align: center;
+	line-height: 30px;
+	border-radius: 5px;
+}
+	/*彈窗表單分隔線樣式 */
+hr{
+		width: 80%;
+		margin: 20px auto;
+		border: 0;
+ 		height: 1px; 
+/* 		background: #c938ff; */
+/*  	background-image: linear-gradient(to right, #ccc, #c938ff, #ccc); */
+		background: #F09797;
+		background-image: linear-gradient(to right, #ccc, #F09797, #ccc);
+}
+	/*彈窗表單內文標題樣式 */
+.formTitle{
+	color:#A80000;
+	font-size:26px;
+	text-align: left;
+	padding: 20px 0;
+}
+	/*彈窗表單內文樣式 */
+.form-control-plaintext {
+	font-size: 16px;
+	font-weight: bold;
+	color: #000000;
+	margin: 10px;
+}
+
+/*彈窗抬頭*/
+.modal-title{
+	color:#A80000;
+	font-size:26px;
+}
+
+/*表單標題*/
+.table thead{
+	background-color: rgba(63, 68, 106, 1);
+	color:#FAFAFA !important;
+}
+/*表單懸停色*/
+.table-hover tbody tr:hover, .table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+	background: rgba(183, 216, 226, 0.5) !important;
+}
+
+ /*按鈕顏色*/
+ .text-secondary {
+  color: rgba(79, 103, 173, 1) !important;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: rgba(79, 103, 173, 1);
+  border-color: rgba(79, 103, 173, 1);
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: rgba(91, 132, 196, 1);
+  border-color: rgba(114, 160, 221, 1);
+}
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(2, 114, 227, 0.5);
+}
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #000000;
+  background-color: #9BBFE2;
+  border-color: #9BBFE2;
+}
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #1272D3;
+  border-color: #005cbf;
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(2, 114, 227, 0.5);
+}
+
+/*dataTables 分頁按鈕顏色 */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #FAFAFA !important;
+    border: 1px solid #E8E8E8;
+    background-color: rgba(114, 136, 196, 1);
+    background:rgba(114, 136, 196, 1);
+    border-radius:5px;
+}
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: #3F446A;
+    font-weight:bold;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    cursor: default;
+    color: #3F446A !important;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+    font-weight:bold;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 0.5em;
+    padding: .5em 1em;
+    margin: 5px 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    *cursor: hand;
+    color: #333 !important;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 0.5em;
+    padding: .5em 1em;
+    margin: 5px 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    *cursor: hand;
+    color: #FFF !important;
+    border: 1px solid transparent;
+    background-color: #ACC0D9 ;
+    background:#ACC0D9 ;
+    border-radius: 5px;
+}

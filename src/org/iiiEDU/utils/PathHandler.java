@@ -39,7 +39,17 @@ public class PathHandler {
 			String fileName = multipartFile.getOriginalFilename();
 			String fileType = fileName.substring(fileName.lastIndexOf(".")).replace("\"", "");
 			
-			return (globalProjectImgPath + capital + "-" + UUID.randomUUID() + fileType);
+			return (globalProjectImgPath + "/members/" + capital + "-" + UUID.randomUUID() + fileType);
+		} else {
+			
+			return null;
+		}
+	}
+	
+	public static String producePhotoPathStr(String capital, String produceShortPhotoPathStr) {
+		if("m".equals(capital)) {
+			
+			return (globalProjectImgPath + produceShortPhotoPathStr);
 		} else {
 			
 			return null;

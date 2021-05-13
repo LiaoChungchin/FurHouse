@@ -424,10 +424,28 @@ public class ProductController {
 		return entity;
 	}
 	
-	
 	@GetMapping(value = "/product.selectByType/{type}", produces = { "application/json; charset=UTF-8" })
 	public @ResponseBody List<Product> selectById(@PathVariable(required = true) String type) {
 
 		return productService.selectProductByType(type);
+	}
+	
+	@GetMapping("/prodImageToByte")
+	@ResponseBody
+	public ResponseEntity<byte[]> catImageToByte(@RequestParam("path") String path) {
+		
+		if(path.length()!=0) {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_JPEG);
+				
+			try {
+				return new ResponseEntity<byte[]>(PathHandler.getPhotoBiteArray(path),headers, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}	
+		}else {
+			return null;
+		}
 	}
 }

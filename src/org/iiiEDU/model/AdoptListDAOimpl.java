@@ -120,7 +120,7 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 	}
 	
 	@Override
-	public AdoptList selectOneAdoptList(Timestamp visitTime) {
+	public List<AdoptList> selectSomeAdoptListForvisitTime(Timestamp visitTime) {
 		Session session = sessionFactory.getCurrentSession();
 
 		String hql = "from AdoptList where visitTime = :visitTime";
@@ -133,8 +133,7 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		if(adoptLists.isEmpty()) {
 			return null;
 		}else {
-			AdoptList adoptList = adoptLists.get(0);
-			return adoptList;
+			return adoptLists;
 		}	
 	}
 	
@@ -146,6 +145,21 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		
 		Query<AdoptList> query = session.createNativeQuery(sql, AdoptList.class);
 		query.setParameter("visitTime", "%"+visitTime+"%");
+		
+		List<AdoptList> adoptLists = query.getResultList();
+		
+		return adoptLists;
+	}
+
+	@Override
+	public List<AdoptList> searchAllAdoptListVisitTime(String visitTime,Integer catId){
+		Session session = sessionFactory.getCurrentSession();
+
+		String sql = "select * from AdoptList where convert(nvarchar,visitTime,120) like :visitTime and fk_adoptListStatusId = 1 and fk_catId = :fk_catId" ;
+		
+		Query<AdoptList> query = session.createNativeQuery(sql, AdoptList.class);
+		query.setParameter("visitTime", "%"+visitTime+"%");
+		query.setParameter("fk_catId", catId);
 		
 		List<AdoptList> adoptLists = query.getResultList();
 		
@@ -169,6 +183,20 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		adoptListTotal = query.list().size();
 		query.setMaxResults(pageLimit);
 		query.setFirstResult((currentPage-1)*pageLimit);
+		
+		List<AdoptList> adoptLists = query.getResultList();
+		
+		return adoptLists;
+	}
+	
+	@Override
+	public List<AdoptList> searchAllAdoptListCatId(Integer catId){
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "from AdoptList as a where a.cat.id = :catId";
+		
+		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
+		query.setParameter("catId", catId);
 		
 		List<AdoptList> adoptLists = query.getResultList();
 		
@@ -212,13 +240,47 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 	}
 	
 	@Override
-	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId) {
+	public List<AdoptList> searchAllAdoptListMemberIdByAsc(Integer memberId,Integer pageLimit,Integer currentPage) {
 		Session session = sessionFactory.getCurrentSession();
 
-		String hql = "from AdoptList where fk_memberId = :memberId order by visitTime desc";
+		String hql = "from AdoptList a where fk_memberId = :memberId order by a.adoptListStatus.id desc,visitTime asc";
 		
 		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
 		query.setParameter("memberId", memberId);
+		
+		adoptListTotal = query.list().size();
+		query.setMaxResults(pageLimit);
+		query.setFirstResult((currentPage-1)*pageLimit);
+		
+		List<AdoptList> adoptLists = query.getResultList();
+		
+		return adoptLists;
+	}
+	
+	@Override
+	public List<AdoptList> searchAllAdoptListMemberIdBeforeToday(Integer memberId,Timestamp today) {
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "from AdoptList where fk_memberId = :memberId and visitTime < :today and fk_adoptListStatusId < 2";
+		
+		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
+		query.setParameter("memberId", memberId);
+		query.setParameter("today", today);
+
+		List<AdoptList> adoptLists = query.getResultList();
+		
+		return adoptLists;
+	}
+	
+	@Override
+	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId,Integer fk_adoptListStatusId) {
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "from AdoptList where fk_memberId = :memberId and fk_adoptListStatusId = :fk_adoptListStatusId";
+		
+		Query<AdoptList> query = session.createQuery(hql, AdoptList.class);
+		query.setParameter("memberId", memberId);
+		query.setParameter("fk_adoptListStatusId", fk_adoptListStatusId);
 		
 		List<AdoptList> adoptLists = query.getResultList();
 		
@@ -244,6 +306,4 @@ public class AdoptListDAOimpl implements AdoptListDAO {
 		return adoptLists;
 	}
 
-	
-	
 }

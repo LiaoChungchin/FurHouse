@@ -1,12 +1,16 @@
 package org.iiiEDU.controller;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.iiiEDU.model.AdoptList;
 import org.iiiEDU.model.AdoptListService;
+import org.iiiEDU.model.Cat;
+import org.iiiEDU.model.CatService;
 import org.iiiEDU.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +28,9 @@ public class AdoptListController {
 	@Autowired
 	private AdoptListService adoptListService;
 
+	@Autowired
+	private CatService catServiceimpl;
+	
 	@Autowired
 	private AdoptList adoptList;
 	
@@ -79,13 +86,15 @@ public class AdoptListController {
 		adoptList.setFk_catId(catId);
 		adoptList.setFk_memberId(memberId);
 
+		List<AdoptList> peosonAdoptLists = adoptListService.searchAllAdoptListMemberId(memberId,1);
+		List<AdoptList> adoptLists = adoptListService.selectSomeAdoptListForvisitTime(visitTime);
 		
-		AdoptList a = adoptListService.selectOneAdoptList(visitTime);
-		System.out.println(a);
-		
-		if(a!=null) {
-			if(a.getAdoptListStatus().getId() == 1) {
-				return "該時段已有此預約";
+//		System.out.println("person:"+peosonAdoptLists.size());
+		if(adoptLists!=null) {
+			if(adoptLists.size() >= 10) {
+				return "該預約時段超出人數";
+			}else if(peosonAdoptLists.size() >= 10){
+				return "已超出10筆預約，請妥善考慮";
 			}else {
 				Integer i = adoptListService.insertAdoptList(adoptList);
 				if(i.intValue()==1) {
@@ -93,13 +102,70 @@ public class AdoptListController {
 				}
 			}
 		}else {
-			Integer i = adoptListService.insertAdoptList(adoptList);
-			if(i.intValue()==1) {
-				return "預約成功";
+			if(peosonAdoptLists.size() >= 10){
+				return "已超出10筆預約，請妥善考慮";
+			}else {
+				Integer i = adoptListService.insertAdoptList(adoptList);
+				if(i.intValue()==1) {
+					return "預約成功";
+				}
 			}
 		}
 
 		return "預約失敗";
+	};
+	
+	@PostMapping(path = "/insertAdoptListForReservation", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Map<String,Object> insertAdoptListForReservation(@RequestParam("visitTime") Timestamp visitTime,
+			@RequestParam("catId") Integer catId, @RequestParam("memberId") Integer memberId) {	
+		
+		adoptList.setVisitTime(visitTime);
+		adoptList.setFk_catId(catId);
+		adoptList.setFk_memberId(memberId);
+
+		List<AdoptList> peosonAdoptLists = adoptListService.searchAllAdoptListMemberId(memberId,1);
+		List<AdoptList> adoptLists = adoptListService.selectSomeAdoptListForvisitTime(visitTime);
+				
+		Map<String,Object> strmap = new HashMap<>();
+		
+		if(adoptLists!=null) {
+			if(adoptLists.size() >= 10) {
+				strmap.put("result", "該預約時段超出人數");
+				return strmap;
+			}else if(peosonAdoptLists.size() >= 10){
+				Cat cat = catServiceimpl.selectOneCat(catId);
+				strmap.put("catAdoptListSize", cat.getAdoptList().size());
+				strmap.put("result", "已超出10筆預約，請妥善考慮");
+				return strmap;
+			}else {
+				Integer i = adoptListService.insertAdoptList(adoptList);
+				if(i.intValue()==1) {
+					Cat cat = catServiceimpl.selectOneCat(catId);
+					strmap.put("catAdoptListSize", cat.getAdoptList().size());
+					strmap.put("result", "預約成功");
+					return strmap;
+				}
+			}
+		}else {
+			if(peosonAdoptLists.size() >= 10){
+				Cat cat = catServiceimpl.selectOneCat(catId);
+				strmap.put("catAdoptListSize", cat.getAdoptList().size());
+				strmap.put("result", "已超出10筆預約，請妥善考慮");
+				return strmap;
+			}else {
+				Integer i = adoptListService.insertAdoptList(adoptList);
+				if(i.intValue()==1) {
+					Cat cat = catServiceimpl.selectOneCat(catId);
+					strmap.put("catAdoptListSize", cat.getAdoptList().size());
+					strmap.put("result", "預約成功");
+					return strmap;
+				}
+			}
+		}
+		
+		strmap.put("result", "預約失敗");
+		return strmap;
 	};
 	
 	@PostMapping(path = "/updateAdoptList", produces = "text/plain;charset=utf-8")
@@ -107,9 +173,9 @@ public class AdoptListController {
 	public String updateAdoptList(@RequestParam("adoptListId") Integer id, @RequestParam("visitTime") Timestamp visitTime,
 			@RequestParam("catId") Integer catId, @RequestParam("memberId") Integer memberId,@RequestParam("adoptListStatusId") Integer adoptListStatusId) {	
 		
-		System.out.println(visitTime);
-		System.out.println(catId);
-		System.out.println(memberId);
+//		System.out.println(visitTime);
+//		System.out.println(catId);
+//		System.out.println(memberId);
 		
 		AdoptList a = adoptListService.selectOneAdoptList(id);
 		if(a != null) {
@@ -131,7 +197,7 @@ public class AdoptListController {
 	@GetMapping(path = "/deleteAdoptList/{id}")
 	@ResponseBody
 	public String deleteAdoptList(@PathVariable("id") Integer id) {
-
+		
 		Integer i = adoptListService.deleteAdoptList(id);
 		if (i == 1)
 			return "delete OK";
@@ -142,8 +208,17 @@ public class AdoptListController {
 	@ResponseBody
 	public List<AdoptList> searchAllAdoptListVisitTime(@PathVariable("visitTime") String visitTime) {
 
-		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListVisitTime(visitTime);
+		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListVisitTime(visitTime);			
+		
+		return adoptLists;
+	}
+	
+	@GetMapping(path = "/searchAllAdoptListVisitTimeForCatId/{visitTime}/{catId}")
+	@ResponseBody
+	public List<AdoptList> searchAllAdoptListVisitTimeForCatId(@PathVariable("visitTime") String visitTime,@PathVariable("catId") Integer catId) {
 
+		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListVisitTime(visitTime,catId);
+		
 		return adoptLists;
 	}
 	
@@ -161,14 +236,20 @@ public class AdoptListController {
 		
 		return adoptListsResource;
 	}
-	/*根據memberId搜尋全部 反向顯示*/
-	@GetMapping(path = "/searchAllAdoptListMemberId/{id}")
+	/*根據memberId搜尋全部 正向顯示*/
+	@GetMapping(path = "/searchAllAdoptListMemberIdByAsc/{id}/{pageLimit}/{currentPage}")
 	@ResponseBody
-	public List<AdoptList> searchAllAdoptListMemberIdDesc(@PathVariable("id") Integer id) {
+	public Map<String,Object> searchAllAdoptListMemberIdByAsc(@PathVariable("id") Integer id,
+			@PathVariable("pageLimit") Integer pageLimit,@PathVariable("currentPage") Integer currentPage) {
 
-		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListMemberId(id);
-			
-		return adoptLists;
+		List<AdoptList> adoptLists = adoptListService.searchAllAdoptListMemberIdByAsc(id,pageLimit,currentPage);
+		
+		Map<String,Object> adoptListsResource = new LinkedHashMap<String, Object>();
+		
+		adoptListsResource.put("adoptLists", adoptLists);
+		adoptListsResource.put("adoptListTotal", adoptListService.getAdoptListTotal());
+		
+		return adoptListsResource;
 	}
 	
 	@GetMapping(path = "/searchAllAdoptListMemberName/{memberName}/{pageLimit}/{currentPage}")
@@ -224,7 +305,7 @@ public class AdoptListController {
 		
 		String htmlcontent = "<h3>" + memberName + " 會員你好</h3></br>" +
 				"<div>&emsp;&emsp;謝謝你領養這古錐的小貓咪，領養流程如下:<br>" +
-				"&emsp;&emsp;<h3>填寫申請書>核對相關證件>狗狗健康檢查>諮詢協助服務>帶貓貓回家</h3></div>" + 
+				"&emsp;&emsp;<h3>填寫申請書>核對相關證件>貓貓健康檢查>諮詢協助服務>帶貓貓回家</h3></div>" + 
 				"<br>" +
 				"<div>我們的官網 :<br><a href = http://localhost:8080/FurHouse><img src = \"cid:image\" width=\"100px\" height=\"100px\" ></a></div><br>" + 
 				"<br>" +
@@ -240,5 +321,22 @@ public class AdoptListController {
 			return "發生錯誤，請尋求管理員幫助";
 		}
 		
+	}
+	
+	@GetMapping("/cancelAdoptListBeforeNow/{memberId}")
+	@ResponseBody
+	public List<AdoptList> cancelAdoptListBeforeNow(@PathVariable("memberId") Integer memberId) {
+		  Timestamp ts = Timestamp.from(Instant.now());
+		  
+			List<AdoptList> adoptLists = adoptListService.searchAllAdoptListMemberIdBeforeToday(memberId,ts);
+			
+			for(AdoptList adoptList:adoptLists) {
+				adoptList.setFk_catId(adoptList.getCat().getId());
+				adoptList.setFk_memberId(adoptList.getMember().getMemberId());
+				adoptList.setFk_adoptListStatusId(0);
+				adoptListService.updateAdoptList(adoptList);			
+			}
+		  
+		  return adoptLists;
 	}
 }

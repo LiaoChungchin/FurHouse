@@ -49,17 +49,29 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.nav-pills a:hover,.dropdown-divider:focus{
+	    color: #ff4e0d;
+	    cursor:url("assets/img/mouse.png"),pointer;
+}
+
+#menu-detail{
+	box-shadow:10px 0px 12px -8px rgba(255,199,162,0.37),-6px 0px 8px -4px rgba(255,199,162,0.37); 
+}
+
 </style>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
 <script src="assets/js/jQuery-3.6.0.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <!-- User Define JS -->
 <script src="assets/js/leaflet.js"></script>
 <script src="assets/js/leaflet.markercluster-src.js"></script>
 <script src="assets/js/index.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+<script src="assets/js/sweetalert.min.js"></script>
 <script>
 	$(function() {
 		$("div#menu-detail").show();
@@ -83,7 +95,7 @@
 </head>
 <body>
 	<div
-		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
+		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm"
 		w3-include-html="<c:url value='/addFrame.controller/header'/>"></div>
 	<div class="container-fluid">
 		<div class="row">
@@ -126,15 +138,32 @@
 	<!-- 登入會員後會出現的會員專區連結 -->
 	<c:if test="${sessionScope.login_user != null}">
 		<script>
-			$(document)
-					.ready(
-							function() {
-								$("a#anchor-login-modal").text("登出");
-								let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
-								$("a#anchor-login-modal").before(memberBadge);
-							});
+			$(document).ready(function() {
+				$("a#anchor-login-modal").text("登出");
+				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
+				$("a#anchor-login-modal").before(memberBadge);
+                $("a#myShoppingCart").attr("class",
+                "btn btn-outline-warning");
+	            $("a#myShoppingCart").attr("href", "paymentS1");
+	            $("a#myShoppingCart>span").attr("class",
+	                "badge btn-danger");
+	            $("a#goBuyIt").removeClass("disabled");
+			});
 		</script>
 	</c:if>
+	<c:if test="${sessionScope.login_user == null}">
+        <script>
+            $(document).ready(function () {
+                $("body").on("click", "a#myShoppingCart", function () {
+                	swal("請先登入會員喔!", "謝謝您~~~", "warning");
+                });
+				if(localStorage.myProducts != null || localStorage.myProducts == ""){
+					localStorage.removeItem('myProducts');
+				}
+				$("a#goBuyIt").addClass("disabled");
+            });
+        </script>
+    </c:if>
 
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>
@@ -144,9 +173,26 @@
 			createData();
 		})
 
-		$('#selectRegion').on('change', function() {
+		$('#selectRegion').on('click', function() {
+			let RegionData = [
+				{name:"台北市", lat: 25.037133596918775, lng: 121.56360440559632},
+				{name:"台中市", lat: 24.16219751644647, lng: 120.64902347628696},
+				{name:"台南市", lat: 22.986924395388716, lng: 120.18496912570596},
+				{name:"高雄市", lat: 22.615233150370504, lng: 120.31102698669244},
+				{name:"台東市", lat: 22.751378178843673, lng: 121.14622961220473},
+			]
+
+			map.closePopup();
+			
 			let myRegion = this.value;
 			if (myRegion != "all") {
+				
+				RegionData.forEach(function(thisRegion){
+					if(thisRegion.name == myRegion){
+						map.setView([ thisRegion.lat, thisRegion.lng ], 10);
+					}
+				});
+				
 				$.ajax({
 					type : "GET",
 					url : "selectSomeMapByRegion/" + myRegion,
@@ -167,6 +213,7 @@
 				});
 			} else {
 				createData();
+				map.setView([ 23.797088003857067, 120.83413767268159 ], 7);
 			}
 		})
 
@@ -340,6 +387,17 @@
 			$('.storeNameTable').html(tempstr);
 		}
 
+
+// 		function onMapClick(e) {
+// 		  let lat = e.latlng.lat; // 緯度
+// 		  let lng = e.latlng.lng; // 經度
+// 		  popup
+// 		    .setLatLng(e.latlng)
+// 		    .setContent(`緯度：`+lat+ `<br/>經度：`+lng)
+// 		    .openOn(map);
+// 		}
+// 		map.on('click', onMapClick);
+		
 		// /*周圍*/
 		// console.log(getMaxMinLongitudeLatitude(25.02756357102076,121.54348172372552,2));
 
@@ -361,22 +419,22 @@
 		// }
 
 		/**********************使用者位置******************************/
-		//          /*抓取使用者位置*/
-		//           map.locate({ setView: true, maxZoom: 15 });
-		//          /*成功抓取function*/
-		//          function onLocationFound(e) {
-		//              let radius = 1000;
-		//              L.marker(e.latlng).addTo(map)
-		//                  .bindPopup("現在位置").openPopup();
-		//              L.circle(e.latlng, radius).addTo(map);
-		//          }
-		//        	 map.on('locationfound', onLocationFound);
-		//          /*失敗抓取function*/
-		//          function onLocationError(e) {
-		//              alert("無法判斷您的所在位置，無法使用此功能。");
-		//              map.setView([23.827088003857067, 120.83413767268159], 8);
-		//          }
-		//          map.on('locationerror', onLocationError);
+		         /*抓取使用者位置*/
+		          map.locate({ setView: true, maxZoom: 15 });
+		         /*成功抓取function*/
+		         function onLocationFound(e) {
+		             let radius = 1000;
+		             L.marker(e.latlng).addTo(map)
+		                 .bindPopup("現在位置").openPopup();
+		             L.circle(e.latlng, radius).addTo(map);
+		         }
+		       	 map.on('locationfound', onLocationFound);
+		         /*失敗抓取function*/
+		         function onLocationError(e) {
+// 		             alert("無法判斷您的所在位置，無法使用此功能。");
+		        	 map.setView([ 23.797088003857067, 120.83413767268159 ], 7);
+		         }
+		         map.on('locationerror', onLocationError);
 	</script>
 </body>
 </html>

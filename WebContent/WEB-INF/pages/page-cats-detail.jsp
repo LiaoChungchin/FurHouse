@@ -113,17 +113,23 @@
 			right: 20px;
 			top: 200px;
 		}
+		
+ 		.nav-pills a:hover{ 
+	 	    color: #ff4e0d;
+	 	    cursor:url("assets/img/mouse.png"),pointer; 
+ 		} 
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 	<script src="assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="assets/js/bootstrap-datepicker.zh-TW.min.js"></script>
-
+	<script src="assets/js/sweetalert.min.js"></script>
 	<title>FurHouse</title>
 	
 	<%-- EL接收session中的member bean有沒有認證過 --%>
@@ -162,7 +168,7 @@
 											  	<div class="modal-dialog">
 											    	<div class="modal-content">
 												      	<div class="modal-header">
-												        	<h5 class="modal-title" id="adoptListModalLabel">我要認養</h5>
+												        	<h5 class="modal-title" id="adoptListModalLabel">預約看貓</h5>
 												        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 												     	</div>
 												     	<form action="/insertAdoptList" enctype="multipart/form-data" id="adoptListForm">
@@ -194,25 +200,25 @@
 			 										      	</div>
 													      	<div class="modal-footer">
 														        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-														        <button type="button" class="btn btn-primary" id="adoptListSubmit">確認</button>
+														        <button type="button" class="btn btn-info" id="adoptListSubmit">確認</button>
 													      	</div>
 														</form>
 										    		</div>
 											  	</div>
 											</div>
 											<!-- 領養Dialog End-->
-										      <c:choose>
-										      <c:when test="${cat.photo2!=null}">
-											<div class="pcpLeading"
-												style="background-image: url('catImageToByte?path=${cat.photo2}')"
-												id="supportCatDetailShow"></div>
-												</c:when>
-												<c:when test="${cat.photo2==null || cat.photo2==''}">
+										    <c:choose>
+											    <c:when test="${cat.photo2!=null}">
 												<div class="pcpLeading"
-												style="background-image: url('catImageToByte?path=${cat.photo1}')"
-												id="supportCatDetailShow"></div>
+													style="background-image: url('catImageToByte?path=${cat.photo2}')"
+													id="supportCatDetailShow"></div>
+													</c:when>
+													<c:when test="${cat.photo2==null || cat.photo2==''}">
+													<div class="pcpLeading"
+													style="background-image: url('catImageToByte?path=${cat.photo1}')"
+													id="supportCatDetailShow"></div>
 												</c:when>
-		                                   	 </c:choose>
+		                                   	</c:choose>
 											<div class="supportCatDatailTitle">
 												<h2>貓貓資訊</h2>
 											</div>
@@ -234,8 +240,8 @@
 															<div>接種：<c:choose><c:when test="${cat.vaccination == true}">是</c:when><c:otherwise>否</c:otherwise></c:choose></div>
 															<div>報到時間：<span class="onlyDate">${cat.createDate}</span></div>
 															<div>
-																<button type="button" class="btn btn-primary IWantIt" data-toggle="modal" data-target="#adoptListDialog">我要認養</button>
-																<a class="btn btn-primary" href="supportCat">回上一頁</a>
+																<button type="button" class="btn btn-info IWantIt" data-toggle="modal" data-target="#adoptListDialog">預約看貓</button>
+																<a class="btn btn-info" href="supportCat">回上一頁</a>
 															</div>
 														</div>
 													</div>
@@ -277,8 +283,29 @@
 		<script>
 			$(document).ready(function () {
 				$("a#anchor-login-modal").text("登出");
-				let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
+				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
 				$("a#anchor-login-modal").before(memberBadge);
+				$("a#myShoppingCart").attr("class","btn btn-outline-warning");
+				$("a#myShoppingCart").attr("href","paymentS1");
+				$("a#myShoppingCart>span").attr("class","badge btn-danger");
+				if(localStorage.myProducts != null){
+					var productsListJSON = JSON.parse(localStorage.myProducts);
+					var productCount = productsListJSON.length;
+					var totalPrice = 0;
+					$("span#cart-total").text(productsListJSON.length);
+				}
+			});
+		</script>
+	</c:if>
+	<c:if test="${sessionScope.login_user == null}">
+		<script>
+			$(document).ready(function (){
+				$("body").on("click","a#myShoppingCart",function() {
+					swal("請先登入會員喔!", "謝謝您~~~", "warning");
+				});
+				if(localStorage.myProducts != null || localStorage.myProducts == ""){
+					localStorage.removeItem('myProducts');
+				}
 			});
 		</script>
 	</c:if>
@@ -296,21 +323,25 @@
 	$('.IWantIt').on("click",function(){
 		$("#adoptListSelectDate").val("");
 		$("#adoptListSelectTime").val("");
+		$("#dateresult").val("");
+		removedatearr.length=0;
 	});
 	
 	$(".datepicker").datepicker({
 		format : "yyyy-mm-dd", //設定格式為2019-04-01
 		autoclose : true,//選擇日期後就會自動關閉
-		startDate : "today",//起始日期為今天
+		startDate : "+1d",//起始日期為今天
 		todayHighlight : true,//今天會有一個底色
 		language : 'zh-TW'//中文化
 	});
 	
 	$("#adoptListSelectDate").on("change",function(){
+		$("#adoptListSelectTime").val("");
 		let searchDate = $("#adoptListSelectDate").val();
+		let catId = ${cat.id};
 		$.ajax({	 
             type:"GET",
-			url: "searchAllAdoptListVisitTime/" + searchDate,
+			url: "searchAllAdoptListVisitTimeForCatId/" + searchDate+"/"+catId,
 			dataType: "json",
  			success : function(response){
 				removedatearr.length = 0;
@@ -331,7 +362,6 @@
 	
 	var removedatearr = new Array();
 
-	
 	$("#adoptListSelectTime").on("focus",function(){
 		
 		let removedates = new Array(); 
@@ -358,8 +388,7 @@
 		
 		if(tempstr == ""){
 			$("#adoptListSelectTime").html("<option>預約額滿</option>>");
-		}
-		
+		}	
 		
 		$("#dateresult").val($("#adoptListSelectDate").val()+" "+$("#adoptListSelectTime").val()+":00");
 	})
@@ -375,7 +404,7 @@
 	$("#adoptListSubmit").on("click",function(){
 		if($("#memberId").val().length == 0){
 			createtoast("尚未登入");
-		}else{
+		}else if($("#adoptListSelectDate").val().length!=0&&$("#adoptListSelectTime").val()!=null){
 			$.ajax({	 
             	type:"POST",                    //指定http參數傳輸格式為POST
 				url: "insertAdoptList",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
@@ -390,6 +419,8 @@
 					createtoast("新增失敗!!!");
 				}
 			});
+		}else{
+			createtoast("欄位有空白");
 		}
 	})
 		

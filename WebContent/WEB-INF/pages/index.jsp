@@ -18,8 +18,10 @@
 	<link href="assets/css/index.css" rel="stylesheet">
 	<style>
 		.parallax {
+			max-width: 100%;
 			/* width: 100vw; */
-			height:100vh;
+ 			height:100vh; 
+/* 			height:766px; */
 			font-weight:bold;
 			font-size:1.25rem;
 			display:flex;
@@ -28,25 +30,32 @@
 		}
 		.bg1 {
 			background:url("assets/img/background/bg5.jpg") no-repeat;
+			opacity: 0.9;
 			background-size:cover;
 			background-attachment:fixed;
-			text-shadow:white 0.1em 0.1em 0.2em;
+/* 			text-shadow:white 0.1em 0.1em 0.2em; */
+			text-shadow: 0 0 0.2em #FFF633, 0 0 0.2em #FFF633,0 0 0.2em #FFF633,0 0 0.2em #FFF633;
 		}
 		.bg2 {
-			background:url("assets/img/background/bg1.jpg") no-repeat;
+/* 			background:url("assets/img/background/bg1.jpg") no-repeat; */
+			background-image :linear-gradient(rgba(252,252,252,0.3), rgba(252,252,252,0.3)), url(assets/img/background/bg1.jpg);
 			background-size:cover;
 			background-attachment:fixed;
 			text-shadow:white 0.1em 0.1em 0.2em;
 		}
 		.bg3 {
-			background:url("assets/img/background/bg3.jpg") no-repeat;
+ 			background:url("assets/img/background/bg4.jpg") no-repeat;
+			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg4.jpg);
 			background-size:cover;
 			background-attachment:fixed;
+			text-shadow:white 0.1em 0.1em 0.2em;
 		}
 		.bg4 {
-			background:url("assets/img/background/bg4.jpg") no-repeat;
+			background-image :linear-gradient(rgba(252,252,252,0.15), rgba(252,252,252,0.15)), url(assets/img/background/bg3.jpg);
+/*  			background:url("assets/img/background/bg4.jpg") no-repeat; */
 			background-size:cover;
 			background-attachment:fixed;
+			text-shadow:white 0.1em 0.1em 0.2em;
 		}
 		.parallax .container-anime {
 			padding-left:0%;
@@ -130,16 +139,52 @@
  		span .letters{
  			display:inline-block;
  		}
+/* 導覽列滑鼠樣式 */
+ 		.nav-pills:hover,.nav-pills:focus {
+		    cursor:url("assets/img/mouse.png"),pointer;
+		}
+
+		.nav-link:hover, .nav-link:focus {
+		  cursor:url("assets/img/mouse.png"),pointer;
+		}
+/*瞄點樣式*/
+		.md{
+		    position: fixed;
+		    right: 15px;
+		    top: 30%;
+		    margin-top: -92.5px;
+		}
+		.md a{
+		    display: inline-block;
+		    margin-bottom: 5px;
+		}
+		
+		.md li{
+			list-style-type:none;
+		}
+	
+		#menu-detail{
+			box-shadow:10px 0px 12px -8px rgba(255,199,162,0.37),-6px 0px 8px -4px rgba(255,199,162,0.37);
+		}
+		
+		.gitflow{
+			width:80%;
+			overflow: hidden;
+		}
 	</style>
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/anime.min.js"></script>
+	
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+	<script src="assets/js/sweetalert.min.js"></script>
+	<script src="assets/js/chart.xkcd.js"></script>
 	
 	<title>FurHouse</title>
 	
@@ -152,7 +197,7 @@
 </head>
 <body>
 	<div
-		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
+		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm"
 		w3-include-html="<c:url value='/addFrame.controller/header'/>"></div>
 	<div class="container-fluid">
 		<div class="row">
@@ -160,7 +205,7 @@
 				w3-include-html="<c:url value='/addFrame.controller/aside'/>"></div>
 			<div class="col-lg-10" id="div-v-pills">
 			
-				<div class="parallax bg1">
+				<div class="parallax bg1" id="bg1">
 					<div class="container-anime">
 						<h1 class="ml9">
 						  <span class="text-wrapper">
@@ -181,10 +226,10 @@
 								    </filter>
 								    <filter id="shadow3">
 								      <feDropShadow dx="2.5" dy="2.5" stdDeviation="2"
-								          flood-color="white" flood-opacity="0.75"/>
+								          flood-color="yellow" flood-opacity="0.75"/>
 								    </filter>
 								  </defs>
-								<g class="lines" id="svgGroup" stroke-linecap="round" fill-rule="evenodd" stroke="black" stroke-width="2" fill="none" filter="url(#shadow3)">
+								<g class="lines" id="svgGroup" stroke-linecap="round" fill-rule="evenodd" stroke="#000000" stroke-width="3" fill="none" filter="url(#shadow3)">
 									<path d="M 283.711 14.106 L 291.27 14.106 L 284.854 58.228 L 275.581 58.228 L 269.209 39.771 L 267.935 35.288 L 266.484 40.034 L 260.376 58.228 L 251.367 58.228 L 244.995 14.106 L 252.466 14.106 L 256.157 44.077 L 256.948 50.757 L 258.838 44.912 L 265.254 25.093 L 270.747 25.093 L 277.646 44.648 L 279.624 50.493 L 280.283 44.297 L 283.711 14.106 Z" vector-effect="non-scaling-stroke"/>
 									<path d="M 137.505 51.021 L 137.505 57.612 A 36.245 36.245 0 0 1 134.7 58.207 Q 133.461 58.42 132.184 58.553 A 39.783 39.783 0 0 1 132.144 58.557 A 53.99 53.99 0 0 1 128.649 58.803 A 56.18 56.18 0 0 1 126.519 58.843 A 34.594 34.594 0 0 1 125.247 58.82 Q 118.275 58.563 114.527 55.437 A 11.057 11.057 0 0 1 114.126 55.085 A 10.857 10.857 0 0 1 112.386 53.03 Q 110.29 49.828 110.066 44.786 A 27.803 27.803 0 0 1 110.039 43.55 L 110.039 20.522 L 97.69 20.522 L 97.69 14.106 L 110.039 14.106 L 110.039 1.978 L 117.686 0 L 117.686 14.106 L 137.505 14.106 L 137.505 20.522 L 117.686 20.522 L 117.686 42.935 A 16.464 16.464 0 0 0 117.714 43.909 Q 117.889 46.872 119.164 48.794 A 6.872 6.872 0 0 0 120.212 50.032 Q 122.739 52.383 127.661 52.383 A 28.957 28.957 0 0 0 128.741 52.362 Q 130.323 52.303 132.109 52.075 A 45.998 45.998 0 0 0 132.275 52.053 A 38.878 38.878 0 0 0 133.542 51.865 Q 135.011 51.622 136.554 51.256 A 50.16 50.16 0 0 0 137.505 51.021 Z " vector-effect="non-scaling-stroke"/>
 									<path d="M 39.683 48.691 L 39.683 56.074 Q 32.996 58.842 25.691 58.928 A 39.845 39.845 0 0 1 25.225 58.931 A 39.024 39.024 0 0 1 23.725 58.902 Q 12.836 58.484 6.74 51.893 A 20.993 20.993 0 0 1 6.526 51.658 Q 0.054 44.445 0 30.384 A 61.748 61.748 0 0 1 0 30.146 A 50.992 50.992 0 0 1 0.028 28.442 Q 0.201 23.272 1.436 18.879 A 33.103 33.103 0 0 1 1.802 17.666 Q 3.441 12.589 6.352 8.913 A 23.352 23.352 0 0 1 6.943 8.196 Q 9.558 5.152 13.033 3.198 A 23.784 23.784 0 0 1 15.029 2.197 Q 19.674 0.133 25.412 0.089 A 32.672 32.672 0 0 1 25.664 0.088 A 45.113 45.113 0 0 1 27.144 0.112 Q 29.75 0.197 32.099 0.588 A 32.181 32.181 0 0 1 33.091 0.769 A 31.27 31.27 0 0 1 37.476 1.975 A 30.984 30.984 0 0 1 39.683 2.856 L 39.683 10.547 Q 36.563 8.833 33.223 7.932 A 24.208 24.208 0 0 0 31.514 7.538 Q 28.894 7.031 25.928 7.031 Q 21.885 7.031 18.611 8.547 A 15.163 15.163 0 0 0 16.204 9.94 Q 14.444 11.188 13.052 12.942 A 17.367 17.367 0 0 0 11.979 14.455 Q 10.81 16.302 9.993 18.575 A 25.874 25.874 0 0 0 9.536 19.973 Q 8.306 24.126 8.306 29.443 A 52.563 52.563 0 0 0 8.323 30.817 Q 8.57 40.263 12.268 45.522 A 15.434 15.434 0 0 0 12.832 46.274 Q 17.072 51.585 25.014 51.921 A 25.782 25.782 0 0 0 26.104 51.943 A 30.655 30.655 0 0 0 28.367 51.861 Q 29.606 51.769 30.809 51.575 A 27.336 27.336 0 0 0 33.179 51.086 A 32.979 32.979 0 0 0 39.683 48.691 Z" vector-effect="non-scaling-stroke"/>
@@ -207,9 +252,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="parallax bg2">
+				<div class="parallax bg2" id="bg2">
 						<div class="container marketing">
-							<div class="text-center my-lg-3">
+							<div class="text-center">
 								<h1>我們團隊</h1>
 							</div>
 							<div class="row">		
@@ -220,18 +265,20 @@
 										<span class="badge badge-pill badge-secondary">組長</span>
 										廖崇欽
 									</h2>
-									<p class="text-justify text-center">學歷：<br>成功大學 機械工程學系 碩士</p><br>
-									<p class="text-justify text-center">項目：<br>整合專案與專案版本控制，客服系統開發與維護</p>
+									<p class="text-justify text-center">成功大學 機械工程學系</p>
+									<hr>
+									<p class="text-justify text-center">整合專案與專案版本控制，客服系統開發與維護</p>
 								</div>
-								<div class="text-center col-lg-3 offset-lg-2">
+								<div class="text-center col-lg-4 offset-lg-2">
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0797.jpeg" width="160" height="160">
 									<h2 class="text-center">
 										<span class="badge badge-pill badge-secondary">副組長</span>
 										鄭弘翔
 									</h2>
-									<p class="text-justify text-center">學歷：<br>南臺科技大學 多媒體與電腦娛樂科學系 學士</p>
-									<p class="text-justify text-center">項目：<br>資料庫系統建置，流浪貓預約看貓系統的開發與維護</p>
+									<p class="text-justify text-center">南臺科技大學 多媒體與電腦娛樂科學系</p>
+									<hr>
+									<p class="text-justify text-center">資料庫系統建置，流浪貓預約看貓系統的開發與維護</p>
 								</div>
 							</div>
 							<div class="row">		
@@ -239,44 +286,164 @@
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0918.jpeg" width="160" height="160">
 									<h2 class="text-center">林純歆</h2>
-									<p class="text-justify text-center">學歷：<br>中國文化大學 機械工程學系 學士</p>
-									<p class="text-justify text-center">項目：<br>前端網頁建構，商品訂單系統的開發與維護</p>
+									<p class="text-justify text-center">中國文化大學 機械工程學系</p>
+									<hr>
+									<p class="text-justify text-center">前端網頁建構，商品訂單系統的開發與維護</p>
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0799.jpeg" width="160" height="160">
 									<h2 class="text-center">羅振旂</h2>
-									<p class="text-justify text-center">學歷：<br>真理大學 法律系 學士</p><br>
-									<p class="text-justify text-center">項目：<br>後台框架設置，流浪貓名冊管理系統的開發與維護</p>
+									<p class="text-justify text-center">真理大學 法律系</p>
+									<hr>
+									<p class="text-justify text-center">後台框架設置，流浪貓名冊管理系統的開發與維護</p>
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0800.jpeg" width="160" height="160">
 									<h2 class="text-center">陳皓</h2>
-									<p class="text-justify text-center">學歷：<br>真理大學 法律系 學士</p><br>
-									<p class="text-justify text-center">項目：<br>後台框架設置，會員管理系統的開發與維護</p>
+									<p class="text-justify text-center">真理大學 法律系</p>
+									<hr>
+									<p class="text-justify text-center">後台框架設置，會員管理系統的開發與維護</p>
 								</div>
 								<div class="text-center col-lg-3">
 									<img class="rounded rounded-circle mb-1"
 										src="assets/img/team/IMG_0920.jpeg" width="160" height="160">
 									<h2 class="text-center">李政瑩</h2>
-									<p class="text-justify text-center">學歷：<br>淡江大學 化學系 學士</p><br>
-									<p class="text-justify text-center">項目：<br>前端網頁建構，商品管理系統的開發與維護</p>
+									<p class="text-justify text-center">淡江大學 化學系</p>
+									<hr>
+									<p class="text-justify text-center">前端網頁建構，商品管理系統的開發與維護</p>
 								</div>
 							</div>
 						</div>
 				</div>
-				<div class="parallax bg3">
+				<div class="parallax bg3" id="bg3">
 					<div class="container marketing">
-						<div class="text-center">
-							<p>學習藍圖</p>
+						<div class="text-center mb-5">
+							<h1>使用技術與學習藍圖</h1>
 						</div>
-						<div class="text-center">
-							<img alt="" src="assets/img/eeit-092101.png" height="640px">
+						<div class="learnings" style="width:800px;height:600px;">
+								<svg id="chart"></svg>
+								<img class="inCircleCenter" id="c1" src="assets/img/background/front.png" width="420" height="420" />
+								<img class="inCircleCenter" id="c2" src="assets/img/background/back.png" width="420" height="420" />
+								<img class="inCircleCenter" id="c3" src="assets/img/background/cloud.png" width="420" height="420" />
+								<img class="inCircleCenter" id="c4" src="assets/img/background/extra.png" width="420" height="420" />
+								<img class="inCircleCenter" id="c5" src="assets/img/background/server.png" width="420" height="420" />
 						</div>
 					</div>
 				</div>
-				<div class="parallax bg4">使用技術</div>
+				<style>
+					.learnings {
+						position: relative;
+					}
+					.learnings .inCircleCenter {
+						position: absolute;
+						top: 15%;
+  						left: 80%;
+  						transform-origin: center center;
+    					opacity: 0;
+					}
+				</style>
+				<script>
+					$(function(){
+						$("body").on("click", "svg#chart>g>path", function(){
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(0)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c1',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(1)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c5',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(2)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c2',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(3)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c3',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+							if(this.getAttribute("fill") == $("svg#chart>g>path:eq(4)").attr("fill")){
+								anime.timeline({loop: false})
+								.add({
+									targets: '.inCircleCenter',
+									opacity: 0,
+									easing: "easeOutCirc",
+									duration: 200,
+								})
+								.add({
+									targets: '#c4',
+									scale: [14,1],
+									opacity: [0,1],
+									easing: "easeOutCirc",
+									duration: 800,
+								});
+							};
+						})
+					});
+				</script>
+				<div class="parallax bg4" id="bg4">
+					<div class="container marketing">
+						<div class="text-center my-5">
+							<h1>GitHub版本控管</h1>
+						</div>
+						<div class="mx-auto gitflow">
+							<img src="assets/img/Git.png" width="20%" style="margin-left:15%;">
+							<img src="assets/img/GitHub.png" width="20%" style="float:right;margin-right:15%;">
+						</div>
+						<div class="mx-auto gitflow animegitflow">
+							<img src="assets/img/GitflowPS.png">
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -299,11 +466,17 @@
 		<script>
 			$(document).ready(function () {
 				$("a#anchor-login-modal").text("登出");
-				let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
+				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
 				$("a#anchor-login-modal").before(memberBadge);
-				$("a#myShoppingCart").attr("class","btn btn-outline-primary");
+				$("a#myShoppingCart").attr("class","btn btn-outline-warning");
 				$("a#myShoppingCart").attr("href","paymentS1");
 				$("a#myShoppingCart>span").attr("class","badge btn-danger");
+				if(localStorage.myProducts != null){
+					var productsListJSON = JSON.parse(localStorage.myProducts);
+					var productCount = productsListJSON.length;
+					var totalPrice = 0;
+					$("span#cart-total").text(productsListJSON.length);
+				}
 			});
 		</script>
 	</c:if>
@@ -312,11 +485,34 @@
 		<script>
 			$(document).ready(function (){
 				$("body").on("click","a#myShoppingCart",function() {
-					alert("請先登入會員喔~~~");
+					swal("請先登入會員喔!", "謝謝您~~~", "warning");
 				});
+				if(localStorage.myProducts != null || localStorage.myProducts == ""){
+					localStorage.removeItem('myProducts');
+				}
 			});
 		</script>
 	</c:if>
+	
+	<!-- 指定主題锚点开始-->
+	<ul class="md" id="md">
+	    <li><a href="#bg1"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
+	    <li><a href="#bg2"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
+	    <li><a href="#bg3"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
+	    <li><a href="#bg4"><img src="assets/img/paw.png" style="opacity: 0.6"></a></li>
+	</ul>
+	<!-- 锚点结束-->
+	<script>
+	//chart
+	const svg = document.getElementById('chart');
+	const chart = new chartXkcd.Pie(svg, {
+	    title: ' 跨域Java軟體工程師養成班 576小時 ',
+	    data: {
+	        labels:[ '前端網頁', 'SQL', 'Java       ', '智慧應用', '實作與專題'],
+	        datasets: [{data:[60, 36, 198, 36, 222]}]
+	    }
+	});
+	</script>
 	
 	<script>
 	// Wrap every letter in a span
@@ -413,6 +609,7 @@
 				direction:"linear",
 				delay:function(el, i) { return i * 250 },
 				fill:['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']
+// 				fill:['rgba(0, 0, 0, 0)', 'rgba(255, 246, 51, 0.7)']
 			}).add({
 				targets:".devide",
 			  	translateX:function(el, i, l) {
@@ -494,8 +691,20 @@
 				delay:1000,
 				easing:"easeOutQuint",
 			});
+			
+			$('.gitflow').click(function(){
+				anime.timeline({loop: false})
+				.add({
+					targets:".animegitflow img",
+					translateX: [0,-3000],
+					duration:2500,
+					easing:"easeInOutCubic",
+					delay:(el, i) => 100 * (i+1)
+				})
+			});
+		
 	</script>
-	
+
 	<footer class="pt-4 my-md-5 pt-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/footer'/>"></footer>
 </body>

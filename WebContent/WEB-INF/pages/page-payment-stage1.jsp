@@ -16,6 +16,7 @@
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
 <!-- User Define CSS -->
+<link href="assets/css/index.css" rel="stylesheet">
 <style>
 .container {
 	max-width: 960px;
@@ -38,12 +39,34 @@ form#product-list-formcheck {
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="assets/js/w3.js"></script>
 <script src="assets/js/jQuery-3.6.0.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <!-- User Define JS -->
 <script>
 	$(document).ready(
 			function() {
+				// -------------------------------全域變數-------------------------------
+				// 取得JSON購物清單
+				if(localStorage.myProducts != null){
+					var productsListJSON = JSON.parse(localStorage.myProducts);
+				// console.log("payment收到的JSON : ")
+// 				console.log(productsListJSON);
+				// 購物籃商品總數
+					var productCount = productsListJSON.length;
+				// console.log(productCount);
+				}else{
+// 					console.log($('button#button-next-step'));
+					$("button:contains('下一步')").remove();
+					$("form#product-list-formcheck").children("div").eq(0).after('<div style="font-size: 150px;text-align:center;"><i class="bi bi-cart4"></i></div><br><h4 style="text-align:center;">您的購物車裡沒有任何商品。</h4>');
+					let returnA = document.createElement("a");
+					returnA.setAttribute("class","btn btn-secondary btn-lg btn-block");
+					returnA.setAttribute("href","SelectAllProduct");
+					returnA.innerHTML = "繼續購物"; 
+					$("form#product-list-formcheck").append(returnA);
+					$("h3 span:first-of-type").attr("class","text-danger");
+				}
+				// -------------------------------全域變數-------------------------------
+				
 				// 遍歷清單，並且以Form型式加入畫面中
 				jQuery.each(productsListJSON, function(idx, productEachObj) {
 					// <div> root
@@ -241,16 +264,21 @@ form#product-list-formcheck {
 							// console.log("剩下的list" + productsListJSON);
 							// 送出清單的按鈕移除
 							$(this).parent().parent().remove();
+							// local storage 刪除單向商品
+							localStorage.myProducts = JSON.stringify(productsListJSON);
 							// 如果沒有商品了就顯示 : "商品明細沒有資料" 並且給予返回首頁的按鈕
 							if (productCount === 0) {
 								$("form#product-list-formcheck").children("div").eq(0).after('<div style="font-size: 150px;text-align:center;"><i class="bi bi-cart4"></i></div><br><h4 style="text-align:center;">您的購物車裡沒有任何商品。</h4>');
 								$("button:contains('下一步')").remove();
+								$(".previous").remove();
 								let returnA = document.createElement("a");
 								returnA.setAttribute("class","btn btn-secondary btn-lg btn-block");
 								returnA.setAttribute("href","SelectAllProduct");
 								returnA.innerHTML = "繼續購物"; 
 								$("form#product-list-formcheck").append(returnA);
 								$("h3 span:first-of-type").attr("class","text-danger");
+								
+								localStorage.clear();
 							}
 						})
 						
@@ -260,17 +288,6 @@ form#product-list-formcheck {
 					console.log(JSON.stringify(productsListJSON));
 				});
 			});
-				
-				
-	// -------------------------------全域變數-------------------------------
-	// 取得JSON購物清單
-	var productsListJSON = JSON.parse(localStorage.myProducts);
-	// console.log("payment收到的JSON : ")
-	// console.log(productsListJSON);
-	// 購物籃商品總數
-	var productCount = productsListJSON.length;
-	// console.log(productCount);
-	// -------------------------------全域變數-------------------------------
 </script>
 
 <title>FurHouse</title>

@@ -21,11 +21,12 @@
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
 	<!-- User Define JS -->
 	<script src="assets/js/index.js"></script>
-	
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+	<script src="assets/js/sweetalert.min.js"></script>
 	<style>
 body {
 	padding: 0px;
@@ -111,6 +112,38 @@ body {
   			rgba(255, 255, 127, 0.2);  
   		
  	} */
+ 	
+ 	 	.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+   			 color: #fff;
+   			 /*background-color: rgba(255,127,80,1);*/
+   			 background-color: rgba(255,134,51,0.9);
+		}
+		.nav-pills a:hover {
+		    color: #ff4e0d;
+		    cursor:url("assets/img/mouse.png"),pointer;
+		}
+		.nav-link {
+			display: block;
+    		padding: 0.8rem 1rem;
+		}
+		a {
+		    color: #404040;
+		    text-decoration: none;
+		    background-color: transparent;
+		}
+		small, .small {
+		    font-size: 90%;
+		    font-weight: 400;
+		}
+		.cattitle{
+		color:#B7D8E2;
+		font-weight:bold;
+		}
+		
+		#menu-detail{
+			box-shadow:10px 0px 12px -8px rgba(255,199,162,0.37),-6px 0px 8px -4px rgba(255,199,162,0.37);
+		}
+ 	
 </style>
 	
 	
@@ -118,12 +151,12 @@ body {
 		$(function() {
 			$("div#menu-detail").show();
 			$("div#menu-detail>div>a[class~='active']").removeClass("active");
-			$("div#menu-detail>div>a>small:contains('領養浪貓')").parent().addClass("active");
+			$("div#menu-detail>div>a>small:contains('認識浪貓')").parent().addClass("active");
 			// 分隔線要顯示
-			$("div#menu-detail>div>a:contains('認識浪貓')").next().show();
+			$("div#menu-detail>div>a:contains('領養專區')").next().show();
 			// 所有子項目要顯示
-			$("div#menu-detail>div>a>small:contains('領養浪貓')").parent().show();
-			$("div#menu-detail>div>a>small:contains('助養浪貓')").parent().show();
+			$("div#menu-detail>div>a>small:contains('認識浪貓')").parent().show();
+			$("div#menu-detail>div>a>small:contains('預約看貓')").parent().show();
 		});
 	</script>
 	
@@ -138,7 +171,7 @@ body {
 </head>
 <body>
 	<div
-		class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
+		class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom shadow-sm"
 		w3-include-html="<c:url value='/addFrame.controller/header'/>"></div>
 	<div class="container-fluid">
 		<div class="row">
@@ -147,7 +180,8 @@ body {
 			<div class="col-lg-10" id="div-v-pills">
 				<main role="main">
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-						<h1 class="h2">CatPage</h1>
+<!-- 						<h1 class="cattitle">請以領養代替購買</h1> -->
+ 						<img src="assets/img/material.jpg" class="d-block w-100" alt="..."> 
 					</div>
 					<!--main content start-->
 					<section id="main-content">
@@ -224,8 +258,29 @@ body {
 		<script>
 			$(document).ready(function () {
 				$("a#anchor-login-modal").text("登出");
-				let memberBadge = `<a class="btn btn-primary" href="<c:url value='/member.myPage'/>" role="button"> Hi ~ ${sessionScope.login_user.account} <span class='badge badge-light'> 0 </span> </a>`;
+				let memberBadge = `<a class="btn btn-warning" href="<c:url value='/member.myPage'/>" role="button">${sessionScope.login_user.name},您好</a>`;
 				$("a#anchor-login-modal").before(memberBadge);
+				$("a#myShoppingCart").attr("class","btn btn-outline-warning");
+				$("a#myShoppingCart").attr("href","paymentS1");
+				$("a#myShoppingCart>span").attr("class","badge btn-danger");
+				if(localStorage.myProducts != null){
+					var productsListJSON = JSON.parse(localStorage.myProducts);
+					var productCount = productsListJSON.length;
+					var totalPrice = 0;
+					$("span#cart-total").text(productsListJSON.length);
+				}
+			});
+		</script>
+	</c:if>
+	<c:if test="${sessionScope.login_user == null}">
+		<script>
+			$(document).ready(function (){
+				$("body").on("click","a#myShoppingCart",function() {
+					swal("請先登入會員喔!", "謝謝您~~~", "warning");
+				});
+				if(localStorage.myProducts != null || localStorage.myProducts == ""){
+					localStorage.removeItem('myProducts');
+				}
 			});
 		</script>
 	</c:if>

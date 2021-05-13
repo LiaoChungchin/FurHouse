@@ -35,9 +35,10 @@
         }
         
 		.container {
+			max-width: 100%;
             text-align: center;
             height: 560px;
-            background-color: #E0E0E0;
+            background-color:rgba(128,141,159,0.3);
         }
 
         .path-slider {
@@ -74,7 +75,7 @@
         
         .path-slider__item:hover .item__circle, 
         .path-slider__item:focus .item__circle {
-            background-color: #8E8E8E;
+            background-color: rgba(177,194,178,1);
         }
 
         .item__circle {
@@ -135,15 +136,26 @@
             line-height: 1em;	
         }
         
+        .btn-dark { 
+		    color: #fff;
+		    background-color: rgba(70,124,195,1); 
+		    order-color: rgba(70,124,195,0.8);
+		}
+		.btn-dark:hover { 
+		    color: #fff;
+		    background-color: rgba(96,156,253,1); 
+		    order-color: rgba(96,156,253,1);
+		}
+        
 	</style>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
 	<script src="assets/js/jQuery-3.6.0.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/anime.min.js"></script>
 	<!-- User Define JS -->
 	<script src="assets/js/path-slider.js"></script>
-    <script src="assets/js/anime.min.js"></script>
 	
 	<title>*ROOT*</title>
 	
@@ -166,12 +178,12 @@
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">HomePage</h1>
+					<h1 class="h2">管理系統</h1>
 					<%-- EL接收session中的member姓名 --%>
 					<c:if test="${sessionScope.login_user != null}">
-						<a class="mx-2 text-dark">登入身分 : ${sessionScope.login_user.name}</a>
+						<a class="mx-2 text-dark mx-auto">登入身分 : ${sessionScope.login_user.name}</a>
 					</c:if>
-					<div class="btn-toolbar mb-2 mb-md-0">
+					<!-- <div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group mr-2">
 							<button type="button" class="btn btn-sm btn-outline-secondary">Enter</button>
 							<button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
@@ -179,7 +191,7 @@
 						<button type="button"
 							class="btn btn-sm btn-outline-secondary dropdown-toggle">
 							This week</button>
-					</div>
+					</div> -->
 				</div>
 				<div class="container">
 			        <!-- Path Slider Container -->
@@ -214,7 +226,7 @@
 			                <div class="item__title"><h2>Chats</h2></div>
 			            </div>
 			            <div class="confirmPage">
-			            	 <p><b style="font-size: 30px" id="listTitle">訂單管理系統</b></p>
+			            	 <p><b style="font-size: 30px;color:#3C69A3" id="listTitle">訂單管理系統</b></p>
 			            	<button class="btn btn-dark confirm">進入</button>
 			            </div>
 			        </div>
@@ -327,7 +339,7 @@
 			</main>
 		</div>
 	</div>
-	<footer class="pt-4 my-md-5 pt-md-5 ml-md-5 border-top"
+	<footer class="pt-4 my-md-2 pt-md-5 ml-md-5 border-top"
 		w3-include-html="<c:url value='/addFrame.controller/rootfooter' />"></footer>
 		
 </body>
@@ -338,7 +350,7 @@
 		if(nowindex != $(this).index()){
 			switch($(this).index()){
 			case 0:
-				console.log(this.id);
+// 				console.log(this.id);
 				break;
 			case 1:
 				fadeInAndOut("訂單管理系統" , $(this).index());
@@ -365,7 +377,8 @@
 				locationhref = "contact.mainPage";
 				break;
 			default:
-				alert("404");
+				//alert("404");
+				console.log("404");
 			}
 		}
 	})

@@ -13,6 +13,9 @@ public class CatServiceimpl implements CatService {
 	@Autowired @Qualifier("catimplDAO")
 	private CatDAO catimplDAO;
 	
+	@Autowired
+	private AdoptListDAO adoptListDAO;
+	
 	@Override
 	public List<Cat> selectAllCat() {
 		return catimplDAO.selectAllCat();
@@ -35,7 +38,12 @@ public class CatServiceimpl implements CatService {
 
 	@Override
 	public Integer deleteCat(Integer id) {
-		return catimplDAO.deleteCat(id);
+		List<AdoptList> adoptLists = adoptListDAO.searchAllAdoptListCatId(id);
+		return catimplDAO.deleteCat(id,adoptLists);
 	}
-
+	
+	@Override
+	public List<Cat> selectSomeCatNR(){
+		return catimplDAO.selectSomeCatNR();
+	}
 }

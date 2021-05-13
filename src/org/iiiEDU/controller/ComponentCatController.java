@@ -1,5 +1,6 @@
 package org.iiiEDU.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.iiiEDU.model.Cat;
@@ -36,4 +37,29 @@ public class ComponentCatController {
 		
 		return "page-cats-detail.jsp";
 	}
+	
+	
+	@GetMapping(path = "/selectAllCatForReservation")
+	public String selectAllCatForReservation(Model model) {
+		List<Cat> cats = catServiceimpl.selectSomeCatNR();
+		model.addAttribute("cats",cats);
+		
+		
+		List<Cat> pcats = new ArrayList<Cat>();
+		for(Cat cat : cats) {
+			pcats.add(cat);
+		}
+		
+		pcats.sort((a,b) -> b.getAdoptList().size()-a.getAdoptList().size());
+		
+		/*隨機貓*/
+//		List<Cat> randcats = catServiceimpl.selectSomeCatNR();
+//		Collections.shuffle(randcats);
+//		model.addAttribute("randcats",randcats);
+		
+				
+		model.addAttribute("randcats",pcats);
+		
+		return "page-cat-reservation.jsp";
+	} 
 }

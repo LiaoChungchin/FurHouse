@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <form id="form-register" method="post" action="member.register"
 	enctype="multipart/form-data">
-	<div class="form-row">
-		<h2 class="font-weight-bold">會員註冊</h2>
+	<div class="form-row" >
+		<h2  id = "inputdemo" class="myMOUSE" >會員註冊</h2>
 	</div>
 	<div class="form-row">
 		<div class="form-group col-md-6">
@@ -23,15 +23,18 @@
 		<label for="accountmail">E-Mail</label> <input type="text"
 			class="form-control" id="accountmail" name="accountmail"
 			placeholder="電子信箱" required>
+		<div class=""></div>	
 	</div>
 	<div class="form-row">
 		<div class="form-group col-md-6">
 			<label for="accountname">姓名</label> <input type="text"
 				class="form-control" id="accountname" name="accountname" required>
+				<div class=""></div>
 		</div>
 		<div class="form-group col-md-6">
-			<label for="accountphone">電話</label> <input type="text"
+			<label for="accountphone">手機號碼</label> <input type="text"
 				class="form-control" id="accountphone" name="accountphone" required>
+				<div class=""></div>
 		</div>
 	</div>
 	<div class="form-row">
@@ -64,15 +67,33 @@
 		<div class="form-group col-md-2">
 			<label for="select1">城市</label> <select name="accountcity"
 				id="select1" class="form-control">
-				<option selected>城市</option>
-				<option value="基隆市">基隆市</option>
+				
 				<option value="新北市">新北市</option>
+				<option value="基隆市">基隆市</option>
 				<option value="台北市">台北市</option>
+				<option value="桃園市">桃園市</option>
+				<option value="新竹市">新竹市</option>
+				<option value="新竹縣">新竹縣</option>
+				<option value="嘉義市">嘉義市</option>
+				<option value="嘉義縣">嘉義縣</option>
+				<option value="苗栗縣">苗栗縣</option>
+				<option value="南投縣">南投縣</option>
+				<option value="彰化縣">彰化縣</option>
+				<option value="臺中市">臺中市</option>
+				<option value="雲林縣">雲林縣</option>
+				<option value="臺南市">臺南市</option>
+				<option value="高雄市">高雄市</option>
+				<option value="屏東縣">屏東縣</option>
+				<option value="宜蘭縣">宜蘭縣</option>
+				<option value="花蓮縣">花蓮縣</option>
+				<option value="臺東縣">臺東縣</option>
+				<option value="澎湖縣">澎湖縣</option>
 			</select>
 		</div>
 		<div class="form-group col-md-10">
 			<label for="accountaddr">地址</label> <input type="text"
 				class="form-control" id="accountaddr" name="accountaddr">
+				<div class=""></div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -83,8 +104,17 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-md-2 offset-md-5">
-			<button type="submit" class="btn btn-primary btn-lg btn-block">註冊</button>
+		<div class="col-md-4 offset-md-4">
+			<button type="submit" class="btn btn-info" id="checkSubmit" disabled>註冊</button>
+		
+			<button type="reset" class="btn btn-info" style="margin-left:40px;" id="removeattr">重置</button>
 		</div>
 	</div>
 </form>
+
+
+
+
+
+
+

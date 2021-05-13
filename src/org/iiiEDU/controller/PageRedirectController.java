@@ -84,16 +84,34 @@ public class PageRedirectController {
 	public String chat2(){
 		return "root-page-talk.jsp";
 	}
+
+	@GetMapping("/member.resetpwd")
+	public String profile(){
+		return "page-member-home-profilepwd.jsp";
+  }
 	
+	@GetMapping("/member.sussPwd")
+	public String profile1(){
+		return "page-member-home-pwdsuccess.jsp";
+  }
+	
+	@GetMapping("/member.sussregister")
+	public String profile2(){
+		return "page-member-home-registersuccess.jsp";
+  }
+	
+	@GetMapping("/member.failregister")
+	public String profile3(){
+		return "page-member-home-registerfailed.jsp";
+  }
+
 	@GetMapping("/index.disclaimer")
 	public String catBowDisclaimer() {
 		return "index-disclaimer.jsp";
 	}
 	
-	// 測試用
-	@GetMapping("/chat04test.controller")
-	public String mytest04(){
-//		return "page-chat-test-prototype.jsp";
-		return "page-chat-test-modified.jsp";
+	@GetMapping("/index.reference")
+	public String catBowReference() {
+		return "index-reference.jsp";
 	}
 }

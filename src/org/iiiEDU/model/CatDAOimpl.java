@@ -2,6 +2,7 @@ package org.iiiEDU.model;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -14,27 +15,29 @@ public class CatDAOimpl implements CatDAO {
 	@Autowired @Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
 	
+	
+	
 	@Override
 	public List<Cat> selectAllCat(){
 		Session session = sessionFactory.getCurrentSession();
 		
 		String hql = "from Cat";
 		
-		
 		Query<Cat> query = session.createQuery(hql,Cat.class);
 		
 		List<Cat> cats = query.list();
 		
-		
 		return cats;
-
 	}
 
 	@Override
 	public Cat selectOneCat(Integer id){
 		Session session = sessionFactory.getCurrentSession();
 		Cat cat = session.get(Cat.class, id);
+		
 		if(cat!=null) {
+			Hibernate.initialize(cat);
+		    Hibernate.initialize(cat.getAdoptList());
 			return cat;
 		}
 		return null;
@@ -61,7 +64,7 @@ public class CatDAOimpl implements CatDAO {
 		Cat changcat = session.get(Cat.class,cat.getId());
 		
 		AdoptStatus adoptStatus = session.get(AdoptStatus.class,cat.getFk_adoptStatusId());
-		System.out.println(adoptStatus);
+//		System.out.println(adoptStatus);
 		if(changcat!=null) {
 			changcat.setNickname(cat.getNickname());
 			changcat.setType(cat.getType());
@@ -75,7 +78,7 @@ public class CatDAOimpl implements CatDAO {
 			changcat.setPhoto2(cat.getPhoto2());
 			changcat.setAdoptStatus(adoptStatus);
 			
-			System.out.println("update:"+changcat);
+//			System.out.println("update:"+changcat);
 			
 			session.save(changcat);
 			return 1;
@@ -84,17 +87,37 @@ public class CatDAOimpl implements CatDAO {
 	}
 
 	@Override
-	public Integer deleteCat(Integer id) {
+	public Integer deleteCat(Integer id,List<AdoptList> adoptLists) {		
 		Session session = sessionFactory.getCurrentSession();
 		
 		Cat cat = session.get(Cat.class, id);
 		
 		if(cat!=null) {
 			cat.setAdoptStatus(null);
+			cat.setAdoptList(null);
+			for(AdoptList adoptList : adoptLists) {
+				session.delete(adoptList);
+			}
 			session.delete(cat);
 			return 1;
 		}
 		return 0;
 	}
-
+	
+	@Override
+	public List<Cat> selectSomeCatNR(){
+		Session session = sessionFactory.getCurrentSession();
+		
+		String hql = "from Cat where fk_adoptStatusId < 3";
+		
+		Query<Cat> query = session.createQuery(hql,Cat.class);
+		
+		List<Cat> cats = query.list();
+		for(Cat cat : cats) {
+	      Hibernate.initialize(cat);
+	      Hibernate.initialize(cat.getAdoptList());
+	    }
+		
+		return cats;
+	}
 }

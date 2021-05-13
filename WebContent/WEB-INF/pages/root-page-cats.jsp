@@ -14,33 +14,9 @@
 	<link href="assets/css/bootstrap-icons.css" rel="stylesheet">
 	<!-- User Define CSS -->
 	<link href="assets/css/index-root.css" rel="stylesheet">
-	<link href="assets/css/datatables.min.css" rel="stylesheet" />
+	<link href="assets/css/bootstrap-datatables.min.css" rel="stylesheet" />
 	<link href="assets/css/croppie.css" rel="stylesheet">
-	
-	<style>
-		.allCattb{
-			table-layout:fixed;
-		}
-		.allCattb img{
-			max-width:100px;
-			max-height:100px
-		}
-		.allCattb .odd{
-			background-color:#f9f9f9;
-		}
-		.allCattb td{
-			border-right: 1px solid #E0E0E0;
-		}
-		.allCattb td:last-child{
-			border-right: 0px solid #E0E0E0;
-		}
-		.toolong{
-		    width: 120px;
-			white-space: nowrap;
-		    overflow: hidden;
-		    text-overflow: ellipsis;
-		}
-	</style>
+	<link href="assets/css/root-page-typeBrown.css" rel="stylesheet">
 	
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="assets/js/w3.js"></script>
@@ -49,8 +25,8 @@
 	<script src="assets/js/bootstrap.min.js"></script>
 	
 	<!-- User Define JS -->
-	<script src="assets/js/datatables.min.js"></script>
 	<script src="assets/js/croppie.min.js"></script>
+	<script src="assets/js/bootstrap-datatables.min.js"></script>
 	
 	<script>
 	    $(document).ready(function () {
@@ -62,6 +38,26 @@
 	        
 	        $('#allCattb').removeAttr('width').DataTable({
 	        	"ordering": false,
+				"language": {
+					  "emptyTable":"無資料...",
+					  "processing":"處理中...",
+					  "loadingRecords":"載入中...",
+					  "lengthMenu":"顯示 _MENU_ 項結果",
+					  "zeroRecords":"沒有符合的結果",
+					  "info":"顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+					  "infoEmpty":"顯示第 0 至 0 項結果，共 0 項",
+					  "infoFiltered":"(從 _MAX_ 項結果中過濾)",
+					  "infoPostFix":"",
+					  "search":"搜尋:",
+					   "thousands": ".",
+					   "decimal": ",",
+					  "paginate":{
+					    "first":"第一頁",
+					    "previous":"上一頁",
+					    "next":"下一頁",
+					    "last":"最後一頁"
+					  },
+				},
 	        	"columnDefs": [
 	        		{ "width": "6%",className: 'dt-body-left', "targets": 0 },
 	        		{ "width": "6%",className: 'dt-body-left', "targets": 1 },
@@ -94,7 +90,7 @@
 				<!-- ###置入本頁資訊### -->
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">CatPage</h1>
+					<h1 class="h2">浪貓照顧</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<!--Button trigger modal -->
 						<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -116,7 +112,7 @@
 											role="document">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title" id="InsertCatModalCenterTitle" onclick="Newdata()">新增資料</h5>
+													<h3 class="modal-title" id="InsertCatModalCenterTitle" onclick="Newdata()">&nbsp;&nbsp;新增資料</h3>
 													<button type="button" class="close" data-dismiss="modal"
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
@@ -129,25 +125,34 @@
 														<div class="form-group row">
 															<label for="InsertCatInputName"
 																class="col-sm-2 col-form-label">名字</label>
-															<div class="col-sm-10">
+															<div class="col-sm-3 catType">
 																<input type="text" class="form-control"
 																	id="InsertCatInputName" placeholder="Enter Name"
 																	name="nickname"> <small id="nameHelp"
 																	class="form-text text-muted"></small>
 															</div>
-														</div>
-														<!-- 樣式 --><!-- 性別 -->
-														<div class="form-group row">
+														<!--  樣式 -->
 															<label for="InsertCatInputType"
 																class="col-sm-2 col-form-label">樣式</label>
-															<div class="col-sm-4">
+															<div class="col-sm-3 catType">
 																<input type="text" class="form-control"
 																	id="InsertCatInputType" placeholder="Enter Type"
 																	name="type"> <small id="typeHelp"
 																	class="form-text text-muted"></small>
 															</div>
+														</div>
+														<!--  性別 -->
+														<div class="form-group row">
+															<!--<label for="InsertCatInputType"
+																class="col-sm-2 col-form-label">樣式</label>
+															<div class="col-sm-3 catType">
+																<input type="text" class="form-control"
+																	id="InsertCatInputType" placeholder="Enter Type"
+																	name="type"> <small id="typeHelp"
+																	class="form-text text-muted"></small>
+															</div>-->
 															<label class="col-form-label col-sm-2">性別</label>
-															<div class="col-sm-4">
+															<div class="col-sm-2 catType">
 																<div class="form-check form-check-inline col-form-label" >
 																	<input class="form-check-input" type="radio"
 																		name="gender" id="InsertCatgender1" value="男" checked>
@@ -163,7 +168,7 @@
 														<!-- 結紮 --><!-- 接種 -->
 														<div class="form-group row">
 															<label class="col-form-label col-sm-2">結紮</label>
-															<div class="col-sm-4">
+															<div class="col-sm-3 catType">
 																<div class="form-check form-check-inline col-form-label">
 																	<input class="form-check-input" type="radio"
 																		name="ligation" id="InsertCatisLigation1" value="1">
@@ -178,7 +183,7 @@
 																</div>
 															</div>
 															<label class="col-form-label col-sm-2">接種</label>
-															<div class="col-sm-4">
+															<div class="col-sm-3 catType">
 																<div class="form-check form-check-inline col-form-label">
 																	<input class="form-check-input" type="radio"
 																		name="vaccination" id="InsertCatisVaccination1"
@@ -196,32 +201,32 @@
 														<!-- 狀態 -->
 														<div class="form-group row">
 															<label class="col-form-label col-sm-2">狀態</label>
-															<div class="col-sm-10">
-																<div class="form-check form-check-inline">
+															<div class="col-sm-8 catType">
+																<div class="form-check form-check-inline col-form-label">
 																	<input class="form-check-input" type="radio"
 																		name="adoptStatus" id="InsertCatadoptStatus1"
 																		value="0" checked> <label
 																		class="form-check-label" for="InsertCatadoptStatus1">尚未領養</label>
 																</div>
-																<div class="form-check form-check-inline">
+																<div class="form-check form-check-inline col-form-label">
 																	<input class="form-check-input" type="radio"
 																		name="adoptStatus" id="InsertCatadoptStatus2"
 																		value="1"> <label class="form-check-label"
 																		for="InsertCatadoptStatus2">生病中</label>
 																</div>
-																<div class="form-check form-check-inline">
+																<div class="form-check form-check-inline col-form-label">
 																	<input class="form-check-input" type="radio"
 																		name="adoptStatus" id="InsertCatadoptStatus3"
 																		value="2"> <label class="form-check-label"
 																		for="InsertCatadoptStatus3">領養接洽中</label>
 																</div>
-																<div class="form-check form-check-inline">
+																<div class="form-check form-check-inline col-form-label">
 																	<input class="form-check-input" type="radio"
 																		name="adoptStatus" id="InsertCatadoptStatus4"
 																		value="3"> <label class="form-check-label"
 																		for="InsertCatadoptStatus4">領養完畢</label>
 																</div>
-																<div class="form-check form-check-inline">
+																<div class="form-check form-check-inline col-form-label">
 																	<input class="form-check-input" type="radio"
 																		name="adoptStatus" id="InsertCatadoptStatus5"
 																		value="4"> <label class="form-check-label"
@@ -233,7 +238,7 @@
 														<div class="form-group row">
 															<label for="InsertCatcreateDate"
 																class="col-sm-2 col-form-label">接養日期</label>
-															<div class="col-sm-10">
+															<div class="col-sm-9 catType">
 																<input type="text" class="form-control "
 																	id="InsertCatcreateDate" maxlength="19"
 																	placeholder="yyyy-mm-dd HH:mm:ss" name="createDate">
@@ -244,7 +249,7 @@
 														<div class="form-group row">
 															<label for="InsertCatcomment1"
 																class="col-sm-2 col-form-label">評論1</label>
-															<div class="col-sm-10">
+															<div class="col-sm-9 catType">
 																<textarea class="form-control" id="InsertCatcomment1"
 																	rows="2" name="comment1" maxlength="150"></textarea>
 															</div>
@@ -253,7 +258,7 @@
 														<div class="form-group row">
 															<label for="InsertCatcomment2"
 																class="col-sm-2 col-form-label">評論2</label>
-															<div class="col-sm-10">
+															<div class="col-sm-9 catType">
 																<textarea class="form-control" id="InsertCatcomment2"
 																	rows="2" name="comment2" maxlength="150"></textarea>
 															</div>
@@ -263,7 +268,7 @@
 															<!-- 照片1 -->
 															<label for="InsCatfile1"
 																class="col-sm-2 col-form-label">照片1</label>
-															<div class="col-sm-4">
+															<div class="col-sm-3 catType">
 																<label class="btn btn-primary">
 																	<input type="file" accept="image/*" class="form-control-file uploadImage"
 																		id="InsCatfile1" name="file1" style="display:none;"></input>
@@ -279,7 +284,7 @@
 															<!-- 照片2 -->
 															<label for="InsCatfile2"
 																	class="col-sm-2 col-form-label InsertCatfile1After" style="display: none;">照片2</label>
-															<div class="col-sm-4">																
+															<div class="col-sm-3 catType">																
 																<label class="btn btn-primary InsertCatfile1After" style="display: none;">
 																	<input type="file" accept="image/*" class="form-control-file uploadImage"
 																		id="InsCatfile2" name="file2" style="display:none;"></input>
@@ -292,7 +297,7 @@
 														<div class="form-group row">
 															<!-- 預覽1 -->
 															<label class="col-sm-2 col-form-label InsertCatfilepreview1"  style="display: none;" id="spantext1"></label>
-															<div class="col-sm-4">
+															<div class="col-sm-3 catType">
 																<figure class="figure InsertCatfilepreview1" style="display: none;">
 																	<img class="figure-img img-fluid rounded" id="img1">
 																	<figcaption class="figure-caption text-right"
@@ -301,7 +306,7 @@
 															</div>
 															<!-- 預覽2 -->
 															<label class="col-sm-2 col-form-label InsertCatfilepreview2"  style="display: none;" id="spantext2"></label>
-															<div class="col-sm-4">
+															<div class="col-sm-3 catType">
 																<figure class="figure InsertCatfilepreview2"  style="display: none;">
 																	<img class="figure-img img-fluid rounded" id="img2">
 																	<figcaption class="figure-caption text-right"
@@ -332,7 +337,7 @@
 								        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 								            <div class="modal-content">
 								                <div class="modal-header">
-								                    <h5 class="modal-title" id="SetCatModalCenterTitle">修改資料</h5>
+								                    <h3 class="modal-title" id="SetCatModalCenterTitle">&nbsp;&nbsp;修改資料</h3>
 								                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								                        <span aria-hidden="true">&times;</span>
 								                    </button>
@@ -344,21 +349,21 @@
 								                        <!-- 名字 -->
 								                        <div class="form-group row">
 								                            <label for="SetCatInputName" class="col-sm-2 col-form-label">名字</label>
-								                            <div class="col-sm-10">
+								                            <div class="col-sm-3 catType">
 								                                <input type="text" class="form-control" id="SetCatInputName" placeholder="Enter Name"
 								                                    name="nickname"> <small id="SetnameHelp" class="form-text text-muted"></small>
 								                            </div>
-								                        </div>
-								                        <!-- 樣式 --><!-- 性別 -->
-								                        <div class="form-group row">
+								                        <!-- 樣式 -->
 								                            <label for="SetCatInputType" class="col-sm-2 col-form-label">樣式</label>
-								                            <div class="col-sm-4">
+								                            <div class="col-sm-3 catType">
 								                                <input type="text" class="form-control" id="SetCatInputType" placeholder="Enter Type"
 								                                    name="type"> <small id="SettypeHelp" class="form-text text-muted"></small>
 								                            </div>
-								                            
+								                        </div>
+								                        <!-- 性別 -->
+								                        <div class="form-group row">
 								                            <label class="col-form-label col-sm-2">性別</label>
-								                            <div class="col-sm-4">
+								                            <div class="col-sm-2">
 								                                <div class="form-check form-check-inline col-form-label">
 								                                    <input class="form-check-input" type="radio" name="gender" id="SetCatgender1"
 								                                        value="男">
@@ -374,7 +379,7 @@
 								                        <!-- 結紮 --><!-- 接種 -->
 								                        <div class="form-group row">
 								                            <label class="col-form-label col-sm-2">結紮</label>
-								                            <div class="col-sm-4">
+								                            <div class="col-sm-3">
 								                                <div class="form-check form-check-inline col-form-label">
 								                                    <input class="form-check-input" type="radio" name="ligation"
 								                                        id="SetCatisLigation1" value="1">
@@ -388,7 +393,7 @@
 								                            </div>
 								                            
 								                            <label class="col-form-label col-sm-2">接種</label>
-								                            <div class="col-sm-4">
+								                            <div class="col-sm-3">
 								                                <div class="form-check form-check-inline col-form-label">
 								                                    <input class="form-check-input" type="radio" name="vaccination"
 								                                        id="SetCatisVaccination1" value="1"> <label class="form-check-label"
@@ -404,28 +409,28 @@
 								                        <!-- 狀態 -->
 								                        <div class="form-group row">
 								                            <label class="col-form-label col-sm-2">狀態</label>
-								                            <div class="col-sm-10">
-								                                <div class="form-check form-check-inline">
+								                            <div class="col-sm-8 catType">
+								                                <div class="form-check form-check-inline col-form-label">
 								                                    <input class="form-check-input" type="radio" name="adoptStatus"
 								                                        id="SetCatadoptStatus1" value="0"> <label class="form-check-label"
 								                                        for="SetCatadoptStatus1">尚未領養</label>
 								                                </div>
-								                                <div class="form-check form-check-inline">
+								                                <div class="form-check form-check-inline col-form-label">
 								                                    <input class="form-check-input" type="radio" name="adoptStatus"
 								                                        id="SetCatadoptStatus2" value="1"> <label class="form-check-label"
 								                                        for="SetCatadoptStatus2">生病中</label>
 								                                </div>
-								                                <div class="form-check form-check-inline">
+								                                <div class="form-check form-check-inline col-form-label">
 								                                    <input class="form-check-input" type="radio" name="adoptStatus"
 								                                        id="SetCatadoptStatus3" value="2"> <label class="form-check-label"
 								                                        for="SetCatadoptStatus3">領養接洽中</label>
 								                                </div>
-								                                <div class="form-check form-check-inline">
+								                                <div class="form-check form-check-inline col-form-label">
 								                                    <input class="form-check-input" type="radio" name="adoptStatus"
 								                                        id="SetCatadoptStatus4" value="3"> <label class="form-check-label"
 								                                        for="SetCatadoptStatus4">領養完畢</label>
 								                                </div>
-								                                <div class="form-check form-check-inline">
+								                                <div class="form-check form-check-inline col-form-label">
 								                                    <input class="form-check-input" type="radio" name="adoptStatus"
 								                                        id="SetCatadoptStatus5" value="4"> <label class="form-check-label"
 								                                        for="SetCatadoptStatus5">死亡</label>
@@ -435,7 +440,7 @@
 								                        <!-- 接養日期 -->
 								                        <div class="form-group row">
 								                            <label for="SetCatcreateDate" class="col-sm-2 col-form-label">接養日期</label>
-								                            <div class="col-sm-10">
+								                            <div class="col-sm-9 catType">
 								                                <input type="text" class="form-control" id="SetCatcreateDate"
 								                                    placeholder="yyyy-mm-dd HH:mm:ss" name="createDate">
 								                                <small id="SetcreateDateHelp" class="form-text text-muted"></small>
@@ -444,7 +449,7 @@
 								                        <!-- 評論1 -->
 								                        <div class="form-group row">
 								                            <label for="SetCatcomment1" class="col-sm-2 col-form-label">評論1</label>
-								                            <div class="col-sm-10">
+								                            <div class="col-sm-9 catType">
 								                                <textarea class="form-control" id="SetCatcomment1" rows="2" name="comment1"
 								                                    maxlength="150"></textarea>
 								                            </div>
@@ -452,7 +457,7 @@
 								                        <!-- 評論2 -->
 								                        <div class="form-group row">
 								                            <label for="SetCatcomment2" class="col-sm-2 col-form-label">評論2</label>
-								                            <div class="col-sm-10">
+								                            <div class="col-sm-9 catType">
 								                                <textarea class="form-control" id="SetCatcomment2" rows="2" name="comment2"
 								                                    maxlength="150"></textarea>
 								                            </div>
@@ -461,7 +466,7 @@
 								                        <div class="form-group row">
 								                        	<!-- 照片1 -->
 								                            <label for="SetCatfile3" class="col-sm-2 col-form-label">圖片1</label>
-								                            <div class="col-sm-3">
+								                            <div class="col-sm-2 catType">
 								                            	<label class="btn btn-primary">
 									                                <input type="file" accept="image/*" class="form-control-file uploadImage"
 									                                    id="SetCatfile3" name="file1" style="display:none;">
@@ -470,12 +475,12 @@
 									                            <input type="hidden" value="0" name="photo1IO" id="photo1IO">
 									                            <input type="hidden" name="base64photo3" id="base64photo3">
 								                            </div>
-								                            <div class="col-sm-1">
+								                            <div class="col-sm-1 catType">
 								                            	<button type="button" class="btn btn-secondary" id="ResetCatfile1"><i class="bi bi-cloud-slash"></i></button>								                            
 								                            </div>
 								                            <!-- 照片2 -->
 								                            <label for="SetCatfile4" class="col-sm-2 col-form-label">圖片2</label>
-								                            <div class="col-sm-3">
+								                            <div class="col-sm-2 catType">
 								                           		<label class="btn btn-primary">
 									                                <input type="file" accept="image/*" class="form-control-file uploadImage"
 									                                    id="SetCatfile4" name="file2" style="display:none;">
@@ -484,7 +489,7 @@
 								                                <input type="hidden" value="0" name="photo2IO" id="photo2IO">
 								                                <input type="hidden" name="base64photo4" id="base64photo4">
 								                            </div>								                            
-								                            <div class="col-sm-1">
+								                            <div class="col-sm-1 catType">
 								                            	 <button type="button" class="btn btn-secondary" id="ResetCatfile2"><i class="bi bi-cloud-slash"></i></button>						                            
 								                            </div>
 								                            
@@ -493,15 +498,15 @@
 								                        <!-- 圖片1區 -->
 								                        <div class="form-group row">
 								                            <!-- 預覽1 -->
-								                            <div class="col-sm-6">
-								                            <label>更新前圖片1</label>
+								                            <div class="col-sm-5 catTypeImg">
+								                            <label class="col-form-label">更新前圖片1</label>
 								                                <figure class="figure" id="SetCatphoto1">
 								                                </figure>
 								                                <input type="hidden" name="photo1" id="SetCatphoto1src">
 								                            </div>
 								                             <!-- 更新預覽1 -->
-								                            <div class="col-sm-6">
-								                            	<label id="spantext3"></label>
+								                            <div class="col-sm-5 catTypeImg">
+								                            	<label id="spantext3" class="col-form-label"></label>
 								                                <figure class="figure">
 								                                    <img class="figure-img img-fluid rounded" id="img3">
 								                                    <figcaption class="figure-caption text-right" id="size3"></figcaption>
@@ -512,15 +517,15 @@
 								                        <!-- 圖片2區 -->
 								                        <div class="form-group row">
 								                            <!-- 預覽2 -->
-								                            <div class="col-sm-6">
-								                            <label>更新前圖片2</label>
+								                            <div class="col-sm-5 catTypeImg">
+								                            <label class="col-form-label">更新前圖片2</label>
 								                                <figure class="figure" id="SetCatphoto2">
 								                                </figure>
 								                                <input type="hidden" name="photo2" id="SetCatphoto2src">
 								                            </div>
 								                            <!-- 更新預覽2 -->
-								                            <div class="col-sm-6">
-								                            	<label id="spantext4"></label>
+								                            <div class="col-sm-5 catTypeImg">
+								                            	<label id="spantext4" class="col-form-label"></label>
 								                                <figure class="figure">
 								                                    <img class="figure-img img-fluid rounded" id="img4">
 								                                    <figcaption class="figure-caption text-right" id="size4"></figcaption>
@@ -565,7 +570,7 @@
 									</div>
 									<!-- 切割圖片Dialog -->
 								    <div id="uploadimageModal" class="modal" role="dialog">
-								        <div class="modal-dialog">
+								        <div class="modal-dialog modal-lg">
 								            <div class="modal-content">
 								                <div class="modal-header">
 								                    <h4 class="modal-title">確認圖片大小</h4>
@@ -589,7 +594,7 @@
 									<!-- 貓咪表格 -->
 									<table class="allCattb table-hover" id="allCattb" style="width:100%">
 										<thead>
-											<tr style="color:#5A5AAD;font-size:20px;background:#F0F0F0;">
+											<tr>
 												<th>編號</th>
 												<th>名字</th>
 												<th>樣式</th>
@@ -607,7 +612,7 @@
 										</thead>
 										<tbody>
 											<c:forEach items="${cats}" var="cat" varStatus="s">
-												<tr id="${cat.id}" style="color:#842B00" >
+												<tr id="${cat.id}" style="color:#000000" >
 													<td>${cat.id}</td>
 													<td>${cat.nickname}</td>
 													<td>${cat.type}</td>
@@ -682,7 +687,6 @@
 		function SetCat(myObj) {
 			let catNo = myObj.id.substr(6);
 	        let cat = document.getElementById(catNo);
-	        console.log(cat);
 	        let catresource = cat.children;
 	        let tempstr = new Array();
 	        for (let i = 0; i < catresource.length; i++) {
@@ -815,7 +819,6 @@
 	        if(flag1&&flag2&&flag3&&flag4==true){
 	        	$("#InsertCatSubmit").attr("disabled",false);      	
 	        }
-	        console.log("1"+flag1+"2"+flag2+"3"+flag3+"4"+flag4);
 	  	})
 	   	$("#InsCatfile2").on("change", function() {
 	   		$(".InsertCatfilepreview2").removeAttr("style");
@@ -856,7 +859,8 @@
 		        $("#InsertCatcreateDate").removeClass("is-valid");
 		        createDateHelp.innerHTML = `<span style="color:rgb(0, 170, 0)"><span>`;
 		    $("#test1").html("至少上傳一張圖 ")
-			
+		    
+			flag1=false;flag2=false;flag3=false;flag4=false;
 	       	document.getElementById("InsertCatForm").reset();
 		})
 	
@@ -906,10 +910,11 @@
 	    function datevalIO(){
 	        let dateval = datein.value.substr(0,19);
 	        let datesp = document.getElementById("createDateHelp");
-	        let datearr = dateval.split(" ");
-	        let dateymd = datearr[0].split("-");
-	        let dateHms = datearr[1].split(":");
 	        if(dateval!=""){
+	        	let datearr = dateval.split(" ");
+		        let dateymd = datearr[0].split("-");
+		        let dateHms = datearr[1].split(":");
+	        	
 		        if(dateval.length!=19 || datearr.length!=2 || dateval.length==0 ){
 		        	$("#InsertCatcreateDate").removeClass("is-valid");
 		        	$("#InsertCatcreateDate").addClass("is-invalid");
@@ -1050,13 +1055,13 @@
 		let image_crop = $('#image_demo').croppie({
 		    enableExif: true,
 		    viewport: {
-		        width: 300,
-		        height: 200,
+		        width: 600,
+		        height: 400,
 		        type: 'square' //circle
 		    },
 		    boundary: {
-		        width: 400,
-		        height: 400
+		        width: 700,
+		        height: 500
 		    }
 		});
 		
@@ -1071,12 +1076,11 @@
 		$('.uploadImage').on('change', function () {
 		    let reader = new FileReader();
 		    changImgId = this.id.substr(10);
-		    console.log(changImgId);
 		    reader.onload = function (event) {
 		        image_crop.croppie('bind', {
 		            url: event.target.result
 		        }).then(function () {
-		            console.log('jQuery bind complete');
+// 		            console.log('jQuery bind complete');
 		        });
 		        $("#img"+changImgId).attr('src', event.target.result);
 		        $("#spantext"+changImgId).text("圖片預覽");
@@ -1097,7 +1101,8 @@
 		    image_crop.croppie('result', {
 		        type: 'canvas',
 		        size: 'viewport',
-		        format: 'jpeg'
+		        format: 'jpeg',
+		        quality: 1
 		    }).then(function (data) {
 		    	$("#spantext"+changImgId).text("圖片預覽");
 		        $("#img"+changImgId).attr("src", data);
@@ -1159,11 +1164,14 @@
 		
 		 /*-------------------------一鍵新增input------------------------------*/ 
 	    function Newdata(){
-	    	console.log("123");	    	
-	        $("#InsertCatInputName").val("灰咪");
+	        $("#InsertCatInputName").val("演示貓");
+        	$("#InsertCatInputName").removeClass("is-valid");
+        	$("#InsertCatInputName").removeClass("is-invalid");
 	        $("#InsertCatInputName").addClass("is-valid");
 	        nameHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
 	        $("#InsertCatInputType").val("花貓");
+	        $("#InsertCatInputType").removeClass("is-valid");
+        	$("#InsertCatInputType").removeClass("is-invalid");
 	        $("#InsertCatInputType").addClass("is-valid");
             typeHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
 	        $("#InsertCatgender2").prop("checked",true);
@@ -1171,17 +1179,20 @@
 	        $("#InsertCatisVaccination1").prop("checked",true);
 	        $("#InsertCatadoptStatus1").prop("checked",true);
 	        $("#InsertCatcreateDate").val("2021-05-14 10:10:00");
+	        $("#InsertCatcreateDate").removeClass("is-valid");
+        	$("#InsertCatcreateDate").removeClass("is-invalid");
 	        $("#InsertCatcreateDate").addClass("is-valid");
 	        createDateHelp.innerHTML = `<span style="color:rgb(0, 170, 0)">正確<span>`;	        
-	        $("#InsertCatcomment1").val("贊助灰咪");
-	        $("#InsertCatcomment2").val("常常端著高冷表情的灰咪，其實才六個月大有著淡淡的灰色毛髮加上臉蛋清秀是個非常漂亮的小美女");
+	        $("#InsertCatcomment1").val("你好，我是演示貓");
+	        $("#InsertCatcomment2").val("常常端著高冷表情的演示貓，其實才六個月是個臉蛋清秀的小美女");
 	        
 	       flag1=true;
 	       flag2=true;
 	       flag3=true;
 	        
-	 
-		
+	       if(flag1&&flag2&&flag3&&flag4){
+	        	$("#InsertCatSubmit").attr("disabled",false);
+	       }
 	    }
 		
     </script>

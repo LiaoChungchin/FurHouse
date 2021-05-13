@@ -14,6 +14,7 @@
     <!-- User Define CSS -->
     <link href="assets/css/index-root.css" rel="stylesheet">
     <link href="assets/css/datatables.min.css" rel="stylesheet" />
+    <link href="assets/css/root-page-typeBrown.css" rel="stylesheet">
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="assets/js/w3.js"></script>
     <script src="assets/js/jQuery-3.6.0.js"></script>
@@ -25,41 +26,42 @@
 	
     <title>*ROOT*</title>
     
-    <style>
-    	.allProdtb {
-    		text-align:center;
-            table-layout: fixed;           
-        }
-        .allProdtb img{
-			max-width:80px;
-			max-height:80px
+    <style> 	
+		 .allProdtb tbody tr:hover{
+			background-color:#D2DCD3;
 		}
-		.allProdtb .even{
-			background-color:#F0F0F0;
-		}
-		.allProdtb td{
-			border-right: 1px solid #E0E0E0;
-		}
-		.allProdtb td:last-child{
-			border-right: 0px solid #E0E0E0;
-		}
-		.allProdtb tbody tr:hover{
-			background-color:#D0D0D0;
-		}
-    	.toolong{
-            width:90px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-    	
-    </style>
+	</style>
     <script>
         $(document).ready(function () {
             // 匯入include所有語句
             w3.includeHTML();
             
+            //aside active
+            $('.nav-item').children().attr("class","nav-link");
+			$('.nav-item').eq(3).children().attr("class","nav-link active");
+            
             $('#allProdtb').removeAttr('width').DataTable({
+// 	        	"ordering": false,
+				"language": {
+					  "emptyTable":"無資料...",
+					  "processing":"處理中...",
+					  "loadingRecords":"載入中...",
+					  "lengthMenu":"顯示 _MENU_ 項結果",
+					  "zeroRecords":"沒有符合的結果",
+					  "info":"顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+					  "infoEmpty":"顯示第 0 至 0 項結果，共 0 項",
+					  "infoFiltered":"(從 _MAX_ 項結果中過濾)",
+					  "infoPostFix":"",
+					  "search":"搜尋:",
+					   "thousands": ".",
+					   "decimal": ",",
+					  "paginate":{
+					    "first":"第一頁",
+					    "previous":"上一頁",
+					    "next":"下一頁",
+					    "last":"最後一頁"
+					  },
+				},
 	        	"columnDefs": [
 	        		{ "width": "4%",className: 'dt-body-center', "targets": 0 },
 	        		{ "width": "7%",className: 'dt-body-center', "targets": 1 },
@@ -93,7 +95,7 @@
         <!-- ###置入本頁資訊### -->
         
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Products</h1>
+                <h1 class="h2">商品管理</h1>
                 
                 <!--Button trigger modal -->
                 <div class="btn-toolbar mb-2 mb-md-0">
@@ -118,7 +120,7 @@
 	                                <th>產品名稱</th>
 	                                <th>分類</th>
 	                                <th>子分類</th>
-	                                <th>品牌名稱</th>                               
+	                                <th>品牌</th>                               
 	                                <th>售價</th>
 	                                <th>數量</th>
 	                                <th>庫存</th>
@@ -133,9 +135,27 @@
 								<c:forEach items="${prods}" var="prod" varStatus="s">
 									<tr id="${prod.id}">
 										<td>${prod.id}</td>
-										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo1' />" alt="" onerror="imgchange()"></td>
-										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo2' />" alt="" onerror="imgchange()"></td>
-										<td><img class="figure-img img-fluid rounded" src="<c:url value='product.getPhoto/${prod.id}/photo3' />" alt="" onerror="imgchange()"></td>					
+										<td><img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo1}"></td>
+										<td>
+											<c:choose>
+												<c:when test="${prod.photo2 != null}">
+													<img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo2}">
+												</c:when>
+												<c:otherwise>
+													<img class="figure-img img-fluid rounded" src="assets/img/testlogo.png">
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>
+											<c:choose>
+												<c:when test="${prod.photo3 != null}">
+													<img class="figure-img img-fluid rounded" src="prodImageToByte?path=${prod.photo3}">
+												</c:when>
+												<c:otherwise>
+													<img class="figure-img img-fluid rounded" src="assets/img/testlogo.png">
+												</c:otherwise>
+											</c:choose>
+										</td>
 										<td>${prod.productName}</td>
 										<td>${prod.type}</td>
 										<td>${prod.subType}</td>
@@ -156,13 +176,10 @@
 										<td>${prod.updateDate}</td>		
 										<td class="toolong">${prod.comment1}</td>
 										<td class="toolong">${prod.comment2}</td>																	
-														
-										<c:set var="count" value="${s.count}"></c:set>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
-						<h2 class="allProdCount">共${count}筆</h2>
 					</article>
                 </div>
             </div>
@@ -197,12 +214,6 @@
   	      if (!this.title) this.title = $(this).text();
  	});
     
-    /*-------------------------圖片無法讀取顯示預設圖-----------------------------*/
-    function imgchange(){
-        var img=event.srcElement;
-        img.src="<c:url value='product.getPhoto/0/empt' />";
-        img.onerror=null; //控制不要一直觸發錯誤
-    }
     
 </script>
 </body>

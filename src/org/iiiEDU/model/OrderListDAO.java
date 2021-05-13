@@ -25,7 +25,7 @@ public class OrderListDAO {
 	public List<OrderList> getAllOrderLists(){
 		Session session = sf.getCurrentSession();
 		
-		String hql = "FROM OrderList";
+		String hql = "FROM OrderList WHERE creditTradeStatus != 'fail'";
 		
 		Query<OrderList> query = session.createQuery(hql, OrderList.class);
 		List<OrderList> orderLists = query.list();
@@ -68,11 +68,35 @@ public class OrderListDAO {
 		return false;
 	}
 	
+	public OrderList getOrderListByCreditTradeNo(String creditTradeNo) {
+		Session session = sf.getCurrentSession();
+		
+		String hql = "FROM OrderList where creditTradeNo = :creditTradeNo";
+		
+		OrderList singleResult = session.createQuery(hql, OrderList.class)
+										.setParameter("creditTradeNo", creditTradeNo)
+										.uniqueResult();
+		return singleResult;
+	}
+	
+	public boolean updateOrderListCreditStatus(OrderList orderList) {
+		Session session = sf.getCurrentSession();
+		
+		OrderList queryList = session.get(OrderList.class, orderList.getId());
+		if(queryList != null) {
+			
+			queryList.setCreditTradeStatus(orderList.getCreditTradeStatus());
+			return true;
+		}
+		
+		return false;
+	}
+	
 	//------------------------個人訂單相關------------------------
 	public List<OrderList> getAllOrderListsPage(Integer pageLimit,Integer currentPage){
 		Session session = sf.getCurrentSession();
 		
-		String hql = "FROM OrderList";
+		String hql = "FROM OrderList WHERE creditTradeStatus != 'fail'";
 		
 		Query<OrderList> query = session.createQuery(hql, OrderList.class);
 		
@@ -87,7 +111,7 @@ public class OrderListDAO {
 	public List<OrderList> getAllOrderListsMemberId(Integer memberId,Integer pageLimit,Integer currentPage){
 		Session session = sf.getCurrentSession();
 		
-		String hql = "FROM OrderList where FK_member_memberId = :memberId order by createDate desc";
+		String hql = "FROM OrderList where FK_member_memberId = :memberId  AND creditTradeStatus != 'fail' order by createDate desc";
 		
 		Query<OrderList> query = session.createQuery(hql, OrderList.class);
 		query.setParameter("memberId", memberId);
@@ -100,6 +124,4 @@ public class OrderListDAO {
 		
 		return orderLists;		
 	}
-	
-	
 }

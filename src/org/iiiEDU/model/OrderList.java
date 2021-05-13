@@ -108,37 +108,29 @@ public class OrderList {
 	@Column(name = "productQua05")
 	private Integer productQua05;
 	
+	@Column(name = "creditTradeNo")
+	private String creditTradeNo;
+	
+	@Column(name = "creditTradeHash")
+	private String creditTradeHash;
+	
+	@Column(name = "creditTradeStatus")
+	private String creditTradeStatus;
+	
 	public OrderList() {
 		super();
 	}
-
-	public OrderList(Timestamp createDate, Integer fK_member_memberId, Integer totalPrice, String paymentType,
-			Integer fK_OrderStatus_condition, String shippingType, String contact, String phone1, String phone2,
-			String address, String comment, Integer fK_product_id01, Integer productQua01, Integer fK_product_id02,
-			Integer productQua02, Integer fK_product_id03, Integer productQua03, Integer fK_product_id04,
-			Integer productQua04, Integer fK_product_id05, Integer productQua05) {
-		super();
-		this.createDate = createDate;
-		FK_member_memberId = fK_member_memberId;
-		this.totalPrice = totalPrice;
-		this.paymentType = paymentType;
-		FK_OrderStatus_condition = fK_OrderStatus_condition;
-		this.shippingType = shippingType;
-		this.contact = contact;
-		this.phone1 = phone1;
-		this.phone2 = phone2;
-		this.address = address;
-		this.comment = comment;
-		FK_product_id01 = fK_product_id01;
-		this.productQua01 = productQua01;
-		FK_product_id02 = fK_product_id02;
-		this.productQua02 = productQua02;
-		FK_product_id03 = fK_product_id03;
-		this.productQua03 = productQua03;
-		FK_product_id04 = fK_product_id04;
-		this.productQua04 = productQua04;
-		FK_product_id05 = fK_product_id05;
-		this.productQua05 = productQua05;
+	
+	@Override
+	public String toString() {
+		return "OrderList [id=" + id + ", createDate=" + createDate + ", member=" + member + ", totalPrice="
+				+ totalPrice + ", paymentType=" + paymentType + ", orderStatus=" + orderStatus + ", shippingType="
+				+ shippingType + ", contact=" + contact + ", phone1=" + phone1 + ", phone2=" + phone2 + ", address="
+				+ address + ", comment=" + comment + ", product1=" + product1 + ", productQua01=" + productQua01
+				+ ", product2=" + product2 + ", productQua02=" + productQua02 + ", product3=" + product3
+				+ ", productQua03=" + productQua03 + ", product4=" + product4 + ", productQua04=" + productQua04
+				+ ", product5=" + product5 + ", productQua05=" + productQua05 + ", creditTradeNo=" + creditTradeNo
+				+ ", creditTradeHash=" + creditTradeHash + ", creditTradeStatus=" + creditTradeStatus + "]";
 	}
 
 	public Timestamp getCreateDate() {
@@ -369,14 +361,27 @@ public class OrderList {
 		this.product5 = product5;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderList [id=" + id + ", createDate=" + createDate + ", member=" + member + ", totalPrice="
-				+ totalPrice + ", paymentType=" + paymentType + ", orderStatus=" + orderStatus + ", shippingType="
-				+ shippingType + ", contact=" + contact + ", phone1=" + phone1 + ", phone2=" + phone2 + ", address="
-				+ address + ", comment=" + comment + ", product1=" + product1 + ", productQua01=" + productQua01
-				+ ", product2=" + product2 + ", productQua02=" + productQua02 + ", product3=" + product3
-				+ ", productQua03=" + productQua03 + ", product4=" + product4 + ", productQua04=" + productQua04
-				+ ", product5=" + product5 + ", productQua05=" + productQua05 + "]";
+	public String getCreditTradeNo() {
+		return creditTradeNo;
+	}
+
+	public void setCreditTradeNo(String creditTradeNo) {
+		this.creditTradeNo = creditTradeNo;
+	}
+
+	public String getCreditTradeHash() {
+		return creditTradeHash;
+	}
+
+	public void setCreditTradeHash(String creditTradeHash) {
+		this.creditTradeHash = creditTradeHash;
+	}
+
+	public String getCreditTradeStatus() {
+		return creditTradeStatus;
+	}
+
+	public void setCreditTradeStatus(String creditTradeStatus) {
+		this.creditTradeStatus = creditTradeStatus;
 	}
 }

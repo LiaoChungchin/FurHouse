@@ -30,7 +30,7 @@ public class JDBCUtils {
 	@Test
 	public void test01() throws Exception {
 		Connection conn = JDBCUtils.getConnection();
-		System.out.println(conn);
+//		System.out.println(conn);
 	}
 	
 	@Value("${user}")

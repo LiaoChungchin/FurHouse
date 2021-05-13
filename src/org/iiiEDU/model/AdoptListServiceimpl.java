@@ -53,13 +53,18 @@ public class AdoptListServiceimpl implements AdoptListService {
 	}
 	
 	@Override
-	public AdoptList selectOneAdoptList(Timestamp visitTime) {
-		return adoptListDAO.selectOneAdoptList(visitTime);
+	public List<AdoptList> selectSomeAdoptListForvisitTime(Timestamp visitTime) {
+		return adoptListDAO.selectSomeAdoptListForvisitTime(visitTime);
 	}
 	
 	@Override
 	public List<AdoptList> searchAllAdoptListVisitTime(String visitTime){
 		return adoptListDAO.searchAllAdoptListVisitTime(visitTime);
+	}
+	
+	@Override
+	public List<AdoptList> searchAllAdoptListVisitTime(String visitTime,Integer catId){
+		return adoptListDAO.searchAllAdoptListVisitTime(visitTime,catId);
 	}
 
 	@Override
@@ -72,6 +77,11 @@ public class AdoptListServiceimpl implements AdoptListService {
 		return adoptListDAO.searchAllAdoptListCatId(catId,pageLimit,currentPage);
 	}
 	
+	@Override
+	public List<AdoptList> searchAllAdoptListCatId(Integer catId){
+		return adoptListDAO.searchAllAdoptListCatId(catId);
+	}
+	
 	public List<AdoptList> searchAllAdoptListCatNickname(String catNickname,Integer pageLimit,Integer currentPage){
 		return adoptListDAO.searchAllAdoptListCatNickname(catNickname,pageLimit,currentPage);
 	}
@@ -82,14 +92,22 @@ public class AdoptListServiceimpl implements AdoptListService {
 	}
 	
 	@Override
-	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId){
-		return adoptListDAO.searchAllAdoptListMemberId(memberId);
+	public List<AdoptList> searchAllAdoptListMemberIdByAsc(Integer memberId,Integer pageLimit,Integer currentPage){
+		return adoptListDAO.searchAllAdoptListMemberIdByAsc(memberId,pageLimit,currentPage);
+	}
+	
+	@Override
+	public List<AdoptList> searchAllAdoptListMemberIdBeforeToday(Integer memberId,Timestamp today) {
+		return adoptListDAO.searchAllAdoptListMemberIdBeforeToday(memberId,today);
 	}
 
+	@Override
+	public List<AdoptList> searchAllAdoptListMemberId(Integer memberId,Integer fk_adoptListStatusId) {
+		return adoptListDAO.searchAllAdoptListMemberId(memberId,fk_adoptListStatusId);
+	}
+	
 	@Override
 	public List<AdoptList> searchAllAdoptListMemberName(String memberName,Integer pageLimit,Integer currentPage) {
 		return adoptListDAO.searchAllAdoptListMemberName(memberName,pageLimit,currentPage);
 	}
-
-
 }
