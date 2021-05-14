@@ -167,7 +167,7 @@
 			
 			if ("WebSocket" in window) {
 		        var sendUser = document.getElementById("sendUser").value;
-		        websocket = new WebSocket("ws://localhost:8080/FurHouse/chatToServer/${sessionScope.login_user.memberId}");
+		        websocket = new WebSocket("wss://localhost:8443/FurHouse/chatToServer/${sessionScope.login_user.memberId}");
 		    } else {
 		        alert("Not support Websocket")
 		    }
